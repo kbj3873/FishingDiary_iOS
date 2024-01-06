@@ -89,6 +89,7 @@ extension PointDateListViewController: UITableViewDelegate, UITableViewDataSourc
 }
 
 // MARK: - Extension UIViewController for show TrackMapViewController
+/*
 extension UIViewController {
     func showPointListView() {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PointDateListViewController") as? PointDateListViewController {
@@ -98,3 +99,4 @@ extension UIViewController {
         }
     }
 }
+*/

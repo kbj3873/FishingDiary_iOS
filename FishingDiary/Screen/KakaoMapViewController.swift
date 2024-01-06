@@ -91,6 +91,7 @@ extension KakaoMapViewController: MTMapViewDelegate {
 }
 
 // MARK: - Extension UIViewController for show KakaoMapViewController
+/*
 extension UIViewController {
     func showKakaoMapView() {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KakaoMapViewController") as? KakaoMapViewController {
@@ -101,3 +102,4 @@ extension UIViewController {
     }
     
 }
+*/

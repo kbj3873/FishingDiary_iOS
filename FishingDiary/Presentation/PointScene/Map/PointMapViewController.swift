@@ -223,6 +223,7 @@ extension PointMapViewController: MKMapViewDelegate {
 }
 
 // MARK: - Extension UIViewController for show PointMapViewController
+/*
 extension UIViewController {
     func showPointView(path: URL) {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PointMapViewController") as? PointMapViewController {
@@ -233,3 +234,4 @@ extension UIViewController {
         }
     }
 }
+*/

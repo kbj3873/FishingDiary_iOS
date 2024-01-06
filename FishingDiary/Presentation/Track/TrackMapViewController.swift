@@ -120,6 +120,7 @@ extension TrackMapViewController: MKMapViewDelegate {
 }
 
 // MARK: - Extension UIViewController for show TrackMapViewController
+/*
 extension UIViewController {
     func showMapView() {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackMapViewController") as? TrackMapViewController {
@@ -129,3 +130,4 @@ extension UIViewController {
         }
     }
 }
+*/
