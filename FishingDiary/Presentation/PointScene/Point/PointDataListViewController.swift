@@ -84,7 +84,6 @@ extension PointDataListViewController: UITableViewDelegate, UITableViewDataSourc
 }
 
 // MARK: - Extension UIViewController for show PointDataListViewController
-/*
 extension UIViewController {
     func showPointDetailListView(path: URL) {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PointDataListViewController") as? PointDataListViewController {
@@ -94,4 +93,3 @@ extension UIViewController {
         }
     }
 }
-*/

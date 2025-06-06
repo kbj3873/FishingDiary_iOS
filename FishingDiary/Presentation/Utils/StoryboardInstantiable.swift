@@ -5,9 +5,13 @@
 //  Created by Y0000591 on 2023/12/05.
 //
 
+import Foundation
+import UIKit
+
 enum StoryboardType {
     case main
     case point
+    case seaWaterTempurature
     
     var name: String {
         switch self {
@@ -15,6 +19,8 @@ enum StoryboardType {
             return "Main"
         case .point:
             return "Point"
+        case .seaWaterTempurature:
+            return "SeaWaterTemperature"
         }
     }
 }

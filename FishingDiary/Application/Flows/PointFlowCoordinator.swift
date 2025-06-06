@@ -6,13 +6,18 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PointFlowCoordinatorDependencies {
     func makeMainViewController(actions: MainViewModelActions) -> MainViewController
+    func makeOceanSelectViewController() -> OceanSelectViewController
+    func makeTemperatureViewController() -> SeaWaterTemperatureViewController
     func makeTrackMapViewController() -> TrackMapViewController
+    func makeKakaoTrackMapViewController() -> KakaoTrackMapViewController
     func makePointDateListViewController(actions: PointDateListViewModelActions) -> PointDateListViewController
     func makePointDataListViewController(pointDate: PointDate, actions: PointDataListViewModelActions) -> PointDataListViewController
     func makePointMapViewController(pointData: PointData) -> PointMapViewController
+    func makeKakaoPointMapViewController(pointData: PointData) -> KakaoPointMapViewController
 }
 
 final class PointFlowCoordinator: Coordinator {
@@ -32,15 +37,34 @@ final class PointFlowCoordinator: Coordinator {
     }
     
     func start() {
-        let actions = MainViewModelActions(showTrackMapView: showTrackMap,
-                                           showPointList: showPointDateList)
+        let actions = MainViewModelActions(showOceanSelectedView: showOceanSeleted,
+                                           showTrackMapView: showTrackMap,
+                                           showPointList: showPointDateList,
+                                           showTemperature: showTemperature)
         let vc = dependencies.makeMainViewController(actions: actions)
         navigationController?.pushViewController(vc, animated: false)
     }
     
-    private func showTrackMap() {
-        let vc = dependencies.makeTrackMapViewController()
+    private func showOceanSeleted() {
+        let vc = dependencies.makeOceanSelectViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func showTemperature() {
+        let vc = dependencies.makeTemperatureViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func showTrackMap() {
+        if FDAppManager.shared.mapTp == .KakaoMap {
+            let vc = dependencies.makeKakaoTrackMapViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        else {
+            let vc = dependencies.makeTrackMapViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     private func showPointDateList() {
@@ -56,7 +80,19 @@ final class PointFlowCoordinator: Coordinator {
     }
     
     private func showPointMap(pointData: PointData) {
-        let vc = dependencies.makePointMapViewController(pointData: pointData)
+        if FDAppManager.shared.mapTp == .KakaoMap {
+            let vc = dependencies.makeKakaoPointMapViewController(pointData: pointData)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+
+        else {
+            let vc = dependencies.makePointMapViewController(pointData: pointData)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    private func showKakaoPointMap(pointData: PointData) {
+        let vc = dependencies.makeKakaoPointMapViewController(pointData: pointData)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

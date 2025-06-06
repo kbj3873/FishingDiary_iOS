@@ -299,6 +299,7 @@ extension FDFileManager {
                     pointDates.append(pointDate)
                 }
                 
+                pointDates.sort{$0.date! < $1.date!}
                 completion(.success(pointDates))
             }
             
@@ -322,6 +323,13 @@ extension FDFileManager {
                 pointList.append(pointData)
             }
             
+            pointList.sort{
+                guard let num1 = Int($0.dataName!), let num2 = Int($1.dataName!) else {
+                    return $0.dataName! < $1.dataName!
+                }
+                
+                return (num1 < num2)
+            }
             completion(.success(pointList))
         }
         

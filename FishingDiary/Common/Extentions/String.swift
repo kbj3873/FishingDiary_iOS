@@ -12,8 +12,29 @@ extension String {
         return self.trimmingCharacters(in: NSCharacterSet.whitespaces)
     }
     
+    func subStrings(from: Int, to: Int) -> String {
+        guard from < count, to >= 0, to - from >= 0 else {
+            return ""
+        }
+        // index 값 획득
+        let startIndex = index(self.startIndex, offsetBy: from)
+        let endIndex = index(self.startIndex, offsetBy: to + 1)
+        // 파싱
+        return String(self[startIndex ..< endIndex])
+    }
+    
     func toDouble() -> Double? {
         return NumberFormatter().number(from: self)?.doubleValue
+    }
+    
+    func toDate(_ format: String = "yyyyMMddHHmm") -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        if let date = dateFormatter.date(from: self) {
+            return date
+        } else {
+            return nil
+        }
     }
     
     static func DtoDM(with value: Double) -> String {

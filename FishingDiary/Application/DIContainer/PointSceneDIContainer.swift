@@ -6,11 +6,23 @@
 //
 
 import Foundation
+import UIKit
 
 final class PointSceneDIContainer {
     
-    // MARK: - Persistent Storage
-    lazy var fileStorage: FileDataStorage = FileDataStorage()
+    struct Dependencies {
+        let apiDataTransferService: DataTransferService
+        let apiXmlTransferService: DataTransferService
+        let appConfiguration: AppConfiguration
+    }
+    
+    private let dependencies: Dependencies
+    private let fileStorage: FileDataStorage
+    
+    init(dependencies: Dependencies, fileStorage: FileDataStorage) {
+        self.dependencies = dependencies
+        self.fileStorage = fileStorage
+    }
     
     func makePointFlowCoordinator(navigationController: UINavigationController) -> PointFlowCoordinator {
         PointFlowCoordinator(navigationController: navigationController, dependencies: self)
@@ -23,8 +35,20 @@ extension PointSceneDIContainer: PointFlowCoordinatorDependencies {
         MainViewController.create(with: makeMainViewModel(actions: actions))
     }
     
+    func makeOceanSelectViewController() -> OceanSelectViewController {
+        OceanSelectViewController.create(with: makeOceanSelectViewModel())
+    }
+    
+    func makeTemperatureViewController() -> SeaWaterTemperatureViewController {
+        SeaWaterTemperatureViewController.create(with: makeTemperatureViewModel())
+    }
+    
     func makeTrackMapViewController() -> TrackMapViewController {
         TrackMapViewController.create(with: makeTrackMapViewModel())
+    }
+    
+    func makeKakaoTrackMapViewController() -> KakaoTrackMapViewController {
+        KakaoTrackMapViewController.create(with: makeKakaoTrackMapViewModel())
     }
     
     func makePointDateListViewController(actions: PointDateListViewModelActions) -> PointDateListViewController {
@@ -40,16 +64,36 @@ extension PointSceneDIContainer: PointFlowCoordinatorDependencies {
     func makePointMapViewController(pointData: PointData) -> PointMapViewController {
         PointMapViewController.create(with: makePointMapViewModel(pointData: pointData))
     }
+    
+    func makeKakaoPointMapViewController(pointData: PointData) -> KakaoPointMapViewController {
+        KakaoPointMapViewController.create(with: makeKakaoPointMapViewModel(pointData: pointData))
+    }
 }
 
 // MARK: make view model
 extension PointSceneDIContainer {
     func makeMainViewModel(actions: MainViewModelActions) -> MainViewModel {
-        MainViewModel(actions: actions)
+        MainViewModel(actions: actions,
+                      appConfiguration: dependencies.appConfiguration,
+                      oceanUseCase: makeOceanUseCase())
+    }
+    
+    func makeOceanSelectViewModel() -> OceanSelectViewModel {
+        OceanSelectViewModel(appConfiguration: dependencies.appConfiguration,
+                             oceanUseCase: makeOceanUseCase())
+    }
+    
+    func makeTemperatureViewModel() -> SeaWaterTemperatureViewModel {
+        SeaWaterTemperatureViewModel(oceanUseCase: makeOceanUseCase(),
+                                     appConfiguration: dependencies.appConfiguration)
     }
     
     func makeTrackMapViewModel() -> TrackMapViewModel {
         TrackMapViewModel(trackMapUseCase: makeTrackMapUseCase())
+    }
+    
+    func makeKakaoTrackMapViewModel() -> KakaoTrackMapViewModel {
+        KakaoTrackMapViewModel(trackMapUseCase: makeTrackMapUseCase())
     }
     
     func makePointDateListViewModel(actions: PointDateListViewModelActions) -> PointDateListViewModel {
@@ -67,10 +111,20 @@ extension PointSceneDIContainer {
         PointMapViewModel(pointData: pointData,
                           pointMapUseCase: makePointMapUseCase())
     }
+    
+    func makeKakaoPointMapViewModel(pointData: PointData) -> KakaoPointMapViewModel {
+        KakaoPointMapViewModel(pointData: pointData,
+                               pointMapUseCase: makePointMapUseCase())
+    }
 }
 
 // MARK: make use case
 extension PointSceneDIContainer {
+    
+    func makeOceanUseCase() -> OceanUseCase {
+        OceanUseCase(oceanRepository: makeOceanRepository())
+    }
+    
     func makeTrackMapUseCase() -> TrackMapUseCase {
         TrackMapUseCase(trackMapRepository: makeTrackMapRepository())
     }
@@ -90,6 +144,11 @@ extension PointSceneDIContainer {
 
 // MARK: make data repository
 extension PointSceneDIContainer {
+    func makeOceanRepository() -> OceanRepository {
+        DefaultOceanRepository(apiDataTransferService: dependencies.apiDataTransferService,
+                               apiXmlTransferService: dependencies.apiXmlTransferService)
+    }
+    
     func makeTrackMapRepository() -> TrackMapRepository {
         DefaultTrackMapRepository(fileStorage: fileStorage)
     }

@@ -36,7 +36,7 @@ class PointMapViewController: UIViewController, StoryboardInstantiable {
     @IBOutlet var convertBtn: UIButton!
     
     static func create(with viewModel: PointMapViewModel) -> PointMapViewController {
-        let view = PointMapViewController.instantiateViewController(boardName: .main)
+        let view = PointMapViewController.instantiateViewController(boardName: .point)
         view.viewModel = viewModel
         
         return view
@@ -223,7 +223,6 @@ extension PointMapViewController: MKMapViewDelegate {
 }
 
 // MARK: - Extension UIViewController for show PointMapViewController
-/*
 extension UIViewController {
     func showPointView(path: URL) {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PointMapViewController") as? PointMapViewController {
@@ -234,4 +233,3 @@ extension UIViewController {
         }
     }
 }
-*/

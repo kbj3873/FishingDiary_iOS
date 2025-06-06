@@ -7,20 +7,56 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		569F048024BBD429EC11659B /* Pods_FishingDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03AA4355987AC316DDA08C99 /* Pods_FishingDiary.framework */; };
 		F406B4452B30061100AEEA2B /* TrackMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */; };
 		F406B4472B3006E400AEEA2B /* TrackMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4462B3006E400AEEA2B /* TrackMapRepository.swift */; };
 		F406B4492B3006F100AEEA2B /* TrackMapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4482B3006F100AEEA2B /* TrackMapUseCase.swift */; };
 		F406B44B2B30070900AEEA2B /* DefaultTrackMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B44A2B30070900AEEA2B /* DefaultTrackMapRepository.swift */; };
+		F40717062DBF845B00A433A5 /* OceanSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40717052DBF845B00A433A5 /* OceanSelectViewController.swift */; };
+		F40717082DBF85B500A433A5 /* OceanSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40717072DBF85B500A433A5 /* OceanSelectCell.swift */; };
+		F407170A2DBF888900A433A5 /* OceanSelectCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40717092DBF888900A433A5 /* OceanSelectCellViewModel.swift */; };
+		F407170C2DBF99B600A433A5 /* OceanSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F407170B2DBF99B600A433A5 /* OceanSelectViewModel.swift */; };
+		F407170E2DBFAA1F00A433A5 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F407170D2DBFAA1F00A433A5 /* UserDefaults.swift */; };
+		F41171FE2B60FAE60093ACEB /* FDBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41171FD2B60FAE60093ACEB /* FDBaseViewController.swift */; };
+		F41DD8FC2D82C4EB00E2DAAD /* TempuratureListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41DD8FB2D82C4EB00E2DAAD /* TempuratureListItemViewModel.swift */; };
+		F41DD8FF2D82C53400E2DAAD /* TempuratureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41DD8FE2D82C53400E2DAAD /* TempuratureCell.swift */; };
+		F429D9482B9831030049534B /* DataTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9442B9831030049534B /* DataTransferService.swift */; };
+		F429D9492B9831030049534B /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9452B9831030049534B /* NetworkService.swift */; };
+		F429D94A2B9831030049534B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9462B9831030049534B /* Endpoint.swift */; };
+		F429D94B2B9831030049534B /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9472B9831030049534B /* NetworkConfig.swift */; };
+		F42C4DCA2B6386C300B82374 /* KakaoPointMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42C4DC92B6386C300B82374 /* KakaoPointMapViewModel.swift */; };
+		F42C4DCC2B6386CB00B82374 /* KakaoPointMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42C4DCB2B6386CB00B82374 /* KakaoPointMapViewController.swift */; };
 		F43151FB2B18608100027BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43151FA2B18608100027BB9 /* AppDelegate.swift */; };
 		F43151FD2B1860AE00027BB9 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43151FC2B1860AE00027BB9 /* AppDIContainer.swift */; };
 		F43151FF2B1861A200027BB9 /* PointSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43151FE2B1861A200027BB9 /* PointSceneDIContainer.swift */; };
 		F43152012B1861E700027BB9 /* PointFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43152002B1861E700027BB9 /* PointFlowCoordinator.swift */; };
 		F4395F742B229F9B0017BBAF /* PointDateListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4395F732B229F9B0017BBAF /* PointDateListItemViewModel.swift */; };
 		F4395F792B22FDE70017BBAF /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4395F782B22FDE70017BBAF /* MainViewModel.swift */; };
+		F44883BB2DB10DA5008B9BB5 /* SeaWaterTemperatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44883B62DB10DA5008B9BB5 /* SeaWaterTemperatureViewModel.swift */; };
+		F44883BC2DB10DA5008B9BB5 /* SeaWaterTemperatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44883B92DB10DA5008B9BB5 /* SeaWaterTemperatureViewController.swift */; };
+		F44883BD2DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44883B22DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift */; };
+		F44883BE2DB10DA5008B9BB5 /* SeaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44883B12DB10DA5008B9BB5 /* SeaInfo.swift */; };
+		F44883C02DB10DA5008B9BB5 /* SeaWaterTemperature.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44883B82DB10DA5008B9BB5 /* SeaWaterTemperature.storyboard */; };
+		F44883C42DB12280008B9BB5 /* ToolbarPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44883C32DB12280008B9BB5 /* ToolbarPickerView.swift */; };
+		F44E65EA2B9ED1D0006D8761 /* DispatchQueueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E65E92B9ED1D0006D8761 /* DispatchQueueType.swift */; };
+		F44E65EC2B9ED1E6006D8761 /* ConnectionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E65EB2B9ED1E6006D8761 /* ConnectionError.swift */; };
+		F46161432B7F453C00935D36 /* KakaoTrackMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46161422B7F453C00935D36 /* KakaoTrackMapViewModel.swift */; };
+		F46161452B7F454B00935D36 /* KakaoTrackMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46161442B7F454B00935D36 /* KakaoTrackMapViewController.swift */; };
 		F46F2A8B2AA6E241004110FE /* TrackMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46F2A8A2AA6E241004110FE /* TrackMapViewController.swift */; };
+		F480D2632BA2E2A800E1F30D /* OceanQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480D2622BA2E2A800E1F30D /* OceanQuery.swift */; };
+		F48104402B5F92A000F1E1BC /* FDKeyboardRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F481043F2B5F92A000F1E1BC /* FDKeyboardRecognizer.swift */; };
+		F48104422B5FA3BB00F1E1BC /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48104412B5FA3BB00F1E1BC /* UIDevice.swift */; };
 		F48902332B202EFE00D18225 /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48902322B202EFE00D18225 /* AppFlowCoordinator.swift */; };
 		F48902372B2057E500D18225 /* PointDateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48902362B2057E500D18225 /* PointDateListViewModel.swift */; };
 		F48902392B205ACB00D18225 /* PointDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48902382B205ACB00D18225 /* PointDate.swift */; };
+		F49152722B9951B00000C552 /* Ocean.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152712B9951B00000C552 /* Ocean.swift */; };
+		F49152742B9952590000C552 /* OceanUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152732B9952590000C552 /* OceanUseCase.swift */; };
+		F49152762B9954D70000C552 /* OceanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152752B9954D60000C552 /* OceanRepository.swift */; };
+		F49152782B9955680000C552 /* DefaultOceanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152772B9955680000C552 /* DefaultOceanRepository.swift */; };
+		F491527A2B99A7570000C552 /* RepositoryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152792B99A7570000C552 /* RepositoryTask.swift */; };
+		F491527D2B99A91E0000C552 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F491527C2B99A91E0000C552 /* APIEndpoints.swift */; };
+		F49152802B99AA3A0000C552 /* OceanRequestDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = F491527F2B99AA3A0000C552 /* OceanRequestDTO+Mapping.swift */; };
+		F49152822B99ABD70000C552 /* OceanResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152812B99ABD70000C552 /* OceanResponseDTO+Mapping.swift */; };
 		F4950DCB2AAA9A7100DD26DE /* FDFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCA2AAA9A7100DD26DE /* FDFileManager.swift */; };
 		F4950DCD2AAAA36000DD26DE /* FDAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */; };
 		F4950DCF2AAAB08100DD26DE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCE2AAAB08100DD26DE /* Date.swift */; };
@@ -31,6 +67,8 @@
 		F4A4AEFC2B26D4DF0017D173 /* DefaultPointDataListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A4AEFB2B26D4DF0017D173 /* DefaultPointDataListRepository.swift */; };
 		F4ACBC162AA179DE009CDA08 /* SnapKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4ACBC132AA176DA009CDA08 /* SnapKit.xcframework */; };
 		F4ACBC172AA179DE009CDA08 /* SnapKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4ACBC132AA176DA009CDA08 /* SnapKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F4B270A22B9A91C9007A71D5 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */; };
+		F4B270A42B9AA1B1007A71D5 /* DataServiceDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B270A32B9AA1B1007A71D5 /* DataServiceDIContainer.swift */; };
 		F4C0276F2AB17804007D1900 /* MKPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0276E2AB17804007D1900 /* MKPolyline.swift */; };
 		F4C1AD462AB96E2400A34386 /* 230916_point.json in Resources */ = {isa = PBXBuildFile; fileRef = F4C1AD452AB96E2400A34386 /* 230916_point.json */; };
 		F4C1AD4A2AB979E300A34386 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AD492AB979E300A34386 /* String.swift */; };
@@ -38,35 +76,6 @@
 		F4DE47B12AA0106E00ED2D23 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47AF2AA0106E00ED2D23 /* Main.storyboard */; };
 		F4DE47B32AA0107000ED2D23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47B22AA0107000ED2D23 /* Assets.xcassets */; };
 		F4DE47B62AA0107000ED2D23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47B42AA0107000ED2D23 /* LaunchScreen.storyboard */; };
-		F4DE47DD2AA0114F00ED2D23 /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47C12AA0114F00ED2D23 /* map_pinup_custom@3x.png */; };
-		F4DE47DE2AA0114F00ED2D23 /* map_pin_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47C22AA0114F00ED2D23 /* map_pin_custom.png */; };
-		F4DE47DF2AA0114F00ED2D23 /* shadow_balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47C32AA0114F00ED2D23 /* shadow_balloon.png */; };
-		F4DE47E02AA0114F00ED2D23 /* map_pinup.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47C42AA0114F00ED2D23 /* map_pinup.png */; };
-		F4DE47E12AA0114F00ED2D23 /* detail_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47C52AA0114F00ED2D23 /* detail_button.png */; };
-		F4DE47E22AA0114F00ED2D23 /* map_pin_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47C62AA0114F00ED2D23 /* map_pin_custom@3x.png */; };
-		F4DE47E32AA0114F00ED2D23 /* map_pinup@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47C72AA0114F00ED2D23 /* map_pinup@3x.png */; };
-		F4DE47E42AA0114F00ED2D23 /* map_pin_shadow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47C82AA0114F00ED2D23 /* map_pin_shadow@3x.png */; };
-		F4DE47E52AA0114F00ED2D23 /* copyright.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47C92AA0114F00ED2D23 /* copyright.png */; };
-		F4DE47E62AA0114F00ED2D23 /* th_line.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47CA2AA0114F00ED2D23 /* th_line.png */; };
-		F4DE47E72AA0114F00ED2D23 /* map_pin_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47CB2AA0114F00ED2D23 /* map_pin_red@3x.png */; };
-		F4DE47E82AA0114F00ED2D23 /* daum_copyright.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47CC2AA0114F00ED2D23 /* daum_copyright.png */; };
-		F4DE47E92AA0114F00ED2D23 /* map_pin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47CD2AA0114F00ED2D23 /* map_pin@3x.png */; };
-		F4DE47EA2AA0114F00ED2D23 /* map_present_tracking.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47CE2AA0114F00ED2D23 /* map_present_tracking.png */; };
-		F4DE47EB2AA0114F00ED2D23 /* map_pin_red.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47CF2AA0114F00ED2D23 /* map_pin_red.png */; };
-		F4DE47EC2AA0114F00ED2D23 /* info_box.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47D02AA0114F00ED2D23 /* info_box.png */; };
-		F4DE47ED2AA0114F00ED2D23 /* point_sprite.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47D12AA0114F00ED2D23 /* point_sprite.png */; };
-		F4DE47EE2AA0114F00ED2D23 /* map_pinup_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47D22AA0114F00ED2D23 /* map_pinup_custom.png */; };
-		F4DE47EF2AA0114F00ED2D23 /* info_box_tail.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47D32AA0114F00ED2D23 /* info_box_tail.png */; };
-		F4DE47F02AA0114F00ED2D23 /* noimage256.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47D42AA0114F00ED2D23 /* noimage256.png */; };
-		F4DE47F12AA0114F00ED2D23 /* map_present_direction.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47D52AA0114F00ED2D23 /* map_present_direction.png */; };
-		F4DE47F22AA0114F00ED2D23 /* map_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47D62AA0114F00ED2D23 /* map_pin.png */; };
-		F4DE47F32AA0114F00ED2D23 /* map_present.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47D72AA0114F00ED2D23 /* map_present.png */; };
-		F4DE47F42AA0114F00ED2D23 /* noimage.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47D82AA0114F00ED2D23 /* noimage.png */; };
-		F4DE47F52AA0114F00ED2D23 /* map_present_background_update.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47D92AA0114F00ED2D23 /* map_present_background_update.png */; };
-		F4DE47F62AA0114F00ED2D23 /* daum_th_line.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47DA2AA0114F00ED2D23 /* daum_th_line.png */; };
-		F4DE47F72AA0114F00ED2D23 /* map_pin_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47DB2AA0114F00ED2D23 /* map_pin_shadow.png */; };
-		F4DE47F82AA0114F00ED2D23 /* DaumMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE47DC2AA0114F00ED2D23 /* DaumMap.framework */; };
-		F4DE47FB2AA0176800ED2D23 /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE47FA2AA0176800ED2D23 /* KakaoMapViewController.swift */; };
 		F4DE47FF2AA0256B00ED2D23 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE47FE2AA0256B00ED2D23 /* CoreLocation.framework */; };
 		F4DE48012AA026B400ED2D23 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE48002AA026B300ED2D23 /* OpenGLES.framework */; };
 		F4DE48032AA026BE00ED2D23 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE48022AA026BE00ED2D23 /* SystemConfiguration.framework */; };
@@ -84,6 +93,7 @@
 		F4DE48212AA041CF00ED2D23 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE48202AA041CF00ED2D23 /* UIApplication.swift */; };
 		F4DE48232AA04E4300ED2D23 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE48222AA04E4300ED2D23 /* UIViewController.swift */; };
 		F4DE48272AA0569000ED2D23 /* FDAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE48262AA0569000ED2D23 /* FDAlertViewController.swift */; };
+		F4E2C33D2B6A30A4007D1997 /* MapPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E2C33C2B6A30A4007D1997 /* MapPolyline.swift */; };
 		F4E6A2982B2A86D000C935BF /* PointDataListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E6A2972B2A86D000C935BF /* PointDataListItemViewModel.swift */; };
 		F4E6A29A2B2ABEB500C935BF /* PointMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E6A2992B2ABEB500C935BF /* PointMap.swift */; };
 		F4E6A29E2B2ACAF200C935BF /* PointMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E6A29D2B2ACAF200C935BF /* PointMapViewModel.swift */; };
@@ -101,6 +111,8 @@
 		F4F2D21D2B215D39007E48D8 /* PointDateListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F2D21C2B215D39007E48D8 /* PointDateListRepository.swift */; };
 		F4F2D21F2B217D6A007E48D8 /* DefaultPointDateListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F2D21E2B217D6A007E48D8 /* DefaultPointDateListRepository.swift */; };
 		F4F2D2222B218DF4007E48D8 /* FileDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F2D2212B218DF4007E48D8 /* FileDataStorage.swift */; };
+		F4F647932DC1F1630028A2C5 /* FDUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F647922DC1F1620028A2C5 /* FDUserDefault.swift */; };
+		F4F778BE2B61EF2300BAD8AF /* Point.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4F778BC2B61EF2300BAD8AF /* Point.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -118,20 +130,58 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		03AA4355987AC316DDA08C99 /* Pods_FishingDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FishingDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7923DDEBCA0435B83A181040 /* Pods-FishingDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.release.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.release.xcconfig"; sourceTree = "<group>"; };
+		EDA398BA0DAB4D361B4206DB /* Pods-FishingDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.debug.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.debug.xcconfig"; sourceTree = "<group>"; };
 		F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapViewModel.swift; sourceTree = "<group>"; };
 		F406B4462B3006E400AEEA2B /* TrackMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapRepository.swift; sourceTree = "<group>"; };
 		F406B4482B3006F100AEEA2B /* TrackMapUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapUseCase.swift; sourceTree = "<group>"; };
 		F406B44A2B30070900AEEA2B /* DefaultTrackMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTrackMapRepository.swift; sourceTree = "<group>"; };
+		F40717052DBF845B00A433A5 /* OceanSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanSelectViewController.swift; sourceTree = "<group>"; };
+		F40717072DBF85B500A433A5 /* OceanSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanSelectCell.swift; sourceTree = "<group>"; };
+		F40717092DBF888900A433A5 /* OceanSelectCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanSelectCellViewModel.swift; sourceTree = "<group>"; };
+		F407170B2DBF99B600A433A5 /* OceanSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanSelectViewModel.swift; sourceTree = "<group>"; };
+		F407170D2DBFAA1F00A433A5 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		F41171FD2B60FAE60093ACEB /* FDBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDBaseViewController.swift; sourceTree = "<group>"; };
+		F41DD8FB2D82C4EB00E2DAAD /* TempuratureListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempuratureListItemViewModel.swift; sourceTree = "<group>"; };
+		F41DD8FE2D82C53400E2DAAD /* TempuratureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempuratureCell.swift; sourceTree = "<group>"; };
+		F429D9442B9831030049534B /* DataTransferService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTransferService.swift; sourceTree = "<group>"; };
+		F429D9452B9831030049534B /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		F429D9462B9831030049534B /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		F429D9472B9831030049534B /* NetworkConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
+		F42C4DC92B6386C300B82374 /* KakaoPointMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoPointMapViewModel.swift; sourceTree = "<group>"; };
+		F42C4DCB2B6386CB00B82374 /* KakaoPointMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoPointMapViewController.swift; sourceTree = "<group>"; };
 		F43151FA2B18608100027BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F43151FC2B1860AE00027BB9 /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		F43151FE2B1861A200027BB9 /* PointSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointSceneDIContainer.swift; sourceTree = "<group>"; };
 		F43152002B1861E700027BB9 /* PointFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointFlowCoordinator.swift; sourceTree = "<group>"; };
 		F4395F732B229F9B0017BBAF /* PointDateListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDateListItemViewModel.swift; sourceTree = "<group>"; };
 		F4395F782B22FDE70017BBAF /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		F44883B12DB10DA5008B9BB5 /* SeaInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaInfo.swift; sourceTree = "<group>"; };
+		F44883B22DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaWaterTemperatureModel.swift; sourceTree = "<group>"; };
+		F44883B62DB10DA5008B9BB5 /* SeaWaterTemperatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaWaterTemperatureViewModel.swift; sourceTree = "<group>"; };
+		F44883B82DB10DA5008B9BB5 /* SeaWaterTemperature.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SeaWaterTemperature.storyboard; sourceTree = "<group>"; };
+		F44883B92DB10DA5008B9BB5 /* SeaWaterTemperatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaWaterTemperatureViewController.swift; sourceTree = "<group>"; };
+		F44883C32DB12280008B9BB5 /* ToolbarPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarPickerView.swift; sourceTree = "<group>"; };
+		F44E65E92B9ED1D0006D8761 /* DispatchQueueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueType.swift; sourceTree = "<group>"; };
+		F44E65EB2B9ED1E6006D8761 /* ConnectionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionError.swift; sourceTree = "<group>"; };
+		F46161422B7F453C00935D36 /* KakaoTrackMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoTrackMapViewModel.swift; sourceTree = "<group>"; };
+		F46161442B7F454B00935D36 /* KakaoTrackMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoTrackMapViewController.swift; sourceTree = "<group>"; };
 		F46F2A8A2AA6E241004110FE /* TrackMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapViewController.swift; sourceTree = "<group>"; };
+		F480D2622BA2E2A800E1F30D /* OceanQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanQuery.swift; sourceTree = "<group>"; };
+		F481043F2B5F92A000F1E1BC /* FDKeyboardRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDKeyboardRecognizer.swift; sourceTree = "<group>"; };
+		F48104412B5FA3BB00F1E1BC /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		F48902322B202EFE00D18225 /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
 		F48902362B2057E500D18225 /* PointDateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDateListViewModel.swift; sourceTree = "<group>"; };
 		F48902382B205ACB00D18225 /* PointDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDate.swift; sourceTree = "<group>"; };
+		F49152712B9951B00000C552 /* Ocean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ocean.swift; sourceTree = "<group>"; };
+		F49152732B9952590000C552 /* OceanUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanUseCase.swift; sourceTree = "<group>"; };
+		F49152752B9954D60000C552 /* OceanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanRepository.swift; sourceTree = "<group>"; };
+		F49152772B9955680000C552 /* DefaultOceanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultOceanRepository.swift; sourceTree = "<group>"; };
+		F49152792B99A7570000C552 /* RepositoryTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTask.swift; sourceTree = "<group>"; };
+		F491527C2B99A91E0000C552 /* APIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
+		F491527F2B99AA3A0000C552 /* OceanRequestDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OceanRequestDTO+Mapping.swift"; sourceTree = "<group>"; };
+		F49152812B99ABD70000C552 /* OceanResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OceanResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
 		F4950DCA2AAA9A7100DD26DE /* FDFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDFileManager.swift; sourceTree = "<group>"; };
 		F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDAppManager.swift; sourceTree = "<group>"; };
 		F4950DCE2AAAB08100DD26DE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -141,6 +191,8 @@
 		F4A4AEF92B26D22D0017D173 /* PointDataListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDataListRepository.swift; sourceTree = "<group>"; };
 		F4A4AEFB2B26D4DF0017D173 /* DefaultPointDataListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPointDataListRepository.swift; sourceTree = "<group>"; };
 		F4ACBC132AA176DA009CDA08 /* SnapKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SnapKit.xcframework; sourceTree = "<group>"; };
+		F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		F4B270A32B9AA1B1007A71D5 /* DataServiceDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServiceDIContainer.swift; sourceTree = "<group>"; };
 		F4C0276E2AB17804007D1900 /* MKPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKPolyline.swift; sourceTree = "<group>"; };
 		F4C1AD452AB96E2400A34386 /* 230916_point.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 230916_point.json; sourceTree = "<group>"; };
 		F4C1AD492AB979E300A34386 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -150,36 +202,6 @@
 		F4DE47B22AA0107000ED2D23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4DE47B52AA0107000ED2D23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4DE47B72AA0107000ED2D23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4DE47C12AA0114F00ED2D23 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
-		F4DE47C22AA0114F00ED2D23 /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
-		F4DE47C32AA0114F00ED2D23 /* shadow_balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow_balloon.png; sourceTree = "<group>"; };
-		F4DE47C42AA0114F00ED2D23 /* map_pinup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pinup.png; sourceTree = "<group>"; };
-		F4DE47C52AA0114F00ED2D23 /* detail_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = detail_button.png; sourceTree = "<group>"; };
-		F4DE47C62AA0114F00ED2D23 /* map_pin_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pin_custom@3x.png"; sourceTree = "<group>"; };
-		F4DE47C72AA0114F00ED2D23 /* map_pinup@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup@3x.png"; sourceTree = "<group>"; };
-		F4DE47C82AA0114F00ED2D23 /* map_pin_shadow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pin_shadow@3x.png"; sourceTree = "<group>"; };
-		F4DE47C92AA0114F00ED2D23 /* copyright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = copyright.png; sourceTree = "<group>"; };
-		F4DE47CA2AA0114F00ED2D23 /* th_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = th_line.png; sourceTree = "<group>"; };
-		F4DE47CB2AA0114F00ED2D23 /* map_pin_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pin_red@3x.png"; sourceTree = "<group>"; };
-		F4DE47CC2AA0114F00ED2D23 /* daum_copyright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = daum_copyright.png; sourceTree = "<group>"; };
-		F4DE47CD2AA0114F00ED2D23 /* map_pin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pin@3x.png"; sourceTree = "<group>"; };
-		F4DE47CE2AA0114F00ED2D23 /* map_present_tracking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_present_tracking.png; sourceTree = "<group>"; };
-		F4DE47CF2AA0114F00ED2D23 /* map_pin_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_red.png; sourceTree = "<group>"; };
-		F4DE47D02AA0114F00ED2D23 /* info_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_box.png; sourceTree = "<group>"; };
-		F4DE47D12AA0114F00ED2D23 /* point_sprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = point_sprite.png; sourceTree = "<group>"; };
-		F4DE47D22AA0114F00ED2D23 /* map_pinup_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pinup_custom.png; sourceTree = "<group>"; };
-		F4DE47D32AA0114F00ED2D23 /* info_box_tail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_box_tail.png; sourceTree = "<group>"; };
-		F4DE47D42AA0114F00ED2D23 /* noimage256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noimage256.png; sourceTree = "<group>"; };
-		F4DE47D52AA0114F00ED2D23 /* map_present_direction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_present_direction.png; sourceTree = "<group>"; };
-		F4DE47D62AA0114F00ED2D23 /* map_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin.png; sourceTree = "<group>"; };
-		F4DE47D72AA0114F00ED2D23 /* map_present.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_present.png; sourceTree = "<group>"; };
-		F4DE47D82AA0114F00ED2D23 /* noimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noimage.png; sourceTree = "<group>"; };
-		F4DE47D92AA0114F00ED2D23 /* map_present_background_update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_present_background_update.png; sourceTree = "<group>"; };
-		F4DE47DA2AA0114F00ED2D23 /* daum_th_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = daum_th_line.png; sourceTree = "<group>"; };
-		F4DE47DB2AA0114F00ED2D23 /* map_pin_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_shadow.png; sourceTree = "<group>"; };
-		F4DE47DC2AA0114F00ED2D23 /* DaumMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DaumMap.framework; sourceTree = "<group>"; };
-		F4DE47FA2AA0176800ED2D23 /* KakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
-		F4DE47FC2AA01BA900ED2D23 /* FishingDiary-Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FishingDiary-Bridge-Header.h"; sourceTree = "<group>"; };
 		F4DE47FE2AA0256B00ED2D23 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F4DE48002AA026B300ED2D23 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		F4DE48022AA026BE00ED2D23 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -197,6 +219,7 @@
 		F4DE48202AA041CF00ED2D23 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		F4DE48222AA04E4300ED2D23 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		F4DE48262AA0569000ED2D23 /* FDAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDAlertViewController.swift; sourceTree = "<group>"; };
+		F4E2C33C2B6A30A4007D1997 /* MapPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPolyline.swift; sourceTree = "<group>"; };
 		F4E6A2972B2A86D000C935BF /* PointDataListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDataListItemViewModel.swift; sourceTree = "<group>"; };
 		F4E6A2992B2ABEB500C935BF /* PointMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointMap.swift; sourceTree = "<group>"; };
 		F4E6A29D2B2ACAF200C935BF /* PointMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointMapViewModel.swift; sourceTree = "<group>"; };
@@ -214,6 +237,8 @@
 		F4F2D21C2B215D39007E48D8 /* PointDateListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDateListRepository.swift; sourceTree = "<group>"; };
 		F4F2D21E2B217D6A007E48D8 /* DefaultPointDateListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPointDateListRepository.swift; sourceTree = "<group>"; };
 		F4F2D2212B218DF4007E48D8 /* FileDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDataStorage.swift; sourceTree = "<group>"; };
+		F4F647922DC1F1620028A2C5 /* FDUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDUserDefault.swift; sourceTree = "<group>"; };
+		F4F778BD2B61EF2300BAD8AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Point.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,18 +259,28 @@
 				F4DE480D2AA0277700ED2D23 /* UIKit.framework in Frameworks */,
 				F4DE480F2AA0278A00ED2D23 /* Foundation.framework in Frameworks */,
 				F4DE48112AA0279B00ED2D23 /* CoreGraphics.framework in Frameworks */,
-				F4DE47F82AA0114F00ED2D23 /* DaumMap.framework in Frameworks */,
+				569F048024BBD429EC11659B /* Pods_FishingDiary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A49441F53CDCBB62B6A9456 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EDA398BA0DAB4D361B4206DB /* Pods-FishingDiary.debug.xcconfig */,
+				7923DDEBCA0435B83A181040 /* Pods-FishingDiary.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F406B4422B3005F600AEEA2B /* Track */ = {
 			isa = PBXGroup;
 			children = (
 				F406B4432B3005FC00AEEA2B /* ViewModel */,
 				F46F2A8A2AA6E241004110FE /* TrackMapViewController.swift */,
+				F46161442B7F454B00935D36 /* KakaoTrackMapViewController.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -254,13 +289,44 @@
 			isa = PBXGroup;
 			children = (
 				F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */,
+				F46161422B7F453C00935D36 /* KakaoTrackMapViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F41DD8FD2D82C51800E2DAAD /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F41DD8FE2D82C53400E2DAAD /* TempuratureCell.swift */,
+				F40717072DBF85B500A433A5 /* OceanSelectCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F429D9422B9831030049534B /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				F429D9432B9831030049534B /* Network */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		F429D9432B9831030049534B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				F429D9442B9831030049534B /* DataTransferService.swift */,
+				F429D9452B9831030049534B /* NetworkService.swift */,
+				F429D9462B9831030049534B /* Endpoint.swift */,
+				F429D9472B9831030049534B /* NetworkConfig.swift */,
+				F49152792B99A7570000C552 /* RepositoryTask.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		F43151EE2B185AD200027BB9 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				F491527B2B99A9080000C552 /* Network */,
 				F4F2D2202B218DD9007E48D8 /* PointDataStorage */,
 				F43151EF2B185AD200027BB9 /* Repositories */,
 			);
@@ -274,6 +340,7 @@
 				F4F2D21E2B217D6A007E48D8 /* DefaultPointDateListRepository.swift */,
 				F4A4AEFB2B26D4DF0017D173 /* DefaultPointDataListRepository.swift */,
 				F4E6A2A32B2AE2D400C935BF /* DefaultPointMapRepository.swift */,
+				F49152772B9955680000C552 /* DefaultOceanRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -295,6 +362,7 @@
 				F4F2D2152B214BB5007E48D8 /* PointDateUseCase.swift */,
 				F4A4AEF72B26D10A0017D173 /* PointDataUseCase.swift */,
 				F4E6A29F2B2AD37900C935BF /* PointMapUseCase.swift */,
+				F49152732B9952590000C552 /* OceanUseCase.swift */,
 				F4F2D2172B214BC6007E48D8 /* Protocol */,
 			);
 			path = UseCases;
@@ -305,6 +373,10 @@
 			children = (
 				F48902382B205ACB00D18225 /* PointDate.swift */,
 				F4E6A2992B2ABEB500C935BF /* PointMap.swift */,
+				F49152712B9951B00000C552 /* Ocean.swift */,
+				F480D2622BA2E2A800E1F30D /* OceanQuery.swift */,
+				F44883B12DB10DA5008B9BB5 /* SeaInfo.swift */,
+				F44883B22DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -316,6 +388,7 @@
 				F4A4AEF92B26D22D0017D173 /* PointDataListRepository.swift */,
 				F4E6A2A12B2ADF4900C935BF /* PointMapRepository.swift */,
 				F406B4462B3006E400AEEA2B /* TrackMapRepository.swift */,
+				F49152752B9954D60000C552 /* OceanRepository.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -323,6 +396,7 @@
 		F43151F42B185AD200027BB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				F44883BA2DB10DA5008B9BB5 /* SeaWaterTemperature */,
 				F406B4422B3005F600AEEA2B /* Track */,
 				F4395F762B22FDBD0017BBAF /* Main */,
 				F43151F62B185AD200027BB9 /* PointScene */,
@@ -334,6 +408,7 @@
 		F43151F52B185AD200027BB9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				F44883C32DB12280008B9BB5 /* ToolbarPickerView.swift */,
 				F49DCFF82B1F09EB009C5FC4 /* StoryboardInstantiable.swift */,
 			);
 			path = Utils;
@@ -352,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				F43151FA2B18608100027BB9 /* AppDelegate.swift */,
+				F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */,
 				F48902312B202EE400D18225 /* Flows */,
 				F43151F92B18603500027BB9 /* DIContainer */,
 			);
@@ -363,6 +439,7 @@
 			children = (
 				F43151FC2B1860AE00027BB9 /* AppDIContainer.swift */,
 				F43151FE2B1861A200027BB9 /* PointSceneDIContainer.swift */,
+				F4B270A32B9AA1B1007A71D5 /* DataServiceDIContainer.swift */,
 			);
 			path = DIContainer;
 			sourceTree = "<group>";
@@ -379,8 +456,10 @@
 		F4395F762B22FDBD0017BBAF /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				F4DE47AD2AA0106E00ED2D23 /* MainViewController.swift */,
+				F41DD8FD2D82C51800E2DAAD /* Cells */,
 				F4395F772B22FDD60017BBAF /* ViewModel */,
+				F4DE47AD2AA0106E00ED2D23 /* MainViewController.swift */,
+				F40717052DBF845B00A433A5 /* OceanSelectViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -389,8 +468,29 @@
 			isa = PBXGroup;
 			children = (
 				F4395F782B22FDE70017BBAF /* MainViewModel.swift */,
+				F41DD8FB2D82C4EB00E2DAAD /* TempuratureListItemViewModel.swift */,
+				F40717092DBF888900A433A5 /* OceanSelectCellViewModel.swift */,
+				F407170B2DBF99B600A433A5 /* OceanSelectViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F44883B72DB10DA5008B9BB5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F44883B62DB10DA5008B9BB5 /* SeaWaterTemperatureViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F44883BA2DB10DA5008B9BB5 /* SeaWaterTemperature */ = {
+			isa = PBXGroup;
+			children = (
+				F44883B72DB10DA5008B9BB5 /* ViewModel */,
+				F44883B82DB10DA5008B9BB5 /* SeaWaterTemperature.storyboard */,
+				F44883B92DB10DA5008B9BB5 /* SeaWaterTemperatureViewController.swift */,
+			);
+			path = SeaWaterTemperature;
 			sourceTree = "<group>";
 		};
 		F48902312B202EE400D18225 /* Flows */ = {
@@ -424,10 +524,30 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		F491527B2B99A9080000C552 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				F491527E2B99AA1A0000C552 /* DataMapping */,
+				F491527C2B99A91E0000C552 /* APIEndpoints.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		F491527E2B99AA1A0000C552 /* DataMapping */ = {
+			isa = PBXGroup;
+			children = (
+				F491527F2B99AA3A0000C552 /* OceanRequestDTO+Mapping.swift */,
+				F49152812B99ABD70000C552 /* OceanResponseDTO+Mapping.swift */,
+			);
+			path = DataMapping;
+			sourceTree = "<group>";
+		};
 		F49DCFF72B1EFA47009C5FC4 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				F4F2D21A2B214C23007E48D8 /* Cancellable.swift */,
+				F44E65E92B9ED1D0006D8761 /* DispatchQueueType.swift */,
+				F44E65EB2B9ED1E6006D8761 /* ConnectionError.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -454,6 +574,7 @@
 				F4DE47A82AA0106E00ED2D23 /* FishingDiary */,
 				F4DE47A72AA0106E00ED2D23 /* Products */,
 				F4DE47FD2AA0256A00ED2D23 /* Frameworks */,
+				1A49441F53CDCBB62B6A9456 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -468,6 +589,7 @@
 		F4DE47A82AA0106E00ED2D23 /* FishingDiary */ = {
 			isa = PBXGroup;
 			children = (
+				F429D9422B9831030049534B /* Infrastructure */,
 				F43151F82B18601A00027BB9 /* Application */,
 				F43151EE2B185AD200027BB9 /* Data */,
 				F43151F02B185AD200027BB9 /* Domain */,
@@ -476,9 +598,8 @@
 				F4DE48242AA04ECB00ED2D23 /* Common */,
 				F4DE481C2AA02E6500ED2D23 /* Utility */,
 				F4DE48192AA02DA300ED2D23 /* Managers */,
-				F4DE47F92AA0174000ED2D23 /* Screen */,
 				F4DE47AF2AA0106E00ED2D23 /* Main.storyboard */,
-				F4DE47FC2AA01BA900ED2D23 /* FishingDiary-Bridge-Header.h */,
+				F4F778BC2B61EF2300BAD8AF /* Point.storyboard */,
 				F4DE47BD2AA0114F00ED2D23 /* Libraries */,
 				F4DE47B22AA0107000ED2D23 /* Assets.xcassets */,
 				F4DE47B42AA0107000ED2D23 /* LaunchScreen.storyboard */,
@@ -491,68 +612,8 @@
 			isa = PBXGroup;
 			children = (
 				F4ACBC122AA176DA009CDA08 /* SnapKit */,
-				F4DE47BE2AA0114F00ED2D23 /* DaumMap */,
 			);
 			path = Libraries;
-			sourceTree = "<group>";
-		};
-		F4DE47BE2AA0114F00ED2D23 /* DaumMap */ = {
-			isa = PBXGroup;
-			children = (
-				F4DE47BF2AA0114F00ED2D23 /* DaumMap.embeddedframework */,
-			);
-			path = DaumMap;
-			sourceTree = "<group>";
-		};
-		F4DE47BF2AA0114F00ED2D23 /* DaumMap.embeddedframework */ = {
-			isa = PBXGroup;
-			children = (
-				F4DE47C02AA0114F00ED2D23 /* Resources */,
-				F4DE47DC2AA0114F00ED2D23 /* DaumMap.framework */,
-			);
-			path = DaumMap.embeddedframework;
-			sourceTree = "<group>";
-		};
-		F4DE47C02AA0114F00ED2D23 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F4DE47C12AA0114F00ED2D23 /* map_pinup_custom@3x.png */,
-				F4DE47C22AA0114F00ED2D23 /* map_pin_custom.png */,
-				F4DE47C32AA0114F00ED2D23 /* shadow_balloon.png */,
-				F4DE47C42AA0114F00ED2D23 /* map_pinup.png */,
-				F4DE47C52AA0114F00ED2D23 /* detail_button.png */,
-				F4DE47C62AA0114F00ED2D23 /* map_pin_custom@3x.png */,
-				F4DE47C72AA0114F00ED2D23 /* map_pinup@3x.png */,
-				F4DE47C82AA0114F00ED2D23 /* map_pin_shadow@3x.png */,
-				F4DE47C92AA0114F00ED2D23 /* copyright.png */,
-				F4DE47CA2AA0114F00ED2D23 /* th_line.png */,
-				F4DE47CB2AA0114F00ED2D23 /* map_pin_red@3x.png */,
-				F4DE47CC2AA0114F00ED2D23 /* daum_copyright.png */,
-				F4DE47CD2AA0114F00ED2D23 /* map_pin@3x.png */,
-				F4DE47CE2AA0114F00ED2D23 /* map_present_tracking.png */,
-				F4DE47CF2AA0114F00ED2D23 /* map_pin_red.png */,
-				F4DE47D02AA0114F00ED2D23 /* info_box.png */,
-				F4DE47D12AA0114F00ED2D23 /* point_sprite.png */,
-				F4DE47D22AA0114F00ED2D23 /* map_pinup_custom.png */,
-				F4DE47D32AA0114F00ED2D23 /* info_box_tail.png */,
-				F4DE47D42AA0114F00ED2D23 /* noimage256.png */,
-				F4DE47D52AA0114F00ED2D23 /* map_present_direction.png */,
-				F4DE47D62AA0114F00ED2D23 /* map_pin.png */,
-				F4DE47D72AA0114F00ED2D23 /* map_present.png */,
-				F4DE47D82AA0114F00ED2D23 /* noimage.png */,
-				F4DE47D92AA0114F00ED2D23 /* map_present_background_update.png */,
-				F4DE47DA2AA0114F00ED2D23 /* daum_th_line.png */,
-				F4DE47DB2AA0114F00ED2D23 /* map_pin_shadow.png */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		F4DE47F92AA0174000ED2D23 /* Screen */ = {
-			isa = PBXGroup;
-			children = (
-				F4DE47FA2AA0176800ED2D23 /* KakaoMapViewController.swift */,
-			);
-			path = Screen;
 			sourceTree = "<group>";
 		};
 		F4DE47FD2AA0256A00ED2D23 /* Frameworks */ = {
@@ -570,6 +631,7 @@
 				F4DE48022AA026BE00ED2D23 /* SystemConfiguration.framework */,
 				F4DE48002AA026B300ED2D23 /* OpenGLES.framework */,
 				F4DE47FE2AA0256B00ED2D23 /* CoreLocation.framework */,
+				03AA4355987AC316DDA08C99 /* Pods_FishingDiary.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -600,6 +662,9 @@
 				F4950DCE2AAAB08100DD26DE /* Date.swift */,
 				F4C0276E2AB17804007D1900 /* MKPolyline.swift */,
 				F4C1AD492AB979E300A34386 /* String.swift */,
+				F48104412B5FA3BB00F1E1BC /* UIDevice.swift */,
+				F4E2C33C2B6A30A4007D1997 /* MapPolyline.swift */,
+				F407170D2DBFAA1F00A433A5 /* UserDefaults.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -607,6 +672,7 @@
 		F4DE48242AA04ECB00ED2D23 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F4F647912DC1E9AA0028A2C5 /* Utils */,
 				F4DE481F2AA041B200ED2D23 /* Extentions */,
 				F49DCFF72B1EFA47009C5FC4 /* Protocols */,
 				F4DE48252AA04ED300ED2D23 /* Contollers */,
@@ -618,6 +684,8 @@
 			isa = PBXGroup;
 			children = (
 				F4DE48262AA0569000ED2D23 /* FDAlertViewController.swift */,
+				F481043F2B5F92A000F1E1BC /* FDKeyboardRecognizer.swift */,
+				F41171FD2B60FAE60093ACEB /* FDBaseViewController.swift */,
 			);
 			path = Contollers;
 			sourceTree = "<group>";
@@ -626,6 +694,7 @@
 			isa = PBXGroup;
 			children = (
 				F4E6A29C2B2ACAE300C935BF /* ViewModel */,
+				F42C4DCB2B6386CB00B82374 /* KakaoPointMapViewController.swift */,
 				F4E70F3C2AAEE130008A3317 /* PointMapViewController.swift */,
 			);
 			path = Map;
@@ -634,6 +703,7 @@
 		F4E6A29C2B2ACAE300C935BF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				F42C4DC92B6386C300B82374 /* KakaoPointMapViewModel.swift */,
 				F4E6A29D2B2ACAF200C935BF /* PointMapViewModel.swift */,
 			);
 			path = ViewModel;
@@ -655,6 +725,14 @@
 			path = PointDataStorage;
 			sourceTree = "<group>";
 		};
+		F4F647912DC1E9AA0028A2C5 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F4F647922DC1F1620028A2C5 /* FDUserDefault.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -662,10 +740,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4DE47BA2AA0107000ED2D23 /* Build configuration list for PBXNativeTarget "FishingDiary" */;
 			buildPhases = (
+				28DB87370606F99FC1473044 /* [CP] Check Pods Manifest.lock */,
 				F4DE47A22AA0106E00ED2D23 /* Sources */,
 				F4DE47A32AA0106E00ED2D23 /* Frameworks */,
 				F4DE47A42AA0106E00ED2D23 /* Resources */,
 				F4ACBC182AA179DE009CDA08 /* Embed Frameworks */,
+				F13ABBF247775D1BFBD22050 /* [CP] Embed Pods Frameworks */,
+				845EF99AE53582BE06C4C356 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -714,95 +795,166 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4DE47F32AA0114F00ED2D23 /* map_present.png in Resources */,
-				F4DE47E92AA0114F00ED2D23 /* map_pin@3x.png in Resources */,
-				F4DE47E72AA0114F00ED2D23 /* map_pin_red@3x.png in Resources */,
-				F4DE47F22AA0114F00ED2D23 /* map_pin.png in Resources */,
-				F4DE47EB2AA0114F00ED2D23 /* map_pin_red.png in Resources */,
-				F4DE47DD2AA0114F00ED2D23 /* map_pinup_custom@3x.png in Resources */,
-				F4DE47E52AA0114F00ED2D23 /* copyright.png in Resources */,
-				F4DE47E42AA0114F00ED2D23 /* map_pin_shadow@3x.png in Resources */,
 				F4DE47B62AA0107000ED2D23 /* LaunchScreen.storyboard in Resources */,
-				F4DE47E82AA0114F00ED2D23 /* daum_copyright.png in Resources */,
-				F4DE47EC2AA0114F00ED2D23 /* info_box.png in Resources */,
-				F4DE47E22AA0114F00ED2D23 /* map_pin_custom@3x.png in Resources */,
-				F4DE47F72AA0114F00ED2D23 /* map_pin_shadow.png in Resources */,
-				F4DE47EA2AA0114F00ED2D23 /* map_present_tracking.png in Resources */,
-				F4DE47E12AA0114F00ED2D23 /* detail_button.png in Resources */,
-				F4DE47F42AA0114F00ED2D23 /* noimage.png in Resources */,
+				F44883C02DB10DA5008B9BB5 /* SeaWaterTemperature.storyboard in Resources */,
 				F4C1AD462AB96E2400A34386 /* 230916_point.json in Resources */,
-				F4DE47E62AA0114F00ED2D23 /* th_line.png in Resources */,
-				F4DE47EF2AA0114F00ED2D23 /* info_box_tail.png in Resources */,
-				F4DE47DE2AA0114F00ED2D23 /* map_pin_custom.png in Resources */,
-				F4DE47EE2AA0114F00ED2D23 /* map_pinup_custom.png in Resources */,
-				F4DE47E32AA0114F00ED2D23 /* map_pinup@3x.png in Resources */,
-				F4DE47ED2AA0114F00ED2D23 /* point_sprite.png in Resources */,
-				F4DE47F52AA0114F00ED2D23 /* map_present_background_update.png in Resources */,
-				F4DE47F12AA0114F00ED2D23 /* map_present_direction.png in Resources */,
-				F4DE47F02AA0114F00ED2D23 /* noimage256.png in Resources */,
-				F4DE47DF2AA0114F00ED2D23 /* shadow_balloon.png in Resources */,
+				F4F778BE2B61EF2300BAD8AF /* Point.storyboard in Resources */,
 				F4DE47B32AA0107000ED2D23 /* Assets.xcassets in Resources */,
 				F4DE47B12AA0106E00ED2D23 /* Main.storyboard in Resources */,
-				F4DE47F62AA0114F00ED2D23 /* daum_th_line.png in Resources */,
-				F4DE47E02AA0114F00ED2D23 /* map_pinup.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		28DB87370606F99FC1473044 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FishingDiary-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		845EF99AE53582BE06C4C356 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FishingDiary/Pods-FishingDiary-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FishingDiary/Pods-FishingDiary-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FishingDiary/Pods-FishingDiary-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F13ABBF247775D1BFBD22050 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FishingDiary/Pods-FishingDiary-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FishingDiary/Pods-FishingDiary-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FishingDiary/Pods-FishingDiary-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F4DE47A22AA0106E00ED2D23 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F46161452B7F454B00935D36 /* KakaoTrackMapViewController.swift in Sources */,
+				F407170C2DBF99B600A433A5 /* OceanSelectViewModel.swift in Sources */,
+				F42C4DCA2B6386C300B82374 /* KakaoPointMapViewModel.swift in Sources */,
 				F43151FF2B1861A200027BB9 /* PointSceneDIContainer.swift in Sources */,
 				F4E70F3F2AAEF4AB008A3317 /* PointDateListViewController.swift in Sources */,
 				F4F2D2162B214BB5007E48D8 /* PointDateUseCase.swift in Sources */,
+				F48104402B5F92A000F1E1BC /* FDKeyboardRecognizer.swift in Sources */,
+				F49152782B9955680000C552 /* DefaultOceanRepository.swift in Sources */,
 				F4E70F462AAEFC60008A3317 /* PointDataCell.swift in Sources */,
 				F43152012B1861E700027BB9 /* PointFlowCoordinator.swift in Sources */,
 				F43151FB2B18608100027BB9 /* AppDelegate.swift in Sources */,
 				F406B4472B3006E400AEEA2B /* TrackMapRepository.swift in Sources */,
 				F4F2D21D2B215D39007E48D8 /* PointDateListRepository.swift in Sources */,
+				F4B270A42B9AA1B1007A71D5 /* DataServiceDIContainer.swift in Sources */,
 				F4F2D21B2B214C23007E48D8 /* Cancellable.swift in Sources */,
 				F4C1AD4A2AB979E300A34386 /* String.swift in Sources */,
 				F4E70F442AAEFBA7008A3317 /* PointDataListViewController.swift in Sources */,
+				F41DD8FC2D82C4EB00E2DAAD /* TempuratureListItemViewModel.swift in Sources */,
+				F44E65EC2B9ED1E6006D8761 /* ConnectionError.swift in Sources */,
 				F4DE47AE2AA0106E00ED2D23 /* MainViewController.swift in Sources */,
+				F42C4DCC2B6386CB00B82374 /* KakaoPointMapViewController.swift in Sources */,
 				F4DE48212AA041CF00ED2D23 /* UIApplication.swift in Sources */,
 				F49DCFF92B1F09EB009C5FC4 /* StoryboardInstantiable.swift in Sources */,
 				F48902392B205ACB00D18225 /* PointDate.swift in Sources */,
 				F4395F742B229F9B0017BBAF /* PointDateListItemViewModel.swift in Sources */,
+				F49152762B9954D70000C552 /* OceanRepository.swift in Sources */,
+				F49152722B9951B00000C552 /* Ocean.swift in Sources */,
+				F49152802B99AA3A0000C552 /* OceanRequestDTO+Mapping.swift in Sources */,
+				F4B270A22B9A91C9007A71D5 /* AppConfiguration.swift in Sources */,
 				F4E6A2A42B2AE2D400C935BF /* DefaultPointMapRepository.swift in Sources */,
 				F46F2A8B2AA6E241004110FE /* TrackMapViewController.swift in Sources */,
 				F4E6A2A22B2ADF4900C935BF /* PointMapRepository.swift in Sources */,
 				F406B4492B3006F100AEEA2B /* TrackMapUseCase.swift in Sources */,
 				F4E70F422AAEF6DA008A3317 /* PointDateCell.swift in Sources */,
+				F44E65EA2B9ED1D0006D8761 /* DispatchQueueType.swift in Sources */,
 				F4E6A2A02B2AD37900C935BF /* PointMapUseCase.swift in Sources */,
 				F4A4AEFA2B26D22D0017D173 /* PointDataListRepository.swift in Sources */,
 				F4950DCB2AAA9A7100DD26DE /* FDFileManager.swift in Sources */,
+				F49152822B99ABD70000C552 /* OceanResponseDTO+Mapping.swift in Sources */,
+				F429D9482B9831030049534B /* DataTransferService.swift in Sources */,
+				F4E2C33D2B6A30A4007D1997 /* MapPolyline.swift in Sources */,
+				F480D2632BA2E2A800E1F30D /* OceanQuery.swift in Sources */,
+				F44883C42DB12280008B9BB5 /* ToolbarPickerView.swift in Sources */,
+				F429D94A2B9831030049534B /* Endpoint.swift in Sources */,
+				F48104422B5FA3BB00F1E1BC /* UIDevice.swift in Sources */,
 				F4E70F3D2AAEE130008A3317 /* PointMapViewController.swift in Sources */,
 				F4DE481E2AA02E7B00ED2D23 /* SCPrivacy.swift in Sources */,
+				F49152742B9952590000C552 /* OceanUseCase.swift in Sources */,
+				F40717062DBF845B00A433A5 /* OceanSelectViewController.swift in Sources */,
 				F43151FD2B1860AE00027BB9 /* AppDIContainer.swift in Sources */,
+				F429D9492B9831030049534B /* NetworkService.swift in Sources */,
+				F41DD8FF2D82C53400E2DAAD /* TempuratureCell.swift in Sources */,
 				F48902332B202EFE00D18225 /* AppFlowCoordinator.swift in Sources */,
 				F4DE48272AA0569000ED2D23 /* FDAlertViewController.swift in Sources */,
+				F4F647932DC1F1630028A2C5 /* FDUserDefault.swift in Sources */,
 				F4C0276F2AB17804007D1900 /* MKPolyline.swift in Sources */,
+				F40717082DBF85B500A433A5 /* OceanSelectCell.swift in Sources */,
 				F4E6A2982B2A86D000C935BF /* PointDataListItemViewModel.swift in Sources */,
 				F4F2D21F2B217D6A007E48D8 /* DefaultPointDateListRepository.swift in Sources */,
 				F4395F792B22FDE70017BBAF /* MainViewModel.swift in Sources */,
-				F4DE47FB2AA0176800ED2D23 /* KakaoMapViewController.swift in Sources */,
 				F406B44B2B30070900AEEA2B /* DefaultTrackMapRepository.swift in Sources */,
 				F4A4AEFC2B26D4DF0017D173 /* DefaultPointDataListRepository.swift in Sources */,
 				F4DE48232AA04E4300ED2D23 /* UIViewController.swift in Sources */,
 				F4DE481B2AA02DA300ED2D23 /* FDLocationManager.swift in Sources */,
+				F429D94B2B9831030049534B /* NetworkConfig.swift in Sources */,
 				F4A4AEF62B26CC400017D173 /* PointDataListViewModel.swift in Sources */,
+				F46161432B7F453C00935D36 /* KakaoTrackMapViewModel.swift in Sources */,
 				F4E6A29E2B2ACAF200C935BF /* PointMapViewModel.swift in Sources */,
+				F491527D2B99A91E0000C552 /* APIEndpoints.swift in Sources */,
+				F407170E2DBFAA1F00A433A5 /* UserDefaults.swift in Sources */,
 				F4E6A29A2B2ABEB500C935BF /* PointMap.swift in Sources */,
 				F4A4AEF82B26D10A0017D173 /* PointDataUseCase.swift in Sources */,
 				F48902372B2057E500D18225 /* PointDateListViewModel.swift in Sources */,
 				F4F2D2192B214BDB007E48D8 /* UseCase.swift in Sources */,
 				F4950DCF2AAAB08100DD26DE /* Date.swift in Sources */,
+				F41171FE2B60FAE60093ACEB /* FDBaseViewController.swift in Sources */,
+				F491527A2B99A7570000C552 /* RepositoryTask.swift in Sources */,
 				F4950DCD2AAAA36000DD26DE /* FDAppManager.swift in Sources */,
 				F4F2D2222B218DF4007E48D8 /* FileDataStorage.swift in Sources */,
 				F406B4452B30061100AEEA2B /* TrackMapViewModel.swift in Sources */,
+				F44883BB2DB10DA5008B9BB5 /* SeaWaterTemperatureViewModel.swift in Sources */,
+				F44883BC2DB10DA5008B9BB5 /* SeaWaterTemperatureViewController.swift in Sources */,
+				F407170A2DBF888900A433A5 /* OceanSelectCellViewModel.swift in Sources */,
+				F44883BD2DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift in Sources */,
+				F44883BE2DB10DA5008B9BB5 /* SeaInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -823,6 +975,14 @@
 				F4DE47B52AA0107000ED2D23 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F4F778BC2B61EF2300BAD8AF /* Point.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4F778BD2B61EF2300BAD8AF /* Base */,
+			);
+			name = Point.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -944,7 +1104,11 @@
 		};
 		F4DE47BB2AA0107000ED2D23 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDA398BA0DAB4D361B4206DB /* Pods-FishingDiary.debug.xcconfig */;
 			buildSettings = {
+				API_BASE_URL = "https://www.nifs.go.kr";
+				API_KEY_COO = "qPwOeIrU-2403-NAATGM-0764";
+				API_KEY_RISA = "qPwOeIrU-2503-TBWQGH-1070";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_ARC = NO;
@@ -952,11 +1116,8 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GM947B92EY;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/FishingDiary/Libraries/DaumMap/DaumMap.embeddedframework",
-				);
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J4U5JHH66D;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FishingDiary/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Fishing Diary";
@@ -972,12 +1133,12 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bj.fishingdiary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.samsungcard.shopping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = fishing_diary_dev_provs;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "samsungcard shopping dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "FishingDiary/FishingDiary-Bridge-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -985,7 +1146,11 @@
 		};
 		F4DE47BC2AA0107000ED2D23 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7923DDEBCA0435B83A181040 /* Pods-FishingDiary.release.xcconfig */;
 			buildSettings = {
+				API_BASE_URL = "https://www.nifs.go.kr";
+				API_KEY_COO = "qPwOeIrU-2403-NAATGM-0764";
+				API_KEY_RISA = "qPwOeIrU-2503-TBWQGH-1070";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_ARC = NO;
@@ -993,11 +1158,8 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GM947B92EY;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/FishingDiary/Libraries/DaumMap/DaumMap.embeddedframework",
-				);
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J4U5JHH66D;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FishingDiary/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Fishing Diary";
@@ -1013,12 +1175,12 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bj.fishingdiary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.samsungcard.shopping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = fishing_diary_dev_provs;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "samsungcard shopping dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "FishingDiary/FishingDiary-Bridge-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

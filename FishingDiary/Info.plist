@@ -2,8 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ApiBaseURL</key>
+	<string>$(API_BASE_URL)</string>
+	<key>ApiKeyCoo</key>
+	<string>$(API_KEY_COO)</string>
+	<key>ApiKeyRisa</key>
+	<string>$(API_KEY_RISA)</string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>KAKAO_APP_KEY</key>
-	<string>ad4c084ebf58f4767076f24c0b6c0c63</string>
+	<string>9721addb86ae11a44b9e8515282e31d4</string>
+	<key>KAKAO_PHASE</key>
+	<string></string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -147,19 +147,19 @@ extension PointMapViewModel {
                 area.append(point)
                 
                 if area.count > 1 {
-                    let poliline = MKPolyline(coordinates: &area, count: area.count)
+                    let polyline = MKPolyline(coordinates: &area, count: area.count)
                     if let kmh = Float(location.kmh), let knot = Float(location.knot) {
-                        poliline.kmh = kmh
-                        poliline.knot = knot
-                        poliline.color = (kmh < FDAppManager.pointVelocity) ? UIColor.red:UIColor.blue
-                        poliline.title = (kmh < FDAppManager.pointVelocity) ? "point":"move"
+                        polyline.kmh = kmh
+                        polyline.knot = knot
+                        polyline.color = (kmh < FDAppManager.pointVelocity) ? UIColor.red:UIColor.blue
+                        polyline.title = (kmh < FDAppManager.pointVelocity) ? "point":"move"
                         //print("area count: \(area.count)")
-                        //print("make polyline line kmh: \(poliline.kmh) knot: \(poliline.knot) color: \((poliline.color == UIColor.red ? "red":"blue"))")    // > testcode
+                        //print("make polyline line kmh: \(polyline.kmh) knot: \(polyline.knot) color: \((polyline.color == UIColor.red ? "red":"blue"))")    // > testcode
                     }
                     else {
                         print("not velocity")
                     }
-                    polyLines.append(poliline)
+                    polyLines.append(polyline)
                     
                     area.removeFirst()
                 }

@@ -7,6 +7,12 @@
 
 import Foundation
 import MapKit
+import KakaoMapsSDK
+
+enum MapType: Int {
+    case AppleMap
+    case KakaoMap
+}
 
 struct LocationData: Codable {
     var time: String
@@ -15,6 +21,11 @@ struct LocationData: Codable {
     var kmh: String
     var knot: String
     var sequence: Int
+}
+
+struct LocationInfo {
+    var locationData: LocationData
+    var locationInfo: CLLocation
 }
 
 enum DMSType: Int {
@@ -56,9 +67,20 @@ class MapPin: NSObject, MKAnnotation {
     }
 }
 
-struct LocationInfo {
-    var locationData: LocationData
-    var locationInfo: CLLocation
+class KakaoMapPin: NSObject {
+    let title: String?
+    let subtitle: String?
+    let mapPoint: MapPoint
+    let locationData: LocationData
+    var dmsType: DMSType
+    
+    init(title: String?, subtitle: String?, mapPoint: MapPoint, locationData: LocationData, dmsType: DMSType) {
+        self.title = title
+        self.subtitle = subtitle
+        self.mapPoint = mapPoint
+        self.locationData = locationData
+        self.dmsType = dmsType
+    }
 }
 
 struct MapLineInfo {    // > combine

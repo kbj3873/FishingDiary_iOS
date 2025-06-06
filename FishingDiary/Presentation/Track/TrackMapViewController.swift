@@ -22,7 +22,7 @@ class TrackMapViewController: UIViewController, StoryboardInstantiable {
     @IBOutlet var longitudeLb: UILabel!
     
     static func create(with viewModel: TrackMapViewModel) -> TrackMapViewController {
-        let view = TrackMapViewController.instantiateViewController(boardName: .main)
+        let view = TrackMapViewController.instantiateViewController(boardName: .point)
         view.viewModel = viewModel
         return view
     }
@@ -120,7 +120,6 @@ extension TrackMapViewController: MKMapViewDelegate {
 }
 
 // MARK: - Extension UIViewController for show TrackMapViewController
-/*
 extension UIViewController {
     func showMapView() {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TrackMapViewController") as? TrackMapViewController {
@@ -130,4 +129,3 @@ extension UIViewController {
         }
     }
 }
-*/

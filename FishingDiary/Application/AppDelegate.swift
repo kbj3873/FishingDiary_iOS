@@ -9,7 +9,7 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    let dataServiceDIContainer = DataServiceDIContainer()
     var appFlowCoordinator: AppFlowCoordinator?
     var window: UIWindow?
     
@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = navigationController
         
-        appFlowCoordinator = AppFlowCoordinator(navigationController: navigationController)
+        appFlowCoordinator = AppFlowCoordinator(navigationController: navigationController, dataServiceDIContainer: dataServiceDIContainer)
         appFlowCoordinator?.start()
         
         window?.makeKeyAndVisible()
