@@ -134,7 +134,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             return TempuratureCell()
         }
         
-        //cell.fill(with: viewModel.items.value[indexPath.row])
         cell.fill(with: viewModel.items.value.oceanStations[indexPath.row])
         
         return cell
