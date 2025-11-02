@@ -12,7 +12,7 @@ protocol OceanSelectViewModelOutput {
     var items: CurrentValueSubject<[OceanStationModel], Never> { get }
 }
 
-final class OceanSelectViewModel {
+final class OceanSelectViewModel: ObservableObject {
     private let appConfiguration: AppConfiguration
     private let oceanUseCase: OceanUseCase
     private var oceanLoadTask: Cancellable? {
@@ -23,6 +23,7 @@ final class OceanSelectViewModel {
     private let mainQueue: DispatchQueueType
     
     let items = CurrentValueSubject<[OceanStationModel], Never>([])
+    @Published var oceanStations = [OceanStationModel]()
     
     init(appConfiguration: AppConfiguration,
          oceanUseCase: OceanUseCase,
@@ -54,6 +55,7 @@ extension OceanSelectViewModel {
                     }
                     
                     self.items.value = self.makeModels(item)
+                    self.oceanStations = self.makeModels(item)
                     
                 case .failure(let error):
                     print(error)
@@ -155,6 +157,7 @@ extension OceanSelectViewModel {
         }
         
         self.items.value = oceanStationList
+        self.oceanStations = oceanStationList
     }
 }
 

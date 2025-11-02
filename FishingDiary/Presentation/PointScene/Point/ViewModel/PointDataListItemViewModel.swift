@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PointDataListItemViewModel {
+struct PointDataListItemViewModel: Hashable {
     var dataPath: URL
     var dataName: String
 }

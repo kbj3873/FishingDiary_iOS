@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 protocol PointFlowCoordinatorDependencies {
+    func makeMainHostingViewController(actions: MainViewModelActions) -> MainHostingViewController
     func makeMainViewController(actions: MainViewModelActions) -> MainViewController
     func makeOceanSelectViewController() -> OceanSelectViewController
     func makeTemperatureViewController() -> SeaWaterTemperatureViewController
@@ -34,6 +35,15 @@ final class PointFlowCoordinator: Coordinator {
         self.navigationController = navigationController
         self.childCoordinators = childCoordinators ?? [Coordinator]()
         self.dependencies = dependencies
+    }
+    
+    func startSwiftUI() {
+        let actions = MainViewModelActions(showOceanSelectedView: showOceanSeleted,
+                                           showTrackMapView: showTrackMap,
+                                           showPointList: showPointDateList,
+                                           showTemperature: showTemperature)
+        let vc = dependencies.makeMainHostingViewController(actions: actions)
+        navigationController?.pushViewController(vc, animated: false)
     }
     
     func start() {

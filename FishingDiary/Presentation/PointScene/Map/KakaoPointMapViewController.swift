@@ -36,6 +36,9 @@ class KakaoPointMapViewController: UIViewController, StoryboardInstantiable {
     @IBOutlet var sequenceLb: UILabel!
     @IBOutlet var convertBtn: UIButton!
     
+    // SwiftUI로 이벤트 전달을 위한 콜백 추가
+    var onPinSelected: ((KakaoMapPin?) -> Void)?
+    
     required init?(coder: NSCoder) {
         observerAdded = false
         appeared = false
@@ -43,6 +46,8 @@ class KakaoPointMapViewController: UIViewController, StoryboardInstantiable {
     }
     
     deinit {
+        infoView?.isHidden = true
+        controller.stopRendering()
         controller.stopEngine()
         _mapTapEventHandler?.dispose()
     }
@@ -217,6 +222,9 @@ extension KakaoPointMapViewController: KakaoMapEventDelegate {
     
     func mapDidTapped(_ param: ViewInteractionEventParam) {
         self.infoView.isHidden = true
+        
+        // SwiftUI에 선택 해제 전달
+        onPinSelected?(nil)
     }
     
     // MARK: - shape poi
@@ -409,5 +417,8 @@ extension KakaoPointMapViewController: MapControllerDelegate {
         self.infoView.isHidden = false
         
         self.selMapPin = pin
+        
+        // SwiftUI로 이벤트 전달
+        onPinSelected?(pin)
     }
 }

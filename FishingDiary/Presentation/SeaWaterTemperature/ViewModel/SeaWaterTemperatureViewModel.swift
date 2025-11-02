@@ -19,7 +19,7 @@ protocol SeaWaterTemperatureViewModelOutput {
 
 typealias SeaWaterTemperatureViewModelProtocol = SeaWaterTemperatureViewModelInput & SeaWaterTemperatureViewModelOutput
 
-final class SeaWaterTemperatureViewModel {
+final class SeaWaterTemperatureViewModel: ObservableObject {
     private let appConfiguration: AppConfiguration
     private let oceanUseCase: OceanUseCase
     
@@ -29,6 +29,13 @@ final class SeaWaterTemperatureViewModel {
         }
     }
     private let mainQueue: DispatchQueueType
+    
+    @Published var tempuratureItems: [SeaWaterTempuratureSet] = []
+    @Published var isLoading: Bool = false
+    
+    // 선택 상태
+    @Published var selectedSea: Sea = .none
+    @Published var selectedObserv: (any Observ)? = nil
     
     let tempItems = CurrentValueSubject<[SeaWaterTempuratureSet], Never>([])
     
@@ -79,6 +86,7 @@ final class SeaWaterTemperatureViewModel {
         items = self.addTodayDummyData(items)
         
         self.tempItems.value = items
+        self.tempuratureItems = items
     }
     
     // > 중간에 누락된 날짜 및 더미 데이터 추가..

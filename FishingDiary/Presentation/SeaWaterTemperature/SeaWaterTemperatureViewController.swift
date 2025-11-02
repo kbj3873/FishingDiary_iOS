@@ -26,8 +26,11 @@ class SeaWaterTemperatureViewController: UIViewController, StoryboardInstantiabl
     @IBOutlet var botTitleLabel: UILabel!
     @IBOutlet var botTempLabel: UILabel!
     
+    @IBOutlet var surScrollView: UIScrollView!
     @IBOutlet var tempSurView: UIView!
+    @IBOutlet var midScrollView: UIScrollView!
     @IBOutlet var tempMidView: UIView!
+    @IBOutlet var bottomScrollView: UIScrollView!
     @IBOutlet var tempBotView: UIView!
     
     @IBOutlet var surDateLabelStackView: UIStackView!
@@ -421,21 +424,12 @@ class ZeddLineGraph: UIView {
         self.addMinTempuratureLabel(temp: tempList.min()!, parentView: self)
     }
     
-    private func addEmptyView(parentView: UIView) {
-        let label = UILabel(frame: CGRectZero)
-        label.text = "수온정보가 없습니다."
-        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 10.0)
-        label.sizeToFit()
-        self.addSubview(label)
-        label.center = CGPoint(x: parentView.bounds.width / 2, y: parentView.bounds.height / 2)
-    }
-    
     private func addMaxTempuratureLabel(temp: CGFloat, parentView: UIView) {
         let label = UILabel(frame: CGRectZero)
         label.text = String(format: "주간최고: %.1f", temp)
         label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 12.0)
         label.sizeToFit()
-        self.addSubview(label)
+        parentView.addSubview(label)
         label.center = CGPoint(
             x: parentView.bounds.width - (label.bounds.width / 2),
             y: 2.0 + (label.bounds.height / 2)
@@ -447,10 +441,20 @@ class ZeddLineGraph: UIView {
         label.text = String(format: "주간최저: %.1f", temp)
         label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 12.0)
         label.sizeToFit()
-        self.addSubview(label)
+        parentView.addSubview(label)
         label.center = CGPoint(
             x: parentView.bounds.width - (label.bounds.width / 2),
             y: parentView.bounds.height - (label.bounds.height / 2) - 2.0
         )
+    }
+    
+    
+    private func addEmptyView(parentView: UIView) {
+        let label = UILabel(frame: CGRectZero)
+        label.text = "수온정보가 없습니다."
+        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 10.0)
+        label.sizeToFit()
+        self.addSubview(label)
+        label.center = CGPoint(x: parentView.bounds.width / 2, y: parentView.bounds.height / 2)
     }
 }

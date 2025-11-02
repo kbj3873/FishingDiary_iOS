@@ -23,12 +23,13 @@ protocol PointDateListViewModelOutput {
 
 typealias PointDateListViewModelProtocol = PointDateListViewModelInput & PointDateListViewModelOutput
 
-final class PointDateListViewModel {
+final class PointDateListViewModel: ObservableObject {
     
     private let pointDateUseCase: PointDateUseCase
     private let actions: PointDateListViewModelActions?
     
     var items = CurrentValueSubject<[PointDateListItemViewModel], Never>([])
+    @Published var pointDateList = [PointDateListItemViewModel]()
     
     init(pointDateUseCase: PointDateUseCase, actions: PointDateListViewModelActions? = nil) {
         self.pointDateUseCase = pointDateUseCase
@@ -57,6 +58,7 @@ final class PointDateListViewModel {
         }
         
         items.value = viewModelItems
+        pointDateList = viewModelItems
     }
                           
     private func handle(error: FileStorageError) {
@@ -74,5 +76,13 @@ extension PointDateListViewModel: PointDateListViewModelProtocol {
         let pointDate = PointDate(date: item.date,
                                   datePath: item.datePath)
         actions?.showPointDataList(pointDate)
+    }
+    
+    func createPointDataLietView(dateModel: PointDateListItemViewModel) -> PointDataListUIView {
+        let pointDate = PointDate(date: dateModel.date,
+                                  datePath: dateModel.datePath)
+        
+        let pointSceneDIContainer: PointSceneDIContainer = AppDIContainer.shared.resolve()
+        return PointDataListUIView(viewModel: pointSceneDIContainer.makePointDataListViewModel(pointDate: pointDate))
     }
 }

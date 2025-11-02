@@ -14,7 +14,7 @@ class FDAppManager: NSObject {
     static let kmhKnot      : Float = 1.852         // > 1knot = 1.852km/h
     static let pointVelocity: Float = 2 * kmhKnot   // > 해당속도 미만일경우 포인트 구간으로 간주
     
-    var mapTp: MapType = .KakaoMap           // > 초기 지도 종류
+    var mapTp: MapType = .AppleMap           // > 초기 지도 종류
     
     func appInitialize() {
         FDFileManager().createDefaultDirectories()

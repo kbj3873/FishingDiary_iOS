@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PointDateListItemViewModel {
+struct PointDateListItemViewModel: Hashable {
     let date: String
     let datePath: URL
 }
