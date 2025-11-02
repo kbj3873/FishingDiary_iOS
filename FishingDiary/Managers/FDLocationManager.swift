@@ -37,15 +37,15 @@ class FDLocationManager: NSObject {
     func initLocation() {
         latitude = ""
         longitude = ""
-        locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 5
-        locationManager.allowsBackgroundLocationUpdates = true
     }
     
     func startTracking() {
+        locationManager.delegate = self
+        
         sequenceNum = 0
         latitude = ""
         longitude = ""
@@ -59,6 +59,8 @@ class FDLocationManager: NSObject {
     
     func stopTracking() {
         locationManager.stopUpdatingLocation()
+        
+        locationManager.delegate = nil
         
         sequenceNum = 0
         

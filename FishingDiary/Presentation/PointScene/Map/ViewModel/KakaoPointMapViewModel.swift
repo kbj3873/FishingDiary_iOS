@@ -19,11 +19,15 @@ protocol KakaoPointMapViewModelOutput {
     var points: CurrentValueSubject<[MapPoint], Never> { get }
     var mapPinItems: CurrentValueSubject<[KakaoMapPin], Never> { get }
     var polylineItems: CurrentValueSubject<[MapPolyline], Never> { get }
+    
+    var mapPoints: [MapPoint] { get }
+    var mapPins: [KakaoMapPin] { get }
+    var polylines: [MapPolyline] { get }
 }
 
 typealias KakaoPointMapViewModelProtocol = KakaoPointMapViewModelInput & KakaoPointMapViewModelOutput
 
-final class KakaoPointMapViewModel {
+final class KakaoPointMapViewModel: ObservableObject {
     private let pointData: PointData
     private let pointMapUseCase: PointMapUseCase
     
@@ -31,12 +35,19 @@ final class KakaoPointMapViewModel {
     var mapPinItems = CurrentValueSubject<[KakaoMapPin], Never>([])
     var polylineItems = CurrentValueSubject<[MapPolyline], Never>([])
     
+    @Published var mapPoints = [MapPoint]()
+    @Published var mapPins = [KakaoMapPin]()
+    @Published var polylines = [MapPolyline]()
+    @Published private(set) var isLoaded = false
+    
     init(pointData: PointData, pointMapUseCase: PointMapUseCase) {
         self.pointData = pointData
         self.pointMapUseCase = pointMapUseCase
     }
     
     private func loadLocations(pointData: PointData) {
+        guard !isLoaded else { return }
+        
         pointMapUseCase.excute(pointData: pointData, completion: { [weak self] result in
             guard let self = self else { return }
             
@@ -45,6 +56,7 @@ final class KakaoPointMapViewModel {
                 self.setRegionValue(locations: locations)
                 self.setPolyLinesValue(locations: locations)
                 self.setStartMapPinsValue(locations: locations)
+                self.isLoaded = true
             case .failure(let error):
                 self.handleError(error: error)
             }
@@ -53,6 +65,13 @@ final class KakaoPointMapViewModel {
     
     private func handleError(error: FileStorageError) {
         print("point date error - \(error.description)")
+    }
+    
+    // 메모리 정리
+    func cleanup() {
+        mapPoints.removeAll()
+        mapPins.removeAll()
+        polylines.removeAll()
     }
 }
 
@@ -74,6 +93,7 @@ extension KakaoPointMapViewModel {
         }
         
         self.points.value = points
+        mapPoints = points
     }
     
     private func setPolyLinesValue(locations: [LocationData]) {
@@ -114,6 +134,7 @@ extension KakaoPointMapViewModel {
         }
         
         polylineItems.value = polyLines
+        self.polylines = polyLines
     }
     
     private func setStartMapPinsValue(locations: [LocationData]) {
@@ -152,5 +173,6 @@ extension KakaoPointMapViewModel {
         }
         
         mapPinItems.value = mapPins
+        self.mapPins = mapPins
     }
 }

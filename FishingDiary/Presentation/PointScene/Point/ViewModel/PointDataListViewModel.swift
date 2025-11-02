@@ -23,18 +23,26 @@ protocol PointDataListViewModelOutput {
 
 typealias PointDataListViewModelProtocol = PointDataListViewModelInput & PointDataListViewModelOutput
 
-final class PointDataListViewModel {
+final class PointDataListViewModel: ObservableObject {
     private let pointDataUseCase: PointDataUseCase
     private let actions: PointDataListViewModelActions?
     
     var pointDate: PointDate
     
     var items = CurrentValueSubject<[PointDataListItemViewModel], Never>([])
-    var pointDataList = [PointData]()
+    var itemList = [PointData]()
+    @Published var pointDataList = [PointDataListItemViewModel]()
+    
+    // Navigation 상태
+    @Published var selectedPointData: PointData?
+    @Published var isShowingPointMap = false
+    // PointMapViewModel (한 번만 생성)
+    @Published var pointMapViewModel: PointMapViewModel?
+    @Published var kakaoPointMapViewModel: KakaoPointMapViewModel?
     
     init(pointDate: PointDate,
          pointDataUseCase: PointDataUseCase,
-         pointDataListViewModelActions: PointDataListViewModelActions) {
+         pointDataListViewModelActions: PointDataListViewModelActions? = nil) {
         self.pointDate = pointDate
         self.pointDataUseCase = pointDataUseCase
         self.actions = pointDataListViewModelActions
@@ -61,7 +69,8 @@ final class PointDataListViewModel {
         }
         
         items.value = viewModelItems
-        self.pointDataList = pointDataList
+        self.itemList = pointDataList
+        self.pointDataList = viewModelItems
     }
     
     private func handleError(error: FileStorageError) {
@@ -75,7 +84,37 @@ extension PointDataListViewModel: PointDataListViewModelProtocol {
     }
     
     func didSelectPoint(at index: Int) {
-        actions?.showPointMap(pointDataList[index])
+        actions?.showPointMap(itemList[index])
+    }
+    
+    func pushSelectPointMap(at index: Int) {
+        let pointData = itemList[index]
+        selectedPointData = pointData
+        
+        let pointSceneDIContainer: PointSceneDIContainer = AppDIContainer.shared.resolve()
+        
+        // viewModel 생성
+        pointMapViewModel = PointMapViewModel(
+            pointData: pointData,
+            pointMapUseCase: pointSceneDIContainer.makePointMapUseCase()
+        )
+        
+        isShowingPointMap = true
+    }
+    
+    func pushSelectKakaoPointMap(at index: Int) {
+        let pointData = itemList[index]
+        selectedPointData = pointData
+        
+        let pointSceneDIContainer: PointSceneDIContainer = AppDIContainer.shared.resolve()
+        
+        // viewModel 생성
+        kakaoPointMapViewModel = KakaoPointMapViewModel(
+            pointData: pointData,
+            pointMapUseCase: pointSceneDIContainer.makePointMapUseCase()
+        )
+        
+        isShowingPointMap = true
     }
 }
 

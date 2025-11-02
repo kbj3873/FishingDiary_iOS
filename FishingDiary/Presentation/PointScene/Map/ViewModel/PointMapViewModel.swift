@@ -14,6 +14,10 @@ protocol PointMapViewModelInput {
 }
 
 protocol PointMapViewModelOutput {
+    var region: MKCoordinateRegion { get }
+    var mapPins: [MapPin] { get }
+    var polyLines: [MKPolyline] { get }
+    
     var regionItem: CurrentValueSubject<MKCoordinateRegion, Never> { get }
     var mapPinItems: CurrentValueSubject<[MapPin], Never> { get }
     var polyLineItems: CurrentValueSubject<[MKPolyline], Never> { get }
@@ -21,9 +25,14 @@ protocol PointMapViewModelOutput {
 
 typealias PointMapViewModelProtocol = PointMapViewModelInput & PointMapViewModelOutput
 
-final class PointMapViewModel {
+final class PointMapViewModel: ObservableObject {
     private let pointData: PointData
     private let pointMapUseCase: PointMapUseCase
+    
+    @Published var region = MKCoordinateRegion()
+    @Published var mapPins = [MapPin]()
+    @Published var polyLines = [MKPolyline]()
+    @Published private(set) var isLoaded = false
     
     var regionItem = CurrentValueSubject<MKCoordinateRegion, Never>(MKCoordinateRegion())
     var mapPinItems = CurrentValueSubject<[MapPin], Never>([])
@@ -34,7 +43,13 @@ final class PointMapViewModel {
         self.pointMapUseCase = pointMapUseCase
     }
     
+    deinit {
+        print("PointMapViewModel deinit")
+    }
+    
     private func loadLocations(pointData: PointData) {
+        guard !isLoaded else { return }
+        
         pointMapUseCase.excute(pointData: pointData, completion: { [weak self] result in
             guard let self = self else { return }
             
@@ -43,6 +58,7 @@ final class PointMapViewModel {
                 self.setPolyLinesValue(locations: locations)
                 self.setRegionValue(locations: locations)
                 self.setAnnotationsValue(locations: locations)
+                self.isLoaded = true
             case .failure(let error):
                 self.handleError(error: error)
             }
@@ -88,6 +104,7 @@ extension PointMapViewModel {
         let region = MKCoordinateRegion(center: centerlocation, latitudinalMeters: 2 * distance, longitudinalMeters: 2 * distance)
         
         regionItem.value = region
+        self.region = region
     }
     
     private func setAnnotationsValue(locations: [LocationData]) {
@@ -132,6 +149,7 @@ extension PointMapViewModel {
         }
         
         mapPinItems.value = mapPins
+        self.mapPins = mapPins
     }
     
     private func setPolyLinesValue(locations: [LocationData]) {
@@ -174,5 +192,6 @@ extension PointMapViewModel {
         }
         
         polyLineItems.value = polyLines
+        self.polyLines = polyLines
     }
 }

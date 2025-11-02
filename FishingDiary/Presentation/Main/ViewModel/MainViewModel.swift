@@ -16,6 +16,7 @@ struct MainViewModelActions {
 }
 
 protocol MainViewModelInput {
+    func createOceanSelectView() -> OceanSelectView
     func didSelectOceanSelctedView()
     func didSelectTemperature()
     func didSelectTrackMapView()
@@ -24,9 +25,10 @@ protocol MainViewModelInput {
 
 protocol MainViewModelOutput {
     var items: CurrentValueSubject<TempuratureListItemViewModel, Never> { get }
+    var oceanStations: [OceanStationModel] { get }
 }
 
-final class MainViewModel {
+final class MainViewModel: ObservableObject {
     
     private let actions: MainViewModelActions?
     
@@ -39,7 +41,9 @@ final class MainViewModel {
     }
     private let mainQueue: DispatchQueueType
     
-    let items = CurrentValueSubject<TempuratureListItemViewModel, Never>(TempuratureListItemViewModel(oceanStations: []))
+    var items = CurrentValueSubject<TempuratureListItemViewModel, Never>(TempuratureListItemViewModel(oceanStations: []))
+    @Published var oceanStations = [OceanStationModel]()
+    @Published var selectedMapType: MapType = FDAppManager.shared.mapTp
     
     init(actions: MainViewModelActions? = nil,
          appConfiguration: AppConfiguration,
@@ -53,6 +57,15 @@ final class MainViewModel {
 }
 
 extension MainViewModel: MainViewModelInput {
+    func createOceanSelectView() -> OceanSelectView {
+        let pointSceneDIContainer: PointSceneDIContainer = AppDIContainer.shared.resolve()
+        return OceanSelectView(viewModel: pointSceneDIContainer.makeOceanSelectViewModel())
+    }
+    
+    func createPointDateLietView() -> PointDateListUIView {
+        let pointSceneDIContainer: PointSceneDIContainer = AppDIContainer.shared.resolve()
+        return PointDateListUIView(viewModel: pointSceneDIContainer.makePointDateListViewModel())
+    }
     
     func didSelectOceanSelctedView() {
         actions?.showOceanSelectedView()
@@ -94,6 +107,36 @@ extension MainViewModel {
                     let visibleModel = self.makeModels(item)
                     
                     self.items.value = self.loadSavedSeaTempuratureList(visibleModel)
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        })
+        
+    }
+    
+    private func loadStationList(risaListQuery: RisaListQuery) {
+        
+        oceanLoadTask = oceanUseCase.excuteRisaList(requestValue: .init(query: risaListQuery),
+                                                       completion: { [weak self] results in
+            guard let self = self else { return }
+            
+            self.mainQueue.async {
+                switch results {
+                case .success(let risaList):
+                    guard let body = risaList.body, let item = body.item as? [RisaList] else {
+                        print("no risa items")
+                        return
+                    }
+                    
+                    for station in item {
+                        print("g:\(station.gruNam) cd: \(station.staCde) name: \(station.staNamKor) obs: \(station.obsLay) temp: \(station.wtrTmp)")
+                    }
+                    
+                    let visibleModel = self.makeModels(item)
+                    
+                    self.oceanStations = self.loadSavedSeaTempuratureList(visibleModel).oceanStations
                     
                 case .failure(let error):
                     print(error)
@@ -241,10 +284,18 @@ extension MainViewModel {
         self.fetchRisaList()
     }
     
+    func fetchStationList() {
+        self.loadStationList(risaListQuery: .init(key: appConfiguration.apiKeyRisa, id: "risaList", gruNam: "E"))
+    }
+    
     func fetchRisaList() {
         self.loadRisaList(risaListQuery: .init(key: appConfiguration.apiKeyRisa, id: "risaList", gruNam: "E"))
     }
     
+    func setMapType(_ mapType: MapType) {
+        selectedMapType = mapType
+        FDAppManager.shared.mapTp = mapType
+    }
 //    func fetchStationList() {
 //        self.loadRisaCode(risaCodeQuery: .init(key: appConfiguration.apiKeyRisa, id: "risaList", gruNam: "E", useYn: "Y"))
 //    }

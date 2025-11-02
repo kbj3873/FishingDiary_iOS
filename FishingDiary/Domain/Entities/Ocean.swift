@@ -71,7 +71,7 @@ struct Ocean: Equatable {
     var dateT: Int
 }
 
-struct OceanStationModel: Codable {
+struct OceanStationModel: Codable, Hashable {
     var stationCode: String
     var stationName: String
     var surTempurature: String

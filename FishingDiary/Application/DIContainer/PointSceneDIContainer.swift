@@ -31,6 +31,10 @@ final class PointSceneDIContainer {
 
 // MARK: make scene
 extension PointSceneDIContainer: PointFlowCoordinatorDependencies {
+    func makeMainHostingViewController(actions: MainViewModelActions) -> MainHostingViewController {
+        MainHostingViewController.create(with: makeMainViewModel(actions: actions))
+    }
+    
     func makeMainViewController(actions: MainViewModelActions) -> MainViewController {
         MainViewController.create(with: makeMainViewModel(actions: actions))
     }
@@ -96,9 +100,17 @@ extension PointSceneDIContainer {
         KakaoTrackMapViewModel(trackMapUseCase: makeTrackMapUseCase())
     }
     
+    func makePointDateListViewModel() -> PointDateListViewModel {
+        PointDateListViewModel(pointDateUseCase: makePointDateListUseCase())
+    }
+    
     func makePointDateListViewModel(actions: PointDateListViewModelActions) -> PointDateListViewModel {
         PointDateListViewModel(pointDateUseCase: makePointDateListUseCase(),
                                actions: actions)
+    }
+    
+    func makePointDataListViewModel(pointDate: PointDate) -> PointDataListViewModel {
+        PointDataListViewModel(pointDate: pointDate, pointDataUseCase: makePointDataListUseCase())
     }
     
     func makePointDataListViewModel(pointDate: PointDate, actions: PointDataListViewModelActions) -> PointDataListViewModel {

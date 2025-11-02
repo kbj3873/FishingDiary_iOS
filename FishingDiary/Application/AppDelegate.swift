@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navigationController
         
         appFlowCoordinator = AppFlowCoordinator(navigationController: navigationController, dataServiceDIContainer: dataServiceDIContainer)
-        appFlowCoordinator?.start()
+        appFlowCoordinator?.startSwiftUI()
         
         window?.makeKeyAndVisible()
         
