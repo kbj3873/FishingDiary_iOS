@@ -29,3 +29,4 @@ final class AppConfiguration {
         return apiBaseURL
     }()
 }
+

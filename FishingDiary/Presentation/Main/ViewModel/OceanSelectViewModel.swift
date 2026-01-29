@@ -25,6 +25,12 @@ final class OceanSelectViewModel: ObservableObject {
     let items = CurrentValueSubject<[OceanStationModel], Never>([])
     @Published var oceanStations = [OceanStationModel]()
     
+    // 데이터 변경 시 호출될 콜백
+    var onDataUpdated: (() -> Void)?
+    
+    // 데이터 변경 여부 추적
+    private var isDataChanged: Bool = false
+    
     init(appConfiguration: AppConfiguration,
          oceanUseCase: OceanUseCase,
          mainQueue: DispatchQueueType = DispatchQueue.main) {
@@ -96,6 +102,16 @@ extension OceanSelectViewModel {
                         chModel.botTempurature = item.wtrTmp
                     }
                     chModel.stationName = item.staNamKor
+                    
+                    // 해역 이름 매핑
+                    switch item.gruNam {
+                    case "E": chModel.seaName = "동해"
+                    case "W": chModel.seaName = "서해"
+                    case "S": chModel.seaName = "남해"
+                    case "J": chModel.seaName = "제주"
+                    default: chModel.seaName = item.gruNam
+                    }
+                    
                     oceanStationList[index] = chModel
                 }
             }
@@ -121,6 +137,7 @@ extension OceanSelectViewModel {
         
         return oceanStationList
     }
+    
     
     func saveCheckList(_ selected: Bool, model: OceanStationModel) {
         var savedOceanList = FDUserDefaults.getFromList(key: UserDefaultKey.regionalSeaTempuratureList, type: OceanStationModel.self)
@@ -158,6 +175,16 @@ extension OceanSelectViewModel {
         
         self.items.value = oceanStationList
         self.oceanStations = oceanStationList
+        
+        // 변경 플래그 설정 (즉시 콜백 호출 X)
+        isDataChanged = true
+    }
+    
+    func viewDidDisappear() {
+        if isDataChanged {
+            onDataUpdated?()
+            isDataChanged = false
+        }
     }
 }
 

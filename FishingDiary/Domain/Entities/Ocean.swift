@@ -77,5 +77,6 @@ struct OceanStationModel: Codable, Hashable {
     var surTempurature: String
     var midTempurature: String
     var botTempurature: String
+    var seaName: String = ""
     var isChecked: Bool = false
 }

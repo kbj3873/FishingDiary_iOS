@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		569F048024BBD429EC11659B /* Pods_FishingDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03AA4355987AC316DDA08C99 /* Pods_FishingDiary.framework */; };
 		F401EC1A2E9F6422002F52FF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC192E9F6422002F52FF /* MainView.swift */; };
+		F4C1AUD42F01290200BFACE1 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD32F01290100BFACE1 /* MainTabView.swift */; };
+		F4C1AUD62F01290400BFACE1 /* CurrentTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD52F01290300BFACE1 /* CurrentTemperatureView.swift */; };
+		F4C1AUD82F01290600BFACE1 /* CurrentTemperatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD72F01290500BFACE1 /* CurrentTemperatureViewModel.swift */; };
+		F4C1AUDA2F01290800BFACE1 /* OceanRegionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD92F01290700BFACE1 /* OceanRegionCardView.swift */; };
 		F401EC1C2E9F7494002F52FF /* MainHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */; };
 		F406B4452B30061100AEEA2B /* TrackMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */; };
 		F406B4472B3006E400AEEA2B /* TrackMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4462B3006E400AEEA2B /* TrackMapRepository.swift */; };
@@ -100,8 +104,6 @@
 		F4DE480D2AA0277700ED2D23 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE480C2AA0277700ED2D23 /* UIKit.framework */; };
 		F4DE480F2AA0278A00ED2D23 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE480E2AA0278A00ED2D23 /* Foundation.framework */; };
 		F4DE48112AA0279B00ED2D23 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE48102AA0279B00ED2D23 /* CoreGraphics.framework */; };
-		F4DE48142AA02A6C00ED2D23 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE48122AA02A6C00ED2D23 /* libstdc++.6.0.9.tbd */; };
-		F4DE48152AA02A6E00ED2D23 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE48132AA02A6C00ED2D23 /* libstdc++.6.tbd */; };
 		F4DE481B2AA02DA300ED2D23 /* FDLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE481A2AA02DA300ED2D23 /* FDLocationManager.swift */; };
 		F4DE481E2AA02E7B00ED2D23 /* SCPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE481D2AA02E7B00ED2D23 /* SCPrivacy.swift */; };
 		F4DE48212AA041CF00ED2D23 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE48202AA041CF00ED2D23 /* UIApplication.swift */; };
@@ -149,6 +151,10 @@
 		7923DDEBCA0435B83A181040 /* Pods-FishingDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.release.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.release.xcconfig"; sourceTree = "<group>"; };
 		EDA398BA0DAB4D361B4206DB /* Pods-FishingDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.debug.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.debug.xcconfig"; sourceTree = "<group>"; };
 		F401EC192E9F6422002F52FF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		F4C1AUD32F01290100BFACE1 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		F4C1AUD52F01290300BFACE1 /* CurrentTemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTemperatureView.swift; sourceTree = "<group>"; };
+		F4C1AUD72F01290500BFACE1 /* CurrentTemperatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTemperatureViewModel.swift; sourceTree = "<group>"; };
+		F4C1AUD92F01290700BFACE1 /* OceanRegionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanRegionCardView.swift; sourceTree = "<group>"; };
 		F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHostingViewController.swift; sourceTree = "<group>"; };
 		F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapViewModel.swift; sourceTree = "<group>"; };
 		F406B4462B3006E400AEEA2B /* TrackMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapRepository.swift; sourceTree = "<group>"; };
@@ -241,8 +247,6 @@
 		F4DE480C2AA0277700ED2D23 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F4DE480E2AA0278A00ED2D23 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4DE48102AA0279B00ED2D23 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F4DE48122AA02A6C00ED2D23 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
-		F4DE48132AA02A6C00ED2D23 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		F4DE481A2AA02DA300ED2D23 /* FDLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLocationManager.swift; sourceTree = "<group>"; };
 		F4DE481D2AA02E7B00ED2D23 /* SCPrivacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCPrivacy.swift; sourceTree = "<group>"; };
 		F4DE48202AA041CF00ED2D23 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -276,8 +280,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4DE48142AA02A6C00ED2D23 /* libstdc++.6.0.9.tbd in Frameworks */,
-				F4DE48152AA02A6E00ED2D23 /* libstdc++.6.tbd in Frameworks */,
 				F4DE480B2AA026E400ED2D23 /* libsqlite3.tbd in Frameworks */,
 				F4DE48092AA026DA00ED2D23 /* libxml2.tbd in Frameworks */,
 				F4DE48072AA026D200ED2D23 /* libc++.tbd in Frameworks */,
@@ -495,8 +497,11 @@
 				F4DE47AD2AA0106E00ED2D23 /* MainViewController.swift */,
 				F40717052DBF845B00A433A5 /* OceanSelectViewController.swift */,
 				F401EC192E9F6422002F52FF /* MainView.swift */,
+				F4C1AUD32F01290100BFACE1 /* MainTabView.swift */,
+				F4C1AUD52F01290300BFACE1 /* CurrentTemperatureView.swift */,
 				F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */,
 				F40A75E32EA0E9C500B6AC81 /* OceanSelectView.swift */,
+				F4C1AUDB2F01290900BFACE1 /* Components */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -505,11 +510,20 @@
 			isa = PBXGroup;
 			children = (
 				F4395F782B22FDE70017BBAF /* MainViewModel.swift */,
+				F4C1AUD72F01290500BFACE1 /* CurrentTemperatureViewModel.swift */,
 				F41DD8FB2D82C4EB00E2DAAD /* TempuratureListItemViewModel.swift */,
 				F40717092DBF888900A433A5 /* OceanSelectCellViewModel.swift */,
 				F407170B2DBF99B600A433A5 /* OceanSelectViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F4C1AUDB2F01290900BFACE1 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F4C1AUD92F01290700BFACE1 /* OceanRegionCardView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		F44883B72DB10DA5008B9BB5 /* ViewModel */ = {
@@ -659,8 +673,6 @@
 		F4DE47FD2AA0256A00ED2D23 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F4DE48122AA02A6C00ED2D23 /* libstdc++.6.0.9.tbd */,
-				F4DE48132AA02A6C00ED2D23 /* libstdc++.6.tbd */,
 				F4DE48102AA0279B00ED2D23 /* CoreGraphics.framework */,
 				F4DE480E2AA0278A00ED2D23 /* Foundation.framework */,
 				F4DE480C2AA0277700ED2D23 /* UIKit.framework */,
@@ -948,6 +960,10 @@
 				F4DE47AE2AA0106E00ED2D23 /* MainViewController.swift in Sources */,
 				F42C4DCC2B6386CB00B82374 /* KakaoPointMapViewController.swift in Sources */,
 				F401EC1A2E9F6422002F52FF /* MainView.swift in Sources */,
+				F4C1AUD42F01290200BFACE1 /* MainTabView.swift in Sources */,
+				F4C1AUD62F01290400BFACE1 /* CurrentTemperatureView.swift in Sources */,
+				F4C1AUD82F01290600BFACE1 /* CurrentTemperatureViewModel.swift in Sources */,
+				F4C1AUDA2F01290800BFACE1 /* OceanRegionCardView.swift in Sources */,
 				F4DE48212AA041CF00ED2D23 /* UIApplication.swift in Sources */,
 				F4B20E932EAB53870056FE51 /* ApplePointMapView.swift in Sources */,
 				F49DCFF92B1F09EB009C5FC4 /* StoryboardInstantiable.swift in Sources */,
@@ -1180,11 +1196,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_ARC = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J4U5JHH66D;
+				DEVELOPMENT_TEAM = S29XGKDHGV;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FishingDiary/Info.plist;
@@ -1194,17 +1209,16 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.samsungcard.shopping;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gret.user;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "samsungcard shopping dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
@@ -1222,11 +1236,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_ARC = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J4U5JHH66D;
+				DEVELOPMENT_TEAM = S29XGKDHGV;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FishingDiary/Info.plist;
@@ -1236,17 +1249,16 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.samsungcard.shopping;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gret.user;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "samsungcard shopping dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;

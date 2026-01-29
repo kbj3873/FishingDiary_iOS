@@ -31,8 +31,13 @@ final class PointSceneDIContainer {
 
 // MARK: make scene
 extension PointSceneDIContainer: PointFlowCoordinatorDependencies {
+    func makeMainHostingViewController() -> MainHostingViewController {
+        MainHostingViewController.create()
+    }
+
+    @available(*, deprecated, message: "Use makeMainHostingViewController() instead")
     func makeMainHostingViewController(actions: MainViewModelActions) -> MainHostingViewController {
-        MainHostingViewController.create(with: makeMainViewModel(actions: actions))
+        MainHostingViewController.create()
     }
     
     func makeMainViewController(actions: MainViewModelActions) -> MainViewController {
@@ -80,6 +85,11 @@ extension PointSceneDIContainer {
         MainViewModel(actions: actions,
                       appConfiguration: dependencies.appConfiguration,
                       oceanUseCase: makeOceanUseCase())
+    }
+
+    func makeCurrentTemperatureViewModel() -> CurrentTemperatureViewModel {
+        CurrentTemperatureViewModel(appConfiguration: dependencies.appConfiguration,
+                                    oceanUseCase: makeOceanUseCase())
     }
     
     func makeOceanSelectViewModel() -> OceanSelectViewModel {
