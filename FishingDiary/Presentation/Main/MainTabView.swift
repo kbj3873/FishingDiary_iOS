@@ -54,7 +54,7 @@ struct MainTabView: View {
                 .tag(TabItem.currentTemperature)
 
             // 수온분석
-            PlaceholderView(title: "수온분석")
+            SeaAnalysisView()
                 .tabItem {
                     tabLabel(for: .analysis)
                 }

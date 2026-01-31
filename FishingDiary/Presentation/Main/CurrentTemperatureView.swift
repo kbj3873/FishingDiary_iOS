@@ -11,23 +11,19 @@ struct CurrentTemperatureView: View {
     @StateObject var viewModel: CurrentTemperatureViewModel
 
     var body: some View {
-        NavigationView {
-            ZStack {
-                // Background
-                Color(hex: "F2F2F7")
-                    .ignoresSafeArea()
+        ZStack {
+            // Background
+            Color(hex: "F2F2F7")
+                .ignoresSafeArea()
 
-                VStack(spacing: 0) {
-                    // Header
-                    headerSection
+            VStack(spacing: 0) {
+                // Header
+                headerSection
 
-                    // Content
-                    contentSection
-                }
+                // Content
+                contentSection
             }
-            .navigationBarHidden(true)
         }
-        .navigationViewStyle(.stack)
         .onAppear {
             viewModel.fetchStationList()
         }

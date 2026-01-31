@@ -40,6 +40,7 @@ final class PointFlowCoordinator: Coordinator {
     
     func startSwiftUI() {
         let vc = dependencies.makeMainHostingViewController()
+        navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.pushViewController(vc, animated: false)
     }
     

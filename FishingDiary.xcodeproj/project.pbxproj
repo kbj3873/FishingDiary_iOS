@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		117A00282F2DA7C4005C7F82 /* SeaAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00252F2DA7C4005C7F82 /* SeaAnalysisView.swift */; };
+		117A00292F2DA7C4005C7F82 /* SeaRegionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */; };
+		117A002A2F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00232F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift */; };
 		569F048024BBD429EC11659B /* Pods_FishingDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03AA4355987AC316DDA08C99 /* Pods_FishingDiary.framework */; };
 		F401EC1A2E9F6422002F52FF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC192E9F6422002F52FF /* MainView.swift */; };
-		F4C1AUD42F01290200BFACE1 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD32F01290100BFACE1 /* MainTabView.swift */; };
-		F4C1AUD62F01290400BFACE1 /* CurrentTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD52F01290300BFACE1 /* CurrentTemperatureView.swift */; };
-		F4C1AUD82F01290600BFACE1 /* CurrentTemperatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD72F01290500BFACE1 /* CurrentTemperatureViewModel.swift */; };
-		F4C1AUDA2F01290800BFACE1 /* OceanRegionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD92F01290700BFACE1 /* OceanRegionCardView.swift */; };
 		F401EC1C2E9F7494002F52FF /* MainHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */; };
 		F406B4452B30061100AEEA2B /* TrackMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */; };
 		F406B4472B3006E400AEEA2B /* TrackMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4462B3006E400AEEA2B /* TrackMapRepository.swift */; };
@@ -87,6 +86,10 @@
 		F4C0276F2AB17804007D1900 /* MKPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0276E2AB17804007D1900 /* MKPolyline.swift */; };
 		F4C1AD462AB96E2400A34386 /* 230916_point.json in Resources */ = {isa = PBXBuildFile; fileRef = F4C1AD452AB96E2400A34386 /* 230916_point.json */; };
 		F4C1AD4A2AB979E300A34386 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AD492AB979E300A34386 /* String.swift */; };
+		F4C1AUD42F01290200BFACE1 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD32F01290100BFACE1 /* MainTabView.swift */; };
+		F4C1AUD62F01290400BFACE1 /* CurrentTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD52F01290300BFACE1 /* CurrentTemperatureView.swift */; };
+		F4C1AUD82F01290600BFACE1 /* CurrentTemperatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD72F01290500BFACE1 /* CurrentTemperatureViewModel.swift */; };
+		F4C1AUDA2F01290800BFACE1 /* OceanRegionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD92F01290700BFACE1 /* OceanRegionCardView.swift */; };
 		F4D5DA852EB34A3A009E07C4 /* SeaWaterTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D5DA842EB34A3A009E07C4 /* SeaWaterTemperatureView.swift */; };
 		F4D66C8F2EB047AB00BE690F /* KakaoMapViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66C8E2EB047AB00BE690F /* KakaoMapViewControllerRepresentable.swift */; };
 		F4D66C912EB0582300BE690F /* KakaoPointMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66C902EB0582300BE690F /* KakaoPointMapView.swift */; };
@@ -148,13 +151,12 @@
 
 /* Begin PBXFileReference section */
 		03AA4355987AC316DDA08C99 /* Pods_FishingDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FishingDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		117A00232F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaAnalysisViewModel.swift; sourceTree = "<group>"; };
+		117A00252F2DA7C4005C7F82 /* SeaAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaAnalysisView.swift; sourceTree = "<group>"; };
+		117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionCardView.swift; sourceTree = "<group>"; };
 		7923DDEBCA0435B83A181040 /* Pods-FishingDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.release.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.release.xcconfig"; sourceTree = "<group>"; };
 		EDA398BA0DAB4D361B4206DB /* Pods-FishingDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.debug.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.debug.xcconfig"; sourceTree = "<group>"; };
 		F401EC192E9F6422002F52FF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		F4C1AUD32F01290100BFACE1 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
-		F4C1AUD52F01290300BFACE1 /* CurrentTemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTemperatureView.swift; sourceTree = "<group>"; };
-		F4C1AUD72F01290500BFACE1 /* CurrentTemperatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTemperatureViewModel.swift; sourceTree = "<group>"; };
-		F4C1AUD92F01290700BFACE1 /* OceanRegionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanRegionCardView.swift; sourceTree = "<group>"; };
 		F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHostingViewController.swift; sourceTree = "<group>"; };
 		F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapViewModel.swift; sourceTree = "<group>"; };
 		F406B4462B3006E400AEEA2B /* TrackMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapRepository.swift; sourceTree = "<group>"; };
@@ -228,6 +230,10 @@
 		F4C0276E2AB17804007D1900 /* MKPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKPolyline.swift; sourceTree = "<group>"; };
 		F4C1AD452AB96E2400A34386 /* 230916_point.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 230916_point.json; sourceTree = "<group>"; };
 		F4C1AD492AB979E300A34386 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		F4C1AUD32F01290100BFACE1 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		F4C1AUD52F01290300BFACE1 /* CurrentTemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTemperatureView.swift; sourceTree = "<group>"; };
+		F4C1AUD72F01290500BFACE1 /* CurrentTemperatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTemperatureViewModel.swift; sourceTree = "<group>"; };
+		F4C1AUD92F01290700BFACE1 /* OceanRegionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanRegionCardView.swift; sourceTree = "<group>"; };
 		F4D5DA842EB34A3A009E07C4 /* SeaWaterTemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaWaterTemperatureView.swift; sourceTree = "<group>"; };
 		F4D66C8E2EB047AB00BE690F /* KakaoMapViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapViewControllerRepresentable.swift; sourceTree = "<group>"; };
 		F4D66C902EB0582300BE690F /* KakaoPointMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoPointMapView.swift; sourceTree = "<group>"; };
@@ -298,6 +304,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		117A00242F2DA7C4005C7F82 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				117A00232F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		117A00272F2DA7C4005C7F82 /* SeaAnalysis */ = {
+			isa = PBXGroup;
+			children = (
+				117A00242F2DA7C4005C7F82 /* ViewModel */,
+				117A00252F2DA7C4005C7F82 /* SeaAnalysisView.swift */,
+				117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */,
+			);
+			path = SeaAnalysis;
+			sourceTree = "<group>";
+		};
 		1A49441F53CDCBB62B6A9456 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +456,7 @@
 		F43151F42B185AD200027BB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				117A00272F2DA7C4005C7F82 /* SeaAnalysis */,
 				F44883BA2DB10DA5008B9BB5 /* SeaWaterTemperature */,
 				F406B4422B3005F600AEEA2B /* Track */,
 				F4395F762B22FDBD0017BBAF /* Main */,
@@ -516,14 +541,6 @@
 				F407170B2DBF99B600A433A5 /* OceanSelectViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		F4C1AUDB2F01290900BFACE1 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				F4C1AUD92F01290700BFACE1 /* OceanRegionCardView.swift */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		F44883B72DB10DA5008B9BB5 /* ViewModel */ = {
@@ -620,6 +637,14 @@
 				F4C1AD452AB96E2400A34386 /* 230916_point.json */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		F4C1AUDB2F01290900BFACE1 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F4C1AUD92F01290700BFACE1 /* OceanRegionCardView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		F4DE479D2AA0106E00ED2D23 = {
@@ -963,6 +988,9 @@
 				F4C1AUD42F01290200BFACE1 /* MainTabView.swift in Sources */,
 				F4C1AUD62F01290400BFACE1 /* CurrentTemperatureView.swift in Sources */,
 				F4C1AUD82F01290600BFACE1 /* CurrentTemperatureViewModel.swift in Sources */,
+				117A00282F2DA7C4005C7F82 /* SeaAnalysisView.swift in Sources */,
+				117A00292F2DA7C4005C7F82 /* SeaRegionCardView.swift in Sources */,
+				117A002A2F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift in Sources */,
 				F4C1AUDA2F01290800BFACE1 /* OceanRegionCardView.swift in Sources */,
 				F4DE48212AA041CF00ED2D23 /* UIApplication.swift in Sources */,
 				F4B20E932EAB53870056FE51 /* ApplePointMapView.swift in Sources */,
