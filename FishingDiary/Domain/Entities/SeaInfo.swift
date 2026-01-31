@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Sea: String, CaseIterable {
+enum Sea: String, CaseIterable, Identifiable {
     case none = "선택"
     case west = "서해"
     case east = "동해"

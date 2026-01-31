@@ -10,6 +10,9 @@
 		117A00282F2DA7C4005C7F82 /* SeaAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00252F2DA7C4005C7F82 /* SeaAnalysisView.swift */; };
 		117A00292F2DA7C4005C7F82 /* SeaRegionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */; };
 		117A002A2F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00232F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift */; };
+		117A002B2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */; };
+		117A002D2F2DA7C5005C7F82 /* SeaRegionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */; };
+		117A002F2F2DA7C5005C7F82 /* SeaRegionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */; };
 		569F048024BBD429EC11659B /* Pods_FishingDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03AA4355987AC316DDA08C99 /* Pods_FishingDiary.framework */; };
 		F401EC1A2E9F6422002F52FF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC192E9F6422002F52FF /* MainView.swift */; };
 		F401EC1C2E9F7494002F52FF /* MainHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */; };
@@ -154,6 +157,9 @@
 		117A00232F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaAnalysisViewModel.swift; sourceTree = "<group>"; };
 		117A00252F2DA7C4005C7F82 /* SeaAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaAnalysisView.swift; sourceTree = "<group>"; };
 		117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionCardView.swift; sourceTree = "<group>"; };
+		117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListViewModel.swift; sourceTree = "<group>"; };
+		117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionRowView.swift; sourceTree = "<group>"; };
+		117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListView.swift; sourceTree = "<group>"; };
 		7923DDEBCA0435B83A181040 /* Pods-FishingDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.release.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.release.xcconfig"; sourceTree = "<group>"; };
 		EDA398BA0DAB4D361B4206DB /* Pods-FishingDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.debug.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.debug.xcconfig"; sourceTree = "<group>"; };
 		F401EC192E9F6422002F52FF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -308,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				117A00232F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift */,
+				117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -318,6 +325,8 @@
 				117A00242F2DA7C4005C7F82 /* ViewModel */,
 				117A00252F2DA7C4005C7F82 /* SeaAnalysisView.swift */,
 				117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */,
+				117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */,
+				117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */,
 			);
 			path = SeaAnalysis;
 			sourceTree = "<group>";
@@ -991,6 +1000,9 @@
 				117A00282F2DA7C4005C7F82 /* SeaAnalysisView.swift in Sources */,
 				117A00292F2DA7C4005C7F82 /* SeaRegionCardView.swift in Sources */,
 				117A002A2F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift in Sources */,
+				117A002B2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift in Sources */,
+				117A002D2F2DA7C5005C7F82 /* SeaRegionRowView.swift in Sources */,
+				117A002F2F2DA7C5005C7F82 /* SeaRegionListView.swift in Sources */,
 				F4C1AUDA2F01290800BFACE1 /* OceanRegionCardView.swift in Sources */,
 				F4DE48212AA041CF00ED2D23 /* UIApplication.swift in Sources */,
 				F4B20E932EAB53870056FE51 /* ApplePointMapView.swift in Sources */,

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SeaAnalysisView: View {
     @StateObject private var viewModel = SeaAnalysisViewModel()
+    @State private var selectedSea: Sea?
 
     var body: some View {
         ZStack {
@@ -28,6 +29,11 @@ struct SeaAnalysisView: View {
             }
             .clipped()
             .scrollIndicators(.hidden)
+        }
+        .sheet(item: $selectedSea) { sea in
+            SeaRegionListView(sea: sea)
+                .presentationDetents([.large])
+                .presentationDragIndicator(.hidden)
         }
     }
 
@@ -58,8 +64,7 @@ struct SeaAnalysisView: View {
         VStack(spacing: 8) {
             ForEach(viewModel.seaRegions) { region in
                 SeaRegionCardView(region: region) {
-                    // TODO: Navigation to detail view
-                    print("Selected: \(region.title)")
+                    selectedSea = region.sea
                 }
             }
         }
