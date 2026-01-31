@@ -11,16 +11,24 @@ struct SeaAnalysisView: View {
     @StateObject private var viewModel = SeaAnalysisViewModel()
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                // Header
-                headerSection
+        ZStack {
+            // Background (safe area까지 확장)
+            Color(hex: "F2F2F7")
+                .ignoresSafeArea()
 
-                // Sea Region Cards
-                cardsSection
+            // Content
+            ScrollView {
+                VStack(spacing: 0) {
+                    // Header
+                    headerSection
+
+                    // Sea Region Cards
+                    cardsSection
+                }
             }
+            .clipped()
+            .scrollIndicators(.hidden)
         }
-        .background(Color(hex: "F2F2F7"))
     }
 
     // MARK: - Header Section

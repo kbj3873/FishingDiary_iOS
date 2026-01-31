@@ -100,14 +100,20 @@ struct OceanRegionCardView: View {
     private var subTemperatureSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             // 중층
-            HStack(spacing: 0) {
-                Text("중층: ")
-                    .font(.system(size: 18))
-                    .foregroundColor(.white.opacity(0.95))
-
-                Text(formattedMidTemperature)
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(.white.opacity(0.95))
+            if station.midTempurature.isEmpty || station.midTempurature == "0" {
+                Text("중층: 데이터 없음")
+                    .font(.system(size: 14))
+                    .foregroundColor(.white.opacity(0.5))
+            } else {
+                HStack(spacing: 0) {
+                    Text("중층: ")
+                        .font(.system(size: 18))
+                        .foregroundColor(.white.opacity(0.95))
+                    
+                    Text(formattedMidTemperature)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.95))
+                }
             }
 
             // 저층

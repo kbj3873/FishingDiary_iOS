@@ -76,7 +76,9 @@ struct CurrentTemperatureView: View {
             }
             .padding(.horizontal, 16)
             .padding(.top, 16)
+            .padding(.bottom, 16)
         }
+        .scrollIndicators(.hidden)
         .refreshable {
             viewModel.fetchStationList()
         }
