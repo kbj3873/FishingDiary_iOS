@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+struct SeaRegionInfo {
+    let id: String
+    let sea: Sea
+    let title: String
+    let subtitle: String
+    let imageName: String
+    let stationCount: Int
+}
+
 struct SeaRegionCardView: View {
     let region: SeaRegionInfo
     let onTap: (() -> Void)?

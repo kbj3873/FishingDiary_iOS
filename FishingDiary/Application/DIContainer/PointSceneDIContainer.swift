@@ -102,6 +102,14 @@ extension PointSceneDIContainer {
                                      appConfiguration: dependencies.appConfiguration)
     }
     
+    func makeSeaAnalysisViewModel() -> SeaAnalysisViewModel {
+        SeaAnalysisViewModel(oceanUseCase: makeOceanUseCase())
+    }
+    
+    func makeSeaAnalysisDetailViewModel(station: ObservatoryInfo) -> SeaAnalysisDetailViewModel {
+        SeaAnalysisDetailViewModel(oceanUseCase: makeOceanUseCase(), station: station)
+    }
+    
     func makeTrackMapViewModel() -> TrackMapViewModel {
         TrackMapViewModel(trackMapUseCase: makeTrackMapUseCase())
     }

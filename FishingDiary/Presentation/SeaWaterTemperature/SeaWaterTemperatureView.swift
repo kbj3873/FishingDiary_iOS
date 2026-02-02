@@ -169,7 +169,7 @@ struct SeaWaterTemperatureView: View {
             
             // 그래프
             if !validTemps.isEmpty {
-                TemperatureLineGraphView(
+                LegacyTemperatureLineGraphView(
                     values: tempList,
                     color: color
                 )
@@ -210,7 +210,7 @@ struct SeaWaterTemperatureView: View {
 }
 
 // MARK: - temperature line graph view
-struct TemperatureLineGraphView: View {
+struct LegacyTemperatureLineGraphView: View {
     let values: [CGFloat]
     let color: Color
     

@@ -39,12 +39,12 @@ enum WestObserv: String, Observ, CaseIterable {
     case gunsanHoenggyeongdo = "군산 횡경도"
     case mokpo = "목포"
     case mokpoOedal = "목포 외달"
-    case mokpoDoripo = "목포 도리포"
+    case muanDoripo = "무안 도리포"
     case muanSeobug = "무안 서북"
     case muanSeongnae = "무안 성내"
     case baeglyeongdo = "백령도"
     case boryeongSabsido = "보령 삽시도"
-    case boryeongHyojado = "보령 효자도"
+    case boryeongSodo = "보령 소도"
     case buanByeonsan = "부안 변산"
     case buanWido = "부안 위도"
     case seosanJigog = "서산 지곡"
@@ -53,37 +53,28 @@ enum WestObserv: String, Observ, CaseIterable {
     case sinanDamuldo = "신안 다물도"
     case sinanDasu = "신안 다수"
     case sinanDaeri = "신안 대리"
-    case sinanDocho = "신안 도초"
     case sinanMari = "신안 마리"
     case sinanBanwol = "신안 반월"
-    case sinanSari = "신안 사리"
-    case sinanSachi = "신안 사치"
+    case sinanSosin = "신안 소신"
     case sinanSonggong = "신안 송공"
     case sinanAnjwa = "신안 안좌"
-    case sinanAphae = "신안 압해"
     case sinanEoui = "신안 어의"
     case sinanEubdong = "신안 읍동"
-    case sinanJaeun = "신안 자은"
     case sinanJangsan = "신안 장산"
-    case sinanHaui = "신안 하의"
     case sinanHeugsan = "신안 흑산"
     case yeonggwangNagwol = "영광 낙월"
     case yeonggwangAnmado = "영광 안마도"
-    case yeonggwangYeomsan = "영광 염산"
     case incheonIjagdo = "인천 이작도"
     case incheonJawoldo = "인천 자월도"
     case incheonJangbongdo = "인천 장봉도"
     case jindoGasa = "진도 가사"
     case jindoBuldo = "진도 불도"
-    case jindoOgdo = "진도 옥도"
-    case jindoJeodo = "진도 저도"
-    case jindoJeondu = "진도 전두"
+    case taeanGonam = "태안 고남"
     case taeanNaepo = "태안 내포"
     case taeanDaeyado = "태안 대야도"
     case taeanSinjindo = "태안 신진도"
     case taeanAnmyeondo = "태안 안면도"
-    case hampyeongSeogdu = "함평 석두"
-    case haenamGunghang = "해남 궁항"
+    case taeanPadori = "태안 파도리"
     case haenamMunnae = "해남 문내"
     case haenamImha = "해남 임하"
     
@@ -101,7 +92,7 @@ enum WestObserv: String, Observ, CaseIterable {
             return "emp67"
         case .mokpoOedal:
             return "fmoj7"
-        case .mokpoDoripo:
+        case .muanDoripo:
             return "fmdka"
         case .muanSeobug:
             return "fmsm6"
@@ -111,8 +102,8 @@ enum WestObserv: String, Observ, CaseIterable {
             return "fbn69"
         case .boryeongSabsido:
             return "bbsi5"
-        case .boryeongHyojado:
-            return "br001"
+        case .boryeongSodo:
+            return "fbsp5"
         case .buanByeonsan:
             return "bbbi5"
         case .buanWido:
@@ -129,40 +120,28 @@ enum WestObserv: String, Observ, CaseIterable {
             return "fsdk6"
         case .sinanDaeri:
             return "fshl6"
-        case .sinanDocho:
-            return "fsdl7"
         case .sinanMari:
             return "fsmm6"
         case .sinanBanwol:
             return "fsbo4"
-        case .sinanSari:
-            return "fshl7"
-        case .sinanSachi:
-            return "fssk8"
+        case .sinanSosin:
+            return "fssoc"
         case .sinanSonggong:
             return "fssm6"
         case .sinanAnjwa:
             return "fsaj7"
-        case .sinanAphae:
-            return "esafc"
         case .sinanEoui:
             return "fsej7"
         case .sinanEubdong:
             return "fsal6"
-        case .sinanJaeun:
-            return "bsji5"
         case .sinanJangsan:
             return "fsjo4"
-        case .sinanHaui:
-            return "fsuj7"
         case .sinanHeugsan:
             return "fshj7"
         case .yeonggwangNagwol:
             return "byni5"
         case .yeonggwangAnmado:
-            return "fyyl4"
-        case .yeonggwangYeomsan:
-            return "fyyl4"
+            return "byai5"
         case .incheonIjagdo:
             return "biii5"
         case .incheonJawoldo:
@@ -173,12 +152,8 @@ enum WestObserv: String, Observ, CaseIterable {
             return "fjgk8"
         case .jindoBuldo:
             return "bjbi5"
-        case .jindoOgdo:
-            return "fjoo4"
-        case .jindoJeodo:
-            return "fjjka"
-        case .jindoJeondu:
-            return "fjdfc"
+        case .taeanGonam:
+            return "br001"
         case .taeanNaepo:
             return "btni5"
         case .taeanDaeyado:
@@ -187,10 +162,8 @@ enum WestObserv: String, Observ, CaseIterable {
             return "btsi5"
         case .taeanAnmyeondo:
             return "btai5"
-        case .hampyeongSeogdu:
-            return "fhjj7"
-        case .haenamGunghang:
-            return "fhgm6"
+        case .taeanPadori:
+            return "ftpk5"
         case .haenamMunnae:
             return "fhml6"
         case .haenamImha:
@@ -207,7 +180,7 @@ enum EastObserv: String, Observ, CaseIterable {
     case none = "선택"
     case gangneung = "강릉"
     case gori = "고리"
-    case goseong = "고성 가진"
+    case goseongGajin = "고성 가진"
     case guryongpoHajeong = "구룡포 하정"
     case gijang = "기장"
     case gijangHansuwon = "기장(한수원)"
@@ -231,7 +204,7 @@ enum EastObserv: String, Observ, CaseIterable {
             return "bgna3"
         case .gori:
             return "bgrh3"
-        case .goseong:
+        case .goseongGajin:
             return "fggo3"
         case .guryongpoHajeong:
             return "fghe8"
@@ -274,67 +247,68 @@ enum SouthObserv: String, Observ, CaseIterable {
     case gangjinMaryang = "강진 마량"
     case gangjinSacho = "강진 사초"
     case geojeGabae = "거제 가배"
+    case geojeGabae2 = "거제 가배2"
     case geojeIlun = "거제 일운"
     case geojeHaegeumgang = "거제 해금강"
     case goheungGeumsan = "고흥 금산"
     case goheungNamyeol = "고흥 남열"
-    case goheungDongchoh = "고흥 동촌"
-    case goheungBalpo = "고흥 발포"
+    case goheungDongchon = "고흥 동촌"
     case goheungBuado = "고흥 부아도"
-    case goheungBisado = "고흥 비사도"
     case goheungSorogdo = "고흥 소록도"
     case goheungSisan = "고흥 시산"
-    case goheungSinchon = "고흥 신촌"
     case goheungYeonso = "고흥 연소"
     case goheungYeompo = "고흥 염포"
     case goheungYeongnam = "고흥 영남"
     case goheungWolha = "고흥 월하"
     case goheungIggeum = "고흥 익금"
-    case goheungJangsu = "고흥 장수"
     case goheungJijug = "고흥 지죽"
-    case goheungHwado = "고흥 화도"
     case namhaeGangjin = "남해 강진"
     case namhaeMijo = "남해 미조"
     case namhaeSangju = "남해 상주"
+    case namhaeSeolcheon = "남해 설천"
+    case namhaeChangseon = "남해 창선"
     case boseongDongyul = "보성 동율"
-    case boseongYulpo = "보성 율포"
     case boseongHaepyeong = "보성 해평"
     case busanDadaepo = "부산 다대포"
+    case sacheonBito1 = "사천 비토1"
+    case sacheonBito2 = "사천 비토2"
+    case sacheonBito3 = "사천 비토3"
+    case sacheonWoldeung1 = "사천 월등1"
+    case sacheonWoldeung2 = "사천 월등2"
     case westJeju = "서제주"
     case yeosuGunnae = "여수 군내"
     case yeosuGeumodo = "여수 금오도"
-    case yeosuNabal = "여수 나발"
     case yeosuNajin = "여수 나진"
-    case yeosuDaeyul = "여수 대율"
-    case yeosuDeogchon = "여수 덕촌"
     case yeosuDolsan = "여수 돌산"
+    case yeosuDongdu = "여수 동두"
     case yeosuBaegya = "여수 백야"
-    case yeosuSonggo = "여수 송고"
     case yeosuSinwol = "여수 신월"
     case yeosuSinwol2 = "여수 신월2"
     case yeosuYeoja = "여수 여자"
     case yeosuWolho = "여수 월호"
-    case yeosuJedo = "여수 제도"
     case yeosuJungang = "여수 중앙"
     case yeosuHangdae = "여수 항대"
-    case yeosuHwasan = "여수 화산"
     case yeosuHwatae = "여수 화태"
     case wandoGagyo = "완도 가교"
     case wandoGahag = "완도 가학"
+    case wandoGammog = "완도 감목"
     case wandoGoma = "완도 고마"
     case wandoGunoe = "완도 군외"
     case wandoGeumil = "완도 금일"
+    case wandoNaeri = "완도 내리"
     case wandoNohwado = "완도 노화도"
     case wandoDangmog = "완도 당목"
     case wandoDangin = "완도 당인"
+    case wandoDaechang = "완도 대창"
     case wandoDeogdong = "완도 덕동"
-    case wandoDongBaeg = "완도 동백"
+    case wandoDongbaeg = "완도 동백"
     case wandoDongchon = "완도 동촌"
     case wandoMangnam = "완도 망남"
     case wandoModong = "완도 모동"
     case wandoMira = "완도 미라"
     case wandoBangchug = "완도 방축"
     case wandoBaegdo = "완도 백도"
+    case wandoSadong = "완도 사동"
     case wandoSonggog = "완도 송곡"
     case wandoSinheung = "완도 신흥"
     case wandoYangji = "완도 양지"
@@ -343,12 +317,9 @@ enum SouthObserv: String, Observ, CaseIterable {
     case wandoJungdo = "완도 중도"
     case wandoCheongsan = "완도 청산"
     case wandoHoeryong = "완도 회룡"
-    case wandoHoenggan = "완도 횡간"
     case jangheungNaejeo = "장흥 내저"
     case jangheungNoryeog = "장흥 노력"
-    case jangheungSachon = "장흥 사촌"
     case jangheungIjinmog = "장흥 이진목"
-    case jangheungHoejin = "장흥 회진"
     case jejuGapado = "제주 가파도"
     case jejuGimnyeong = "제주 김녕"
     case jejuSinsan = "제주 신산"
@@ -356,38 +327,42 @@ enum SouthObserv: String, Observ, CaseIterable {
     case jejuYongdam = "제주 용담"
     case jejuUdo = "제주 우도"
     case jejuJungmun = "제주 중문"
-    case jejuHyeobje = "제주 협제"
+    case jejuHyeobjae = "제주 협재"
     case jindoGeumgab = "진도 금갑"
     case jindoDomog = "진도 도목"
     case jindoModo = "진도 모도"
     case jindoBulmudo = "진도 불무도"
     case jindoSinjeon = "진도 신전"
     case jindoJodo = "진도 조도"
-    case jindoHoeding = "진도 회동"
-    case jindoJamdo = "진도 잠도"
+    case jindoHoedong = "진도 회동"
+    case jinhaeJamdo = "진해 잠도"
     case chujado = "추자도"
+    case tongyeongGolli = "통영 곤리"
+    case tongyeongDongjwa = "통영 동좌"
     case tongyeongDumido = "통영 두미도"
+    case tongyeongMosang = "통영 모상"
     case tongyeongBisando = "통영 비산도"
     case tongyeongSaryang = "통영 사량"
-    case tongyeongSomaemuldo = "통영 소매물도"
+    case tongyeongSamdeog1 = "통영 삼덕1"
+    case tongyeongSamdeog2 = "통영 삼덕2"
+    case tongyeongSamdeog3 = "통영 삼덕3"
     case tongyeongSuwol = "통영 수월"
     case tongyeongYeonhwado = "통영 연화도"
     case tongyeongYeongun = "통영 영운"
+    case tongyeongYogji = "통영 욕지"
+    case tongyeongJeolim = "통영 저림"
     case tongyeongPunghwa = "통영 풍화"
     case tongyeongHaglim = "통영 학림"
     case tongyeongHansando = "통영 한산도"
-    case haenamNamseong = "해남 남성"
-    case haenamBugil = "해남 북일"
+    case tongyeongHambag = "통영 함박"
+    case tongyeongHaeran = "통영 해란"
     case haenamSamjeong = "해남 삼정"
-    case haenamSangma = "해남 상마"
-    case haenamSongji = "해남 송지"
     case haenamSongho = "해남 송호"
     case haenamEoran = "해남 어란"
     case haenamOgdong = "해남 옥동"
     case haenamHagga = "해남 학가"
     case haenamHwasan = "해남 화산"
     case haenamHwangsan = "해남 황산"
-    
     
     var cd: String {
         switch self {
@@ -399,6 +374,8 @@ enum SouthObserv: String, Observ, CaseIterable {
             return "fgsl6"
         case .geojeGabae:
             return "fgg4c"
+        case .geojeGabae2:
+            return "fggp7"
         case .geojeIlun:
             return "gi086"
         case .geojeHaegeumgang:
@@ -407,20 +384,14 @@ enum SouthObserv: String, Observ, CaseIterable {
             return "fggm6"
         case .goheungNamyeol:
             return "fgnm6"
-        case .goheungDongchoh:
+        case .goheungDongchon:
             return "fgdl4"
-        case .goheungBalpo:
-            return "fgpo4"
         case .goheungBuado:
             return "bgui5"
-        case .goheungBisado:
-            return "fgbo4"
         case .goheungSorogdo:
             return "fgsj3"
         case .goheungSisan:
             return "fgso4"
-        case .goheungSinchon:
-            return "fgsl4"
         case .goheungYeonso:
             return "fgyl4"
         case .goheungYeompo:
@@ -431,46 +402,48 @@ enum SouthObserv: String, Observ, CaseIterable {
             return "fgwo4"
         case .goheungIggeum:
             return "fgim6"
-        case .goheungJangsu:
-            return "fgjk5"
         case .goheungJijug:
             return "fgjm6"
-        case .goheungHwado:
-            return "fghk5"
         case .namhaeGangjin:
             return "eng5c"
         case .namhaeMijo:
             return "fnm5b"
         case .namhaeSangju:
             return "bnsi5"
+        case .namhaeSeolcheon:
+            return "fnsp7"
+        case .namhaeChangseon:
+            return "fncp7"
         case .boseongDongyul:
             return "fbdka"
-        case .boseongYulpo:
-            return "fbyl6"
         case .boseongHaepyeong:
             return "fbhl7"
         case .busanDadaepo:
             return "bbdi5"
+        case .sacheonBito1:
+            return "fsboa"
+        case .sacheonBito2:
+            return "fsdoa"
+        case .sacheonBito3:
+            return "fscoa"
+        case .sacheonWoldeung1:
+            return "fswoa"
+        case .sacheonWoldeung2:
+            return "fsxoa"
         case .westJeju:
             return "ejj47"
         case .yeosuGunnae:
             return "fygl4"
         case .yeosuGeumodo:
             return "byki5"
-        case .yeosuNabal:
-            return "fybm6"
         case .yeosuNajin:
             return "fynm6"
-        case .yeosuDaeyul:
-            return "fydl4"
-        case .yeosuDeogchon:
-            return "fycm6"
         case .yeosuDolsan:
             return "fydo4"
+        case .yeosuDongdu:
+            return "fydo9"
         case .yeosuBaegya:
             return "fybo4"
-        case .yeosuSonggo:
-            return "fysl4"
         case .yeosuSinwol:
             return "km001"
         case .yeosuSinwol2:
@@ -479,35 +452,37 @@ enum SouthObserv: String, Observ, CaseIterable {
             return "fyym6"
         case .yeosuWolho:
             return "fywo4"
-        case .yeosuJedo:
-            return "fyjkc"
         case .yeosuJungang:
             return "fyjo4"
         case .yeosuHangdae:
             return "fyhl7"
-        case .yeosuHwasan:
-            return "fyhm6"
         case .yeosuHwatae:
-            return "yj087"
+            return "fyho5"
         case .wandoGagyo:
             return "fwgf1"
         case .wandoGahag:
             return "fwgm6"
+        case .wandoGammog:
+            return "fwyo5"
         case .wandoGoma:
             return "fwgk8"
         case .wandoGunoe:
             return "fwgk5"
         case .wandoGeumil:
             return "wk094"
+        case .wandoNaeri:
+            return "fwnm6"
         case .wandoNohwado:
             return "wn087"
         case .wandoDangmog:
             return "fwao4"
         case .wandoDangin:
             return "fwio4"
+        case .wandoDaechang:
+            return "fwdo5"
         case .wandoDeogdong:
             return "fwdo4"
-        case .wandoDongBaeg:
+        case .wandoDongbaeg:
             return "fwdf1"
         case .wandoDongchon:
             return "fwdk7"
@@ -521,6 +496,8 @@ enum SouthObserv: String, Observ, CaseIterable {
             return "fwbl6"
         case .wandoBaegdo:
             return "fwbf1"
+        case .wandoSadong:
+            return "fwso5"
         case .wandoSonggog:
             return "fwsm6"
         case .wandoSinheung:
@@ -537,18 +514,12 @@ enum SouthObserv: String, Observ, CaseIterable {
             return "wc001"
         case .wandoHoeryong:
             return "fwho4"
-        case .wandoHoenggan:
-            return "fwhm6"
         case .jangheungNaejeo:
             return "fjnk6"
         case .jangheungNoryeog:
             return "fjnka"
-        case .jangheungSachon:
-            return "fjskb"
         case .jangheungIjinmog:
             return "fjil6"
-        case .jangheungHoejin:
-            return "ejhfc"
         case .jejuGapado:
             return "bjgi5"
         case .jejuGimnyeong:
@@ -563,7 +534,7 @@ enum SouthObserv: String, Observ, CaseIterable {
             return "bjui5"
         case .jejuJungmun:
             return "bjni5"
-        case .jejuHyeobje:
+        case .jejuHyeobjae:
             return "bjhi5"
         case .jindoGeumgab:
             return "fjgl6"
@@ -577,42 +548,52 @@ enum SouthObserv: String, Observ, CaseIterable {
             return "fjsm6"
         case .jindoJodo:
             return "bjji5"
-        case .jindoHoeding:
+        case .jindoHoedong:
             return "fjhk9"
-        case .jindoJamdo:
+        case .jinhaeJamdo:
             return "btji5"
         case .chujado:
             return "bcji5"
+        case .tongyeongGolli:
+            return "ftgp7"
+        case .tongyeongDongjwa:
+            return "ftdp7"
         case .tongyeongDumido:
             return "btdi5"
+        case .tongyeongMosang:
+            return "ftmp7"
         case .tongyeongBisando:
             return "tb087"
         case .tongyeongSaryang:
             return "ty005"
-        case .tongyeongSomaemuldo:
-            return "btoi5"
+        case .tongyeongSamdeog1:
+            return "ftup7"
+        case .tongyeongSamdeog2:
+            return "fttp7"
+        case .tongyeongSamdeog3:
+            return "ftsp7"
         case .tongyeongSuwol:
             return "ftsj3"
         case .tongyeongYeonhwado:
             return "btyi5"
         case .tongyeongYeongun:
             return "ty004"
+        case .tongyeongYogji:
+            return "ftyp7"
+        case .tongyeongJeolim:
+            return "ftjp7"
         case .tongyeongPunghwa:
             return "ftp4c"
         case .tongyeongHaglim:
             return "fth59"
         case .tongyeongHansando:
             return "bthi5"
-        case .haenamNamseong:
-            return "fhno4"
-        case .haenamBugil:
-            return "fhbl6"
+        case .tongyeongHambag:
+            return "fthp7"
+        case .tongyeongHaeran:
+            return "ftrp7"
         case .haenamSamjeong:
             return "fhso4"
-        case .haenamSangma:
-            return "fhsk7"
-        case .haenamSongji:
-            return "fhsm6"
         case .haenamSongho:
             return "fhsk5"
         case .haenamEoran:
@@ -632,3 +613,4 @@ enum SouthObserv: String, Observ, CaseIterable {
         return rawValue
     }
 }
+

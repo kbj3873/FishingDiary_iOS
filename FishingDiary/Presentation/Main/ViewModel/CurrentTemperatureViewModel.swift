@@ -122,17 +122,20 @@ final class CurrentTemperatureViewModel: ObservableObject {
         var oceanStationList = [OceanStationModel]()
         
         // 중복 제거된 코드 추출
-        let codes = Set(items.map { $0.staCde })
-        
-        // 모델 초기화
-        for code in codes {
-            oceanStationList.append(OceanStationModel(
-                stationCode: code,
-                stationName: "",
-                surTempurature: "",
-                midTempurature: "",
-                botTempurature: ""
-            ))
+        // 모델 초기화 (순서 유지하며 중복 제거)
+        var seenCodes = Set<String>()
+        for item in items {
+            let code = item.staCde
+            if !seenCodes.contains(code) {
+                seenCodes.insert(code)
+                oceanStationList.append(OceanStationModel(
+                    stationCode: code,
+                    stationName: "", // 이후 루프에서 업데이트됨
+                    surTempurature: "",
+                    midTempurature: "",
+                    botTempurature: ""
+                ))
+            }
         }
         
         // 데이터 매핑

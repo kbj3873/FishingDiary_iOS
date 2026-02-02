@@ -10,9 +10,13 @@ import SwiftUI
 struct SeaRegionListView: View {
     @StateObject private var viewModel: SeaRegionListViewModel
     @Environment(\.dismiss) private var dismiss
+    
+    // Callback for selection
+    var onStationSelected: ((ObservatoryInfo) -> Void)?
 
-    init(sea: Sea) {
+    init(sea: Sea, onStationSelected: ((ObservatoryInfo) -> Void)? = nil) {
         _viewModel = StateObject(wrappedValue: SeaRegionListViewModel(sea: sea))
+        self.onStationSelected = onStationSelected
     }
 
     var body: some View {
@@ -31,8 +35,13 @@ struct SeaRegionListView: View {
                 LazyVStack(spacing: 12) {
                     ForEach(viewModel.observatories) { observatory in
                         SeaRegionRowView(observatory: observatory) {
-                            // TODO: Navigate to SeaWaterTemperatureView
+                            // Call the callback if provided, otherwise just print
                             print("Selected: \(observatory.name) (\(observatory.id))")
+                            onStationSelected?(observatory)
+                            // dismiss() is called by the parent via binding or simply here if that's the design
+                            // But usually if we want parent to navigate, we might let parent handle dismiss or dismiss here.
+                            // In this plan, parent handles sheet state, but sheet can also dismiss itself.
+                            // However, if we dismiss here immediately, parent's onChange might trigger.
                             dismiss()
                         }
                     }

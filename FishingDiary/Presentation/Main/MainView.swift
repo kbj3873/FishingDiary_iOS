@@ -180,7 +180,7 @@ struct ButtonListView: View {
     
     @ViewBuilder
     private var seaWaterTemperatureDestination: some View {
-        SeaWaterTemperatureView(viewModel: pointSceneDIContainer.makeTemperatureViewModel())
+        SeaAnalysisView()
     }
     
     @ViewBuilder

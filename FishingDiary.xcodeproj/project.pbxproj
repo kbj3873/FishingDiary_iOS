@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BF29263C5B25FD2C6EF9558 /* SeaAnalysisDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */; };
 		117A00282F2DA7C4005C7F82 /* SeaAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00252F2DA7C4005C7F82 /* SeaAnalysisView.swift */; };
 		117A00292F2DA7C4005C7F82 /* SeaRegionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */; };
 		117A002A2F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00232F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift */; };
@@ -14,6 +15,8 @@
 		117A002D2F2DA7C5005C7F82 /* SeaRegionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */; };
 		117A002F2F2DA7C5005C7F82 /* SeaRegionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */; };
 		569F048024BBD429EC11659B /* Pods_FishingDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03AA4355987AC316DDA08C99 /* Pods_FishingDiary.framework */; };
+		61F92959D621EB1C9B01CD6A /* SeaAnalysisDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FDD546D39EAF812578B340 /* SeaAnalysisDetailViewModel.swift */; };
+		AABF851A0557A35D008E9C95 /* TemperatureLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */; };
 		F401EC1A2E9F6422002F52FF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC192E9F6422002F52FF /* MainView.swift */; };
 		F401EC1C2E9F7494002F52FF /* MainHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */; };
 		F406B4452B30061100AEEA2B /* TrackMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */; };
@@ -160,7 +163,10 @@
 		117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListViewModel.swift; sourceTree = "<group>"; };
 		117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionRowView.swift; sourceTree = "<group>"; };
 		117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListView.swift; sourceTree = "<group>"; };
+		60FDD546D39EAF812578B340 /* SeaAnalysisDetailViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SeaAnalysisDetailViewModel.swift; sourceTree = "<group>"; };
 		7923DDEBCA0435B83A181040 /* Pods-FishingDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.release.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.release.xcconfig"; sourceTree = "<group>"; };
+		B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SeaAnalysisDetailView.swift; sourceTree = "<group>"; };
+		D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TemperatureLineGraphView.swift; sourceTree = "<group>"; };
 		EDA398BA0DAB4D361B4206DB /* Pods-FishingDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.debug.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.debug.xcconfig"; sourceTree = "<group>"; };
 		F401EC192E9F6422002F52FF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHostingViewController.swift; sourceTree = "<group>"; };
@@ -315,6 +321,7 @@
 			children = (
 				117A00232F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift */,
 				117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */,
+				60FDD546D39EAF812578B340 /* SeaAnalysisDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -327,6 +334,8 @@
 				117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */,
 				117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */,
 				117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */,
+				43FACE516AE4ED4DDA39ECCD /* Components */,
+				B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */,
 			);
 			path = SeaAnalysis;
 			sourceTree = "<group>";
@@ -338,6 +347,15 @@
 				7923DDEBCA0435B83A181040 /* Pods-FishingDiary.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		43FACE516AE4ED4DDA39ECCD /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */,
+			);
+			name = Components;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		F406B4422B3005F600AEEA2B /* Track */ = {
@@ -1079,6 +1097,9 @@
 				F407170A2DBF888900A433A5 /* OceanSelectCellViewModel.swift in Sources */,
 				F44883BD2DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift in Sources */,
 				F44883BE2DB10DA5008B9BB5 /* SeaInfo.swift in Sources */,
+				0BF29263C5B25FD2C6EF9558 /* SeaAnalysisDetailView.swift in Sources */,
+				61F92959D621EB1C9B01CD6A /* SeaAnalysisDetailViewModel.swift in Sources */,
+				AABF851A0557A35D008E9C95 /* TemperatureLineGraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
