@@ -146,6 +146,9 @@ extension PointSceneDIContainer {
         KakaoPointMapViewModel(pointData: pointData,
                                pointMapUseCase: makePointMapUseCase())
     }
+    func makeSettingViewModel() -> SettingViewModel {
+        SettingViewModel(appManager: .shared)
+    }
 }
 
 // MARK: make use case

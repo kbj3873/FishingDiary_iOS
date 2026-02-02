@@ -75,7 +75,7 @@ struct MainTabView: View {
                 .tag(TabItem.history)
 
             // 설정
-            PlaceholderView(title: "설정")
+            SettingView(viewModel: pointSceneDIContainer.makeSettingViewModel())
                 .tabItem {
                     tabLabel(for: .settings)
                 }
