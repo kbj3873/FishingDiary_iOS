@@ -31,7 +31,7 @@ final class HistoryViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
-    private let useCase: FishingRecordUseCase
+    public let useCase: FishingRecordUseCase
     private var cancellable: Cancellable?
     
     init(useCase: FishingRecordUseCase) {

@@ -4,18 +4,19 @@ final class DefaultFishingRecordRepository: FishingRecordRepository {
     private let realmManager = RealmManager.shared
     
     // MARK: - Save Point
-    func savePoint(sessionId: String, latitude: Double, longitude: Double, speed: Double, timestamp: Date) -> Cancellable? {
+    func savePoint(sessionId: String, latitude: Double, longitude: Double, speed: Double, state: Int, timestamp: Date) -> Cancellable? {
         let record = RealmFishingRecord(sessionId: sessionId,
                                         date: timestamp,
                                         latitude: latitude,
                                         longitude: longitude,
-                                        speed: speed)
+                                        speed: speed,
+                                        state: state)
         realmManager.add(record)
         return nil // Realm 작업은 동기적으로 처리되므로 Cancellable 불필요하지만 프로토콜 준수를 위해 nil 반환
     }
     
     // MARK: - Save Photo
-    func savePhoto(sessionId: String, image: Data, timestamp: Date, location: (Double, Double)) -> String? {
+    func savePhoto(sessionId: String, image: Data, timestamp: Date, location: (Double, Double), state: Int) -> String? {
         // 1. 파일 저장
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
         
@@ -32,6 +33,7 @@ final class DefaultFishingRecordRepository: FishingRecordRepository {
                                             latitude: location.0,
                                             longitude: location.1,
                                             speed: 0, // 사진 촬영 시 속도는 0 또는 현재 속도를 받아야 하지만, 여기선 0으로 처리하거나 인자 추가 고려
+                                            state: state,
                                             imagePaths: [imagePath])
             
             realmManager.add(record)

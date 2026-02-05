@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0BF29263C5B25FD2C6EF9558 /* SeaAnalysisDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */; };
 		0FBF453FFF082B22DC020B1F /* DefaultFishingRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */; };
+		117142672F347384008E79D6 /* HistoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117142662F347384008E79D6 /* HistoryDetailView.swift */; };
+		1171426A2F347394008E79D6 /* HistoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117142682F347394008E79D6 /* HistoryMapView.swift */; };
+		1171426C2F34739B008E79D6 /* HistoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1171426B2F34739B008E79D6 /* HistoryDetailViewModel.swift */; };
 		117618292F33480A00EF9FAF /* CommonPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117618272F33480A00EF9FAF /* CommonPopupView.swift */; };
 		117618302F3364CA00EF9FAF /* HistoryRecordCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1176182A2F3364CA00EF9FAF /* HistoryRecordCardView.swift */; };
 		117618312F3364CA00EF9FAF /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1176182B2F3364CA00EF9FAF /* HistoryView.swift */; };
@@ -173,6 +176,9 @@
 		03AA4355987AC316DDA08C99 /* Pods_FishingDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FishingDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		093AC48AA1FF2837E609F8E8 /* RealmManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DefaultFishingRecordRepository.swift; sourceTree = "<group>"; };
+		117142662F347384008E79D6 /* HistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailView.swift; sourceTree = "<group>"; };
+		117142682F347394008E79D6 /* HistoryMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMapView.swift; sourceTree = "<group>"; };
+		1171426B2F34739B008E79D6 /* HistoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailViewModel.swift; sourceTree = "<group>"; };
 		117618272F33480A00EF9FAF /* CommonPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonPopupView.swift; sourceTree = "<group>"; };
 		1176182A2F3364CA00EF9FAF /* HistoryRecordCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRecordCardView.swift; sourceTree = "<group>"; };
 		1176182B2F3364CA00EF9FAF /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
@@ -344,6 +350,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		117142692F347394008E79D6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				117142682F347394008E79D6 /* HistoryMapView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		117618282F33480A00EF9FAF /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,6 +369,8 @@
 		1176182C2F3364CA00EF9FAF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				117142692F347394008E79D6 /* Components */,
+				117142662F347384008E79D6 /* HistoryDetailView.swift */,
 				1176182A2F3364CA00EF9FAF /* HistoryRecordCardView.swift */,
 				1176182B2F3364CA00EF9FAF /* HistoryView.swift */,
 			);
@@ -364,6 +380,7 @@
 		1176182E2F3364CA00EF9FAF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1171426B2F34739B008E79D6 /* HistoryDetailViewModel.swift */,
 				1176182D2F3364CA00EF9FAF /* HistoryViewModel.swift */,
 			);
 			path = ViewModel;
@@ -1144,6 +1161,7 @@
 				F4E70F462AAEFC60008A3317 /* PointDataCell.swift in Sources */,
 				F43152012B1861E700027BB9 /* PointFlowCoordinator.swift in Sources */,
 				F43151FB2B18608100027BB9 /* AppDelegate.swift in Sources */,
+				1171426C2F34739B008E79D6 /* HistoryDetailViewModel.swift in Sources */,
 				F406B4472B3006E400AEEA2B /* TrackMapRepository.swift in Sources */,
 				F4D66C8F2EB047AB00BE690F /* KakaoMapViewControllerRepresentable.swift in Sources */,
 				F48B10522EB1A7B900C2DB87 /* AppleTrackMapView.swift in Sources */,
@@ -1184,6 +1202,7 @@
 				F4E70F422AAEF6DA008A3317 /* PointDateCell.swift in Sources */,
 				F44E65EA2B9ED1D0006D8761 /* DispatchQueueType.swift in Sources */,
 				F4E6A2A02B2AD37900C935BF /* PointMapUseCase.swift in Sources */,
+				1171426A2F347394008E79D6 /* HistoryMapView.swift in Sources */,
 				117618292F33480A00EF9FAF /* CommonPopupView.swift in Sources */,
 				F4A4AEFA2B26D22D0017D173 /* PointDataListRepository.swift in Sources */,
 				F4BFF1AB2EA7633700B9C332 /* PointDataListUIView.swift in Sources */,
@@ -1214,6 +1233,7 @@
 				F4F2D21F2B217D6A007E48D8 /* DefaultPointDateListRepository.swift in Sources */,
 				F4395F792B22FDE70017BBAF /* MainViewModel.swift in Sources */,
 				F48B10562EB1CEE900C2DB87 /* KakaoTrackMapView.swift in Sources */,
+				117142672F347384008E79D6 /* HistoryDetailView.swift in Sources */,
 				F406B44B2B30070900AEEA2B /* DefaultTrackMapRepository.swift in Sources */,
 				F4A4AEFC2B26D4DF0017D173 /* DefaultPointDataListRepository.swift in Sources */,
 				F4DE48232AA04E4300ED2D23 /* UIViewController.swift in Sources */,

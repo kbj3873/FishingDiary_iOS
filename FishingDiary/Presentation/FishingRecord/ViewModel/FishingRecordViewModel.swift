@@ -70,6 +70,10 @@ final class FishingRecordViewModel: ObservableObject {
     
     // 현재 낚시 세션 ID (녹화 시작 시 생성)
     private var currentSessionId: String = ""
+    
+    // 위치 저장 스로틀링
+    private var lastSavedTime: Date = Date.distantPast
+    private let saveInterval: TimeInterval = 3.0 // 3초 간격 저장 (사용자 요청)
 
     
     // MARK: - Initializer
@@ -125,7 +129,8 @@ final class FishingRecordViewModel: ObservableObject {
                         self.useCase.savePoint(sessionId: self.currentSessionId,
                                                latitude: currentLocation.coordinate.latitude,
                                                longitude: currentLocation.coordinate.longitude,
-                                               speed: speedKnots)
+                                               speed: speedKnots,
+                                               state: self.currentStateValue)
                         self.savedPointCount += 1
                     }
                 } else {
@@ -143,13 +148,18 @@ final class FishingRecordViewModel: ObservableObject {
                     self.distance += (segmentDistance / 1000.0) // m to km
                 }
                 
-                // 기존의 연속적인 지점 저장 로직 제거 (마커 생성 및 사진 촬영 시에만 저장)
-                /*
-                // 4. UseCase를 통해 포인트 저장
-                self.useCase.savePoint(latitude: currentLocation.coordinate.latitude,
-                                       longitude: currentLocation.coordinate.longitude,
-                                       speed: speedKnots)
-                */
+                // 4. 주기적 위치 저장 (5초 간격)
+                // 너무 잦은 저장은 DB 용량과 로딩 속도에 영향을 주므로 적절한 주기 설정 필요
+                if Date().timeIntervalSince(self.lastSavedTime) >= self.saveInterval {
+                    self.useCase.savePoint(sessionId: self.currentSessionId,
+                                           latitude: currentLocation.coordinate.latitude,
+                                           longitude: currentLocation.coordinate.longitude,
+                                           speed: speedKnots,
+                                           state: self.currentStateValue)
+                    // 자동 저장 시에는 화면 상단 '지점 저장' 카운트를 증가시키지 않음 (사용자 요청)
+                    // self.savedPointCount += 1
+                    self.lastSavedTime = Date()
+                }
             }
             .store(in: &cancellables)
     }
@@ -160,6 +170,7 @@ final class FishingRecordViewModel: ObservableObject {
         isRecording = true
         markers.removeAll() // 시작 시 마커 초기화
         photoMarkers.removeAll() // 사진 마커도 초기화
+        fishingState = .moving // 초기 상태
         lastFishingState = nil // 초기 상태 리셋 (nil로 설정하여 첫 수신 시 마커 안 찍히게 함)
         savedPointCount = 0 // 저장된 지점 수 초기화
         currentSessionId = UUID().uuidString // 새로운 세션 ID 생성
@@ -170,7 +181,8 @@ final class FishingRecordViewModel: ObservableObject {
             useCase.savePoint(sessionId: currentSessionId,
                             latitude: lastLocation.coordinate.latitude,
                             longitude: lastLocation.coordinate.longitude,
-                            speed: 0)
+                            speed: 0,
+                            state: currentStateValue)
             savedPointCount += 1
         }
         
@@ -189,14 +201,16 @@ final class FishingRecordViewModel: ObservableObject {
             useCase.savePoint(sessionId: currentSessionId,
                             latitude: lastLocation.coordinate.latitude,
                             longitude: lastLocation.coordinate.longitude,
-                            speed: 0)
+                            speed: 0,
+                            state: currentStateValue)
             savedPointCount += 1
         } else if let lastCoord = pathCoordinates.last {
             // 위치 리스트가 없으면 경로 좌표에서 가져옴
             useCase.savePoint(sessionId: currentSessionId,
                             latitude: lastCoord.latitude,
                             longitude: lastCoord.longitude,
-                            speed: 0)
+                            speed: 0,
+                            state: currentStateValue)
             savedPointCount += 1
         }
         
@@ -212,7 +226,8 @@ final class FishingRecordViewModel: ObservableObject {
         let lat = pathCoordinates.last?.latitude ?? 0.0
         let lon = pathCoordinates.last?.longitude ?? 0.0
         
-        if let path = useCase.savePhoto(sessionId: currentSessionId, image: data, location: (lat, lon)) {
+        // 0: 이동, 1: 탐색, 2: 낚시
+        if let path = useCase.savePhoto(sessionId: currentSessionId, image: data, location: (lat, lon), state: currentStateValue) {
             // UI 표시용 썸네일 경로 업데이트
             savedImagePaths.insert(path, at: 0)
             
@@ -224,7 +239,7 @@ final class FishingRecordViewModel: ObservableObject {
             photoMarkers.append(photoMarker)
             
             // 사진 촬영 시 지점 저장
-            useCase.savePoint(sessionId: currentSessionId, latitude: lat, longitude: lon, speed: currentSpeed)
+            useCase.savePoint(sessionId: currentSessionId, latitude: lat, longitude: lon, speed: currentSpeed, state: currentStateValue)
             savedPointCount += 1
         }
     }
@@ -268,5 +283,14 @@ final class FishingRecordViewModel: ObservableObject {
     
     func getLocationList() -> [LocationInfo] {
         return locationManager.locationList
+    }
+    
+    // MARK: - Helper
+    private var currentStateValue: Int {
+        switch fishingState {
+        case .moving: return 0
+        case .drifting: return 1
+        case .fishing: return 2
+        }
     }
 }

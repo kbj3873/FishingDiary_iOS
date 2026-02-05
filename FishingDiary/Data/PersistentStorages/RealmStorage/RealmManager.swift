@@ -4,7 +4,7 @@ import RealmSwift
 final class RealmManager {
     static let shared = RealmManager()
     
-    private let databaseVersion: UInt64 = 2  // sessionId 필드 추가로 인한 버전 업
+    private let databaseVersion: UInt64 = 3  // 2 -> 3: state 필드 추가
     
     private init() {}
     
@@ -16,9 +16,15 @@ final class RealmManager {
                 migrationBlock: { migration, oldSchemaVersion in
                     if oldSchemaVersion < 2 {
                         // sessionId 필드 추가 마이그레이션
-                        // 새 필드는 기본값("")으로 자동 설정됨
                         migration.enumerateObjects(ofType: RealmFishingRecord.className()) { oldObject, newObject in
                             newObject?["sessionId"] = ""
+                        }
+                    }
+                    
+                    if oldSchemaVersion < 3 {
+                        // state 필드 추가 마이그레이션
+                        migration.enumerateObjects(ofType: RealmFishingRecord.className()) { oldObject, newObject in
+                            newObject?["state"] = 0 // 기본값 0 (이동중)
                         }
                     }
                 }
