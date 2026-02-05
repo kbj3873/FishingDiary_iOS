@@ -20,6 +20,9 @@ struct AppleTrackMapView: View {
             AppleTrackMapViewRepresentable(
                 mapLineInfo: $viewModel.mapLine,
                 shouldCleanup: $shouldCleanupMap,
+                markers: .constant([]),
+                photoMarkers: .constant([]),
+                fishingState: .constant(.moving),
                 getLocationList: viewModel.getLocationList,
                 coordinator: $mapCoordinator
             )

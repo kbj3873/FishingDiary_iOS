@@ -61,14 +61,14 @@ struct MainTabView: View {
                 .tag(TabItem.analysis)
 
             // 낚시기록
-            PlaceholderView(title: "낚시기록")
+            FishingRecordCompositionLayer()
                 .tabItem {
                     tabLabel(for: .fishingRecord)
                 }
                 .tag(TabItem.fishingRecord)
 
             // 히스토리
-            PlaceholderView(title: "히스토리")
+            HistoryCompositionLayer()
                 .tabItem {
                     tabLabel(for: .history)
                 }
@@ -119,6 +119,35 @@ struct MainTabView: View {
 
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
+    }
+}
+
+// MARK: - Composition Layers
+struct FishingRecordCompositionLayer: View {
+    @StateObject private var viewModel: FishingRecordViewModel
+    
+    init() {
+        let repository = DefaultFishingRecordRepository()
+        let useCase = DefaultFishingRecordUseCase(repository: repository)
+        _viewModel = StateObject(wrappedValue: FishingRecordViewModel(useCase: useCase))
+    }
+    
+    var body: some View {
+        FishingRecordView(viewModel: viewModel)
+    }
+}
+
+struct HistoryCompositionLayer: View {
+    @StateObject private var viewModel: HistoryViewModel
+    
+    init() {
+        let repository = DefaultFishingRecordRepository()
+        let useCase = DefaultFishingRecordUseCase(repository: repository)
+        _viewModel = StateObject(wrappedValue: HistoryViewModel(useCase: useCase))
+    }
+    
+    var body: some View {
+        HistoryView(viewModel: viewModel)
     }
 }
 

@@ -4,6 +4,12 @@
 <dict>
 	<key>ApiBaseURL</key>
 	<string>$(API_BASE_URL)</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>ko</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>ko</string>
+	</array>
 	<key>ApiKeyCoo</key>
 	<string>$(API_KEY_COO)</string>
 	<key>ApiKeyRisa</key>
@@ -23,5 +29,9 @@
 	<array>
 		<string>location</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>낚시 기록을 위한 사진 촬영에 카메라 권한이 필요합니다.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>촬영한 사진을 저장하고 불러오기 위해 앨범 접근 권한이 필요합니다.</string>
 </dict>
 </plist>

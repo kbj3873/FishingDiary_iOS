@@ -8,17 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		0BF29263C5B25FD2C6EF9558 /* SeaAnalysisDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */; };
+		0FBF453FFF082B22DC020B1F /* DefaultFishingRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */; };
+		117618292F33480A00EF9FAF /* CommonPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117618272F33480A00EF9FAF /* CommonPopupView.swift */; };
+		117618302F3364CA00EF9FAF /* HistoryRecordCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1176182A2F3364CA00EF9FAF /* HistoryRecordCardView.swift */; };
+		117618312F3364CA00EF9FAF /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1176182B2F3364CA00EF9FAF /* HistoryView.swift */; };
+		117618322F3364CA00EF9FAF /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1176182D2F3364CA00EF9FAF /* HistoryViewModel.swift */; };
 		117A00282F2DA7C4005C7F82 /* SeaAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00252F2DA7C4005C7F82 /* SeaAnalysisView.swift */; };
 		117A00292F2DA7C4005C7F82 /* SeaRegionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */; };
 		117A002A2F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00232F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift */; };
 		117A002B2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */; };
 		117A002D2F2DA7C5005C7F82 /* SeaRegionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */; };
 		117A002F2F2DA7C5005C7F82 /* SeaRegionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */; };
+		1330B868D2832A44D987A553 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093AC48AA1FF2837E609F8E8 /* RealmManager.swift */; };
+		225237683E1B0440276984CB /* FishingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */; };
 		29A7E81887295D88B98D6ABA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5D606CD631AF9E1FFC631E /* SettingViewModel.swift */; };
 		569F048024BBD429EC11659B /* Pods_FishingDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03AA4355987AC316DDA08C99 /* Pods_FishingDiary.framework */; };
 		61F92959D621EB1C9B01CD6A /* SeaAnalysisDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FDD546D39EAF812578B340 /* SeaAnalysisDetailViewModel.swift */; };
+		653C52A1CE777E0B482867DA /* FishingRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E28F070A7171D666323721 /* FishingRecordRepository.swift */; };
 		7328AEBCF75792505834FC4D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC046A5B2699C9838415D31D /* SettingView.swift */; };
+		78C52B0F387154EC058F66CA /* RealmFishingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9496B21B73A2BB3CBD17F97 /* RealmFishingRecord.swift */; };
+		938308A513E526F0A691998F /* FishingRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907061170C85DB46A0B8579F /* FishingRecordViewModel.swift */; };
+		A040C38E031E0655DA7EE9BC /* FishingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */; };
 		AABF851A0557A35D008E9C95 /* TemperatureLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */; };
+		E9B3C143644F178B8CD4DD33 /* FishingRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2E7BE3E0B35DBDE877066 /* FishingRecordView.swift */; };
 		F401EC1A2E9F6422002F52FF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC192E9F6422002F52FF /* MainView.swift */; };
 		F401EC1C2E9F7494002F52FF /* MainHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */; };
 		F406B4452B30061100AEEA2B /* TrackMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */; };
@@ -159,16 +171,28 @@
 
 /* Begin PBXFileReference section */
 		03AA4355987AC316DDA08C99 /* Pods_FishingDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FishingDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		093AC48AA1FF2837E609F8E8 /* RealmManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DefaultFishingRecordRepository.swift; sourceTree = "<group>"; };
+		117618272F33480A00EF9FAF /* CommonPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonPopupView.swift; sourceTree = "<group>"; };
+		1176182A2F3364CA00EF9FAF /* HistoryRecordCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRecordCardView.swift; sourceTree = "<group>"; };
+		1176182B2F3364CA00EF9FAF /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		1176182D2F3364CA00EF9FAF /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		117A00232F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaAnalysisViewModel.swift; sourceTree = "<group>"; };
 		117A00252F2DA7C4005C7F82 /* SeaAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaAnalysisView.swift; sourceTree = "<group>"; };
 		117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionCardView.swift; sourceTree = "<group>"; };
 		117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListViewModel.swift; sourceTree = "<group>"; };
 		117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionRowView.swift; sourceTree = "<group>"; };
 		117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListView.swift; sourceTree = "<group>"; };
+		5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordUseCase.swift; sourceTree = "<group>"; };
 		5C5D606CD631AF9E1FFC631E /* SettingViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		60FDD546D39EAF812578B340 /* SeaAnalysisDetailViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SeaAnalysisDetailViewModel.swift; sourceTree = "<group>"; };
 		7923DDEBCA0435B83A181040 /* Pods-FishingDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.release.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.release.xcconfig"; sourceTree = "<group>"; };
+		84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecord.swift; sourceTree = "<group>"; };
+		907061170C85DB46A0B8579F /* FishingRecordViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordViewModel.swift; sourceTree = "<group>"; };
+		96F2E7BE3E0B35DBDE877066 /* FishingRecordView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordView.swift; sourceTree = "<group>"; };
+		B3E28F070A7171D666323721 /* FishingRecordRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordRepository.swift; sourceTree = "<group>"; };
 		B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SeaAnalysisDetailView.swift; sourceTree = "<group>"; };
+		C9496B21B73A2BB3CBD17F97 /* RealmFishingRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RealmFishingRecord.swift; sourceTree = "<group>"; };
 		CC046A5B2699C9838415D31D /* SettingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TemperatureLineGraphView.swift; sourceTree = "<group>"; };
 		EDA398BA0DAB4D361B4206DB /* Pods-FishingDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishingDiary.debug.xcconfig"; path = "Target Support Files/Pods-FishingDiary/Pods-FishingDiary.debug.xcconfig"; sourceTree = "<group>"; };
@@ -320,6 +344,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		117618282F33480A00EF9FAF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				117618272F33480A00EF9FAF /* CommonPopupView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		1176182C2F3364CA00EF9FAF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1176182A2F3364CA00EF9FAF /* HistoryRecordCardView.swift */,
+				1176182B2F3364CA00EF9FAF /* HistoryView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1176182E2F3364CA00EF9FAF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1176182D2F3364CA00EF9FAF /* HistoryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1176182F2F3364CA00EF9FAF /* History */ = {
+			isa = PBXGroup;
+			children = (
+				1176182C2F3364CA00EF9FAF /* View */,
+				1176182E2F3364CA00EF9FAF /* ViewModel */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		117A00242F2DA7C4005C7F82 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,6 +402,24 @@
 			path = SeaAnalysis;
 			sourceTree = "<group>";
 		};
+		14A6C90E4B6D27A7F5BDC4A8 /* RealmStorage */ = {
+			isa = PBXGroup;
+			children = (
+				093AC48AA1FF2837E609F8E8 /* RealmManager.swift */,
+				1BCE3868D54F1D5FE6C7F5E4 /* Entities */,
+			);
+			path = RealmStorage;
+			sourceTree = "<group>";
+		};
+		17A52C297C3FDC91F4560C66 /* FishingRecord */ = {
+			isa = PBXGroup;
+			children = (
+				64CFDE57075E139C0A06C485 /* ViewModel */,
+				4E8E4FB61E41F9B6E72F0AE8 /* View */,
+			);
+			path = FishingRecord;
+			sourceTree = "<group>";
+		};
 		1A49441F53CDCBB62B6A9456 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,13 +429,44 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		1BCE3868D54F1D5FE6C7F5E4 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				C9496B21B73A2BB3CBD17F97 /* RealmFishingRecord.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		43FACE516AE4ED4DDA39ECCD /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */,
 			);
-			name = Components;
 			path = Components;
+			sourceTree = "<group>";
+		};
+		4E8E4FB61E41F9B6E72F0AE8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				96F2E7BE3E0B35DBDE877066 /* FishingRecordView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		64CFDE57075E139C0A06C485 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				907061170C85DB46A0B8579F /* FishingRecordViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		87794175869B1AE4FEA87773 /* PersistentStorages */ = {
+			isa = PBXGroup;
+			children = (
+				14A6C90E4B6D27A7F5BDC4A8 /* RealmStorage */,
+			);
+			path = PersistentStorages;
 			sourceTree = "<group>";
 		};
 		90C46857C8E4A5379CD6E3DC /* Setting */ = {
@@ -368,8 +475,15 @@
 				E4A77780F010214A118863BA /* ViewModel */,
 				CC046A5B2699C9838415D31D /* SettingView.swift */,
 			);
-			name = Setting;
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		931BFB352AD6D6CB95BF3A0F /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				B3E28F070A7171D666323721 /* FishingRecordRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		E4A77780F010214A118863BA /* ViewModel */ = {
@@ -377,7 +491,6 @@
 			children = (
 				5C5D606CD631AF9E1FFC631E /* SettingViewModel.swift */,
 			);
-			name = ViewModel;
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
@@ -439,6 +552,7 @@
 				F491527B2B99A9080000C552 /* Network */,
 				F4F2D2202B218DD9007E48D8 /* PointDataStorage */,
 				F43151EF2B185AD200027BB9 /* Repositories */,
+				87794175869B1AE4FEA87773 /* PersistentStorages */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -451,6 +565,7 @@
 				F4A4AEFB2B26D4DF0017D173 /* DefaultPointDataListRepository.swift */,
 				F4E6A2A32B2AE2D400C935BF /* DefaultPointMapRepository.swift */,
 				F49152772B9955680000C552 /* DefaultOceanRepository.swift */,
+				0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -474,6 +589,7 @@
 				F4E6A29F2B2AD37900C935BF /* PointMapUseCase.swift */,
 				F49152732B9952590000C552 /* OceanUseCase.swift */,
 				F4F2D2172B214BC6007E48D8 /* Protocol */,
+				5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -487,6 +603,7 @@
 				F480D2622BA2E2A800E1F30D /* OceanQuery.swift */,
 				F44883B12DB10DA5008B9BB5 /* SeaInfo.swift */,
 				F44883B22DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift */,
+				84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -499,6 +616,7 @@
 				F4E6A2A12B2ADF4900C935BF /* PointMapRepository.swift */,
 				F406B4462B3006E400AEEA2B /* TrackMapRepository.swift */,
 				F49152752B9954D60000C552 /* OceanRepository.swift */,
+				931BFB352AD6D6CB95BF3A0F /* Repositories */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -506,6 +624,7 @@
 		F43151F42B185AD200027BB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1176182F2F3364CA00EF9FAF /* History */,
 				117A00272F2DA7C4005C7F82 /* SeaAnalysis */,
 				F44883BA2DB10DA5008B9BB5 /* SeaWaterTemperature */,
 				F406B4422B3005F600AEEA2B /* Track */,
@@ -513,6 +632,7 @@
 				F43151F62B185AD200027BB9 /* PointScene */,
 				F43151F52B185AD200027BB9 /* Utils */,
 				90C46857C8E4A5379CD6E3DC /* Setting */,
+				17A52C297C3FDC91F4560C66 /* FishingRecord */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -800,6 +920,7 @@
 		F4DE48242AA04ECB00ED2D23 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				117618282F33480A00EF9FAF /* Components */,
 				F4F647912DC1E9AA0028A2C5 /* Utils */,
 				F4DE481F2AA041B200ED2D23 /* Extentions */,
 				F49DCFF72B1EFA47009C5FC4 /* Protocols */,
@@ -1063,6 +1184,7 @@
 				F4E70F422AAEF6DA008A3317 /* PointDateCell.swift in Sources */,
 				F44E65EA2B9ED1D0006D8761 /* DispatchQueueType.swift in Sources */,
 				F4E6A2A02B2AD37900C935BF /* PointMapUseCase.swift in Sources */,
+				117618292F33480A00EF9FAF /* CommonPopupView.swift in Sources */,
 				F4A4AEFA2B26D22D0017D173 /* PointDataListRepository.swift in Sources */,
 				F4BFF1AB2EA7633700B9C332 /* PointDataListUIView.swift in Sources */,
 				F4950DCB2AAA9A7100DD26DE /* FDFileManager.swift in Sources */,
@@ -1112,6 +1234,9 @@
 				F491527A2B99A7570000C552 /* RepositoryTask.swift in Sources */,
 				F4D66C912EB0582300BE690F /* KakaoPointMapView.swift in Sources */,
 				F4950DCD2AAAA36000DD26DE /* FDAppManager.swift in Sources */,
+				117618302F3364CA00EF9FAF /* HistoryRecordCardView.swift in Sources */,
+				117618312F3364CA00EF9FAF /* HistoryView.swift in Sources */,
+				117618322F3364CA00EF9FAF /* HistoryViewModel.swift in Sources */,
 				F4F2D2222B218DF4007E48D8 /* FileDataStorage.swift in Sources */,
 				F4B20E952EAB62600056FE51 /* PointInfoView.swift in Sources */,
 				F4D5DA852EB34A3A009E07C4 /* SeaWaterTemperatureView.swift in Sources */,
@@ -1126,6 +1251,14 @@
 				AABF851A0557A35D008E9C95 /* TemperatureLineGraphView.swift in Sources */,
 				7328AEBCF75792505834FC4D /* SettingView.swift in Sources */,
 				29A7E81887295D88B98D6ABA /* SettingViewModel.swift in Sources */,
+				A040C38E031E0655DA7EE9BC /* FishingRecord.swift in Sources */,
+				653C52A1CE777E0B482867DA /* FishingRecordRepository.swift in Sources */,
+				225237683E1B0440276984CB /* FishingRecordUseCase.swift in Sources */,
+				1330B868D2832A44D987A553 /* RealmManager.swift in Sources */,
+				78C52B0F387154EC058F66CA /* RealmFishingRecord.swift in Sources */,
+				0FBF453FFF082B22DC020B1F /* DefaultFishingRecordRepository.swift in Sources */,
+				938308A513E526F0A691998F /* FishingRecordViewModel.swift in Sources */,
+				E9B3C143644F178B8CD4DD33 /* FishingRecordView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
