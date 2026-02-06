@@ -11,7 +11,7 @@ final class HistoryDetailViewModel: ObservableObject {
     @Published var totalDistance: Double = 0.0 // km
     @Published var totalDuration: String = "00:00:00"
     
-    @Published var polylines: [FishingPolyline] = []
+    @Published var polylines: [HistoryFishingPolyline] = []
     @Published var stateMarkers: [FishingRecordViewModel.StateChangeMarker] = []
     @Published var stateMarkerInfos: [HistoryStateMarkerInfo] = [] // 상태 마커 상세 정보
     @Published var centerCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780) // 기본 서울
@@ -66,7 +66,8 @@ final class HistoryDetailViewModel: ObservableObject {
                 switch result {
                 case .success(let allRecords):
                     // 2. sessionId로 필터링 및 정렬 (시간순)
-                    let filteredRecords: [FishingRecord] = allRecords.filter { record in
+                    // 2. sessionId로 필터링 및 정렬 (시간순)
+                    let filteredRecords = allRecords.filter { record in
                         return record.sessionId == self.sessionId
                     }
                     
@@ -127,6 +128,7 @@ final class HistoryDetailViewModel: ObservableObject {
                 globalMarkerIndex += 1
                 
                 return HistoryPhotoMarker(
+                    recordId: record.id,
                     coordinate: CLLocationCoordinate2D(latitude: record.location.latitude, longitude: record.location.longitude),
                     thumbnailPath: fullPath,
                     title: title,
@@ -145,7 +147,7 @@ final class HistoryDetailViewModel: ObservableObject {
             self.centerCoordinate = CLLocationCoordinate2D(latitude: first.location.latitude, longitude: first.location.longitude)
         }
         
-        var segments: [FishingPolyline] = []
+        var segments: [HistoryFishingPolyline] = []
         var newStateMarkers: [FishingRecordViewModel.StateChangeMarker] = []
         var newStateMarkerInfos: [HistoryStateMarkerInfo] = []
         
@@ -156,7 +158,7 @@ final class HistoryDetailViewModel: ObservableObject {
         // 지점 번호 카운터 (사진 마커 다음 번호부터 시작)
         var stateMarkerIndex = self.markers.count + 1
         
-        for (index, record) in sortedRecords.enumerated() {
+        for (_, record) in sortedRecords.enumerated() {
             let coord = CLLocationCoordinate2D(latitude: record.location.latitude, longitude: record.location.longitude)
             let state = record.state
             
@@ -218,9 +220,9 @@ final class HistoryDetailViewModel: ObservableObject {
     }
     
     // Helper to create colored polyline
-    private func createPolyline(coordinates: [CLLocationCoordinate2D], state: Int) -> FishingPolyline {
+    private func createPolyline(coordinates: [CLLocationCoordinate2D], state: Int) -> HistoryFishingPolyline {
         var coords = coordinates
-        let polyline = FishingPolyline(coordinates: &coords, count: coords.count)
+        let polyline = HistoryFishingPolyline(coordinates: &coords, count: coords.count)
         
         // 색상 지정 (FishingRecordView와 동일)
         switch state {
@@ -246,11 +248,14 @@ final class HistoryDetailViewModel: ObservableObject {
     
     // MARK: - Helper Methods
     private func formatDuration(_ duration: TimeInterval) -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute, .second]
-        formatter.unitsStyle = .positional
-        formatter.zeroFormattingBehavior = .pad
-        return formatter.string(from: duration) ?? "00:00:00"
+        let hours = Int(duration) / 3600
+        let minutes = (Int(duration) % 3600) / 60
+        
+        if hours > 0 {
+            return String(format: "%d시간 %d분", hours, minutes)
+        } else {
+            return String(format: "%d분", minutes)
+        }
     }
     
     private func calculateTotalDistance(records: [FishingRecord]) -> Double {
@@ -264,5 +269,38 @@ final class HistoryDetailViewModel: ObservableObject {
         }
         
         return distance / 1000.0 // meters to km
+    }
+    
+    // MARK: - Action
+    @Published var isDeletePopupPresented: Bool = false
+    @Published var isPhotoDeletePopupPresented: Bool = false
+    @Published var shouldDismiss: Bool = false
+    @Published var isDataModified: Bool = false // 데이터 수정 여부
+    
+    func deleteRecord() {
+        _ = useCase.deleteSession(sessionId: sessionId)
+        
+        // 삭제 후 화면 닫기 트리거
+        shouldDismiss = true
+    }
+    
+    func deletePhoto(at index: Int) {
+        guard index >= 0 && index < markers.count else { return }
+        
+        let marker = markers[index]
+        
+        // 실제 데이터 삭제
+        _ = useCase.deleteFishingRecord(id: marker.recordId)
+        
+        // UI 업데이트
+        markers.remove(at: index)
+        isDataModified = true
+        
+        // 인덱스 조정
+        if markers.isEmpty {
+            isImageViewerPresented = false
+        } else if selectedImageIndex >= markers.count {
+            selectedImageIndex = markers.count - 1
+        }
     }
 }

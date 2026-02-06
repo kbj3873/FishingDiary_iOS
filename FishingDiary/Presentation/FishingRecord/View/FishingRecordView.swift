@@ -4,14 +4,14 @@ import MapKit
 struct FishingRecordView: View {
     @ObservedObject var viewModel: FishingRecordViewModel
     @State private var shouldCleanupMap = false
-    @State private var mapCoordinator: AppleTrackMapViewRepresentable.Coordinator?
+    @State private var mapCoordinator: RecordMapView.Coordinator?
     @State private var showCamera = false
     @State private var selectedImage: UIImage?
     
     var body: some View {
         ZStack {
             // 1. Map Layer
-            AppleTrackMapViewRepresentable(
+            RecordMapView(
                 mapLineInfo: $viewModel.currentMapLine,
                 shouldCleanup: $shouldCleanupMap,
                 markers: $viewModel.markers,
@@ -49,9 +49,9 @@ struct FishingRecordView: View {
             }
         }
         .onDisappear {
-            shouldCleanupMap = true
-            mapCoordinator?.cleanup()
-            viewModel.stopRecording()
+            // 탭 이동 시에도 지도를 유지하기 위해 cleanup 로직 제거
+            // shouldCleanupMap = true
+            // mapCoordinator?.cleanup()
         }
         .fullScreenCover(isPresented: $showCamera) {
             ImagePicker(selectedImage: $selectedImage)
@@ -85,6 +85,7 @@ struct FishingRecordView: View {
                             secondaryButtonText: "중단",
                             secondaryAction: {
                                 viewModel.stopRecording()
+                                mapCoordinator?.clearMap()
                             }
                         )
                     }
@@ -221,12 +222,8 @@ struct FishingRecordView: View {
             }
             
             HStack(alignment: .center) {
-                // 썸네일 (좌측)
-                if let lastPath = viewModel.savedImagePaths.first {
-                    thumbnailView(path: lastPath)
-                } else {
-                    Spacer().frame(width: 60)
-                }
+                // 썸네일 (좌측) - 삭제됨
+                Spacer() // 좌측 공백 채우기 (중앙 정렬 유지를 위해 Spacer 비율 조정 필요 시 확인)
                 
                 Spacer()
                 

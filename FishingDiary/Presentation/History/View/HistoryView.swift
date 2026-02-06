@@ -51,6 +51,20 @@ struct HistoryView: View {
         .padding(.top, 48)
         .padding(.bottom, 24)
         .background(Color.white)
+        .overlay(
+            HStack {
+                Spacer()
+                #if DEBUG
+                Button(action: {
+                    viewModel.generateTestData()
+                }) {
+                    Image(systemName: "hammer.fill")
+                        .foregroundColor(.gray)
+                        .padding()
+                }
+                #endif
+            }
+        )
     }
     
     // MARK: - Record List
@@ -58,7 +72,9 @@ struct HistoryView: View {
         ScrollView {
             LazyVStack(spacing: 12) {
                 ForEach(viewModel.records) { record in
-                    NavigationLink(destination: HistoryDetailView(sessionId: record.id, useCase: viewModel.useCase)) {
+                    NavigationLink(destination: HistoryDetailView(sessionId: record.id, useCase: viewModel.useCase, onDataChanged: {
+                        viewModel.loadRecords()
+                    })) {
                         HistoryRecordCardView(item: record)
                     }
                     .buttonStyle(PlainButtonStyle()) // 리스트 스타일 간섭 방지

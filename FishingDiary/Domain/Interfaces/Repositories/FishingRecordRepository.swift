@@ -12,6 +12,13 @@ public protocol FishingRecordRepository {
     
     /// 모든 낚시 기록을 불러옵니다 (히스토리용).
     func fetchAllRecords(completion: @escaping (Result<[FishingRecord], Error>) -> Void) -> Cancellable?
+    
+    /// 특정 세션의 기록을 삭제합니다.
+    func deleteSession(sessionId: String) -> Cancellable?
+    func deleteFishingRecords(ids: [String]) -> Cancellable?
+    
+    /// 특정 낚시 기록(ID)을 삭제합니다. (사진 마커 삭제용)
+    func deleteFishingRecord(id: String) -> Cancellable?
 }
 
 

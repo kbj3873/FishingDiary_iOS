@@ -219,6 +219,24 @@ final class FishingRecordViewModel: ObservableObject {
         timerPublisher?.cancel()
         timerPublisher = nil
         isStopPopupPresented = false
+        
+        // UI 및 상태 초기화 (기록 중단 시 Reset)
+        markers.removeAll()
+        photoMarkers.removeAll()
+        pathCoordinates.removeAll()
+        savedImagePaths.removeAll()
+        savedPointCount = 0
+        currentSpeed = 0
+        distance = 0
+        duration = 0
+        fishingState = .moving // 기본 상태로 복구
+        
+        // MapLine 초기화 (마지막 위치 기준으로 점 하나만 남김)
+        if let lastLocation = locationManager.locationList.last?.locationInfo {
+             self.currentMapLine = MapLineInfo(lastLocation, lastLocation)
+        } else {
+             self.currentMapLine = MapLineInfo(CLLocation(), CLLocation())
+        }
     }
     
     func savePhoto(data: Data) {

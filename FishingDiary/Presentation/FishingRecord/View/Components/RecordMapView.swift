@@ -1,5 +1,5 @@
 //
-//  AppleTrackMapViewRepresentable.swift
+//  RecordMapView.swift
 //  FishingDiary
 //
 //  Created by Y0000591 on 10/29/25.
@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import SwiftUI
 
-struct AppleTrackMapViewRepresentable: UIViewRepresentable {
+struct RecordMapView: UIViewRepresentable {
     @Binding var mapLineInfo: MapLineInfo
     @Binding var shouldCleanup: Bool
     @Binding var markers: [FishingRecordViewModel.StateChangeMarker]
@@ -78,14 +78,14 @@ struct AppleTrackMapViewRepresentable: UIViewRepresentable {
     }
     
     class Coordinator: NSObject, MKMapViewDelegate {
-        var parent: AppleTrackMapViewRepresentable
+        var parent: RecordMapView
         weak var mapView: MKMapView?
         var lastMarkerCount = 0
         var lastPhotoMarkerCount = 0
         private var isCleanedUp = false
         private var hasSetInitialRegion = false // 초기 region 설정
         
-        init(_ parent: AppleTrackMapViewRepresentable) {
+        init(_ parent: RecordMapView) {
             self.parent = parent
         }
         
@@ -108,8 +108,8 @@ struct AppleTrackMapViewRepresentable: UIViewRepresentable {
             guard let mapView = mapView else { return }
             
             var coordinates = [from.coordinate, to.coordinate]
-            // FishingPolyline 사용 (색상 정보 포함)
-            let polyline = FishingPolyline(coordinates: &coordinates, count: 2)
+            // RecordFishingPolyline 사용 (색상 정보 포함)
+            let polyline = RecordFishingPolyline(coordinates: &coordinates, count: 2)
             polyline.lineColor = getColor(for: state)
             mapView.addOverlay(polyline)
         }
@@ -118,7 +118,7 @@ struct AppleTrackMapViewRepresentable: UIViewRepresentable {
         func addMarker(_ marker: FishingRecordViewModel.StateChangeMarker) {
             guard let mapView = mapView else { return }
             
-            let annotation = FishingStateAnnotation()
+            let annotation = RecordFishingStateAnnotation()
             annotation.coordinate = marker.coordinate
             annotation.title = marker.state.rawValue
             annotation.state = marker.state
@@ -129,7 +129,7 @@ struct AppleTrackMapViewRepresentable: UIViewRepresentable {
         func addPhotoMarker(_ photoMarker: FishingRecordViewModel.PhotoMarker) {
             guard let mapView = mapView else { return }
             
-            let annotation = PhotoAnnotation()
+            let annotation = RecordPhotoAnnotation()
             annotation.coordinate = photoMarker.coordinate
             annotation.thumbnailPath = photoMarker.thumbnailPath
             mapView.addAnnotation(annotation)
@@ -137,7 +137,7 @@ struct AppleTrackMapViewRepresentable: UIViewRepresentable {
         
         // polyline 및 annotation 렌더링
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            if let fishingPolyline = overlay as? FishingPolyline {
+            if let fishingPolyline = overlay as? RecordFishingPolyline {
                 let renderer = MKPolylineRenderer(overlay: fishingPolyline)
                 renderer.strokeColor = fishingPolyline.lineColor ?? .blue
                 renderer.lineWidth = 3.0
@@ -156,11 +156,11 @@ struct AppleTrackMapViewRepresentable: UIViewRepresentable {
         
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             // 사진 마커 처리
-            if let photoAnnotation = annotation as? PhotoAnnotation {
+            if let photoAnnotation = annotation as? RecordPhotoAnnotation {
                 return photoAnnotationView(for: photoAnnotation, in: mapView)
             }
             
-            guard let fishingAnnotation = annotation as? FishingStateAnnotation else {
+            guard let fishingAnnotation = annotation as? RecordFishingStateAnnotation else {
                 return nil
             }
             
@@ -193,7 +193,7 @@ struct AppleTrackMapViewRepresentable: UIViewRepresentable {
         }
         
         // 사진 마커 렌더링 - Figma 디자인: 둥근 모서리 사각형 + 초록색 테두리
-        private func photoAnnotationView(for annotation: PhotoAnnotation, in mapView: MKMapView) -> MKAnnotationView? {
+        private func photoAnnotationView(for annotation: RecordPhotoAnnotation, in mapView: MKMapView) -> MKAnnotationView? {
             let identifier = "PhotoMarker"
             var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             
@@ -293,7 +293,7 @@ struct AppleTrackMapViewRepresentable: UIViewRepresentable {
         func cleanup() {
             guard !isCleanedUp, let mapView = mapView else { return }
             
-            print("AppleTrackMap 리소스 정리 시작")
+            print("RecordMapView 리소스 정리 시작")
             
             mapView.delegate = nil
             mapView.removeOverlays(mapView.overlays)
@@ -302,13 +302,13 @@ struct AppleTrackMapViewRepresentable: UIViewRepresentable {
             mapView.userTrackingMode = .none
             
             isCleanedUp = true
-            print("AppleTrackMap 리소스 정리 완료")
+            print("RecordMapView 리소스 정리 완료")
         }
         
         func clearMap() {
             guard let mapView = mapView else { return }
             
-            print("AppleTrackMap 오버레이 및 마커 초기화")
+            print("RecordMapView 오버레이 및 마커 초기화")
             
             // 모든 경로 및 마커 제거
             mapView.removeOverlays(mapView.overlays)
@@ -324,40 +324,20 @@ struct AppleTrackMapViewRepresentable: UIViewRepresentable {
         
         deinit {
             cleanup()
-            print("AppleTrackMapViewRepresentable.Coordinator deinit")
+            print("RecordMapView.Coordinator deinit")
         }
     }
 }
 
-// MARK: - Custom Classes
-class FishingPolyline: MKPolyline {
+// MARK: - Custom Classes (Record Prefix 추가)
+class RecordFishingPolyline: MKPolyline {
     var lineColor: UIColor?
 }
 
-class FishingStateAnnotation: MKPointAnnotation {
+class RecordFishingStateAnnotation: MKPointAnnotation {
     var state: FDAppManager.FishingState?
 }
 
-class PhotoAnnotation: MKPointAnnotation {
+class RecordPhotoAnnotation: MKPointAnnotation {
     var thumbnailPath: String?
-}
-
-extension UIColor {
-    convenience init(hex: String) {
-        let hexString = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int = UInt64()
-        Scanner(string: hexString).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hexString.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
-        }
-        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
-    }
 }

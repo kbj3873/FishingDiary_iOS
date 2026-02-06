@@ -62,6 +62,19 @@ final class RealmManager {
         }
     }
     
+    /// 다수 데이터 삭제
+    func delete<S: Sequence>(_ objects: S) where S.Element: Object {
+        guard let realm = realm else { return }
+        
+        do {
+            try realm.write {
+                realm.delete(objects)
+            }
+        } catch {
+            print("Realm delete error: \(error)")
+        }
+    }
+    
     /// 데이터 조회
     func fetch<T: Object>(_ type: T.Type) -> Results<T>? {
         return realm?.objects(type)

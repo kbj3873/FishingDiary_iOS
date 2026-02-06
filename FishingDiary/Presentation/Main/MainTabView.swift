@@ -37,10 +37,14 @@ enum TabItem: Int, CaseIterable {
 
 struct MainTabView: View {
     @State private var selectedTab: TabItem = .currentTemperature
-
+    @StateObject private var fishingRecordViewModel: FishingRecordViewModel
+    
     private let pointSceneDIContainer: PointSceneDIContainer = AppDIContainer.shared.resolve()
 
     init() {
+        let container: PointSceneDIContainer = AppDIContainer.shared.resolve()
+        _fishingRecordViewModel = StateObject(wrappedValue: container.makeFishingRecordViewModel())
+        
         configureTabBarAppearance()
     }
 
@@ -61,7 +65,7 @@ struct MainTabView: View {
                 .tag(TabItem.analysis)
 
             // 낚시기록
-            FishingRecordCompositionLayer()
+            FishingRecordCompositionLayer(viewModel: fishingRecordViewModel)
                 .tabItem {
                     tabLabel(for: .fishingRecord)
                 }
@@ -124,12 +128,10 @@ struct MainTabView: View {
 
 // MARK: - Composition Layers
 struct FishingRecordCompositionLayer: View {
-    @StateObject private var viewModel: FishingRecordViewModel
+    @ObservedObject var viewModel: FishingRecordViewModel
     
-    init() {
-        let repository = DefaultFishingRecordRepository()
-        let useCase = DefaultFishingRecordUseCase(repository: repository)
-        _viewModel = StateObject(wrappedValue: FishingRecordViewModel(useCase: useCase))
+    init(viewModel: FishingRecordViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {

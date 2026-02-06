@@ -149,6 +149,10 @@ extension PointSceneDIContainer {
     func makeSettingViewModel() -> SettingViewModel {
         SettingViewModel(appManager: .shared)
     }
+    
+    func makeFishingRecordViewModel() -> FishingRecordViewModel {
+        FishingRecordViewModel(useCase: makeFishingRecordUseCase())
+    }
 }
 
 // MARK: make use case
@@ -173,6 +177,10 @@ extension PointSceneDIContainer {
     func makePointMapUseCase() -> PointMapUseCase {
         PointMapUseCase(pointMapRepository: makePointMapRepository())
     }
+    
+    func makeFishingRecordUseCase() -> FishingRecordUseCase {
+        DefaultFishingRecordUseCase(repository: makeFishingRecordRepository())
+    }
 }
 
 // MARK: make data repository
@@ -196,5 +204,9 @@ extension PointSceneDIContainer {
     
     func makePointMapRepository() -> PointMapRepository {
         DefaultPointMapRepository(fileStorage: fileStorage)
+    }
+    
+    func makeFishingRecordRepository() -> FishingRecordRepository {
+        DefaultFishingRecordRepository()
     }
 }

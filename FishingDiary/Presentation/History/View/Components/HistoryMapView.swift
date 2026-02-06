@@ -4,6 +4,7 @@ import MapKit
 // 히스토리 지도용 마커 모델
 struct HistoryPhotoMarker: Identifiable {
     let id = UUID()
+    let recordId: String // 삭제 식별용
     let coordinate: CLLocationCoordinate2D
     let thumbnailPath: String
     let title: String // e.g., "지점 #1"
@@ -12,7 +13,7 @@ struct HistoryPhotoMarker: Identifiable {
 
 struct HistoryMapView: UIViewRepresentable {
     @Binding var centerCoordinate: CLLocationCoordinate2D
-    @Binding var polylines: [FishingPolyline]
+    @Binding var polylines: [HistoryFishingPolyline]
     @Binding var markers: [HistoryPhotoMarker]
     @Binding var stateMarkers: [FishingRecordViewModel.StateChangeMarker]
     @Binding var stateMarkerInfos: [HistoryDetailViewModel.HistoryStateMarkerInfo] // 상태 마커 상세 정보
@@ -71,7 +72,7 @@ struct HistoryMapView: UIViewRepresentable {
         
         // 사진 마커 추가
         for marker in markers {
-            let annotation = PhotoAnnotation()
+            let annotation = HistoryPhotoAnnotation()
             annotation.coordinate = marker.coordinate
             annotation.thumbnailPath = marker.thumbnailPath
             annotation.title = "조과물"
@@ -80,7 +81,7 @@ struct HistoryMapView: UIViewRepresentable {
         
         // 상태 변경 마커 추가
         for marker in stateMarkers {
-            let annotation = FishingStateAnnotation()
+            let annotation = HistoryFishingStateAnnotation()
             annotation.coordinate = marker.coordinate
             annotation.state = marker.state
             // 타이틀에 상태명 설정 (e.g. "이동")
@@ -128,7 +129,7 @@ struct HistoryMapView: UIViewRepresentable {
         
         // ... (rendererFor, viewFor 메서드 생략, 기존 로직 유지하되 didSelect 추가) ...
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            if let fishingPolyline = overlay as? FishingPolyline {
+            if let fishingPolyline = overlay as? HistoryFishingPolyline {
                 let renderer = MKPolylineRenderer(polyline: fishingPolyline)
                 renderer.strokeColor = fishingPolyline.lineColor ?? .blue
                 renderer.lineWidth = 4
@@ -146,18 +147,18 @@ struct HistoryMapView: UIViewRepresentable {
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             guard !(annotation is MKUserLocation) else { return nil }
             
-            if let photoAnnotation = annotation as? PhotoAnnotation {
+            if let photoAnnotation = annotation as? HistoryPhotoAnnotation {
                 return photoAnnotationView(for: photoAnnotation, in: mapView)
             }
             
-             if let fishingAnnotation = annotation as? FishingStateAnnotation {
+             if let fishingAnnotation = annotation as? HistoryFishingStateAnnotation {
                 return fishingStateAnnotationView(for: fishingAnnotation, in: mapView)
             }
             
             return nil
         }
         
-        private func photoAnnotationView(for annotation: PhotoAnnotation, in mapView: MKMapView) -> MKAnnotationView? {
+        private func photoAnnotationView(for annotation: HistoryPhotoAnnotation, in mapView: MKMapView) -> MKAnnotationView? {
             let identifier = "HistoryPhotoMarker"
             var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             
@@ -209,7 +210,7 @@ struct HistoryMapView: UIViewRepresentable {
             return view
         }
         
-        private func fishingStateAnnotationView(for annotation: FishingStateAnnotation, in mapView: MKMapView) -> MKAnnotationView? {
+        private func fishingStateAnnotationView(for annotation: HistoryFishingStateAnnotation, in mapView: MKMapView) -> MKAnnotationView? {
             let identifier = "HistoryStateMarker"
             var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             
@@ -235,7 +236,7 @@ struct HistoryMapView: UIViewRepresentable {
         
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             // 1. 사진 마커 선택 시
-            if let photoAnnotation = view.annotation as? PhotoAnnotation,
+            if let photoAnnotation = view.annotation as? HistoryPhotoAnnotation,
                let thumbnailPath = photoAnnotation.thumbnailPath {
                 
                 if let marker = parent.markers.first(where: { $0.thumbnailPath == thumbnailPath }) {
@@ -255,7 +256,7 @@ struct HistoryMapView: UIViewRepresentable {
                 }
             }
             // 2. 상태 마커 선택 시
-            else if let stateAnnotation = view.annotation as? FishingStateAnnotation {
+            else if let stateAnnotation = view.annotation as? HistoryFishingStateAnnotation {
                 withAnimation {
                     // stateMarkerInfos에서 좌표 기준으로 일치하는 정보 조회
                     if let markerInfo = parent.stateMarkerInfos.first(where: {
@@ -288,3 +289,17 @@ struct HistoryMapView: UIViewRepresentable {
         }
     }
 }
+
+// MARK: - Custom Classes (History Prefix)
+class HistoryFishingPolyline: MKPolyline {
+    var lineColor: UIColor?
+}
+
+class HistoryFishingStateAnnotation: MKPointAnnotation {
+    var state: FDAppManager.FishingState?
+}
+
+class HistoryPhotoAnnotation: MKPointAnnotation {
+    var thumbnailPath: String?
+}
+

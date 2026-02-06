@@ -22,6 +22,7 @@
 		117A002B2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */; };
 		117A002D2F2DA7C5005C7F82 /* SeaRegionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */; };
 		117A002F2F2DA7C5005C7F82 /* SeaRegionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */; };
+		11FC08402F35C6CD0067FBAB /* RecordMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FC083E2F35C6CD0067FBAB /* RecordMapView.swift */; };
 		1330B868D2832A44D987A553 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093AC48AA1FF2837E609F8E8 /* RealmManager.swift */; };
 		225237683E1B0440276984CB /* FishingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */; };
 		29A7E81887295D88B98D6ABA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5D606CD631AF9E1FFC631E /* SettingViewModel.swift */; };
@@ -189,6 +190,7 @@
 		117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListViewModel.swift; sourceTree = "<group>"; };
 		117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionRowView.swift; sourceTree = "<group>"; };
 		117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListView.swift; sourceTree = "<group>"; };
+		11FC083E2F35C6CD0067FBAB /* RecordMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMapView.swift; sourceTree = "<group>"; };
 		5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordUseCase.swift; sourceTree = "<group>"; };
 		5C5D606CD631AF9E1FFC631E /* SettingViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		60FDD546D39EAF812578B340 /* SeaAnalysisDetailViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SeaAnalysisDetailViewModel.swift; sourceTree = "<group>"; };
@@ -419,6 +421,14 @@
 			path = SeaAnalysis;
 			sourceTree = "<group>";
 		};
+		11FC083F2F35C6CD0067FBAB /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				11FC083E2F35C6CD0067FBAB /* RecordMapView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		14A6C90E4B6D27A7F5BDC4A8 /* RealmStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,6 +475,7 @@
 		4E8E4FB61E41F9B6E72F0AE8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				11FC083F2F35C6CD0067FBAB /* Components */,
 				96F2E7BE3E0B35DBDE877066 /* FishingRecordView.swift */,
 			);
 			path = View;
@@ -1259,6 +1270,7 @@
 				117618322F3364CA00EF9FAF /* HistoryViewModel.swift in Sources */,
 				F4F2D2222B218DF4007E48D8 /* FileDataStorage.swift in Sources */,
 				F4B20E952EAB62600056FE51 /* PointInfoView.swift in Sources */,
+				11FC08402F35C6CD0067FBAB /* RecordMapView.swift in Sources */,
 				F4D5DA852EB34A3A009E07C4 /* SeaWaterTemperatureView.swift in Sources */,
 				F406B4452B30061100AEEA2B /* TrackMapViewModel.swift in Sources */,
 				F44883BB2DB10DA5008B9BB5 /* SeaWaterTemperatureViewModel.swift in Sources */,

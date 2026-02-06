@@ -88,4 +88,44 @@ final class DefaultFishingRecordRepository: FishingRecordRepository {
         
         return nil
     }
+    
+    // MARK: - Delete Session
+    func deleteSession(sessionId: String) -> Cancellable? {
+        guard let realm = realmManager.realm else { return nil }
+        
+        let objectsToDelete = realm.objects(RealmFishingRecord.self).filter("sessionId == %@", sessionId)
+        
+        if !objectsToDelete.isEmpty {
+            // 이미지 파일 삭제 (선택 사항: 필요 시 구현)
+            // Realm 객체 삭제
+            realmManager.delete(objectsToDelete)
+        }
+        
+        return nil
+    }
+    
+    // MARK: - Delete Single Record
+    func deleteFishingRecord(id: String) -> Cancellable? {
+        guard let realm = realmManager.realm else { return nil }
+        
+        if let objectToDelete = realm.object(ofType: RealmFishingRecord.self, forPrimaryKey: id) {
+            // 이미지 파일 삭제 로직은 여기에 추가 가능 (FileManager 사용)
+            // Realm 객체 삭제
+            realmManager.delete(objectToDelete)
+        }
+        
+        return nil
+    }
+    
+    func deleteFishingRecords(ids: [String]) -> Cancellable? {
+        guard let realm = realmManager.realm else { return nil }
+        
+        let objectsToDelete = realm.objects(RealmFishingRecord.self).filter("id IN %@", ids)
+        
+        if !objectsToDelete.isEmpty {
+            realmManager.delete(objectsToDelete)
+        }
+        
+        return nil
+    }
 }
