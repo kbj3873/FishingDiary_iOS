@@ -170,9 +170,9 @@ struct OceanRegionCardView: View {
     private var seaRegionName: String {
         // 지역명으로 해역 추정
         let name = station.stationName
-        let westSeaKeywords = ["서산", "목포", "군산", "인천", "태안", "보령", "부안", "영광", "무안", "신안"]
-        let southSeaKeywords = ["여수", "통영", "거제", "남해", "완도", "고흥", "진도", "해남", "장흥", "강진", "사천"]
-        let eastSeaKeywords = ["울산", "포항", "동해", "강릉", "속초", "삼척", "울진", "영덕", "경주", "부산"]
+        let westSeaKeywords = ["서산", "목포", "군산", "인천", "태안", "보령", "부안", "영광", "무안", "신안", "백령도", "서천"]
+        let southSeaKeywords = ["여수", "통영", "거제", "남해", "완도", "고흥", "진도", "해남", "장흥", "강진", "사천", "서제주", "제주", "추자도", "보성", "진해"]
+        let eastSeaKeywords = ["울산", "포항", "동해", "강릉", "속초", "삼척", "울진", "영덕", "경주", "부산", "양양", "고성", "기장", "나곡", "덕천", "온양", "진하", "구룡포", "고리"]
 
         for keyword in westSeaKeywords {
             if name.contains(keyword) { return "서해" }

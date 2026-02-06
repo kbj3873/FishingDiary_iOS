@@ -196,7 +196,7 @@ struct SeaAnalysisDetailView: View {
     }
     
     private var footerView: some View {
-        Text("이 지역은 표층, 중층, 저층 모든 수온 데이터를 제공합니다.")
+        Text(footerMessage)
             .font(.system(size: 13))
             .foregroundColor(.blue.opacity(0.8))
             .frame(maxWidth: .infinity)
@@ -204,5 +204,29 @@ struct SeaAnalysisDetailView: View {
             .background(Color.blue.opacity(0.1))
             .cornerRadius(12)
             .padding(.horizontal, 20)
+    }
+    
+    private var footerMessage: String {
+        let hasSurface = viewModel.hasSurfaceData
+        let hasMiddle = viewModel.hasMiddleData
+        let hasBottom = viewModel.hasBottomData
+        
+        if hasSurface && hasMiddle && hasBottom {
+            return "이 지역은 표층, 중층, 저층 모든 수온 데이터를 제공합니다."
+        } else if hasSurface && hasMiddle && !hasBottom {
+            return "이 지역은 표층, 중층 수온 데이터만 제공됩니다."
+        } else if hasSurface && !hasMiddle && !hasBottom {
+            return "이 지역은 표층 수온 데이터만 제공됩니다."
+        } else if hasSurface && !hasMiddle && hasBottom {
+            return "이 지역은 표층, 저층 수온 데이터만 제공됩니다."
+        } else if !hasSurface && hasMiddle && hasBottom {
+            return "이 지역은 중층, 저층 수온 데이터만 제공됩니다."
+        } else if !hasSurface && hasMiddle && !hasBottom {
+            return "이 지역은 중층 수온 데이터만 제공됩니다."
+        } else if !hasSurface && !hasMiddle && hasBottom {
+            return "이 지역은 저층 수온 데이터만 제공됩니다."
+        } else {
+            return "이 지역의 수온 데이터가 없습니다."
+        }
     }
 }
