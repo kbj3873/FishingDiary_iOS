@@ -5,7 +5,7 @@ platform :ios, '13.0'
 
 source 'https://github.com/CocoaPods/Specs.git'
 
-target 'FishingDiary' do
+target 'SeaThermo' do
     use_frameworks!
 
     pod 'KakaoMapsSDK', '2.6.3'

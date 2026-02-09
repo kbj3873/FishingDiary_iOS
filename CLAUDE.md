@@ -15,7 +15,7 @@
 
 ## 프로젝트 개요
 
-**FishingDiary**는 낚시 활동을 기록하고 추적하는 iOS 애플리케이션으로, 해양 데이터 통합 기능을 제공합니다. 한국 해양 API에서 실시간 해수 온도 정보를 가져오고, GPS 기반 낚시 위치 추적 및 듀얼 맵 지원(Apple Maps와 Kakao Maps)을 제공합니다.
+**온바다(SeaThermo)**는 낚시 활동을 기록하고 추적하는 iOS 애플리케이션으로, 해양 데이터 통합 기능을 제공합니다. 한국 해양 API에서 실시간 해수 온도 정보를 가져오고, GPS 기반 낚시 위치 추적 및 듀얼 맵 지원(Apple Maps와 Kakao Maps)을 제공합니다.
 
 - **플랫폼:** iOS 13.0+
 - **언어:** Swift
@@ -27,6 +27,14 @@
 ## 현재 상태
 
 SwiftUI 1차 마이그레이션이 완료되어 앱 실행 시 SwiftUI로 구성된 화면이 표시됩니다. 레거시 UIKit 코드(Storyboard, ViewController)는 아직 삭제되지 않았지만 실제 런타임에서는 사용되지 않습니다.
+
+> [!WARNING]
+> **Legacy Code**: `Presentation` 내부의 다음 폴더들은 레거시 코드로 분류됩니다. 신규 기능 개발 시 참조용으로만 사용하고 수정하지 마세요.
+> - `PointScene/` (Data, Date, Map)
+> - `SeaWaterTemperature/`
+> - `Track/`
+>
+> **New Feature**: `SeaAnalysis` 모듈은 최신 SwiftUI 패턴으로 구현되었습니다.
 
 ## 빌드 명령어
 
@@ -67,18 +75,26 @@ AppDelegate.application(_:didFinishLaunchingWithOptions:)
 
 현재 앱에서 실제로 사용되는 SwiftUI 화면들:
 
-| 화면 | SwiftUI View | 통합 방식 |
-|-----|-------------|---------|
-| 메인 화면 | `MainView.swift` | UIHostingController |
-| 해양 선택 | `OceanSelectView.swift` | NavigationLink |
-| 포인트 날짜 목록 | `PointDateListUIView.swift` | NavigationLink |
-| 포인트 데이터 목록 | `PointDataListUIView.swift` | NavigationLink |
-| 포인트 지도 (Apple) | `ApplePointMapView.swift` | UIViewRepresentable |
-| 포인트 지도 (Kakao) | `KakaoPointMapView.swift` | UIViewControllerRepresentable |
-| 트랙 추적 (Apple) | `AppleTrackMapView.swift` | UIViewRepresentable |
-| 트랙 추적 (Kakao) | `KakaoTrackMapView.swift` | UIViewControllerRepresentable |
-| 해수 온도 상세 | `SeaWaterTemperatureView.swift` | NavigationLink |
-| 포인트 정보 패널 | `PointInfoView.swift` | Overlay |
+| 영역 | 화면 | SwiftUI View | 통합 방식 | 상태 |
+|---|---|---|---|---|
+| **Main** | 메인 탭 | `MainTabView.swift` | UIHostingController | Active |
+| **Main** | 메인 홈 | `MainView.swift` | TabView Item | Active |
+| **Main** | 해양 선택 | `OceanSelectView.swift` | NavigationLink | Active |
+| **SeaAnalysis** | 수온 분석 홈 | `SeaAnalysisView.swift` | TabView Item | **New** |
+| **SeaAnalysis** | 수온 상세 | `SeaAnalysisDetailView.swift` | NavigationLink | **New** |
+| **FishingRecord** | 낚시 기록 | `FishingRecordView.swift` | TabView Item | Active |
+| **History** | 조과 기록 목록 | `HistoryView.swift` | TabView Item | Active |
+| **History** | 조과 상세 | `HistoryDetailView.swift` | NavigationLink | Active |
+| **History** | 이미지 뷰어 | `HistoryImageViewer.swift` | FullScreenCover | Active |
+| **Setting** | 설정 | `SettingView.swift` | TabView Item | Active |
+| **Legacy** | 포인트 날짜 목록 | `PointDateListUIView.swift` | NavigationLink | **LEGACY** |
+| **Legacy** | 포인트 데이터 목록 | `PointDataListUIView.swift` | NavigationLink | **LEGACY** |
+| **Legacy** | 포인트 지도 (Apple) | `ApplePointMapView.swift` | UIViewRepresentable | **LEGACY** |
+| **Legacy** | 포인트 지도 (Kakao) | `KakaoPointMapView.swift` | UIViewControllerRepresentable | **LEGACY** |
+| **Legacy** | 트랙 추적 (Apple) | `AppleTrackMapView.swift` | UIViewRepresentable | **LEGACY** |
+| **Legacy** | 트랙 추적 (Kakao) | `KakaoTrackMapView.swift` | UIViewControllerRepresentable | **LEGACY** |
+| **Legacy** | 해수 온도 상세 | `SeaWaterTemperatureView.swift` | NavigationLink | **LEGACY** |
+| **Legacy** | 포인트 정보 패널 | `PointInfoView.swift` | Overlay | **LEGACY** |
 
 ### UIKit → SwiftUI 브릿지 패턴
 

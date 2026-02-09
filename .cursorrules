@@ -10,6 +10,8 @@
 3. **Workflow**:
     - 작업 시작 전 `.agent/workflows/` 폴더를 확인하여 관련 워크플로우가 있는지 체크합니다.
     - `CLAUDE.md` 파일이 존재하면 해당 프로젝트의 컨텍스트와 규칙을 참고합니다.
+    - 상세한 도메인 지식과 디자인 가이드는 `.claude/` 디렉토리 내의 문서들을 참조합니다.
 4. **Implementation**:
     - UI는 Figma 디자인을 1:1로 구현하는 것을 목표로 하며, "Premium & Beautiful"한 심미성을 추구합니다.
     - SwiftUI 사용 시 최신 관례를 따르되, 하위 호환성(iOS 14+)이 필요한 경우를 주의합니다.
+    - **Legacy Code**: `Presentation` 내부의 `PointScene`, `SeaWaterTemperature`, `Track` 폴더는 레거시 코드이므로 수정하지 않고, 신규 구현 시 참조용으로만 사용합니다.

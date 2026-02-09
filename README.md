@@ -1,45 +1,29 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# 온바다 (SeaThermo)
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+**온바다(SeaThermo)**는 낚시 활동을 기록하고 추적하는 iOS 애플리케이션으로, 해양 데이터 통합 기능을 제공합니다. 한국 해양 API에서 실시간 해수 온도 정보를 가져오고, GPS 기반 낚시 위치 추적 및 듀얼 맵 지원(Apple Maps와 Kakao Maps)을 제공합니다.
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+## 주요 기능
 
----
+*   **해양 데이터 통합**: 실시간 해수 온도 및 해양 정보 확인
+*   **낚시 기록**: 낚시 위치, 조과, 날씨 등 상세 기록 저장
+*   **위치 추적**: GPS 기반 이동 경로 추적 및 저장
+*   **듀얼 맵**: Apple Maps와 Kakao Maps 선택 지원
 
-## Edit a file
+## 개발자 가이드
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+이 프로젝트의 개발 규칙, 아키텍처, 워크플로우에 대한 자세한 내용은 [CLAUDE.md](CLAUDE.md)를 참조하세요.
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+### 필수 확인 문서
 
----
+*   [기능 개발 워크플로우](.agent/workflows/develop_feature.md)
+*   [한국어 사용 규칙](.agent/workflows/korean_language.md)
+*   [프로젝트 구조](.agent/workflows/project_structure.md)
+*   [레거시 정책](.agent/workflows/legacy_policy.md)
 
-## Create a file
+## 기술 스택
 
-Next, you’ll add a new file to this repository.
-
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
-
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
-
----
-
-## Clone a repository
-
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+*   **Platform**: iOS 13.0+
+*   **Language**: Swift
+*   **UI Framework**: SwiftUI (Primary), UIKit (Legacy/Hybrid)
+*   **Architecture**: Clean Architecture + MVVM
+*   **Dependency Manager**: CocoaPods
