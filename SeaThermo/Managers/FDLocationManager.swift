@@ -18,12 +18,14 @@ class FDLocationManager: NSObject {
     static let shared = FDLocationManager()
     
     var sequenceNum: Int = 0
+    var isTracking: Bool = false
     
     let locationManager = CLLocationManager()
     var latitude = ""
     var longitude = ""
     // > combine
     var curMapLine = CurrentValueSubject<(MapLineInfo), Never>(MapLineInfo(CLLocation(latitude: 0.0, longitude: 0.0), CLLocation(latitude: 0.0, longitude: 0.0)))
+    var currentLocationSubject = PassthroughSubject<CLLocation, Never>()
     
     var locationList: [LocationInfo] = []
     
@@ -44,6 +46,7 @@ class FDLocationManager: NSObject {
     }
     
     func startTracking() {
+        isTracking = true
         locationManager.delegate = self
         
         sequenceNum = 0
@@ -57,7 +60,21 @@ class FDLocationManager: NSObject {
         }
     }
     
+    func startMonitoring() {
+        locationManager.delegate = self
+        locationPermission() { success in
+            if success {
+                self.locationManager.startUpdatingLocation()
+            }
+        }
+    }
+    
     func stopTracking() {
+        isTracking = false
+        // Do not stop updating location here if we want to keep monitoring?
+        // But legacy behavior was stopUpdatingLocation.
+        // Let's keep stopUpdatingLocation for now to save battery, unless we are in the monitoring screen.
+        // Usually stopTracking implies end of recording.
         locationManager.stopUpdatingLocation()
         
         locationManager.delegate = nil
@@ -75,6 +92,12 @@ class FDLocationManager: NSObject {
             }
             
             locationList = []
+        }
+    }
+    
+    func stopMonitoring() {
+        if !isTracking {
+            locationManager.stopUpdatingLocation()
         }
     }
     
@@ -138,8 +161,9 @@ class FDLocationManager: NSObject {
             }
             
         } moveSetting: { settingCallback in
-            UIApplication.topViewController()?.showAlert(title: "권한안내", msg: "디바이스 설정 > 개인 정보 보호 > 위치 서비스 를 켜주세요.", "확인") { confirm in
-            }
+            // Legacy Alert 제거: SwiftUI 뷰에서 권한 팝업을 직접 처리함
+            // UIApplication.topViewController()?.showAlert(...) -> Crash 발생 방지
+            print("Location permission denied (FDLocationManager). Handled by ViewModel.")
         }
     }
 }
@@ -197,16 +221,22 @@ extension FDLocationManager: CLLocationManagerDelegate {
             return
         }
         
-        guard let previousLocation = locationList.last?.locationInfo else {
+        // Always publish current location
+        self.currentLocationSubject.send(currentLocation)
+        
+        // Only process recording logic if tracking
+        if isTracking {
+            guard let previousLocation = locationList.last?.locationInfo else {
+                self.addLocation(location: currentLocation)
+                return
+            }
+            
             self.addLocation(location: currentLocation)
-            return
+            
+            // > combine
+            let mapLine = MapLineInfo(previousLocation, currentLocation)
+            self.curMapLine.send(mapLine)
         }
-        
-        self.addLocation(location: currentLocation)
-        
-        // > combine
-        let mapLine = MapLineInfo(previousLocation, currentLocation)
-        self.curMapLine.send(mapLine)
     }
     
     /// 위치정보 에러 함수

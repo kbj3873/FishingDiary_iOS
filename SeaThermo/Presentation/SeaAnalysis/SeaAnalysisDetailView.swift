@@ -124,13 +124,13 @@ struct SeaAnalysisDetailView: View {
                 
                 LazyVGrid(columns: columns, spacing: 12) {
                     if viewModel.hasSurfaceData {
-                        temperatureCard(type: "표층", temp: viewModel.surfaceTemp, max: viewModel.surfaceMax, min: viewModel.surfaceMin, color: .blue)
+                        temperatureCard(type: "표층", temp: viewModel.surfaceTemp, depth: viewModel.surfaceDepth, max: viewModel.surfaceMax, min: viewModel.surfaceMin, color: .blue)
                     }
                     if viewModel.hasMiddleData {
-                        temperatureCard(type: "중층", temp: viewModel.middleTemp, max: viewModel.middleMax, min: viewModel.middleMin, color: .purple)
+                        temperatureCard(type: "중층", temp: viewModel.middleTemp, depth: viewModel.middleDepth, max: viewModel.middleMax, min: viewModel.middleMin, color: .purple)
                     }
                     if viewModel.hasBottomData {
-                        temperatureCard(type: "저층", temp: viewModel.bottomTemp, max: viewModel.bottomMax, min: viewModel.bottomMin, color: .green)
+                        temperatureCard(type: "저층", temp: viewModel.bottomTemp, depth: viewModel.bottomDepth, max: viewModel.bottomMax, min: viewModel.bottomMin, color: .green)
                     }
                 }
                 .padding(.horizontal, 20)
@@ -153,7 +153,7 @@ struct SeaAnalysisDetailView: View {
         }
     }
     
-    private func temperatureCard(type: String, temp: String, max: String, min: String, color: Color) -> some View {
+    private func temperatureCard(type: String, temp: String, depth: String, max: String, min: String, color: Color) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 4) {
                 Rectangle()
@@ -168,6 +168,10 @@ struct SeaAnalysisDetailView: View {
             
             Text(temp)
                 .font(.system(size: 28, weight: .bold))
+                .foregroundColor(color)
+            
+            Text(depth)
+                .font(.system(size: 12, weight: .semibold))
                 .foregroundColor(color)
             
             VStack(alignment: .leading, spacing: 4) {

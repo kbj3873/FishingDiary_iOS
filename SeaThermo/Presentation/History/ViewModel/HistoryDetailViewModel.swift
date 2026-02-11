@@ -40,6 +40,9 @@ final class HistoryDetailViewModel: ObservableObject {
     @Published var selectedImageIndex: Int = 0
     @Published var isImageViewerPresented: Bool = false
     
+    // MARK: - Map State
+    @Published var isMapInitialized: Bool = false // 지도 초기화 여부 (Zoom To Fit 1회 제한용)
+    
     // MARK: - Properties
     private let sessionId: String
     private let useCase: FishingRecordUseCase
@@ -110,34 +113,6 @@ final class HistoryDetailViewModel: ObservableObject {
     }
     
     private func setupMapData() {
-        // 이미지가 있는 레코드만 필터링 (사진 마커용)
-        let recordsWithImage = records.filter { !$0.imagePaths.isEmpty }
-        
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm"
-        
-        // flatMap을 사용하면 인덱스가 꼬일 수 있으므로, 외부 변수로 카운팅
-        var globalMarkerIndex = 1
-        
-        self.markers = recordsWithImage.flatMap { record -> [HistoryPhotoMarker] in
-            let timeStr = timeFormatter.string(from: record.date)
-            
-            return record.imagePaths.enumerated().map { (index, path) in
-                let fullPath = self.getFullImagePath(from: path)
-                let title = "지점 #\(globalMarkerIndex)"
-                globalMarkerIndex += 1
-                
-                return HistoryPhotoMarker(
-                    recordId: record.id,
-                    coordinate: CLLocationCoordinate2D(latitude: record.location.latitude, longitude: record.location.longitude),
-                    thumbnailPath: fullPath,
-                    title: title,
-                    timeString: timeStr
-                )
-            }
-        }
-        
-        // 경로 데이터 가공 (Polyline Segments) 및 상태 변경 마커 생성
         // 날짜순 정렬
         let sortedRecords = records.sorted { $0.date < $1.date }
         guard !sortedRecords.isEmpty else { return }
@@ -148,23 +123,29 @@ final class HistoryDetailViewModel: ObservableObject {
         }
         
         var segments: [HistoryFishingPolyline] = []
-        var newStateMarkers: [FishingRecordViewModel.StateChangeMarker] = []
-        var newStateMarkerInfos: [HistoryStateMarkerInfo] = []
+        var newMarkers: [HistoryPhotoMarker] = []           // 사진 마커
+        var newStateMarkers: [FishingRecordViewModel.StateChangeMarker] = [] // 지도 어노테이션
+        var newStateMarkerInfos: [HistoryStateMarkerInfo] = [] // 상세 정보
         
         var currentSegmentCoordinates: [CLLocationCoordinate2D] = []
         var currentSegmentState: Int?
-        var lastState: Int? // 이전 레코드의 상태 (마커 감지용)
+        var lastState: Int?
         
-        // 지점 번호 카운터 (사진 마커 다음 번호부터 시작)
-        var stateMarkerIndex = self.markers.count + 1
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        
+        // 통합 지점 번호 카운터 (시간순)
+        var globalPointIndex = 1
         
         for (_, record) in sortedRecords.enumerated() {
             let coord = CLLocationCoordinate2D(latitude: record.location.latitude, longitude: record.location.longitude)
             let state = record.state
+            let timeStr = timeFormatter.string(from: record.date)
             
-            // 1. 상태 변경 마커 (이전 상태와 다르면 마커 추가)
+            // 1. 상태 변경 마커
+            // 이전 상태와 다르면 마커 추가 (첫 레코드는 lastState가 nil이므로 제외될 수 있음 -> 필요시 로직 조정)
+            // FishingRecordViewModel에서 첫 진입 시에는 마커를 안 찍고 lastState만 갱신했음. 여기서도 동일하게 처리.
             if let last = lastState, last != state {
-                // 상태값(Int) -> FishingState(Enum) 변환
                 let markerState: FDAppManager.FishingState
                 switch state {
                 case 0: markerState = .moving
@@ -175,19 +156,35 @@ final class HistoryDetailViewModel: ObservableObject {
                 
                 newStateMarkers.append(FishingRecordViewModel.StateChangeMarker(coordinate: coord, state: markerState))
                 
-                // 상세 정보도 추가 (지점 번호 + 시간)
                 let info = HistoryStateMarkerInfo(
-                    title: "지점 #\(stateMarkerIndex)",
-                    timeString: timeFormatter.string(from: record.date),
+                    title: "지점 #\(globalPointIndex)",
+                    timeString: timeStr,
                     coordinate: coord,
                     state: markerState
                 )
                 newStateMarkerInfos.append(info)
-                stateMarkerIndex += 1
+                globalPointIndex += 1
             }
             lastState = state
             
-            // 2. 경로 세그먼트 생성
+            // 2. 사진 마커
+            if !record.imagePaths.isEmpty {
+                for path in record.imagePaths {
+                    let fullPath = self.getFullImagePath(from: path)
+                    let title = "지점 #\(globalPointIndex)"
+                    globalPointIndex += 1
+                    
+                    newMarkers.append(HistoryPhotoMarker(
+                        recordId: record.id,
+                        coordinate: coord,
+                        thumbnailPath: fullPath,
+                        title: title,
+                        timeString: timeStr
+                    ))
+                }
+            }
+            
+            // 3. 경로 세그먼트 (폴리라인)
             if let currentState = currentSegmentState {
                 if currentState == state {
                     currentSegmentCoordinates.append(coord)
@@ -215,11 +212,12 @@ final class HistoryDetailViewModel: ObservableObject {
         }
         
         self.polylines = segments
+        self.markers = newMarkers
         self.stateMarkers = newStateMarkers
         self.stateMarkerInfos = newStateMarkerInfos
     }
     
-    // Helper to create colored polyline
+    // 색상이 지정된 폴리라인 생성을 위한 헬퍼 메서드
     private func createPolyline(coordinates: [CLLocationCoordinate2D], state: Int) -> HistoryFishingPolyline {
         var coords = coordinates
         let polyline = HistoryFishingPolyline(coordinates: &coords, count: coords.count)

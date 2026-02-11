@@ -22,6 +22,10 @@
 		117A002B2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */; };
 		117A002D2F2DA7C5005C7F82 /* SeaRegionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */; };
 		117A002F2F2DA7C5005C7F82 /* SeaRegionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */; };
+		11E66EAC2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAA2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift */; };
+		11E66EAD2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAB2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift */; };
+		11E66EB02F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAF2F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift */; };
+		11E66EB12F3B1ED800AC7B6A /* HistoryKakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAE2F3B1ED800AC7B6A /* HistoryKakaoMapView.swift */; };
 		11FC08402F35C6CD0067FBAB /* RecordMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FC083E2F35C6CD0067FBAB /* RecordMapView.swift */; };
 		1330B868D2832A44D987A553 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093AC48AA1FF2837E609F8E8 /* RealmManager.swift */; };
 		225237683E1B0440276984CB /* FishingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */; };
@@ -190,6 +194,10 @@
 		117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListViewModel.swift; sourceTree = "<group>"; };
 		117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionRowView.swift; sourceTree = "<group>"; };
 		117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListView.swift; sourceTree = "<group>"; };
+		11E66EAA2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKakaoMapView.swift; sourceTree = "<group>"; };
+		11E66EAB2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKakaoMapViewController.swift; sourceTree = "<group>"; };
+		11E66EAE2F3B1ED800AC7B6A /* HistoryKakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryKakaoMapView.swift; sourceTree = "<group>"; };
+		11E66EAF2F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryKakaoMapViewController.swift; sourceTree = "<group>"; };
 		11FC083E2F35C6CD0067FBAB /* RecordMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMapView.swift; sourceTree = "<group>"; };
 		5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordUseCase.swift; sourceTree = "<group>"; };
 		5C5D606CD631AF9E1FFC631E /* SettingViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
@@ -355,6 +363,8 @@
 		117142692F347394008E79D6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				11E66EAE2F3B1ED800AC7B6A /* HistoryKakaoMapView.swift */,
+				11E66EAF2F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift */,
 				117142682F347394008E79D6 /* HistoryMapView.swift */,
 			);
 			path = Components;
@@ -424,6 +434,8 @@
 		11FC083F2F35C6CD0067FBAB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				11E66EAA2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift */,
+				11E66EAB2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift */,
 				11FC083E2F35C6CD0067FBAB /* RecordMapView.swift */,
 			);
 			path = Components;
@@ -1119,9 +1131,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SeaThermo/Pods-SeaThermo-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SeaThermo/Pods-SeaThermo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1136,9 +1152,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SeaThermo/Pods-SeaThermo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SeaThermo/Pods-SeaThermo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1174,6 +1194,8 @@
 				F4C1AD4A2AB979E300A34386 /* String.swift in Sources */,
 				F4E70F442AAEFBA7008A3317 /* PointDataListViewController.swift in Sources */,
 				F41DD8FC2D82C4EB00E2DAAD /* TempuratureListItemViewModel.swift in Sources */,
+				11E66EB02F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift in Sources */,
+				11E66EB12F3B1ED800AC7B6A /* HistoryKakaoMapView.swift in Sources */,
 				F44E65EC2B9ED1E6006D8761 /* ConnectionError.swift in Sources */,
 				F4DE47AE2AA0106E00ED2D23 /* MainViewController.swift in Sources */,
 				F42C4DCC2B6386CB00B82374 /* KakaoPointMapViewController.swift in Sources */,
@@ -1210,6 +1232,8 @@
 				F4A4AEFA2B26D22D0017D173 /* PointDataListRepository.swift in Sources */,
 				F4BFF1AB2EA7633700B9C332 /* PointDataListUIView.swift in Sources */,
 				F4950DCB2AAA9A7100DD26DE /* FDFileManager.swift in Sources */,
+				11E66EAC2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift in Sources */,
+				11E66EAD2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift in Sources */,
 				F49152822B99ABD70000C552 /* OceanResponseDTO+Mapping.swift in Sources */,
 				F429D9482B9831030049534B /* DataTransferService.swift in Sources */,
 				F4E2C33D2B6A30A4007D1997 /* MapPolyline.swift in Sources */,
@@ -1443,7 +1467,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S29XGKDHGV;
+				DEVELOPMENT_TEAM = STP3Q99SG6;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeaThermo/Info.plist;
@@ -1483,7 +1507,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S29XGKDHGV;
+				DEVELOPMENT_TEAM = STP3Q99SG6;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeaThermo/Info.plist;

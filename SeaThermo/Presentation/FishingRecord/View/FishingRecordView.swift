@@ -8,22 +8,38 @@ struct FishingRecordView: View {
     @State private var showCamera = false
     @State private var selectedImage: UIImage?
     
+    // 0: Apple, 1: Kakao
+    @AppStorage(UserDefaultKey.mapType) private var mapType: Int = 0
+    
     var body: some View {
         ZStack {
-            // 1. Map Layer
-            RecordMapView(
-                mapLineInfo: $viewModel.currentMapLine,
-                shouldCleanup: $shouldCleanupMap,
-                markers: $viewModel.markers,
-                photoMarkers: $viewModel.photoMarkers,
-                fishingState: $viewModel.fishingState,
-                getLocationList: viewModel.getLocationList,
-                coordinator: $mapCoordinator
-            )
-            .edgesIgnoringSafeArea(.all)
+            // 1. 지도 레이어
+            if mapType == 1 {
+                RecordKakaoMapView(
+                    mapLineInfo: $viewModel.currentMapLine,
+                    shouldCleanup: $shouldCleanupMap,
+                    markers: $viewModel.markers,
+                    photoMarkers: $viewModel.photoMarkers,
+                    fishingState: $viewModel.fishingState,
+                    userLocation: $viewModel.currentLocation,
+                    getLocationList: viewModel.getLocationList
+                )
+                .edgesIgnoringSafeArea(.all)
+            } else {
+                RecordMapView(
+                    mapLineInfo: $viewModel.currentMapLine,
+                    shouldCleanup: $shouldCleanupMap,
+                    markers: $viewModel.markers,
+                    photoMarkers: $viewModel.photoMarkers,
+                    fishingState: $viewModel.fishingState,
+                    getLocationList: viewModel.getLocationList,
+                    coordinator: $mapCoordinator
+                )
+                .edgesIgnoringSafeArea(.all)
+            }
             
             // 2. Overlay Layer
-            // 2. Overlay Layer
+            // 2. 오버레이 레이어
             ZStack(alignment: .top) {
                 // 상단 정보 (상태, 타이머)
                 topInfoBar
@@ -48,7 +64,14 @@ struct FishingRecordView: View {
                 }
             }
         }
+        .onAppear {
+            viewModel.startMonitoring()
+            // 탭 진입 시 위치 권한 체크
+            viewModel.checkLocationPermission()
+        }
         .onDisappear {
+            viewModel.stopMonitoring()
+            
             // 탭 이동 시에도 지도를 유지하기 위해 cleanup 로직 제거
             // shouldCleanupMap = true
             // mapCoordinator?.cleanup()
@@ -86,12 +109,13 @@ struct FishingRecordView: View {
                             secondaryAction: {
                                 viewModel.stopRecording()
                                 mapCoordinator?.clearMap()
+                                shouldCleanupMap = true
                             }
                         )
                     }
                 }
                 
-                if viewModel.isPermissionPopupPresented {
+                if viewModel.isCameraPermissionPopupPresented {
                     ZStack {
                         Color.black.opacity(0.4)
                             .edgesIgnoringSafeArea(.all)
@@ -105,14 +129,43 @@ struct FishingRecordView: View {
                             layoutType: .vertical,
                             primaryButtonText: "설정으로 이동",
                             primaryAction: {
-                                viewModel.isPermissionPopupPresented = false
+                                viewModel.isCameraPermissionPopupPresented = false
                                 if let url = URL(string: UIApplication.openSettingsURLString) {
                                     UIApplication.shared.open(url)
                                 }
                             },
                             secondaryButtonText: "취소",
                             secondaryAction: {
-                                viewModel.isPermissionPopupPresented = false
+                                viewModel.isCameraPermissionPopupPresented = false
+                            }
+                        )
+                    }
+                }
+                
+                if viewModel.isLocationPermissionPopupPresented {
+                    ZStack {
+                        Color.black.opacity(0.4)
+                            .edgesIgnoringSafeArea(.all)
+                            .onTapGesture {
+                                // 필수 권한이므로 배경 터치로 닫기 막음 (선택 사항)
+                            }
+                        
+                        CommonPopupView(
+                            title: "위치 권한이 필요합니다",
+                            message: "낚시 기록을 위해 위치 권한이 필요합니다.\n설정에서 위치 서비스를 허용해주세요.",
+                            layoutType: .horizontal,
+                            primaryButtonText: "설정으로 이동",
+                            primaryAction: {
+                                viewModel.isLocationPermissionPopupPresented = false
+                                if let url = URL(string: UIApplication.openSettingsURLString) {
+                                    UIApplication.shared.open(url)
+                                }
+                            },
+                            secondaryButtonText: "취소",
+                            secondaryAction: {
+                                viewModel.isLocationPermissionPopupPresented = false
+                                // 권한 거부 시 탭 이동이나 다른 동작이 필요하다면 여기서 처리
+                                // 예: 메인 탭으로 이동 등 (기획에 따라 다름, 현재는 팝업만 닫음)
                             }
                         )
                     }
@@ -123,12 +176,12 @@ struct FishingRecordView: View {
 
 // MARK: - Subviews
     
-    // 상단 정보 바 (Figma Style: Dynamic State)
-    // Top: 16px, Left: 16px, Width: Flexible (Padding)
+    // 상단 정보 바 (Figma 스타일: 동적 상태)
+    // 상단: 16px, 좌측: 16px, 너비: 유동적 (패딩)
     private var topInfoBar: some View {
         HStack {
             // 좌측 상태 정보
-            HStack(spacing: 8) { // Figma gap: 12
+            HStack(spacing: 8) { // Figma 간격: 12
                 // 상태 아이콘 (Dot)
                 Circle()
                     .fill(statusColor)
@@ -310,12 +363,12 @@ struct FishingRecordView: View {
     // 상태 아이콘 색상 (Figma Data)
     private var statusColor: Color {
         if !viewModel.isRecording {
-            return Color(hex: "CAD5E2") // #cad5e2 (Gray-Blue: Standby)
+            return Color(hex: "CAD5E2") // #cad5e2 (회색-파랑: 대기)
         }
         switch viewModel.fishingState {
-        case .moving: return Color(hex: "2563EB") // #2563eb (Blue)
-        case .drifting: return Color(hex: "F59E0B") // #f59e0b (Orange)
-        case .fishing: return Color(hex: "EF4444") // #ef4444 (Red)
+        case .moving: return Color(hex: "2563EB") // #2563eb (파랑)
+        case .drifting: return Color(hex: "F59E0B") // #f59e0b (주황)
+        case .fishing: return Color(hex: "EF4444") // #ef4444 (빨강)
         }
     }
     
@@ -353,7 +406,7 @@ struct FishingRecordView: View {
     }
 }
 
-// SwiftUI ImagePicker
+// SwiftUI 이미지 피커
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var selectedImage: UIImage?
     @Environment(\.presentationMode) var presentationMode

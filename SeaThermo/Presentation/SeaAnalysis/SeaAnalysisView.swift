@@ -90,6 +90,8 @@ struct SeaAnalysisView: View {
                     self.showDetailView = true
                 }
             }
+            .presentationDetents([.fraction(0.9)])
+            .presentationDragIndicator(.visible)
         }
     }
     

@@ -13,18 +13,36 @@ struct HistoryDetailView: View {
         self.onDataChanged = onDataChanged
     }
     
+    @AppStorage(UserDefaultKey.mapType) private var mapType: Int = 0
+    
+    // ... (init)
+
     var body: some View {
         ZStack(alignment: .top) {
             // 1. 지도 레이어 (전체 배경)
-            HistoryMapView(
-                centerCoordinate: $viewModel.centerCoordinate,
-                polylines: $viewModel.polylines,
-                markers: $viewModel.markers,
-                stateMarkers: $viewModel.stateMarkers,
-                stateMarkerInfos: $viewModel.stateMarkerInfos,
-                selectedMarker: $viewModel.selectedMarker
-            )
-            .edgesIgnoringSafeArea(.all)
+            if mapType == 1 {
+                HistoryKakaoMapView(
+                    centerCoordinate: $viewModel.centerCoordinate,
+                    polylines: $viewModel.polylines,
+                    markers: $viewModel.markers,
+                    stateMarkers: $viewModel.stateMarkers,
+                    stateMarkerInfos: $viewModel.stateMarkerInfos,
+                    selectedMarker: $viewModel.selectedMarker,
+                    isMapInitialized: $viewModel.isMapInitialized
+                )
+                .edgesIgnoringSafeArea(.all)
+            } else {
+                HistoryMapView(
+                    centerCoordinate: $viewModel.centerCoordinate,
+                    polylines: $viewModel.polylines,
+                    markers: $viewModel.markers,
+                    stateMarkers: $viewModel.stateMarkers,
+                    stateMarkerInfos: $viewModel.stateMarkerInfos,
+                    selectedMarker: $viewModel.selectedMarker,
+                    isMapInitialized: $viewModel.isMapInitialized
+                )
+                .edgesIgnoringSafeArea(.all)
+            }
             
             VStack {
                 // 2. 상단 통합 헤더 카드

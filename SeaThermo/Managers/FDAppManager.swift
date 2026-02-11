@@ -25,7 +25,17 @@ class FDAppManager: NSObject {
         case fishing = "낚시 중"  // 0.5 knots 미만
     }
     
-    var mapTp: MapType = .AppleMap           // > 초기 지도 종류
+    var mapTp: MapType = .AppleMap {          // > 초기 지도 종류
+        didSet {
+            FDUserDefaults.set(mapTp.rawValue, forKey: UserDefaultKey.mapType)
+        }
+    }
+    
+    override init() {
+        super.init()
+        let savedMapType = FDUserDefaults.integer(forKey: UserDefaultKey.mapType)
+        self.setMapTp(savedMapType)
+    }
     
     func appInitialize() {
         FDFileManager().createDefaultDirectories()

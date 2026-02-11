@@ -21,10 +21,6 @@ struct SeaRegionListView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Drag Handle
-            dragHandle
-                .padding(.top, 8)
-
             // Header
             headerSection
                 .padding(.top, 16)
@@ -52,14 +48,6 @@ struct SeaRegionListView: View {
             }
         }
         .background(Color.white)
-    }
-
-    // MARK: - Drag Handle
-
-    private var dragHandle: some View {
-        Capsule()
-            .fill(Color(hex: "C6C6C8"))
-            .frame(width: 36, height: 5)
     }
 
     // MARK: - Header Section

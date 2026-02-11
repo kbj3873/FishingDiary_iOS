@@ -18,6 +18,7 @@ struct HistoryMapView: UIViewRepresentable {
     @Binding var stateMarkers: [FishingRecordViewModel.StateChangeMarker]
     @Binding var stateMarkerInfos: [HistoryDetailViewModel.HistoryStateMarkerInfo] // 상태 마커 상세 정보
     @Binding var selectedMarker: HistoryDetailViewModel.SelectedMarkerInfo?
+    @Binding var isMapInitialized: Bool // 지도 초기화 여부 (Zoom to Fit 1회 제한용)
     
     // 줌 레벨 조정 등을 위한 Coordinator
     func makeCoordinator() -> Coordinator {
@@ -35,31 +36,47 @@ struct HistoryMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        // ... (생략, 기존과 동일) ...
+        // 데이터 변경 확인
+        if !context.coordinator.shouldUpdate(polylines: polylines, 
+                                           markers: markers, 
+                                           stateMarkers: stateMarkers) {
+            return
+        }
+        
         // 1. 경로 그리기 (Polyline)
         updatePolyline(on: uiView)
         
         // 2. 마커 표시 (Annotations)
         updateAnnotations(on: uiView)
         
-        // 3. 카메라 이동
-        if !polylines.isEmpty {
-             // ...
-             let allCoordinates = polylines.flatMap { polyline -> [CLLocationCoordinate2D] in
-                let count = polyline.pointCount
-                var coords = [CLLocationCoordinate2D](repeating: kCLLocationCoordinate2DInvalid, count: count)
-                polyline.getCoordinates(&coords, range: NSRange(location: 0, length: count))
-                return coords
+        // 3. 카메라 이동 (최초 1회만 Zoom to Fit 실행)
+        if !isMapInitialized {
+            if !polylines.isEmpty {
+                 let allCoordinates = polylines.flatMap { polyline -> [CLLocationCoordinate2D] in
+                    let count = polyline.pointCount
+                    var coords = [CLLocationCoordinate2D](repeating: kCLLocationCoordinate2DInvalid, count: count)
+                    polyline.getCoordinates(&coords, range: NSRange(location: 0, length: count))
+                    return coords
+                }
+                if !allCoordinates.isEmpty {
+                    let region = regionFor(coordinates: allCoordinates)
+                    uiView.setRegion(region, animated: true)
+                    DispatchQueue.main.async {
+                        self.isMapInitialized = true
+                    }
+                }
+            } else if !markers.isEmpty {
+                 let coords = markers.map { $0.coordinate }
+                 let region = regionFor(coordinates: coords)
+                 uiView.setRegion(region, animated: true)
+                 DispatchQueue.main.async {
+                     self.isMapInitialized = true
+                 }
             }
-            if !allCoordinates.isEmpty {
-                let region = regionFor(coordinates: allCoordinates)
-                uiView.setRegion(region, animated: true)
-            }
-        } else if !markers.isEmpty {
-             let coords = markers.map { $0.coordinate }
-             let region = regionFor(coordinates: coords)
-             uiView.setRegion(region, animated: true)
         }
+        
+        // 데이터 업데이트 후 캐시 갱신
+        context.coordinator.updateCache(polylines: polylines, markers: markers, stateMarkers: stateMarkers)
     }
     
     private func updatePolyline(on mapView: MKMapView) {
@@ -111,8 +128,8 @@ struct HistoryMapView: UIViewRepresentable {
         }
         
         let center = CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLon + maxLon) / 2)
-        let latDelta = max((maxLat - minLat) * 1.5, 0.005)
-        let lonDelta = max((maxLon - minLon) * 1.5, 0.005)
+        let latDelta = max((maxLat - minLat) * 1.3, 0.002)
+        let lonDelta = max((maxLon - minLon) * 1.3, 0.002)
         
         let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
         
@@ -123,8 +140,40 @@ struct HistoryMapView: UIViewRepresentable {
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: HistoryMapView
         
+        // 데이터 캐시
+        private var _polylines: [HistoryFishingPolyline] = []
+        private var _markers: [HistoryPhotoMarker] = []
+        private var _stateMarkers: [FishingRecordViewModel.StateChangeMarker] = []
+        private var _hasLoaded: Bool = false
+        
         init(_ parent: HistoryMapView) {
             self.parent = parent
+        }
+        
+        func shouldUpdate(polylines: [HistoryFishingPolyline], 
+                          markers: [HistoryPhotoMarker], 
+                          stateMarkers: [FishingRecordViewModel.StateChangeMarker]) -> Bool {
+            if !_hasLoaded { return true }
+            
+            // 단순 카운트 및 ID/좌표 비교
+            if _polylines.count != polylines.count { return true }
+            if _markers.count != markers.count { return true }
+            if _stateMarkers.count != stateMarkers.count { return true }
+            
+            // 더 정밀한 비교가 필요하다면 여기에 추가
+            // 예: 마지막 마커의 ID 비교 등
+            if let lastOld = _markers.last, let lastNew = markers.last, lastOld.id != lastNew.id { return true }
+            
+            return false
+        }
+        
+        func updateCache(polylines: [HistoryFishingPolyline], 
+                         markers: [HistoryPhotoMarker], 
+                         stateMarkers: [FishingRecordViewModel.StateChangeMarker]) {
+            self._polylines = polylines
+            self._markers = markers
+            self._stateMarkers = stateMarkers
+            self._hasLoaded = true
         }
         
         // ... (rendererFor, viewFor 메서드 생략, 기존 로직 유지하되 didSelect 추가) ...
@@ -174,9 +223,9 @@ struct HistoryMapView: UIViewRepresentable {
                 let fileURL = URL(fileURLWithPath: thumbnailPath)
                 
                 if let image = UIImage(contentsOfFile: fileURL.path) {
-                    let imageSize: CGFloat = 40
-                    let borderWidth: CGFloat = 2
-                    let cornerRadius: CGFloat = 8
+                    let imageSize: CGFloat = 48
+                    let borderWidth: CGFloat = 3
+                    let cornerRadius: CGFloat = 10
                     let totalSize = imageSize + (borderWidth * 2)
                     
                     let size = CGSize(width: imageSize, height: imageSize)
@@ -231,6 +280,9 @@ struct HistoryMapView: UIViewRepresentable {
             case .none:
                 break
             }
+            if let image = view?.image {
+                view?.centerOffset = CGPoint(x: 0, y: -image.size.height / 2)
+            }
             return view
         }
         
@@ -249,9 +301,6 @@ struct HistoryMapView: UIViewRepresentable {
                             coordinate: marker.coordinate,
                             state: nil
                         )
-                        
-                        let region = MKCoordinateRegion(center: marker.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-                        mapView.setRegion(region, animated: true)
                     }
                 }
             }
@@ -281,9 +330,6 @@ struct HistoryMapView: UIViewRepresentable {
                             state: stateAnnotation.state
                         )
                     }
-                    
-                    let region = MKCoordinateRegion(center: stateAnnotation.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-                    mapView.setRegion(region, animated: true)
                 }
             }
         }

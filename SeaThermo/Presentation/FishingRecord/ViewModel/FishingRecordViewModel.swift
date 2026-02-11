@@ -36,8 +36,11 @@ final class FishingRecordViewModel: ObservableObject {
     /// 지도에 그릴 경로 좌표들
     @Published var pathCoordinates: [CLLocationCoordinate2D] = []
     
-    /// 지도 경로 그리기용 (Combine Binding)
+    /// 지도 경로 그리기용 (Combine 바인딩)
     @Published var currentMapLine: MapLineInfo = MapLineInfo(CLLocation(), CLLocation())
+    
+    /// 현재 위치 (UI 표시용, 녹화 여부와 무관)
+    @Published var currentLocation: CLLocation?
     
     /// 저장된 사진 썸네일 경로 목록 (최신순)
     @Published var savedImagePaths: [String] = []
@@ -54,8 +57,11 @@ final class FishingRecordViewModel: ObservableObject {
     /// 기록 중단 팝업 표시 여부
     @Published var isStopPopupPresented: Bool = false
     
-    /// 권한 설정 팝업 표시 여부
-    @Published var isPermissionPopupPresented: Bool = false
+    /// 카메라 권한 설정 팝업 표시 여부
+    @Published var isCameraPermissionPopupPresented: Bool = false
+    
+    /// 위치 권한 설정 팝업 표시 여부
+    @Published var isLocationPermissionPopupPresented: Bool = false
 
     
     // MARK: - Dependencies
@@ -79,7 +85,7 @@ final class FishingRecordViewModel: ObservableObject {
     // MARK: - Initializer
     init(useCase: FishingRecordUseCase) {
         self.useCase = useCase
-        // 초기 MapLine 설정
+        // 초기 MapLine 설정 (최근 위치가 있다면 사용)
         if let lastLocation = locationManager.locationList.last?.locationInfo {
              self.currentMapLine = MapLineInfo(lastLocation, lastLocation)
         }
@@ -162,11 +168,30 @@ final class FishingRecordViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+            
+        // UI 모니터링을 위한 원본 위치 데이터 바인딩
+        locationManager.currentLocationSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] location in
+                self?.currentLocation = location
+            }
+            .store(in: &cancellables)
+    }
+    
+    func startMonitoring() {
+        locationManager.startMonitoring()
+    }
+    
+    func stopMonitoring() {
+        locationManager.stopMonitoring()
     }
     
     // MARK: - Actions
 
     func startRecording() {
+        // 위치 권한 체크
+        guard checkLocationPermission() else { return }
+        
         isRecording = true
         markers.removeAll() // 시작 시 마커 초기화
         photoMarkers.removeAll() // 사진 마커도 초기화
@@ -275,7 +300,7 @@ final class FishingRecordViewModel: ObservableObject {
                 // 여기서는 단순히 요청만 보냄
             }
         case .denied, .restricted:
-            isPermissionPopupPresented = true
+            isCameraPermissionPopupPresented = true
         @unknown default:
             break
         }
@@ -292,11 +317,30 @@ final class FishingRecordViewModel: ObservableObject {
         }
         
         if status == .denied || status == .restricted {
-            isPermissionPopupPresented = true
+            isCameraPermissionPopupPresented = true
             return false
         }
         
         return false
+    }
+    
+    // 위치 권한 체크
+    @discardableResult
+    func checkLocationPermission() -> Bool {
+        let status = locationManager.locationManager.authorizationStatus
+        
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            return true
+        case .notDetermined:
+            locationManager.locationManager.requestWhenInUseAuthorization()
+            return false
+        case .denied, .restricted:
+            isLocationPermissionPopupPresented = true
+            return false
+        @unknown default:
+            return false
+        }
     }
     
     func getLocationList() -> [LocationInfo] {

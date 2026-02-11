@@ -8,9 +8,10 @@
 import Foundation
 import Combine
 import UIKit
+import SwiftUI
 
 /// 히스토리 화면에 표시할 기록 모델
-struct HistoryRecordItem: Identifiable {
+struct HistoryRecordItem: Identifiable, Hashable {
     let id: String
     let date: Date
     let startTime: String          // "17:38 출발" 형식
@@ -31,6 +32,7 @@ final class HistoryViewModel: ObservableObject {
     @Published var records: [HistoryRecordItem] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
+    @Published var path = NavigationPath() // iOS 16+
     
     public let useCase: FishingRecordUseCase
     private var cancellable: Cancellable?

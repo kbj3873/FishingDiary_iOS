@@ -187,7 +187,10 @@ struct RecordMapView: UIViewRepresentable {
             }
             
             // 이미지 크기 조정 등 필요 시 추가 설정
-            // view?.centerOffset = CGPoint(x: 0, y: -view!.frame.size.height / 2) // 핀 끝이 좌표에 오도록 조정
+            
+            if let image = view?.image {
+                view?.centerOffset = CGPoint(x: 0, y: -image.size.height / 2)
+            }
             
             return view
         }
@@ -260,11 +263,11 @@ struct RecordMapView: UIViewRepresentable {
         private func getColor(for state: FDAppManager.FishingState) -> UIColor {
             switch state {
             case .moving:
-                return UIColor(hex: "#2563EB") // Blue
+                return UIColor(hex: "#2563EB") // 파랑
             case .drifting:
-                return UIColor(hex: "#F59E0B") // Orange
+                return UIColor(hex: "#F59E0B") // 주황
             case .fishing:
-                return UIColor(hex: "#EF4444") // Red
+                return UIColor(hex: "#EF4444") // 빨강
             }
         }
         

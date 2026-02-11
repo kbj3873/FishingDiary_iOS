@@ -12,7 +12,7 @@ struct HistoryView: View {
     @ObservedObject var viewModel: HistoryViewModel
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $viewModel.path) {
             VStack(spacing: 0) {
                 // 헤더
                 headerView
@@ -28,9 +28,17 @@ struct HistoryView: View {
             }
             .background(Color(hex: "F2F2F7"))
             .navigationBarHidden(true)
+            .navigationDestination(for: HistoryRecordItem.self) { record in
+                HistoryDetailView(sessionId: record.id, useCase: viewModel.useCase, onDataChanged: {
+                    viewModel.loadRecords()
+                })
+            }
         }
         .onAppear {
-            viewModel.loadRecords()
+            // 탭 이동 시 불필요한 리로드 방지 (데이터가 없고 로딩중이 아닐 때만 로드)
+            if viewModel.records.isEmpty && !viewModel.isLoading {
+                viewModel.loadRecords()
+            }
         }
     }
     
@@ -72,9 +80,7 @@ struct HistoryView: View {
         ScrollView {
             LazyVStack(spacing: 12) {
                 ForEach(viewModel.records) { record in
-                    NavigationLink(destination: HistoryDetailView(sessionId: record.id, useCase: viewModel.useCase, onDataChanged: {
-                        viewModel.loadRecords()
-                    })) {
+                    NavigationLink(value: record) {
                         HistoryRecordCardView(item: record)
                     }
                     .buttonStyle(PlainButtonStyle()) // 리스트 스타일 간섭 방지

@@ -15,4 +15,7 @@ class UserDefaultKey: NSObject {
     
     /// 메인화면 노출되는 수온 지역 리스트
     static let regionalSeaTempuratureList = "regionalSeaTempuratureList"
+    
+    /// 지도 종류 (0: Apple, 1: Kakao)
+    static let mapType = "mapType"
 }

@@ -29,6 +29,11 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
     @Published var bottomMax: String = "-"
     @Published var bottomMin: String = "-"
     
+    // 수심 데이터
+    @Published var surfaceDepth: String = "-"
+    @Published var middleDepth: String = "-"
+    @Published var bottomDepth: String = "-"
+    
     // Visibility Flags
     @Published var hasSurfaceData: Bool = false
     @Published var hasMiddleData: Bool = false
@@ -228,45 +233,56 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
             GraphData(values: bottomValues, color: .green)
         ]
         
-        // 4. Update Cards (Latest Data) & Calculate Min/Max & Visibility
-        if let last = sortedList.last {
-            // Surface
+        // 4. 카드 데이터 업데이트 (최신 유효 데이터) & 최고/최저 & 가시성
+        if !sortedList.isEmpty {
+            // 각 수층별 마지막 유효 데이터 찾기 (API에서 -99.0은 데이터 없음을 의미)
+            let lastValidSurface = sortedList.last(where: { $0.wtrTempS > 0 })
+            let lastValidMiddle = sortedList.last(where: { $0.wtrTempM > 0 })
+            let lastValidBottom = sortedList.last(where: { $0.wtrTempB > 0 })
+            
+            // Surface (표층)
             let validSurface = surfaceValues.filter { $0 > 0 }
             hasSurfaceData = !validSurface.isEmpty
-            if hasSurfaceData {
-                surfaceTemp = String(format: "%.1f°", last.wtrTempS)
+            if hasSurfaceData, let validData = lastValidSurface {
+                surfaceTemp = String(format: "%.1f°", validData.wtrTempS)
                 surfaceMax = String(format: "%.1f", validSurface.max() ?? 0)
                 surfaceMin = String(format: "%.1f", validSurface.min() ?? 0)
+                surfaceDepth = validData.surDep > 0 ? "수심 \(Int(validData.surDep))m" : "-"
             } else {
                 surfaceTemp = "-"
                 surfaceMax = "-"
                 surfaceMin = "-"
+                surfaceDepth = "-"
             }
             
-            // Middle
+            // Middle (중층)
             let validMiddle = middleValues.filter { $0 > 0 }
             hasMiddleData = !validMiddle.isEmpty
-            if hasMiddleData {
-                middleTemp = String(format: "%.1f°", last.wtrTempM)
+            if hasMiddleData, let validData = lastValidMiddle {
+                middleTemp = String(format: "%.1f°", validData.wtrTempM)
                 middleMax = String(format: "%.1f", validMiddle.max() ?? 0)
                 middleMin = String(format: "%.1f", validMiddle.min() ?? 0)
+                middleDepth = validData.midDep > 0 ? "수심 \(Int(validData.midDep))m" : "-"
             } else {
                 middleTemp = "-"
                 middleMax = "-"
                 middleMin = "-"
+                middleDepth = "-"
             }
             
-            // Bottom
+            // Bottom (저층)
             let validBottom = bottomValues.filter { $0 > 0 }
             hasBottomData = !validBottom.isEmpty
-            if hasBottomData {
-                bottomTemp = String(format: "%.1f°", last.wtrTempB)
+            if hasBottomData, let validData = lastValidBottom {
+                bottomTemp = String(format: "%.1f°", validData.wtrTempB)
                 bottomMax = String(format: "%.1f", validBottom.max() ?? 0)
                 bottomMin = String(format: "%.1f", validBottom.min() ?? 0)
+                bottomDepth = validData.botDep > 0 ? "수심 \(Int(validData.botDep))m" : "-"
             } else {
                 bottomTemp = "-"
                 bottomMax = "-"
                 bottomMin = "-"
+                bottomDepth = "-"
             }
         }
     }
