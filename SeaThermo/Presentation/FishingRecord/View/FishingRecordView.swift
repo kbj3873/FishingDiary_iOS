@@ -177,11 +177,10 @@ struct FishingRecordView: View {
 // MARK: - Subviews
     
     // 상단 정보 바 (Figma 스타일: 동적 상태)
-    // 상단: 16px, 좌측: 16px, 너비: 유동적 (패딩)
     private var topInfoBar: some View {
-        HStack {
-            // 좌측 상태 정보
-            HStack(spacing: 8) { // Figma 간격: 12
+        HStack(spacing: 0) {
+            // 좌측 상태 정보 그룹
+            HStack(spacing: 12) { // Figma 간격: 12
                 // 상태 아이콘 (Dot)
                 Circle()
                     .fill(statusColor)
@@ -192,13 +191,62 @@ struct FishingRecordView: View {
                 Text(!viewModel.isRecording ? "대기 중" : viewModel.fishingState.rawValue)
                     .font(.system(size: 15, weight: .semibold))
                     .foregroundColor(statusTextColor)
+                    .fixedSize() // 텍스트 줄바꿈 방지
                 
                 // 이동/탐색/낚시 중일 때 속도 표시 (녹화 중일 때만)
                 if viewModel.isRecording {
-                    Text(String(format: "%.1f knots", viewModel.currentSpeed))
-                        .font(.system(size: 13, weight: .medium))
-                        .foregroundColor(Color(uiColor: .systemGray2))
-                        .padding(.leading, 4)
+                    HStack(spacing: 6) {
+                        // 속도 수치 + 단위
+                        Text(String(format: "%.1f %@", viewModel.convertedSpeed, viewModel.speedUnit == .knots ? "knots" : "km/h"))
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundColor(Color(hex: "8E8E93"))
+                            .fixedSize()
+                        
+                        // 단위 토글 스위치 (Figma Design)
+                        ZStack {
+                            // 배경
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(hex: "F2F2F7"))
+                                .frame(width: 109, height: 28)
+                            
+                            HStack(spacing: 0) {
+                                // Knots 버튼
+                                Button(action: {
+                                    withAnimation(.easeInOut(duration: 0.2)) {
+                                        viewModel.speedUnit = .knots
+                                    }
+                                }) {
+                                    Text("knots")
+                                        .font(.system(size: 11, weight: viewModel.speedUnit == .knots ? .semibold : .medium))
+                                        .foregroundColor(viewModel.speedUnit == .knots ? Color(hex: "1F2937") : Color(hex: "6B7280"))
+                                        .frame(width: 54, height: 24)
+                                        .background(
+                                            viewModel.speedUnit == .knots ?
+                                            RoundedRectangle(cornerRadius: 10).fill(Color.white).shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 1) : nil
+                                        )
+                                }
+                                .buttonStyle(StaticButtonStyle()) // 하이라이트 제거
+                                
+                                // km/h 버튼
+                                Button(action: {
+                                    withAnimation(.easeInOut(duration: 0.2)) {
+                                        viewModel.speedUnit = .kmh
+                                    }
+                                }) {
+                                    Text("km/h")
+                                        .font(.system(size: 11, weight: viewModel.speedUnit == .kmh ? .semibold : .medium))
+                                        .foregroundColor(viewModel.speedUnit == .kmh ? Color(hex: "1F2937") : Color(hex: "6B7280"))
+                                        .frame(width: 50, height: 24)
+                                        .background(
+                                            viewModel.speedUnit == .kmh ?
+                                            RoundedRectangle(cornerRadius: 10).fill(Color.white).shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 1) : nil
+                                        )
+                                }
+                                .buttonStyle(StaticButtonStyle()) // 하이라이트 제거
+                            }
+                            .padding(.horizontal, 2)
+                        }
+                    }
                 }
             }
             
@@ -208,9 +256,10 @@ struct FishingRecordView: View {
             Text("\(viewModel.savedPointCount)개 지점 저장")
                 .font(.system(size: 13, weight: .medium))
                 .foregroundColor(Color(uiColor: .systemGray2))
+                .fixedSize()
         }
         .padding(.horizontal, 16)
-        .frame(height: 48) // Height 46.491px -> approx 47-48
+        .frame(height: 48)
         .background(Color.white.opacity(0.95))
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.08), radius: 10, x: 0, y: 2)
@@ -441,5 +490,12 @@ struct ImagePicker: UIViewControllerRepresentable {
             }
             parent.presentationMode.wrappedValue.dismiss()
         }
+    }
+}
+
+// MARK: - Helper Views
+struct StaticButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
     }
 }

@@ -171,7 +171,7 @@ struct SeaAnalysisDetailView: View {
                 .foregroundColor(color)
             
             Text(depth)
-                .font(.system(size: 12, weight: .semibold))
+                .font(.system(size: 13, weight: .semibold))
                 .foregroundColor(color)
             
             VStack(alignment: .leading, spacing: 4) {

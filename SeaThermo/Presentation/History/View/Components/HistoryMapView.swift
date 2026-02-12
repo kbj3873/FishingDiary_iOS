@@ -92,6 +92,7 @@ struct HistoryMapView: UIViewRepresentable {
             let annotation = HistoryPhotoAnnotation()
             annotation.coordinate = marker.coordinate
             annotation.thumbnailPath = marker.thumbnailPath
+            annotation.id = marker.id // ID 할당 추가
             annotation.title = "조과물"
             mapView.addAnnotation(annotation)
         }
@@ -101,6 +102,7 @@ struct HistoryMapView: UIViewRepresentable {
             let annotation = HistoryFishingStateAnnotation()
             annotation.coordinate = marker.coordinate
             annotation.state = marker.state
+            annotation.id = marker.id // ID 할당 추가
             // 타이틀에 상태명 설정 (e.g. "이동")
             switch marker.state {
             case .moving: annotation.title = "이동"
@@ -289,9 +291,10 @@ struct HistoryMapView: UIViewRepresentable {
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             // 1. 사진 마커 선택 시
             if let photoAnnotation = view.annotation as? HistoryPhotoAnnotation,
-               let thumbnailPath = photoAnnotation.thumbnailPath {
+               let annotationId = photoAnnotation.id { // ID 사용
                 
-                if let marker = parent.markers.first(where: { $0.thumbnailPath == thumbnailPath }) {
+                // thumbnailPath 대신 ID로 검색
+                if let marker = parent.markers.first(where: { $0.id == annotationId }) {
                     withAnimation {
                         // SelectedMarkerInfo 생성
                         parent.selectedMarker = HistoryDetailViewModel.SelectedMarkerInfo(
@@ -305,13 +308,13 @@ struct HistoryMapView: UIViewRepresentable {
                 }
             }
             // 2. 상태 마커 선택 시
-            else if let stateAnnotation = view.annotation as? HistoryFishingStateAnnotation {
+            else if let stateAnnotation = view.annotation as? HistoryFishingStateAnnotation,
+                    let annotationId = stateAnnotation.id { // ID 사용
+                
                 withAnimation {
-                    // stateMarkerInfos에서 좌표 기준으로 일치하는 정보 조회
-                    if let markerInfo = parent.stateMarkerInfos.first(where: {
-                        abs($0.coordinate.latitude - stateAnnotation.coordinate.latitude) < 0.0001 &&
-                        abs($0.coordinate.longitude - stateAnnotation.coordinate.longitude) < 0.0001
-                    }) {
+                    // stateMarkerInfos에서 ID 기준으로 일치하는 정보 조회
+                    // 이제 좌표 오차나 중복 문제 없이 정확히 매칭됨
+                    if let markerInfo = parent.stateMarkerInfos.first(where: { $0.id == annotationId }) {
                         parent.selectedMarker = HistoryDetailViewModel.SelectedMarkerInfo(
                             title: markerInfo.title,
                             timeString: markerInfo.timeString,
@@ -320,7 +323,7 @@ struct HistoryMapView: UIViewRepresentable {
                             state: markerInfo.state
                         )
                     } else {
-                        // Fallback: 기본 정보 사용
+                        // Fallback: 기본 정보 사용 (혹시 매칭 실패 시)
                         let title = stateAnnotation.title ?? "상태 변경"
                         parent.selectedMarker = HistoryDetailViewModel.SelectedMarkerInfo(
                             title: title,
@@ -342,10 +345,12 @@ class HistoryFishingPolyline: MKPolyline {
 }
 
 class HistoryFishingStateAnnotation: MKPointAnnotation {
+    var id: UUID? // 추가: 고유 식별자
     var state: FDAppManager.FishingState?
 }
 
 class HistoryPhotoAnnotation: MKPointAnnotation {
+    var id: UUID? // 추가: 고유 식별자
     var thumbnailPath: String?
 }
 

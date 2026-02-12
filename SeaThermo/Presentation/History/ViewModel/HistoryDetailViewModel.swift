@@ -19,7 +19,7 @@ final class HistoryDetailViewModel: ObservableObject {
     
     // 상태 마커 상세 정보 (지점 번호 + 시간 포함)
     struct HistoryStateMarkerInfo: Identifiable {
-        let id = UUID()
+        let id: UUID // 수정: 외부 주입 가능하도록 초기값 제거
         let title: String       // "지점 #N"
         let timeString: String  // "HH:mm"
         let coordinate: CLLocationCoordinate2D
@@ -84,6 +84,8 @@ final class HistoryDetailViewModel: ObservableObject {
                         self.setupMapData()
                     }
                     
+                    self.isMapInitialized = false // 데이터 새로 로드 시 맵 초기화 플래그 리셋 (필요 시)
+                    
                 case .failure(let error):
                     print("Error fetching records: \(error)")
                     // 에러 처리 로직 (필요 시 Alert 표시 등)
@@ -143,10 +145,11 @@ final class HistoryDetailViewModel: ObservableObject {
             let timeStr = timeFormatter.string(from: record.date)
             
             // 1. 상태 변경 마커
-            // 이전 상태와 다르면 마커 추가 (첫 레코드는 lastState가 nil이므로 제외될 수 있음 -> 필요시 로직 조정)
-            // FishingRecordViewModel에서 첫 진입 시에는 마커를 안 찍고 lastState만 갱신했음. 여기서도 동일하게 처리.
+            // 이전 상태와 다르면 마커 추가
+            // 경로 색상이 변하는 지점(이전 상태의 마지막 지점)에 마커를 생성해야 함
             if let last = lastState, last != state {
                 let markerState: FDAppManager.FishingState
+                
                 switch state {
                 case 0: markerState = .moving
                 case 1: markerState = .drifting
@@ -154,17 +157,32 @@ final class HistoryDetailViewModel: ObservableObject {
                 default: markerState = .moving
                 }
                 
-                newStateMarkers.append(FishingRecordViewModel.StateChangeMarker(coordinate: coord, state: markerState))
+                // 수정: 현재 좌표(coord)가 아닌, 색상이 변하는 지점(이전 좌표)에 마커를 찍어야 함.
+                // 루프 상 이전 좌표는 currentSegmentCoordinates의 마지막 요소이거나,
+                // 만약 currentSegmentCoordinates가 비어있다면(첫 진입 등) 현재 좌표일 수 있음.
+                // 하지만 로직상 상태가 변했다면 이전 세그먼트가 존재해야 함.
+                
+                var markerCoord = coord
+                if let lastSegmentCoord = currentSegmentCoordinates.last {
+                    markerCoord = lastSegmentCoord
+                }
+                
+                // 마커 생성 (변곡점 좌표 사용)
+                // ID 매칭을 위해 마커 먼저 생성
+                let marker = FishingRecordViewModel.StateChangeMarker(coordinate: markerCoord, state: markerState)
+                newStateMarkers.append(marker)
                 
                 let info = HistoryStateMarkerInfo(
+                    id: marker.id, // 마커의 ID를 그대로 사용
                     title: "지점 #\(globalPointIndex)",
                     timeString: timeStr,
-                    coordinate: coord,
+                    coordinate: markerCoord,
                     state: markerState
                 )
                 newStateMarkerInfos.append(info)
                 globalPointIndex += 1
             }
+            // lastState 업데이트
             lastState = state
             
             // 2. 사진 마커

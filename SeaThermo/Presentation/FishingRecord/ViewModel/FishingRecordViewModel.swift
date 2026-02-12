@@ -16,6 +16,10 @@ final class FishingRecordViewModel: ObservableObject {
         let coordinate: CLLocationCoordinate2D
         let thumbnailPath: String
     }
+    enum SpeedUnit: String {
+        case knots
+        case kmh
+    }
 
     // MARK: - Published Properties
     /// 현재 녹화 중인지 여부
@@ -24,8 +28,21 @@ final class FishingRecordViewModel: ObservableObject {
     /// 현재 낚시 상태 (이동 중, 탐색 중, 낚시 중)
     @Published var fishingState: FDAppManager.FishingState = .moving
     
-    /// 현재 속도 (knots)
+    /// 현재 속도 (knots) - 내부 로직은 항상 knots 기준
     @Published var currentSpeed: Double = 0.0
+    
+    /// 속도 단위 (기본값: knots)
+    @Published var speedUnit: SpeedUnit = .knots
+    
+    /// UI 표시용 변환된 속도
+    var convertedSpeed: Double {
+        switch speedUnit {
+        case .knots:
+            return currentSpeed
+        case .kmh:
+            return currentSpeed * 1.852
+        }
+    }
     
     /// 이동 거리 (km)
     @Published var distance: Double = 0.0
@@ -109,7 +126,9 @@ final class FishingRecordViewModel: ObservableObject {
                 
                 // 2. 속도 업데이트 및 상태 판별
                 let speedMps = currentLocation.speed
-                let speedKnots = speedMps * 1.94384 // m/s to knots
+                // 음수 속도(유효하지 않음)인 경우 0으로 처리
+                let validSpeedMps = max(0, speedMps)
+                let speedKnots = validSpeedMps * 1.94384 // m/s to knots
                 self.currentSpeed = speedKnots
                 
                 // FishingState 업데이트
@@ -121,17 +140,30 @@ final class FishingRecordViewModel: ObservableObject {
                     self.fishingState = .fishing
                 }
                 
+                // 3. 거리 계산 (단순 누적은 오차 있을 수 있음, 이전 좌표와 거리 계산)
+                let prevLocation = mapLine.previousLocation
+                
                 // 상태 변경 감지 및 마커 추가
                 // 1. 첫 상태 진입(nil)인 경우: 현재 상태를 저장만 하고 마커는 찍지 않음
                 // 2. 상태가 변경된 경우: 마커를 생성하고 상태 갱신
                 if let lastState = self.lastFishingState {
                     if self.fishingState != lastState {
                         print("State Changed: \(lastState) -> \(self.fishingState)")
-                        let marker = StateChangeMarker(coordinate: currentLocation.coordinate, state: self.fishingState)
+                        
+                        // 수정: 현재 좌표 대신 이전 좌표(변곡점)에 마커를 생성해야 함
+                        // prevLocation이 유효하다면(초기값 등 제외) 사용, 아니면 현재 좌표 사용
+                        var markerCoordinate = currentLocation.coordinate
+                        if prevLocation.coordinate.latitude != 0 && prevLocation.coordinate.longitude != 0 {
+                             markerCoordinate = prevLocation.coordinate
+                        }
+                        
+                        let marker = StateChangeMarker(coordinate: markerCoordinate, state: self.fishingState)
                         self.markers.append(marker)
                         self.lastFishingState = self.fishingState
                         
-                        // 상태 변경 시 지점 저장
+                        // 상태 변경 시 지점 저장 (마커 위치와 동일하게 저장할지, 현재 위치로 저장할지는 기획에 따름.
+                        // 여기서는 '상태가 변경된 순간의 기록'이므로 현재 위치와 시간을 저장하는 것이 맞음.
+                        // 마커만 시각적으로 변곡점에 찍어주는 것임.)
                         self.useCase.savePoint(sessionId: self.currentSessionId,
                                                latitude: currentLocation.coordinate.latitude,
                                                longitude: currentLocation.coordinate.longitude,
@@ -145,9 +177,6 @@ final class FishingRecordViewModel: ObservableObject {
                 }
 
 
-                
-                // 3. 거리 계산 (단순 누적은 오차 있을 수 있음, 이전 좌표와 거리 계산)
-                let prevLocation = mapLine.previousLocation
                 // 첫 위치가 아닐 때만 거리 누적 (lat/lon이 0.0이 아닌지 체크 필요하나 여기서는 단순화)
                 if prevLocation.coordinate.latitude != 0 && prevLocation.coordinate.longitude != 0 {
                     let segmentDistance = currentLocation.distance(from: prevLocation)
@@ -251,6 +280,7 @@ final class FishingRecordViewModel: ObservableObject {
         pathCoordinates.removeAll()
         savedImagePaths.removeAll()
         savedPointCount = 0
+        savedPointCount = 0
         currentSpeed = 0
         distance = 0
         duration = 0
@@ -345,6 +375,15 @@ final class FishingRecordViewModel: ObservableObject {
     
     func getLocationList() -> [LocationInfo] {
         return locationManager.locationList
+    }
+    
+    // MARK: - Methods for View
+    func toggleSpeedUnit() {
+        if speedUnit == .knots {
+            speedUnit = .kmh
+        } else {
+            speedUnit = .knots
+        }
     }
     
     // MARK: - Helper

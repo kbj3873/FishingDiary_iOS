@@ -10,6 +10,7 @@
 | [한국어 사용 규칙](.agent/workflows/korean_language.md) | Language Rule | 모든 대화 및 주석 작성 시 |
 | [프로젝트 구조](.agent/workflows/project_structure.md) | Domain & Context | 기존 컴포넌트/엔티티 확인 시 |
 | [레거시 정책](.agent/workflows/legacy_policy.md) | Legacy Code Policy | **절대 수정 금지** 파일 확인 시 |
+| [작업 로그 가이드](.agent/workflows/work_log.md) | Notion Work Log | 일일 작업 로그 기록 시 |
 | [Figma 변환 규칙](.claude/figma-to-swiftui.md) | 상세 디자인 가이드 | (참고용) Figma 작업 시 |
 | [Domain 요약](.claude/domain-summary.md) | 상세 도메인 지식 | (참고용) 도메인 로직 심화 |
 

@@ -216,7 +216,7 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
         // 3. Extract Dates for X-Axis Labels (7 Days)
         var dates: [String] = []
         let labelFormatter = DateFormatter()
-        labelFormatter.dateFormat = "MM/dd"
+        labelFormatter.dateFormat = "M/d"
         
         // Generate labels for D0 to D6
         for i in 0..<7 {
