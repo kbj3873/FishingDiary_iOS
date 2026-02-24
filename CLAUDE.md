@@ -23,7 +23,7 @@
 - **UI 프레임워크:** SwiftUI (1차 마이그레이션 완료)
 - **아키텍처:** Clean Architecture + MVVM
 - **의존성 관리:** CocoaPods
-- **주요 워크스페이스:** `FishingDiary.xcworkspace` (.xcodeproj 아님)
+- **주요 워크스페이스:** `SeaThermo.xcworkspace` (.xcodeproj 아님)
 
 ## 현재 상태
 
@@ -44,13 +44,13 @@ SwiftUI 1차 마이그레이션이 완료되어 앱 실행 시 SwiftUI로 구성
 pod install
 
 # 프로젝트 열기 (항상 workspace 사용, xcodeproj 아님)
-open FishingDiary.xcworkspace
+open SeaThermo.xcworkspace
 
 # 커맨드 라인에서 빌드
-xcodebuild -workspace FishingDiary.xcworkspace -scheme FishingDiary -configuration Debug build
+xcodebuild -workspace SeaThermo.xcworkspace -scheme SeaThermo -configuration Debug build
 
 # 클린 빌드
-xcodebuild -workspace FishingDiary.xcworkspace -scheme FishingDiary clean build
+xcodebuild -workspace SeaThermo.xcworkspace -scheme SeaThermo clean build
 ```
 
 ## 애플리케이션 시작 흐름
@@ -293,7 +293,7 @@ Button {
 
 ## Clean Architecture 레이어
 
-### 1. Domain 레이어 (`FishingDiary/Domain/`)
+### 1. Domain 레이어 (`SeaThermo/Domain/`)
 
 비즈니스 로직과 엔티티를 포함하는 가장 내부 레이어로, UI 프레임워크와 독립적입니다.
 
@@ -328,7 +328,7 @@ class OceanUseCase {
 }
 ```
 
-### 2. Data 레이어 (`FishingDiary/Data/`)
+### 2. Data 레이어 (`SeaThermo/Data/`)
 
 Repository 구현체와 데이터 소스(네트워크, 로컬 스토리지) 구현부입니다.
 
@@ -359,7 +359,7 @@ class DefaultOceanRepository: OceanRepository {
 }
 ```
 
-### 3. Presentation 레이어 (`FishingDiary/Presentation/`)
+### 3. Presentation 레이어 (`SeaThermo/Presentation/`)
 
 SwiftUI + MVVM 기반의 UI 레이어
 
@@ -594,7 +594,7 @@ struct ApplePointMapView: View {
 | `PointDateListViewModel` | pointDateList | 날짜 목록 |
 | `PointDataListViewModel` | pointDataList, isShowingPointMap | 데이터 목록, 지도 표시 여부 |
 
-## Infrastructure 레이어 (`FishingDiary/Infrastructure/Network/`)
+## Infrastructure 레이어 (`SeaThermo/Infrastructure/Network/`)
 
 저수준 네트워킹 추상화:
 - `NetworkService.swift` - URLSession 래퍼
@@ -613,7 +613,7 @@ struct ApplePointMapView: View {
 - `ApiKeyCoo`
 - `KAKAO_APP_KEY`
 
-## Managers (`FishingDiary/Managers/`)
+## Managers (`SeaThermo/Managers/`)
 
 애플리케이션 전역 매니저:
 - `FDAppManager` - 앱 상태 관리 (지도 타입 선택, 상수, 초기화)

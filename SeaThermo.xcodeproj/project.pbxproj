@@ -22,6 +22,9 @@
 		117A002B2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */; };
 		117A002D2F2DA7C5005C7F82 /* SeaRegionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */; };
 		117A002F2F2DA7C5005C7F82 /* SeaRegionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */; };
+		1188DC5D2F4D7E5600CB12C6 /* SplashRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC5C2F4D7E5600CB12C6 /* SplashRepository.swift */; };
+		1188DC5F2F4D7E8600CB12C6 /* FishingRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC5E2F4D7E8600CB12C6 /* FishingRecordRepository.swift */; };
+		1188DC612F4D7EA500CB12C6 /* SplashUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC602F4D7EA500CB12C6 /* SplashUseCase.swift */; };
 		11E66EAC2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAA2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift */; };
 		11E66EAD2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAB2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift */; };
 		11E66EB02F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAF2F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift */; };
@@ -29,15 +32,19 @@
 		11FC08402F35C6CD0067FBAB /* RecordMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FC083E2F35C6CD0067FBAB /* RecordMapView.swift */; };
 		1330B868D2832A44D987A553 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093AC48AA1FF2837E609F8E8 /* RealmManager.swift */; };
 		225237683E1B0440276984CB /* FishingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */; };
+		26B53BA3AF20420EB2F26926 /* DefaultSplashRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962F7FBD82D4CF2A845061E /* DefaultSplashRepository.swift */; };
 		29A7E81887295D88B98D6ABA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5D606CD631AF9E1FFC631E /* SettingViewModel.swift */; };
+		32678646250D4911966F09E5 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54634800DFF64063ACCC5ED5 /* SplashView.swift */; };
 		569F048024BBD429EC11659B /* Pods_SeaThermo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03AA4355987AC316DDA08C99 /* Pods_SeaThermo.framework */; };
 		61F92959D621EB1C9B01CD6A /* SeaAnalysisDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FDD546D39EAF812578B340 /* SeaAnalysisDetailViewModel.swift */; };
-		653C52A1CE777E0B482867DA /* FishingRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E28F070A7171D666323721 /* FishingRecordRepository.swift */; };
 		7328AEBCF75792505834FC4D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC046A5B2699C9838415D31D /* SettingView.swift */; };
 		78C52B0F387154EC058F66CA /* RealmFishingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9496B21B73A2BB3CBD17F97 /* RealmFishingRecord.swift */; };
 		938308A513E526F0A691998F /* FishingRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907061170C85DB46A0B8579F /* FishingRecordViewModel.swift */; };
 		A040C38E031E0655DA7EE9BC /* FishingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */; };
+		AA5D7BEB694340508095DBD0 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032D3F263E0420386394477 /* SplashViewModel.swift */; };
 		AABF851A0557A35D008E9C95 /* TemperatureLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */; };
+		BE8D8308779040CAA518B7F1 /* VersionCheckDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9D632B8195470DA96FB3D6 /* VersionCheckDTO.swift */; };
+		E8AFEA2CD75B4A60A7E5ADC3 /* VersionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF69B7ED4E64B11A3500D56 /* VersionStatus.swift */; };
 		E9B3C143644F178B8CD4DD33 /* FishingRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2E7BE3E0B35DBDE877066 /* FishingRecordView.swift */; };
 		F401EC1A2E9F6422002F52FF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC192E9F6422002F52FF /* MainView.swift */; };
 		F401EC1C2E9F7494002F52FF /* MainHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */; };
@@ -180,6 +187,7 @@
 /* Begin PBXFileReference section */
 		03AA4355987AC316DDA08C99 /* Pods_SeaThermo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeaThermo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		093AC48AA1FF2837E609F8E8 /* RealmManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		0962F7FBD82D4CF2A845061E /* DefaultSplashRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSplashRepository.swift; sourceTree = "<group>"; };
 		0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DefaultFishingRecordRepository.swift; sourceTree = "<group>"; };
 		117142662F347384008E79D6 /* HistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailView.swift; sourceTree = "<group>"; };
 		117142682F347394008E79D6 /* HistoryMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMapView.swift; sourceTree = "<group>"; };
@@ -194,23 +202,29 @@
 		117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListViewModel.swift; sourceTree = "<group>"; };
 		117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionRowView.swift; sourceTree = "<group>"; };
 		117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaRegionListView.swift; sourceTree = "<group>"; };
+		1188DC5C2F4D7E5600CB12C6 /* SplashRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashRepository.swift; sourceTree = "<group>"; };
+		1188DC5E2F4D7E8600CB12C6 /* FishingRecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingRecordRepository.swift; sourceTree = "<group>"; };
+		1188DC602F4D7EA500CB12C6 /* SplashUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashUseCase.swift; sourceTree = "<group>"; };
 		11E66EAA2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKakaoMapView.swift; sourceTree = "<group>"; };
 		11E66EAB2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKakaoMapViewController.swift; sourceTree = "<group>"; };
 		11E66EAE2F3B1ED800AC7B6A /* HistoryKakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryKakaoMapView.swift; sourceTree = "<group>"; };
 		11E66EAF2F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryKakaoMapViewController.swift; sourceTree = "<group>"; };
 		11FC083E2F35C6CD0067FBAB /* RecordMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMapView.swift; sourceTree = "<group>"; };
+		2BF69B7ED4E64B11A3500D56 /* VersionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionStatus.swift; sourceTree = "<group>"; };
+		54634800DFF64063ACCC5ED5 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordUseCase.swift; sourceTree = "<group>"; };
 		5C5D606CD631AF9E1FFC631E /* SettingViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		60FDD546D39EAF812578B340 /* SeaAnalysisDetailViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SeaAnalysisDetailViewModel.swift; sourceTree = "<group>"; };
 		7923DDEBCA0435B83A181040 /* Pods-SeaThermo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeaThermo.release.xcconfig"; path = "Target Support Files/Pods-SeaThermo/Pods-SeaThermo.release.xcconfig"; sourceTree = "<group>"; };
+		7F9D632B8195470DA96FB3D6 /* VersionCheckDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCheckDTO.swift; sourceTree = "<group>"; };
 		84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecord.swift; sourceTree = "<group>"; };
 		907061170C85DB46A0B8579F /* FishingRecordViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordViewModel.swift; sourceTree = "<group>"; };
 		96F2E7BE3E0B35DBDE877066 /* FishingRecordView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordView.swift; sourceTree = "<group>"; };
-		B3E28F070A7171D666323721 /* FishingRecordRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordRepository.swift; sourceTree = "<group>"; };
 		B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SeaAnalysisDetailView.swift; sourceTree = "<group>"; };
 		C9496B21B73A2BB3CBD17F97 /* RealmFishingRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RealmFishingRecord.swift; sourceTree = "<group>"; };
 		CC046A5B2699C9838415D31D /* SettingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TemperatureLineGraphView.swift; sourceTree = "<group>"; };
+		E032D3F263E0420386394477 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		EDA398BA0DAB4D361B4206DB /* Pods-SeaThermo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeaThermo.debug.xcconfig"; path = "Target Support Files/Pods-SeaThermo/Pods-SeaThermo.debug.xcconfig"; sourceTree = "<group>"; };
 		F401EC192E9F6422002F52FF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHostingViewController.swift; sourceTree = "<group>"; };
@@ -431,6 +445,13 @@
 			path = SeaAnalysis;
 			sourceTree = "<group>";
 		};
+		1188DC5B2F4D7D3000CB12C6 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		11FC083F2F35C6CD0067FBAB /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -493,6 +514,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		5FABD669313B4FEAB92170A2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E032D3F263E0420386394477 /* SplashViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		64CFDE57075E139C0A06C485 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -516,14 +545,6 @@
 				CC046A5B2699C9838415D31D /* SettingView.swift */,
 			);
 			path = Setting;
-			sourceTree = "<group>";
-		};
-		931BFB352AD6D6CB95BF3A0F /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				B3E28F070A7171D666323721 /* FishingRecordRepository.swift */,
-			);
-			path = Repositories;
 			sourceTree = "<group>";
 		};
 		E4A77780F010214A118863BA /* ViewModel */ = {
@@ -606,6 +627,7 @@
 				F4E6A2A32B2AE2D400C935BF /* DefaultPointMapRepository.swift */,
 				F49152772B9955680000C552 /* DefaultOceanRepository.swift */,
 				0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */,
+				0962F7FBD82D4CF2A845061E /* DefaultSplashRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -623,6 +645,7 @@
 		F43151F12B185AD200027BB9 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				1188DC602F4D7EA500CB12C6 /* SplashUseCase.swift */,
 				F406B4482B3006F100AEEA2B /* TrackMapUseCase.swift */,
 				F4F2D2152B214BB5007E48D8 /* PointDateUseCase.swift */,
 				F4A4AEF72B26D10A0017D173 /* PointDataUseCase.swift */,
@@ -641,6 +664,7 @@
 				F4E6A2992B2ABEB500C935BF /* PointMap.swift */,
 				F49152712B9951B00000C552 /* Ocean.swift */,
 				F480D2622BA2E2A800E1F30D /* OceanQuery.swift */,
+				2BF69B7ED4E64B11A3500D56 /* VersionStatus.swift */,
 				F44883B12DB10DA5008B9BB5 /* SeaInfo.swift */,
 				F44883B22DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift */,
 				84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */,
@@ -651,12 +675,13 @@
 		F43151F32B185AD200027BB9 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
+				1188DC5E2F4D7E8600CB12C6 /* FishingRecordRepository.swift */,
+				1188DC5C2F4D7E5600CB12C6 /* SplashRepository.swift */,
 				F4F2D21C2B215D39007E48D8 /* PointDateListRepository.swift */,
 				F4A4AEF92B26D22D0017D173 /* PointDataListRepository.swift */,
 				F4E6A2A12B2ADF4900C935BF /* PointMapRepository.swift */,
 				F406B4462B3006E400AEEA2B /* TrackMapRepository.swift */,
 				F49152752B9954D60000C552 /* OceanRepository.swift */,
-				931BFB352AD6D6CB95BF3A0F /* Repositories */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -673,6 +698,7 @@
 				F43151F52B185AD200027BB9 /* Utils */,
 				90C46857C8E4A5379CD6E3DC /* Setting */,
 				17A52C297C3FDC91F4560C66 /* FishingRecord */,
+				FC62A22BA53442348906F7B9 /* Splash */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -820,6 +846,7 @@
 			children = (
 				F491527F2B99AA3A0000C552 /* OceanRequestDTO+Mapping.swift */,
 				F49152812B99ABD70000C552 /* OceanResponseDTO+Mapping.swift */,
+				7F9D632B8195470DA96FB3D6 /* VersionCheckDTO.swift */,
 			);
 			path = DataMapping;
 			sourceTree = "<group>";
@@ -865,6 +892,7 @@
 				F4DE47A72AA0106E00ED2D23 /* Products */,
 				F4DE47FD2AA0256A00ED2D23 /* Frameworks */,
 				1A49441F53CDCBB62B6A9456 /* Pods */,
+				1188DC5B2F4D7D3000CB12C6 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1025,6 +1053,15 @@
 				F4F647922DC1F1620028A2C5 /* FDUserDefault.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		FC62A22BA53442348906F7B9 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				5FABD669313B4FEAB92170A2 /* ViewModel */,
+				54634800DFF64063ACCC5ED5 /* SplashView.swift */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1252,6 +1289,7 @@
 				F48902332B202EFE00D18225 /* AppFlowCoordinator.swift in Sources */,
 				F48B10502EB1A30A00C2DB87 /* AppleTrackMapViewRepresentable.swift in Sources */,
 				F4DE48272AA0569000ED2D23 /* FDAlertViewController.swift in Sources */,
+				1188DC5F2F4D7E8600CB12C6 /* FishingRecordRepository.swift in Sources */,
 				F4F647932DC1F1630028A2C5 /* FDUserDefault.swift in Sources */,
 				F43104392EA6072600B9EA2B /* PointDateListUIView.swift in Sources */,
 				F4C0276F2AB17804007D1900 /* MKPolyline.swift in Sources */,
@@ -1271,6 +1309,7 @@
 				F4E6A29E2B2ACAF200C935BF /* PointMapViewModel.swift in Sources */,
 				F491527D2B99A91E0000C552 /* APIEndpoints.swift in Sources */,
 				F407170E2DBFAA1F00A433A5 /* UserDefaults.swift in Sources */,
+				1188DC5D2F4D7E5600CB12C6 /* SplashRepository.swift in Sources */,
 				F4E6A29A2B2ABEB500C935BF /* PointMap.swift in Sources */,
 				F4A4AEF82B26D10A0017D173 /* PointDataUseCase.swift in Sources */,
 				F48902372B2057E500D18225 /* PointDateListViewModel.swift in Sources */,
@@ -1286,6 +1325,7 @@
 				117618322F3364CA00EF9FAF /* HistoryViewModel.swift in Sources */,
 				F4F2D2222B218DF4007E48D8 /* FileDataStorage.swift in Sources */,
 				F4B20E952EAB62600056FE51 /* PointInfoView.swift in Sources */,
+				1188DC612F4D7EA500CB12C6 /* SplashUseCase.swift in Sources */,
 				11FC08402F35C6CD0067FBAB /* RecordMapView.swift in Sources */,
 				F4D5DA852EB34A3A009E07C4 /* SeaWaterTemperatureView.swift in Sources */,
 				F406B4452B30061100AEEA2B /* TrackMapViewModel.swift in Sources */,
@@ -1300,13 +1340,17 @@
 				7328AEBCF75792505834FC4D /* SettingView.swift in Sources */,
 				29A7E81887295D88B98D6ABA /* SettingViewModel.swift in Sources */,
 				A040C38E031E0655DA7EE9BC /* FishingRecord.swift in Sources */,
-				653C52A1CE777E0B482867DA /* FishingRecordRepository.swift in Sources */,
 				225237683E1B0440276984CB /* FishingRecordUseCase.swift in Sources */,
 				1330B868D2832A44D987A553 /* RealmManager.swift in Sources */,
 				78C52B0F387154EC058F66CA /* RealmFishingRecord.swift in Sources */,
 				0FBF453FFF082B22DC020B1F /* DefaultFishingRecordRepository.swift in Sources */,
 				938308A513E526F0A691998F /* FishingRecordViewModel.swift in Sources */,
 				E9B3C143644F178B8CD4DD33 /* FishingRecordView.swift in Sources */,
+				BE8D8308779040CAA518B7F1 /* VersionCheckDTO.swift in Sources */,
+				26B53BA3AF20420EB2F26926 /* DefaultSplashRepository.swift in Sources */,
+				E8AFEA2CD75B4A60A7E5ADC3 /* VersionStatus.swift in Sources */,
+				32678646250D4911966F09E5 /* SplashView.swift in Sources */,
+				AA5D7BEB694340508095DBD0 /* SplashViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1472,8 +1516,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeaThermo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "온바다";
+				INFOPLIST_KEY_NSCameraUsageDescription = "낚시 기록을 위한 사진 촬영에 카메라 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "앱 이용을 위해 고객님의 위치 서비스를 허용해 주세요.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "앱 이용을 위해 고객님의 위치 서비스를 허용해 주세요.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "촬영한 사진을 저장하고 불러오기 위해 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1482,7 +1528,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bj.seathermo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1512,8 +1558,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeaThermo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "온바다";
+				INFOPLIST_KEY_NSCameraUsageDescription = "낚시 기록을 위한 사진 촬영에 카메라 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "앱 이용을 위해 고객님의 위치 서비스를 허용해 주세요.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "앱 이용을 위해 고객님의 위치 서비스를 허용해 주세요.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "촬영한 사진을 저장하고 불러오기 위해 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1522,7 +1570,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bj.seathermo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

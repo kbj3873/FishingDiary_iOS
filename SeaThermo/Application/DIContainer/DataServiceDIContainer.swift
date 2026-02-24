@@ -39,10 +39,24 @@ final class DataServiceDIContainer {
         return DefaultDataTransferService(with: apiDataNetwork)
     }()
     
+    // 온바다 자체 서버용 JSON API 서비스
+    lazy var seaThermoTransferService: DataTransferService = {
+        let config = ApiDataNetworkConfig(
+            baseURL: URL(string: appConfiguration.seaThermoBaseURL)!,
+            headers: [
+                "Accept-Language":"ko-KR,ko;q=0.9",
+                "Content-Type":"application/json"
+            ]
+        )
+        let network = DefaultNetworkService(config: config)
+        return DefaultDataTransferService(with: network)
+    }()
+    
     // MARK: - DIContainers of scenes
     func makeOceanSceneDIContainer() -> PointSceneDIContainer {
         let dependencies = PointSceneDIContainer.Dependencies(apiDataTransferService: apiDataTransferService,
                                                               apiXmlTransferService: apiXmlTransferService,
+                                                              seaThermoTransferService: seaThermoTransferService,
                                                               appConfiguration: appConfiguration)
         return PointSceneDIContainer(dependencies: dependencies, fileStorage: fileStorage)
     }

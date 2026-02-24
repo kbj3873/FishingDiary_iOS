@@ -8,7 +8,7 @@
 ```swift
 //
 //  {ScreenName}View.swift
-//  FishingDiary
+//  SeaThermo
 //
 
 import SwiftUI
@@ -58,7 +58,7 @@ struct {ScreenName}View: View {
 ```swift
 //
 //  {ScreenName}ViewModel.swift
-//  FishingDiary
+//  SeaThermo
 //
 
 import Foundation
@@ -126,7 +126,7 @@ final class {ScreenName}ViewModel: ObservableObject {
 ```swift
 //
 //  {Feature}UseCase.swift
-//  FishingDiary
+//  SeaThermo
 //
 
 import Foundation
@@ -161,7 +161,7 @@ final class {Feature}UseCase {
 ```swift
 //
 //  {Feature}Repository.swift
-//  FishingDiary
+//  SeaThermo
 //
 
 import Foundation
@@ -177,7 +177,7 @@ protocol {Feature}Repository {
 ```swift
 //
 //  Default{Feature}Repository.swift
-//  FishingDiary
+//  SeaThermo
 //
 
 import Foundation
@@ -220,7 +220,7 @@ final class Default{Feature}Repository: {Feature}Repository {
 ```swift
 //
 //  {Component}Representable.swift
-//  FishingDiary
+//  SeaThermo
 //
 
 import SwiftUI

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 protocol Coordinator {
     var childCoordinators: [Coordinator] { get set }
@@ -43,10 +44,26 @@ final class AppFlowCoordinator: Coordinator {
     
     func startSwiftUI() {
         let pointSceneDIContainer = dataServiceDIContainer.makeOceanSceneDIContainer()
+        appDIContainer.register(pointSceneDIContainer)
+        
+        // 스플래시 화면을 먼저 표시
+        let splashViewModel = pointSceneDIContainer.makeSplashViewModel()
+        let splashView = SplashView(viewModel: splashViewModel) { [weak self] in
+            guard let self else { return }
+            // 스플래시 완료 → 메인 화면으로 전환
+            self.showMainScreen(pointSceneDIContainer: pointSceneDIContainer)
+        }
+        
+        let splashVC = UIHostingController(rootView: splashView)
+        splashVC.modalPresentationStyle = .fullScreen
+        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.setViewControllers([splashVC], animated: false)
+    }
+    
+    private func showMainScreen(pointSceneDIContainer: PointSceneDIContainer) {
         let flow = pointSceneDIContainer.makePointFlowCoordinator(navigationController: navigationController)
         flow.startSwiftUI()
-        
         childCoordinators = [flow]
-        appDIContainer.register(pointSceneDIContainer)
     }
 }
+

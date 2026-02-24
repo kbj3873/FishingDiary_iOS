@@ -28,5 +28,8 @@ final class AppConfiguration {
         }
         return apiBaseURL
     }()
+    
+    // 온바다 자체 서버 Base URL
+    let seaThermoBaseURL: String = "http://3.35.210.133:3000"
 }
 

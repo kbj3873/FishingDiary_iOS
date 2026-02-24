@@ -130,7 +130,7 @@ struct SettingView: View {
                 commonRow(
                     icon: "info.circle",
                     title: "앱 정보",
-                    detail: "버전 1.0.0",
+                    detail: "버전 \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0")",
                     isLast: false
                 ) { }
                 

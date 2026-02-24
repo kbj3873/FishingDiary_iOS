@@ -13,6 +13,7 @@ final class PointSceneDIContainer {
     struct Dependencies {
         let apiDataTransferService: DataTransferService
         let apiXmlTransferService: DataTransferService
+        let seaThermoTransferService: DataTransferService
         let appConfiguration: AppConfiguration
     }
     
@@ -153,6 +154,10 @@ extension PointSceneDIContainer {
     func makeFishingRecordViewModel() -> FishingRecordViewModel {
         FishingRecordViewModel(useCase: makeFishingRecordUseCase())
     }
+    
+    func makeSplashViewModel() -> SplashViewModel {
+        SplashViewModel(splashUseCase: makeSplashUseCase())
+    }
 }
 
 // MARK: make use case
@@ -160,6 +165,10 @@ extension PointSceneDIContainer {
     
     func makeOceanUseCase() -> OceanUseCase {
         OceanUseCase(oceanRepository: makeOceanRepository())
+    }
+    
+    func makeSplashUseCase() -> SplashUseCase {
+        SplashUseCase(repository: makeSplashRepository())
     }
     
     func makeTrackMapUseCase() -> TrackMapUseCase {
@@ -188,6 +197,10 @@ extension PointSceneDIContainer {
     func makeOceanRepository() -> OceanRepository {
         DefaultOceanRepository(apiDataTransferService: dependencies.apiDataTransferService,
                                apiXmlTransferService: dependencies.apiXmlTransferService)
+    }
+    
+    func makeSplashRepository() -> SplashRepository {
+        DefaultSplashRepository(dataTransferService: dependencies.seaThermoTransferService)
     }
     
     func makeTrackMapRepository() -> TrackMapRepository {

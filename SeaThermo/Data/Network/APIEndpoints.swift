@@ -23,4 +23,11 @@ struct APIEndpoints {
                         queryParametersEncodable: requestDTO
         )
     }
+    
+    // MARK: - 온바다 서버 API
+    static func postVersionCheck(with requestDTO: VersionCheckRequestDTO) -> Endpoint<VersionCheckResponseDTO> {
+        return Endpoint(path: "api/version/check",
+                        method: .post,
+                        bodyParametersEncodable: requestDTO)
+    }
 }
