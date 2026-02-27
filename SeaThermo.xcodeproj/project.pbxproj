@@ -25,6 +25,9 @@
 		1188DC5D2F4D7E5600CB12C6 /* SplashRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC5C2F4D7E5600CB12C6 /* SplashRepository.swift */; };
 		1188DC5F2F4D7E8600CB12C6 /* FishingRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC5E2F4D7E8600CB12C6 /* FishingRecordRepository.swift */; };
 		1188DC612F4D7EA500CB12C6 /* SplashUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC602F4D7EA500CB12C6 /* SplashUseCase.swift */; };
+		1188DC632F4D99E100CB12C6 /* AppInfoHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC622F4D99E100CB12C6 /* AppInfoHeaders.swift */; };
+		1188DC662F4DA53100CB12C6 /* WebViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC642F4DA53100CB12C6 /* WebViewConfig.swift */; };
+		1188DC6A2F4DA54E00CB12C6 /* SeaThermoWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC672F4DA54E00CB12C6 /* SeaThermoWebView.swift */; };
 		11E66EAC2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAA2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift */; };
 		11E66EAD2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAB2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift */; };
 		11E66EB02F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAF2F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift */; };
@@ -205,6 +208,9 @@
 		1188DC5C2F4D7E5600CB12C6 /* SplashRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashRepository.swift; sourceTree = "<group>"; };
 		1188DC5E2F4D7E8600CB12C6 /* FishingRecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishingRecordRepository.swift; sourceTree = "<group>"; };
 		1188DC602F4D7EA500CB12C6 /* SplashUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashUseCase.swift; sourceTree = "<group>"; };
+		1188DC622F4D99E100CB12C6 /* AppInfoHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoHeaders.swift; sourceTree = "<group>"; };
+		1188DC642F4DA53100CB12C6 /* WebViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewConfig.swift; sourceTree = "<group>"; };
+		1188DC672F4DA54E00CB12C6 /* SeaThermoWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaThermoWebView.swift; sourceTree = "<group>"; };
 		11E66EAA2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKakaoMapView.swift; sourceTree = "<group>"; };
 		11E66EAB2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKakaoMapViewController.swift; sourceTree = "<group>"; };
 		11E66EAE2F3B1ED800AC7B6A /* HistoryKakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryKakaoMapView.swift; sourceTree = "<group>"; };
@@ -452,6 +458,30 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		1188DC652F4DA53100CB12C6 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				1188DC642F4DA53100CB12C6 /* WebViewConfig.swift */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
+		1188DC682F4DA54E00CB12C6 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				1188DC672F4DA54E00CB12C6 /* SeaThermoWebView.swift */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
+		1188DC692F4DA54E00CB12C6 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				1188DC682F4DA54E00CB12C6 /* WebView */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		11FC083F2F35C6CD0067FBAB /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -590,6 +620,7 @@
 		F429D9422B9831030049534B /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				1188DC652F4DA53100CB12C6 /* WebView */,
 				F429D9432B9831030049534B /* Network */,
 			);
 			path = Infrastructure;
@@ -598,6 +629,7 @@
 		F429D9432B9831030049534B /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				1188DC622F4D99E100CB12C6 /* AppInfoHeaders.swift */,
 				F429D9442B9831030049534B /* DataTransferService.swift */,
 				F429D9452B9831030049534B /* NetworkService.swift */,
 				F429D9462B9831030049534B /* Endpoint.swift */,
@@ -651,8 +683,8 @@
 				F4A4AEF72B26D10A0017D173 /* PointDataUseCase.swift */,
 				F4E6A29F2B2AD37900C935BF /* PointMapUseCase.swift */,
 				F49152732B9952590000C552 /* OceanUseCase.swift */,
-				F4F2D2172B214BC6007E48D8 /* Protocol */,
 				5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */,
+				F4F2D2172B214BC6007E48D8 /* Protocol */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -689,6 +721,7 @@
 		F43151F42B185AD200027BB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1188DC692F4DA54E00CB12C6 /* Common */,
 				1176182F2F3364CA00EF9FAF /* History */,
 				117A00272F2DA7C4005C7F82 /* SeaAnalysis */,
 				F44883BA2DB10DA5008B9BB5 /* SeaWaterTemperature */,
@@ -1290,6 +1323,7 @@
 				F48B10502EB1A30A00C2DB87 /* AppleTrackMapViewRepresentable.swift in Sources */,
 				F4DE48272AA0569000ED2D23 /* FDAlertViewController.swift in Sources */,
 				1188DC5F2F4D7E8600CB12C6 /* FishingRecordRepository.swift in Sources */,
+				1188DC632F4D99E100CB12C6 /* AppInfoHeaders.swift in Sources */,
 				F4F647932DC1F1630028A2C5 /* FDUserDefault.swift in Sources */,
 				F43104392EA6072600B9EA2B /* PointDateListUIView.swift in Sources */,
 				F4C0276F2AB17804007D1900 /* MKPolyline.swift in Sources */,
@@ -1301,6 +1335,7 @@
 				117142672F347384008E79D6 /* HistoryDetailView.swift in Sources */,
 				F406B44B2B30070900AEEA2B /* DefaultTrackMapRepository.swift in Sources */,
 				F4A4AEFC2B26D4DF0017D173 /* DefaultPointDataListRepository.swift in Sources */,
+				1188DC662F4DA53100CB12C6 /* WebViewConfig.swift in Sources */,
 				F4DE48232AA04E4300ED2D23 /* UIViewController.swift in Sources */,
 				F4DE481B2AA02DA300ED2D23 /* FDLocationManager.swift in Sources */,
 				F429D94B2B9831030049534B /* NetworkConfig.swift in Sources */,
@@ -1322,6 +1357,7 @@
 				F4950DCD2AAAA36000DD26DE /* FDAppManager.swift in Sources */,
 				117618302F3364CA00EF9FAF /* HistoryRecordCardView.swift in Sources */,
 				117618312F3364CA00EF9FAF /* HistoryView.swift in Sources */,
+				1188DC6A2F4DA54E00CB12C6 /* SeaThermoWebView.swift in Sources */,
 				117618322F3364CA00EF9FAF /* HistoryViewModel.swift in Sources */,
 				F4F2D2222B218DF4007E48D8 /* FileDataStorage.swift in Sources */,
 				F4B20E952EAB62600056FE51 /* PointInfoView.swift in Sources */,

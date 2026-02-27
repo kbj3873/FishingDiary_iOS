@@ -13,7 +13,7 @@ description: Figma에서 SVG 에셋을 가져와 투명 배경 PNG로 변환하�
 4.  **검증**: 읽어온 SVG 코드가 예상한 아이콘 모양인지(예: path 데이터 간략 확인) 반드시 **시각적 또는 코드 레벨에서 검증**합니다. 잘못된 아이콘을 가져오는 실수를 방지하기 위함입니다.
 
 ## 2. Assets 폴더 구성 (분석 및 사용자 질의)
-1.  **폴더 분석**: `FishingDiary/Assets.xcassets/` 내부를 확인하여 적절한 폴더(Category)가 있는지 분석합니다.
+1.  **폴더 분석**: `SeaThermo/Assets.xcassets/` 내부를 확인하여 적절한 폴더(Category)가 있는지 분석합니다.
     *   예: `FishingRecord`, `History`, `SeaAnalysis` 등.
 2.  **사용자 질의**: 적절한 폴더가 불분명하거나 새로운 기능인 경우, **"새 폴더를 생성할까요, 아니면 기존 폴더 중 어디에 저장할까요?"** 라고 사용자에게 먼저 물어봅니다.
 3.  결정된 위치(`[Category]`) 하위에 `[asset_name].imageset` 폴더를 생성합니다.

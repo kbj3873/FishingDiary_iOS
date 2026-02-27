@@ -94,7 +94,7 @@ struct ScreenNameView: View {
 
 ## 프로젝트 특화 규칙
 
-### FishingDiary 앱 컬러 팔레트
+### SeaThermo 앱 컬러 팔레트
 - Primary Blue: `#4FACFE`
 - Deep Blue: `#1E3C72`
 - Mid Blue: `#3979BE`

@@ -39,14 +39,18 @@ final class DataServiceDIContainer {
         return DefaultDataTransferService(with: apiDataNetwork)
     }()
     
-    // 온바다 자체 서버용 JSON API 서비스
+    // 온바다 자체 서버용 JSON API 서비스 (앱 정보 헤더 포함)
     lazy var seaThermoTransferService: DataTransferService = {
+        var headers: [String: String] = [
+            "Accept-Language": "ko-KR,ko;q=0.9",
+            "Content-Type":    "application/json"
+        ]
+        // 앱/디바이스 정보 헤더 병합
+        headers.merge(AppInfoHeaders.make()) { _, new in new }
+        
         let config = ApiDataNetworkConfig(
             baseURL: URL(string: appConfiguration.seaThermoBaseURL)!,
-            headers: [
-                "Accept-Language":"ko-KR,ko;q=0.9",
-                "Content-Type":"application/json"
-            ]
+            headers: headers
         )
         let network = DefaultNetworkService(config: config)
         return DefaultDataTransferService(with: network)

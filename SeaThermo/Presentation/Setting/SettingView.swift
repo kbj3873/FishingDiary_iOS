@@ -9,38 +9,45 @@ import SwiftUI
 
 struct SettingView: View {
     @StateObject var viewModel: SettingViewModel
+    @State private var path = NavigationPath()
     
     var body: some View {
-        ZStack {
-            // Background
-            Color(hex: "F2F2F7")
-                .ignoresSafeArea()
-            
-            VStack(spacing: 0) {
-                // Header
-                headerSection
+        NavigationStack(path: $path) {
+            ZStack {
+                // Background
+                Color(hex: "F2F2F7")
+                    .ignoresSafeArea()
                 
-                // Content
-                ScrollView {
-                    VStack(spacing: 24) {
-                        
-                        // Notice Section
-                        notificationSection
-                        
-                        // Map Setting Section
-                        mapSettingSection
-                        
-                        // Info Section
-                        infoSection
-                        
-                        // Copyright
-                        copyrightSection
-                        
-                        Spacer()
+                VStack(spacing: 0) {
+                    // Header
+                    headerSection
+                    
+                    // Content
+                    ScrollView {
+                        VStack(spacing: 24) {
+                            
+                            // Notice Section
+                            notificationSection
+                            
+                            // Map Setting Section
+                            mapSettingSection
+                            
+                            // Info Section
+                            infoSection
+                            
+                            // Copyright
+                            copyrightSection
+                            
+                            Spacer()
+                        }
+                        .padding(.top, 24)
+                        .padding(.bottom, 40)
                     }
-                    .padding(.top, 24)
-                    .padding(.bottom, 40)
                 }
+            }
+            .navigationBarHidden(true)
+            .navigationDestination(for: WebPage.self) { page in
+                SeaThermoWebView(page: page)
             }
         }
     }
@@ -78,7 +85,7 @@ struct SettingView: View {
                     title: "공지사항",
                     isLast: true
                 ) {
-                    // Action
+                    path.append(WebPage.notices)
                 }
             }
             .background(Color.white)
@@ -138,7 +145,9 @@ struct SettingView: View {
                     icon: "doc.text",
                     title: "오픈소스 라이선스",
                     isLast: true
-                ) { }
+                ) {
+                    path.append(WebPage.licenses)
+                }
             }
             .background(Color.white)
             .cornerRadius(12)
