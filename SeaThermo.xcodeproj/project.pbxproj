@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0BF29263C5B25FD2C6EF9558 /* SeaAnalysisDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */; };
 		0FBF453FFF082B22DC020B1F /* DefaultFishingRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */; };
+		113564FD2F51A8AE00F4E38B /* OceanInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113564FC2F51A8AE00F4E38B /* OceanInfoResponseDTO.swift */; };
+		113565002F51A8C900F4E38B /* OceanInfoRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113564FE2F51A8C900F4E38B /* OceanInfoRequestDTO.swift */; };
 		117142672F347384008E79D6 /* HistoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117142662F347384008E79D6 /* HistoryDetailView.swift */; };
 		1171426A2F347394008E79D6 /* HistoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117142682F347394008E79D6 /* HistoryMapView.swift */; };
 		1171426C2F34739B008E79D6 /* HistoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1171426B2F34739B008E79D6 /* HistoryDetailViewModel.swift */; };
@@ -192,6 +194,8 @@
 		093AC48AA1FF2837E609F8E8 /* RealmManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		0962F7FBD82D4CF2A845061E /* DefaultSplashRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSplashRepository.swift; sourceTree = "<group>"; };
 		0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DefaultFishingRecordRepository.swift; sourceTree = "<group>"; };
+		113564FC2F51A8AE00F4E38B /* OceanInfoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanInfoResponseDTO.swift; sourceTree = "<group>"; };
+		113564FE2F51A8C900F4E38B /* OceanInfoRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanInfoRequestDTO.swift; sourceTree = "<group>"; };
 		117142662F347384008E79D6 /* HistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailView.swift; sourceTree = "<group>"; };
 		117142682F347394008E79D6 /* HistoryMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMapView.swift; sourceTree = "<group>"; };
 		1171426B2F34739B008E79D6 /* HistoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailViewModel.swift; sourceTree = "<group>"; };
@@ -380,6 +384,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		113564FF2F51A8C900F4E38B /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				113564FE2F51A8C900F4E38B /* OceanInfoRequestDTO.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
 		117142692F347394008E79D6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -868,6 +880,7 @@
 		F491527B2B99A9080000C552 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				113564FF2F51A8C900F4E38B /* Requests */,
 				F491527E2B99AA1A0000C552 /* DataMapping */,
 				F491527C2B99A91E0000C552 /* APIEndpoints.swift */,
 			);
@@ -877,6 +890,7 @@
 		F491527E2B99AA1A0000C552 /* DataMapping */ = {
 			isa = PBXGroup;
 			children = (
+				113564FC2F51A8AE00F4E38B /* OceanInfoResponseDTO.swift */,
 				F491527F2B99AA3A0000C552 /* OceanRequestDTO+Mapping.swift */,
 				F49152812B99ABD70000C552 /* OceanResponseDTO+Mapping.swift */,
 				7F9D632B8195470DA96FB3D6 /* VersionCheckDTO.swift */,
@@ -1280,6 +1294,7 @@
 				117A002D2F2DA7C5005C7F82 /* SeaRegionRowView.swift in Sources */,
 				117A002F2F2DA7C5005C7F82 /* SeaRegionListView.swift in Sources */,
 				F4C1AUDA2F01290800BFACE1 /* OceanRegionCardView.swift in Sources */,
+				113565002F51A8C900F4E38B /* OceanInfoRequestDTO.swift in Sources */,
 				F4DE48212AA041CF00ED2D23 /* UIApplication.swift in Sources */,
 				F4B20E932EAB53870056FE51 /* ApplePointMapView.swift in Sources */,
 				F49DCFF92B1F09EB009C5FC4 /* StoryboardInstantiable.swift in Sources */,
@@ -1335,6 +1350,7 @@
 				117142672F347384008E79D6 /* HistoryDetailView.swift in Sources */,
 				F406B44B2B30070900AEEA2B /* DefaultTrackMapRepository.swift in Sources */,
 				F4A4AEFC2B26D4DF0017D173 /* DefaultPointDataListRepository.swift in Sources */,
+				113564FD2F51A8AE00F4E38B /* OceanInfoResponseDTO.swift in Sources */,
 				1188DC662F4DA53100CB12C6 /* WebViewConfig.swift in Sources */,
 				F4DE48232AA04E4300ED2D23 /* UIViewController.swift in Sources */,
 				F4DE481B2AA02DA300ED2D23 /* FDLocationManager.swift in Sources */,

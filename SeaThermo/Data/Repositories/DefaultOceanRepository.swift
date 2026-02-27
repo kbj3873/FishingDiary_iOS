@@ -100,16 +100,21 @@ extension DefaultOceanRepository: OceanRepository {
         completion: @escaping (Result<OceanResponse, Error>) -> Void
     ) -> Cancellable? {
         
-        let requestDTO = OceanRequestDTO(id: query.id, gruNam: query.gruNam, useYn: query.useYn, staCde: query.staCde, dataCnt: query.dataCnt, ord: query.ord, ordType: query.ordType, obsFrom: query.obsFrom, obsTo: query.obsTo)
+        // 1. 신규 API 스펙에 맞는 RequestDTO 변환
+        let requestDTO = query.toOceanInfoRequestDTO()
         let task = RepositoryTask()
         
-        let endpoint = APIEndpoints.getRisaXml(with: requestDTO) as Endpoint<OceanResponseDTO>
-        task.networkTask = self.apiXmlTransferService.requestHtml(with: endpoint,
+        // 2. 신규 JSON 엔드포인트 생성
+        let endpoint = APIEndpoints.searchRisaInfoList(with: requestDTO) as Endpoint<OceanInfoResponseDTO>
+        
+        // 3. 기존 XML 대신 JSON 전용 apiDataTransferService 사용
+        task.networkTask = self.apiDataTransferService.request(with: endpoint,
                                                              on: backgroundQueue
         ) { result in
             switch result {
             case .success(let responseDTO):
-                print("task success")
+                print("OceanInfo API task success")
+                // DTO -> Domain Entity 반환
                 completion(.success(responseDTO.toDomain()))
             case .failure(let error):
                 completion(.failure(error))

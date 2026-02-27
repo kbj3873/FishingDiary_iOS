@@ -42,4 +42,16 @@ struct OceanQuery: Equatable {
     let ordType: String
     let obsFrom: String
     let obsTo: String
+    
+    // 신규 온바다 JSON 엔드포인트 요청을 위한 DTO 매핑
+    func toOceanInfoRequestDTO() -> OceanInfoRequestDTO {
+        return OceanInfoRequestDTO(
+            obsrvnGroupNm: gruNam,
+            obsvtrCd: staCde,
+            obsFrom: obsFrom,
+            obsTo: obsTo,
+            ord: ord,
+            ordType: ordType
+        )
+    }
 }

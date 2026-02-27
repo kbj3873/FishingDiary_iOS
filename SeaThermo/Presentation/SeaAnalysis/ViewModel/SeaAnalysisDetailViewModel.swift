@@ -240,8 +240,7 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
             let lastValidMiddle = sortedList.last(where: { $0.wtrTempM > 0 })
             let lastValidBottom = sortedList.last(where: { $0.wtrTempB > 0 })
             
-            // Surface (표층)
-            let validSurface = surfaceValues.filter { $0 > 0 }
+            let validSurface = surfaceValues.filter { $0 > -10.0 && $0 < 50.0 } // -99.0 이나 -90.0 같은 더미/오류 데이터 필터링
             hasSurfaceData = !validSurface.isEmpty
             if hasSurfaceData, let validData = lastValidSurface {
                 surfaceTemp = String(format: "%.1f°", validData.wtrTempS)
@@ -256,7 +255,7 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
             }
             
             // Middle (중층)
-            let validMiddle = middleValues.filter { $0 > 0 }
+            let validMiddle = middleValues.filter { $0 > -10.0 && $0 < 50.0 }
             hasMiddleData = !validMiddle.isEmpty
             if hasMiddleData, let validData = lastValidMiddle {
                 middleTemp = String(format: "%.1f°", validData.wtrTempM)
@@ -271,7 +270,7 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
             }
             
             // Bottom (저층)
-            let validBottom = bottomValues.filter { $0 > 0 }
+            let validBottom = bottomValues.filter { $0 > -10.0 && $0 < 50.0 }
             hasBottomData = !validBottom.isEmpty
             if hasBottomData, let validData = lastValidBottom {
                 bottomTemp = String(format: "%.1f°", validData.wtrTempB)

@@ -157,10 +157,16 @@ final class DefaultNetworkErrorLogger: NetworkErrorLogger {
         print("request: \(request.url!)")
         print("headers: \(request.allHTTPHeaderFields!)")
         print("method: \(request.httpMethod!)")
-        if let httpBody = request.httpBody, let result = ((try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [String: AnyObject]) as [String: AnyObject]??) {
-            printIfDebug("body: \(String(describing: result))")
-        } else if let httpBody = request.httpBody, let resultString = String(data: httpBody, encoding: .utf8) {
-            printIfDebug("body: \(String(describing: resultString))")
+        if let httpBody = request.httpBody {
+            if let result = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [String: Any] {
+                printIfDebug("body: \(String(describing: result))")
+            } else if let resultString = String(data: httpBody, encoding: .utf8) ?? String(data: httpBody, encoding: .ascii) {
+                printIfDebug("body: \(resultString)")
+            } else {
+                printIfDebug("body: (Unable to decode body data)")
+            }
+        } else {
+            printIfDebug("body: nil")
         }
     }
 
