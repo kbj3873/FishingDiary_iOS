@@ -5,6 +5,7 @@ struct FishingRecordView: View {
     @ObservedObject var viewModel: FishingRecordViewModel
     @State private var shouldCleanupMap = false
     @State private var mapCoordinator: RecordMapView.Coordinator?
+    @State private var kakaoMapAction: KakaoMapAction? = nil
     @State private var showCamera = false
     @State private var selectedImage: UIImage?
     
@@ -18,6 +19,7 @@ struct FishingRecordView: View {
                 RecordKakaoMapView(
                     mapLineInfo: $viewModel.currentMapLine,
                     shouldCleanup: $shouldCleanupMap,
+                    mapAction: $kakaoMapAction,
                     markers: $viewModel.markers,
                     photoMarkers: $viewModel.photoMarkers,
                     fishingState: $viewModel.fishingState,
@@ -108,7 +110,11 @@ struct FishingRecordView: View {
                             secondaryButtonText: "중단",
                             secondaryAction: {
                                 viewModel.stopRecording()
-                                mapCoordinator?.clearMap()
+                                if mapType == 1 {
+                                    kakaoMapAction = .clearMap
+                                } else {
+                                    mapCoordinator?.clearMap()
+                                }
                                 shouldCleanupMap = true
                             }
                         )
@@ -269,19 +275,32 @@ struct FishingRecordView: View {
     private var mapControlButtons: some View {
         VStack(spacing: 8) {
             Button(action: {
-                mapCoordinator?.zoomIn()
+                if mapType == 1 {
+                    // 약간의 딜레이를 주어 상태 변경 인식
+                    DispatchQueue.main.async { kakaoMapAction = .zoomIn }
+                } else {
+                    mapCoordinator?.zoomIn()
+                }
             }) {
                 CircleButton(iconName: "btn_zoom_in")
             }
             
             Button(action: {
-                mapCoordinator?.zoomOut()
+                if mapType == 1 {
+                    DispatchQueue.main.async { kakaoMapAction = .zoomOut }
+                } else {
+                    mapCoordinator?.zoomOut()
+                }
             }) {
                 CircleButton(iconName: "btn_zoom_out")
             }
             
             Button(action: {
-                mapCoordinator?.moveToUserLocation()
+                if mapType == 1 {
+                    DispatchQueue.main.async { kakaoMapAction = .moveToUserLocation }
+                } else {
+                    mapCoordinator?.moveToUserLocation()
+                }
             }) {
                 CircleButton(iconName: "btn_my_location")
             }

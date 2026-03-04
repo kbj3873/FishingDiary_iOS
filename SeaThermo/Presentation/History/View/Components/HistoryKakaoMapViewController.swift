@@ -442,7 +442,7 @@ extension HistoryKakaoMapViewController {
                 let styleID = "photo_\(marker.id.uuidString)"
                 if !_addedStyleIDs.contains(styleID) {
                     if let thumb = generateThumbnail(path: marker.thumbnailPath) {
-                        let iconStyle = PoiIconStyle(symbol: thumb)
+                        let iconStyle = PoiIconStyle(symbol: thumb, anchorPoint: CGPoint(x: 0.5, y: 0.83))
                         let style = PoiStyle(styleID: styleID, styles: [PerLevelPoiStyle(iconStyle: iconStyle, level: 0)])
                         labelManager.addPoiStyle(style)
                         _addedStyleIDs.insert(styleID)

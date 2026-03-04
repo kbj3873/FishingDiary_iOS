@@ -23,8 +23,9 @@ struct SeaRegionListView: View {
         VStack(spacing: 0) {
             // Header
             headerSection
-                .padding(.top, 16)
+                .padding(.top, 30)
                 .padding(.horizontal, 16)
+                .padding(.bottom, 20)
 
             // Observatory List
             ScrollView {

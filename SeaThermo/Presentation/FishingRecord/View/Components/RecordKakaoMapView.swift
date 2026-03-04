@@ -7,11 +7,22 @@
 
 import SwiftUI
 import CoreLocation
+import KakaoMapsSDK
+
+// MARK: - 카카오맵 외부 제어 액션
+enum KakaoMapAction: Equatable {
+    case zoomIn
+    case zoomOut
+    case moveToUserLocation
+    case clearMap
+}
+
 
 struct RecordKakaoMapView: UIViewControllerRepresentable {
     
     @Binding var mapLineInfo: MapLineInfo
     @Binding var shouldCleanup: Bool
+    @Binding var mapAction: KakaoMapAction?
     @Binding var markers: [FishingRecordViewModel.StateChangeMarker]
     @Binding var photoMarkers: [FishingRecordViewModel.PhotoMarker]
     @Binding var fishingState: FDAppManager.FishingState
@@ -60,6 +71,38 @@ struct RecordKakaoMapView: UIViewControllerRepresentable {
             context.coordinator.cleanup()
             DispatchQueue.main.async {
                 self.shouldCleanup = false
+            }
+        }
+        
+        // MARK: 외부 액션 (Zoom, Move 등) 처리
+        if let action = mapAction {
+            if let map = uiViewController.controller?.getView("mapview") as? KakaoMap {
+                switch action {
+                case .zoomIn:
+                    let currentZoom = map.zoomLevel
+                    if currentZoom < 21 { // 카카오맵 최대 줌레벨
+                        let cameraUpdate = CameraUpdate.make(target: map.getPosition(CGPoint(x: map.viewRect.width / 2, y: map.viewRect.height / 2)), zoomLevel: currentZoom + 1, mapView: map)
+                        map.animateCamera(cameraUpdate: cameraUpdate, options: CameraAnimationOptions(autoElevation: false, consecutive: true, durationInMillis: 300))
+                    }
+                case .zoomOut:
+                    let currentZoom = map.zoomLevel
+                    if currentZoom > 0 {
+                        let cameraUpdate = CameraUpdate.make(target: map.getPosition(CGPoint(x: map.viewRect.width / 2, y: map.viewRect.height / 2)), zoomLevel: currentZoom - 1, mapView: map)
+                        map.animateCamera(cameraUpdate: cameraUpdate, options: CameraAnimationOptions(autoElevation: false, consecutive: true, durationInMillis: 300))
+                    }
+                case .moveToUserLocation:
+                    if let location = userLocation {
+                        let targetPoint = MapPoint(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude)
+                        let cameraUpdate = CameraUpdate.make(target: targetPoint, zoomLevel: 15, mapView: map) // 기본 15 레벨
+                        map.animateCamera(cameraUpdate: cameraUpdate, options: CameraAnimationOptions(autoElevation: false, consecutive: true, durationInMillis: 300))
+                    }
+                case .clearMap:
+                    uiViewController.cleanup()
+                }
+            }
+            // 액션 처리 후 리셋
+            DispatchQueue.main.async {
+                self.mapAction = nil
             }
         }
     }

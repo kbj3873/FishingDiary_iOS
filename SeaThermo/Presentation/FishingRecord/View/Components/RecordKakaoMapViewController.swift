@@ -219,7 +219,7 @@ extension RecordKakaoMapViewController {
                     // 카카오맵은 스타일 추가 허용함. 각 사진마다 고유 스타일 ID 생성해야 함.
                     
                     let styleID = "photoStyle_\(markerInfo.id.uuidString)"
-                    let iconStyle = PoiIconStyle(symbol: thumbImage)
+                    let iconStyle = PoiIconStyle(symbol: thumbImage, anchorPoint: CGPoint(x: 0.5, y: 0.83))
                     let perLevelStyle = PerLevelPoiStyle(iconStyle: iconStyle, level: 0)
                     let poiStyle = PoiStyle(styleID: styleID, styles: [perLevelStyle])
                     

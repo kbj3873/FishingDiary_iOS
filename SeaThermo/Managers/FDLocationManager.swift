@@ -42,7 +42,7 @@ class FDLocationManager: NSObject {
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 5
+        locationManager.distanceFilter = 2
     }
     
     func startTracking() {
