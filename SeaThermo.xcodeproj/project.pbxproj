@@ -11,6 +11,8 @@
 		0FBF453FFF082B22DC020B1F /* DefaultFishingRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */; };
 		113564FD2F51A8AE00F4E38B /* OceanInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113564FC2F51A8AE00F4E38B /* OceanInfoResponseDTO.swift */; };
 		113565002F51A8C900F4E38B /* OceanInfoRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113564FE2F51A8C900F4E38B /* OceanInfoRequestDTO.swift */; };
+		11473BE62F56FD8400695EA9 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11473BE32F56FD8400695EA9 /* OnboardingView.swift */; };
+		11473BE72F56FD8400695EA9 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11473BE42F56FD8400695EA9 /* OnboardingViewModel.swift */; };
 		117142672F347384008E79D6 /* HistoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117142662F347384008E79D6 /* HistoryDetailView.swift */; };
 		1171426A2F347394008E79D6 /* HistoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117142682F347394008E79D6 /* HistoryMapView.swift */; };
 		1171426C2F34739B008E79D6 /* HistoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1171426B2F34739B008E79D6 /* HistoryDetailViewModel.swift */; };
@@ -196,6 +198,8 @@
 		0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DefaultFishingRecordRepository.swift; sourceTree = "<group>"; };
 		113564FC2F51A8AE00F4E38B /* OceanInfoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanInfoResponseDTO.swift; sourceTree = "<group>"; };
 		113564FE2F51A8C900F4E38B /* OceanInfoRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanInfoRequestDTO.swift; sourceTree = "<group>"; };
+		11473BE32F56FD8400695EA9 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		11473BE42F56FD8400695EA9 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		117142662F347384008E79D6 /* HistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailView.swift; sourceTree = "<group>"; };
 		117142682F347394008E79D6 /* HistoryMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMapView.swift; sourceTree = "<group>"; };
 		1171426B2F34739B008E79D6 /* HistoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailViewModel.swift; sourceTree = "<group>"; };
@@ -390,6 +394,15 @@
 				113564FE2F51A8C900F4E38B /* OceanInfoRequestDTO.swift */,
 			);
 			path = Requests;
+			sourceTree = "<group>";
+		};
+		11473BE52F56FD8400695EA9 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				11473BE32F56FD8400695EA9 /* OnboardingView.swift */,
+				11473BE42F56FD8400695EA9 /* OnboardingViewModel.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		117142692F347394008E79D6 /* Components */ = {
@@ -733,6 +746,7 @@
 		F43151F42B185AD200027BB9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				11473BE52F56FD8400695EA9 /* Onboarding */,
 				1188DC692F4DA54E00CB12C6 /* Common */,
 				1176182F2F3364CA00EF9FAF /* History */,
 				117A00272F2DA7C4005C7F82 /* SeaAnalysis */,
@@ -1356,6 +1370,8 @@
 				F4DE481B2AA02DA300ED2D23 /* FDLocationManager.swift in Sources */,
 				F429D94B2B9831030049534B /* NetworkConfig.swift in Sources */,
 				F4A4AEF62B26CC400017D173 /* PointDataListViewModel.swift in Sources */,
+				11473BE62F56FD8400695EA9 /* OnboardingView.swift in Sources */,
+				11473BE72F56FD8400695EA9 /* OnboardingViewModel.swift in Sources */,
 				F46161432B7F453C00935D36 /* KakaoTrackMapViewModel.swift in Sources */,
 				F4E6A29E2B2ACAF200C935BF /* PointMapViewModel.swift in Sources */,
 				F491527D2B99A91E0000C552 /* APIEndpoints.swift in Sources */,

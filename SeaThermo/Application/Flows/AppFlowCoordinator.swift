@@ -50,14 +50,31 @@ final class AppFlowCoordinator: Coordinator {
         let splashViewModel = pointSceneDIContainer.makeSplashViewModel()
         let splashView = SplashView(viewModel: splashViewModel) { [weak self] in
             guard let self else { return }
-            // 스플래시 완료 → 메인 화면으로 전환
-            self.showMainScreen(pointSceneDIContainer: pointSceneDIContainer)
+            // 스플래시 완료 → 온보딩 또는 메인 화면으로 전환
+            let hasCompletedOnboarding = FDUserDefaults.bool(forKey: UserDefaultKey.hasCompletedOnboarding)
+            if hasCompletedOnboarding {
+                self.showMainScreen(pointSceneDIContainer: pointSceneDIContainer)
+            } else {
+                self.showOnboarding(pointSceneDIContainer: pointSceneDIContainer)
+            }
         }
         
         let splashVC = UIHostingController(rootView: splashView)
         splashVC.modalPresentationStyle = .fullScreen
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.setViewControllers([splashVC], animated: false)
+    }
+    
+    private func showOnboarding(pointSceneDIContainer: PointSceneDIContainer) {
+        let onboardingViewModel = OnboardingViewModel()
+        let onboardingView = OnboardingView(viewModel: onboardingViewModel) { [weak self] in
+            guard let self else { return }
+            self.showMainScreen(pointSceneDIContainer: pointSceneDIContainer)
+        }
+        
+        let onboardingVC = UIHostingController(rootView: onboardingView)
+        onboardingVC.modalPresentationStyle = .fullScreen
+        navigationController.setViewControllers([onboardingVC], animated: true)
     }
     
     private func showMainScreen(pointSceneDIContainer: PointSceneDIContainer) {

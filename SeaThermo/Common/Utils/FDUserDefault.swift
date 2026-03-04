@@ -18,4 +18,7 @@ class UserDefaultKey: NSObject {
     
     /// 지도 종류 (0: Apple, 1: Kakao)
     static let mapType = "mapType"
+    
+    /// 온보딩 가이드 완료 여부
+    static let hasCompletedOnboarding = "hasCompletedOnboarding"
 }
