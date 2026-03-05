@@ -9,10 +9,10 @@ import Foundation
 import Combine
 import SwiftUI
 
+@MainActor
 final class SeaAnalysisDetailViewModel: ObservableObject {
     private let oceanUseCase: OceanUseCase
     private let station: ObservatoryInfo
-    private var cancellables = Set<AnyCancellable>()
     
     // UI State
     @Published var stationName: String
@@ -71,15 +71,12 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
             obsTo: obsTo
         )
         
-        oceanUseCase.excute(requestValue: .init(query: query)) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let response):
-                    self?.processResponse(response.list)
-                case .failure(let error):
-                    print("Error fetching data: \(error)")
-                    // Handle error state or retry logic if needed
-                }
+        Task {
+            do {
+                let response = try await oceanUseCase.fetchTemperature(query: query)
+                self.processResponse(response.list)
+            } catch {
+                print("Error fetching data: \(error)")
             }
         }
     }

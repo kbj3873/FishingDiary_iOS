@@ -13,17 +13,14 @@ final class PointSceneDIContainer: ObservableObject {
     
     struct Dependencies {
         let apiDataTransferService: DataTransferService
-        let apiXmlTransferService: DataTransferService
         let seaThermoTransferService: DataTransferService
         let appConfiguration: AppConfiguration
     }
     
     private let dependencies: Dependencies
-    private let fileStorage: FileDataStorage
     
-    init(dependencies: Dependencies, fileStorage: FileDataStorage) {
+    init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.fileStorage = fileStorage
     }
 }
 
@@ -39,11 +36,11 @@ extension PointSceneDIContainer {
                              oceanUseCase: makeOceanUseCase())
     }
     
-    func makeSeaAnalysisViewModel() -> SeaAnalysisViewModel {
+    @MainActor func makeSeaAnalysisViewModel() -> SeaAnalysisViewModel {
         SeaAnalysisViewModel(oceanUseCase: makeOceanUseCase())
     }
     
-    func makeSeaAnalysisDetailViewModel(station: ObservatoryInfo) -> SeaAnalysisDetailViewModel {
+    @MainActor func makeSeaAnalysisDetailViewModel(station: ObservatoryInfo) -> SeaAnalysisDetailViewModel {
         SeaAnalysisDetailViewModel(oceanUseCase: makeOceanUseCase(), station: station)
     }
     
@@ -51,11 +48,11 @@ extension PointSceneDIContainer {
         SettingViewModel(appManager: .shared)
     }
     
-    func makeFishingRecordViewModel() -> FishingRecordViewModel {
+    @MainActor func makeFishingRecordViewModel() -> FishingRecordViewModel {
         FishingRecordViewModel(useCase: makeFishingRecordUseCase())
     }
     
-    func makeSplashViewModel() -> SplashViewModel {
+    @MainActor func makeSplashViewModel() -> SplashViewModel {
         SplashViewModel(splashUseCase: makeSplashUseCase())
     }
 }
@@ -71,22 +68,6 @@ extension PointSceneDIContainer {
         SplashUseCase(repository: makeSplashRepository())
     }
     
-    func makeTrackMapUseCase() -> TrackMapUseCase {
-        TrackMapUseCase(trackMapRepository: makeTrackMapRepository())
-    }
-    
-    func makePointDateListUseCase() -> PointDateUseCase {
-        PointDateUseCase(pointDatesRepository: makePointDateListRepository())
-    }
-    
-    func makePointDataListUseCase() -> PointDataUseCase {
-        PointDataUseCase(pointDataListRepository: makePointDataListRepository())
-    }
-    
-    func makePointMapUseCase() -> PointMapUseCase {
-        PointMapUseCase(pointMapRepository: makePointMapRepository())
-    }
-    
     func makeFishingRecordUseCase() -> FishingRecordUseCase {
         DefaultFishingRecordUseCase(repository: makeFishingRecordRepository())
     }
@@ -95,28 +76,11 @@ extension PointSceneDIContainer {
 // MARK: make data repository
 extension PointSceneDIContainer {
     func makeOceanRepository() -> OceanRepository {
-        DefaultOceanRepository(apiDataTransferService: dependencies.apiDataTransferService,
-                               apiXmlTransferService: dependencies.apiXmlTransferService)
+        DefaultOceanRepository(apiDataTransferService: dependencies.apiDataTransferService)
     }
     
     func makeSplashRepository() -> SplashRepository {
         DefaultSplashRepository(dataTransferService: dependencies.seaThermoTransferService)
-    }
-    
-    func makeTrackMapRepository() -> TrackMapRepository {
-        DefaultTrackMapRepository(fileStorage: fileStorage)
-    }
-    
-    func makePointDateListRepository() -> PointDateListRepository {
-        DefaultPointDateListRepository(fileDataStorage: fileStorage)
-    }
-    
-    func makePointDataListRepository() -> PointDataListRepository {
-        DefaultPointDataListRepository(fileStorage: fileStorage)
-    }
-    
-    func makePointMapRepository() -> PointMapRepository {
-        DefaultPointMapRepository(fileStorage: fileStorage)
     }
     
     func makeFishingRecordRepository() -> FishingRecordRepository {

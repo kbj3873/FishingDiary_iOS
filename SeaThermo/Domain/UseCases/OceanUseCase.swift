@@ -8,10 +8,10 @@
 import Foundation
 
 protocol OceanUseCaseProtocol {
-    func excute(
-        requestValue: OceanRequestValue,
-        completion: @escaping (Result<OceanResponse, Error>) -> Void
-    ) -> Cancellable?
+    func fetchRisaList(query: RisaListQuery) async throws -> RisaResponse
+    func fetchStationCode(query: RisaCodeQuery) async throws -> RisaResponse
+    func fetchRisaCoo(query: RisaCooQuery) async throws -> RisaResponse
+    func fetchTemperature(query: OceanQuery) async throws -> OceanResponse
 }
 
 final class OceanUseCase: OceanUseCaseProtocol {
@@ -21,70 +21,19 @@ final class OceanUseCase: OceanUseCaseProtocol {
         self.oceanRepository = oceanRepository
     }
     
-    func excuteRisaList(
-        requestValue: RisaListRequestValue,
-        completion: @escaping (Result<RisaResponse, Error>) -> Void
-    ) -> Cancellable? {
-        
-        return oceanRepository.fetchRisaList(
-            query: requestValue.query,
-            completion: { result in
-                completion(result)
-            }
-        )
+    func fetchRisaList(query: RisaListQuery) async throws -> RisaResponse {
+        try await oceanRepository.fetchRisaList(query: query)
     }
     
-    func excuteStationCode(
-        requestValue: RisaCodeRequestValue,
-        completion: @escaping (Result<RisaResponse, Error>) -> Void
-    ) -> Cancellable? {
-        
-        return oceanRepository.fetchStationCode(
-            query: requestValue.query,
-            completion: { result in
-                completion(result)
-            }
-        )
+    func fetchStationCode(query: RisaCodeQuery) async throws -> RisaResponse {
+        try await oceanRepository.fetchStationCode(query: query)
     }
     
-    func excuteRisaCoo(
-        requestValue: RisaCooRequestValue,
-        completion: @escaping (Result<RisaResponse, Error>) -> Void
-    ) -> Cancellable? {
-        
-        return oceanRepository.fetchRisaCoo(
-            query: requestValue.query,
-            completion: { result in
-                completion(result)
-            }
-        )
+    func fetchRisaCoo(query: RisaCooQuery) async throws -> RisaResponse {
+        try await oceanRepository.fetchRisaCoo(query: query)
     }
     
-    func excute(
-        requestValue: OceanRequestValue,
-        completion: @escaping (Result<OceanResponse, Error>) -> Void
-    ) -> Cancellable? {
-        
-        return oceanRepository.fetchTemperature(
-            query: requestValue.query,
-            completion: { result in
-                completion(result)
-        })
+    func fetchTemperature(query: OceanQuery) async throws -> OceanResponse {
+        try await oceanRepository.fetchTemperature(query: query)
     }
-}
-
-struct RisaListRequestValue {
-    let query: RisaListQuery
-}
-
-struct RisaCodeRequestValue {
-    let query: RisaCodeQuery
-}
-
-struct RisaCooRequestValue {
-    let query: RisaCooQuery
-}
-
-struct OceanRequestValue {
-    let query: OceanQuery
 }

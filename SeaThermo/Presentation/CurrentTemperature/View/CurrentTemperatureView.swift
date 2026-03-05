@@ -160,19 +160,19 @@ struct CurrentTemperatureView: View {
 // MARK: - Preview Helper
 
 private class PreviewOceanRepository: OceanRepository {
-    func fetchRisaList(query: RisaListQuery, completion: @escaping (Result<RisaResponse, Error>) -> Void) -> Cancellable? {
-        return nil
+    func fetchRisaList(query: RisaListQuery) async throws -> RisaResponse {
+        RisaResponse(header: .init(resultCode: "00", resultMsg: ""), body: nil)
     }
 
-    func fetchStationCode(query: RisaCodeQuery, completion: @escaping (Result<RisaResponse, Error>) -> Void) -> Cancellable? {
-        return nil
+    func fetchStationCode(query: RisaCodeQuery) async throws -> RisaResponse {
+        RisaResponse(header: .init(resultCode: "00", resultMsg: ""), body: nil)
     }
 
-    func fetchRisaCoo(query: RisaCooQuery, completion: @escaping (Result<RisaResponse, Error>) -> Void) -> Cancellable? {
-        return nil
+    func fetchRisaCoo(query: RisaCooQuery) async throws -> RisaResponse {
+        RisaResponse(header: .init(resultCode: "00", resultMsg: ""), body: nil)
     }
 
-    func fetchTemperature(query: OceanQuery, completion: @escaping (Result<OceanResponse, Error>) -> Void) -> Cancellable? {
-        return nil
+    func fetchTemperature(query: OceanQuery) async throws -> OceanResponse {
+        OceanResponse(list: [])
     }
 }

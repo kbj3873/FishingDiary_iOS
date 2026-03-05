@@ -11,6 +11,13 @@ target 'SeaThermo' do
     pod 'KakaoMapsSDK', '2.6.3'
     pod 'RealmSwift'
 
+    # 필수: Analytics
+    pod 'FirebaseAnalytics'
+  
+    # 추천: 크래시 추적 및 원격 구성
+    pod 'FirebaseCrashlytics'
+    pod 'FirebaseRemoteConfig'
+
     post_install do |installer|
       installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|

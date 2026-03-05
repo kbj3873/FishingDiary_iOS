@@ -3,6 +3,7 @@ import Combine
 import CoreLocation
 import AVFoundation
 
+@MainActor
 final class FishingRecordViewModel: ObservableObject {
     // MARK: - Types
     struct StateChangeMarker: Identifiable {
@@ -112,7 +113,7 @@ final class FishingRecordViewModel: ObservableObject {
     // MARK: - Bindings
     private func bindLocationupdates() {
         locationManager.curMapLine
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] mapLine in
                 guard let self = self, self.isRecording else { return }
                 
@@ -200,7 +201,7 @@ final class FishingRecordViewModel: ObservableObject {
             
         // UI 모니터링을 위한 원본 위치 데이터 바인딩
         locationManager.currentLocationSubject
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] location in
                 self?.currentLocation = location
             }

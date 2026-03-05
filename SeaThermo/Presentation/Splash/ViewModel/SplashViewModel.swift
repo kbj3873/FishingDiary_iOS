@@ -14,11 +14,12 @@ enum SplashState {
     case optionalUpdate(message: String) // 선택적 업데이트
 }
 
+@MainActor
 final class SplashViewModel: ObservableObject {
     @Published var state: SplashState = .loading
     
     private let splashUseCase: SplashUseCase
-    private var cancellable: Cancellable?
+    private var versionCheckTask: Task<Void, Never>?
     
     // 최소 표시 시간 (초)
     private let minimumDisplayDuration: TimeInterval = 1.5
@@ -31,27 +32,26 @@ final class SplashViewModel: ObservableObject {
         let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
         let startTime = Date()
         
-        cancellable = splashUseCase.executeVersionCheck(appVersion: currentVersion) { [weak self] result in
-            guard let self else { return }
-            
+        versionCheckTask = Task {
             // 최소 표시 시간 보장
-            let elapsed = Date().timeIntervalSince(startTime)
-            let remaining = max(0, self.minimumDisplayDuration - elapsed)
+            async let versionResult: VersionStatus = splashUseCase.checkVersion(appVersion: currentVersion)
+            async let minimumDelay: Void = Task.sleep(nanoseconds: UInt64(minimumDisplayDuration * 1_000_000_000))
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + remaining) {
-                switch result {
-                case .success(let status):
-                    if status.forceUpdate {
-                        self.state = .forceUpdate(message: status.message)
-                    } else if status.needUpdate {
-                        self.state = .optionalUpdate(message: status.message)
-                    } else {
-                        self.state = .readyToNavigate
-                    }
-                case .failure:
-                    // API 실패 시 조용히 메인 화면으로 전환
+            do {
+                let status = try await versionResult
+                _ = try? await minimumDelay
+                
+                if status.forceUpdate {
+                    self.state = .forceUpdate(message: status.message)
+                } else if status.needUpdate {
+                    self.state = .optionalUpdate(message: status.message)
+                } else {
                     self.state = .readyToNavigate
                 }
+            } catch {
+                _ = try? await minimumDelay
+                // API 실패 시 조용히 메인 화면으로 전환
+                self.state = .readyToNavigate
             }
         }
     }

@@ -8,8 +8,8 @@
 import Foundation
 
 protocol OceanRepository {
-    func fetchRisaList(query: RisaListQuery, completion: @escaping (Result<RisaResponse, Error>) -> Void) -> Cancellable?
-    func fetchStationCode(query: RisaCodeQuery, completion: @escaping (Result<RisaResponse, Error>) -> Void) -> Cancellable?
-    func fetchRisaCoo(query: RisaCooQuery, completion: @escaping (Result<RisaResponse, Error>) -> Void) -> Cancellable?
-    func fetchTemperature(query: OceanQuery, completion: @escaping (Result<OceanResponse, Error>) -> Void) -> Cancellable?
+    func fetchRisaList(query: RisaListQuery) async throws -> RisaResponse
+    func fetchStationCode(query: RisaCodeQuery) async throws -> RisaResponse
+    func fetchRisaCoo(query: RisaCooQuery) async throws -> RisaResponse
+    func fetchTemperature(query: OceanQuery) async throws -> OceanResponse
 }

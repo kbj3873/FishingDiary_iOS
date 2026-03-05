@@ -9,29 +9,8 @@ enum NetworkError: Error {
     case noData     // > respose data가 없을 경우
 }
 
-protocol NetworkCancellable {
-    func cancel()
-}
-
-extension URLSessionTask: NetworkCancellable { }
-
 protocol NetworkService {
-    typealias CompletionHandler = (Result<Data?, NetworkError>) -> Void
-    
-    func request(endpoint: Requestable, completion: @escaping CompletionHandler) -> NetworkCancellable?
-}
-
-protocol NetworkSessionManager {
-    typealias CompletionHandler = (Data?, URLResponse?, Error?) -> Void
-    
-    func request(_ request: URLRequest,
-                 completion: @escaping CompletionHandler) -> NetworkCancellable
-}
-
-protocol NetworkErrorLogger {
-    func log(request: URLRequest)
-    func log(responseData data: Data?, response: URLResponse?)
-    func log(error: Error)
+    func request(endpoint: Requestable) async throws -> Data?
 }
 
 // MARK: - Implementation
@@ -47,59 +26,17 @@ final class DefaultNetworkService {
     )
     
     private let config: NetworkConfigurable
-    private let sessionManager: NetworkSessionManager
+    private let session: URLSession
     private let logger: NetworkErrorLogger
     
     init(
         config: NetworkConfigurable,
-        sessionManager: NetworkSessionManager = DefaultNetworkSessionManager(),
+        session: URLSession = .shared,
         logger: NetworkErrorLogger = DefaultNetworkErrorLogger()
     ) {
-        self.sessionManager = sessionManager
+        self.session = session
         self.config = config
         self.logger = logger
-    }
-    
-    private func request(
-        request: URLRequest,
-        completion: @escaping CompletionHandler
-    ) -> NetworkCancellable {
-        
-        let sessionDataTask = sessionManager.request(request) { data, response, requestError in
-            
-            if let requestError = requestError {
-                var error: NetworkError
-                if let response = response as? HTTPURLResponse {
-                    error = .error(statusCode: response.statusCode, data: data)
-                } else {
-                    error = self.resolve(error: requestError)
-                }
-                
-                self.logger.log(error: error)
-                completion(.failure(error))
-            } else {
-                guard let resolveData = self.resolveData(data) else {
-                    completion(.failure(.noData))
-                    return
-                }
-                
-                self.logger.log(responseData: resolveData, response: response)
-                completion(.success(resolveData))
-            }
-        }
-    
-        logger.log(request: request)
-
-        return sessionDataTask
-    }
-    
-    private func resolve(error: Error) -> NetworkError {
-        let code = URLError.Code(rawValue: (error as NSError).code)
-        switch code {
-        case .notConnectedToInternet: return .notConnected
-        case .cancelled: return .cancelled
-        default: return .generic(error)
-        }
     }
     
     // > data convert, www.nifs.go.kr 로부터 EUC_KR로 인코딩된 데이터를 utf8로 변경해준다
@@ -113,41 +50,62 @@ final class DefaultNetworkService {
         
         return utf8Data
     }
-}
-
-extension DefaultNetworkService: NetworkService {
     
-    func request(
-        endpoint: Requestable,
-        completion: @escaping CompletionHandler
-    ) -> NetworkCancellable? {
-        do {
-            let urlRequest = try endpoint.urlRequest(with: config)
-            return request(request: urlRequest, completion: completion)
-        } catch {
-            completion(.failure(.urlGeneration))
-            return nil
+    private func resolve(error: Error) -> NetworkError {
+        let code = URLError.Code(rawValue: (error as NSError).code)
+        switch code {
+        case .notConnectedToInternet: return .notConnected
+        case .cancelled: return .cancelled
+        default: return .generic(error)
         }
     }
 }
 
-// MARK: - Default Network Session Manager
-// Note: If authorization is needed NetworkSessionManager can be implemented by using,
-// for example, Alamofire SessionManager with its RequestAdapter and RequestRetrier.
-// And it can be injected into NetworkService instead of default one.
-
-final class DefaultNetworkSessionManager: NetworkSessionManager {
-    func request(
-        _ request: URLRequest,
-        completion: @escaping CompletionHandler
-    ) -> NetworkCancellable {
-        let task = URLSession.shared.dataTask(with: request, completionHandler: completion)
-        task.resume()
-        return task
+extension DefaultNetworkService: NetworkService {
+    
+    func request(endpoint: Requestable) async throws -> Data? {
+        let urlRequest: URLRequest
+        do {
+            urlRequest = try endpoint.urlRequest(with: config)
+        } catch {
+            throw NetworkError.urlGeneration
+        }
+        
+        logger.log(request: urlRequest)
+        
+        do {
+            let (data, response) = try await session.data(for: urlRequest)
+            
+            if let httpResponse = response as? HTTPURLResponse,
+               !(200...299).contains(httpResponse.statusCode) {
+                let error = NetworkError.error(statusCode: httpResponse.statusCode, data: data)
+                logger.log(error: error)
+                throw error
+            }
+            
+            guard let resolvedData = resolveData(data) else {
+                throw NetworkError.noData
+            }
+            
+            logger.log(responseData: resolvedData, response: response)
+            return resolvedData
+        } catch let error as NetworkError {
+            throw error
+        } catch {
+            let networkError = resolve(error: error)
+            logger.log(error: networkError)
+            throw networkError
+        }
     }
 }
 
 // MARK: - Logger
+
+protocol NetworkErrorLogger {
+    func log(request: URLRequest)
+    func log(responseData data: Data?, response: URLResponse?)
+    func log(error: Error)
+}
 
 final class DefaultNetworkErrorLogger: NetworkErrorLogger {
     init() { }

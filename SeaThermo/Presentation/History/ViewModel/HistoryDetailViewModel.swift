@@ -4,6 +4,7 @@ import Combine
 import UIKit
 import MapKit
 
+@MainActor
 final class HistoryDetailViewModel: ObservableObject {
     // MARK: - Published Properties
     @Published var dateString: String = ""
@@ -47,7 +48,6 @@ final class HistoryDetailViewModel: ObservableObject {
     private let sessionId: String
     private let useCase: FishingRecordUseCase
     private var records: [FishingRecord] = []
-    private var cancellable: Cancellable? // 비동기 작업 취소용
     
     // MARK: - Initializer
     init(sessionId: String, useCase: FishingRecordUseCase) {
@@ -61,35 +61,28 @@ final class HistoryDetailViewModel: ObservableObject {
     }
     
     private func fetchSessionMapData() {
-        // 1. 전체 데이터 가져오기 (비동기)
-        cancellable = useCase.fetchAllRecords { [weak self] (result: Result<[FishingRecord], Error>) in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
+        Task {
+            do {
+                let allRecords = try await useCase.fetchAllRecords()
                 
-                switch result {
-                case .success(let allRecords):
-                    // 2. sessionId로 필터링 및 정렬 (시간순)
-                    // 2. sessionId로 필터링 및 정렬 (시간순)
-                    let filteredRecords = allRecords.filter { record in
-                        return record.sessionId == self.sessionId
-                    }
-                    
-                    self.records = filteredRecords.sorted { (lhs: FishingRecord, rhs: FishingRecord) -> Bool in
-                        return lhs.date < rhs.date
-                    }
-                    
-                    if !self.records.isEmpty {
-                        // 3. UI 데이터 가공
-                        self.setupSummaryData()
-                        self.setupMapData()
-                    }
-                    
-                    self.isMapInitialized = false // 데이터 새로 로드 시 맵 초기화 플래그 리셋 (필요 시)
-                    
-                case .failure(let error):
-                    print("Error fetching records: \(error)")
-                    // 에러 처리 로직 (필요 시 Alert 표시 등)
+                // 2. sessionId로 필터링 및 정렬 (시간순)
+                let filteredRecords = allRecords.filter { record in
+                    return record.sessionId == self.sessionId
                 }
+                
+                self.records = filteredRecords.sorted { (lhs: FishingRecord, rhs: FishingRecord) -> Bool in
+                    return lhs.date < rhs.date
+                }
+                
+                if !self.records.isEmpty {
+                    // 3. UI 데이터 가공
+                    self.setupSummaryData()
+                    self.setupMapData()
+                }
+                
+                self.isMapInitialized = false
+            } catch {
+                print("Error fetching records: \(error)")
             }
         }
     }
@@ -294,7 +287,7 @@ final class HistoryDetailViewModel: ObservableObject {
     @Published var isDataModified: Bool = false // 데이터 수정 여부
     
     func deleteRecord() {
-        _ = useCase.deleteSession(sessionId: sessionId)
+        useCase.deleteSession(sessionId: sessionId)
         
         // 삭제 후 화면 닫기 트리거
         shouldDismiss = true
@@ -306,7 +299,7 @@ final class HistoryDetailViewModel: ObservableObject {
         let marker = markers[index]
         
         // 실제 데이터 삭제
-        _ = useCase.deleteFishingRecord(id: marker.recordId)
+        useCase.deleteFishingRecord(id: marker.recordId)
         
         // UI 업데이트
         markers.remove(at: index)

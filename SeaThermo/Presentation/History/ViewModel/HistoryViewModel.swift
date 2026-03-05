@@ -28,6 +28,7 @@ struct HistoryRecordItem: Identifiable, Hashable {
     }
 }
 
+@MainActor
 final class HistoryViewModel: ObservableObject {
     @Published var records: [HistoryRecordItem] = []
     @Published var isLoading: Bool = false
@@ -35,7 +36,6 @@ final class HistoryViewModel: ObservableObject {
     @Published var path = NavigationPath() // iOS 16+
     
     public let useCase: FishingRecordUseCase
-    private var cancellable: Cancellable?
     
     init(useCase: FishingRecordUseCase) {
         self.useCase = useCase
@@ -45,16 +45,14 @@ final class HistoryViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        cancellable = useCase.fetchAllRecords { [weak self] result in
-            DispatchQueue.main.async {
-                self?.isLoading = false
-                
-                switch result {
-                case .success(let fishingRecords):
-                    self?.records = self?.groupAndConvert(fishingRecords) ?? []
-                case .failure(let error):
-                    self?.errorMessage = error.localizedDescription
-                }
+        Task {
+            do {
+                let fishingRecords = try await useCase.fetchAllRecords()
+                self.isLoading = false
+                self.records = self.groupAndConvert(fishingRecords)
+            } catch {
+                self.isLoading = false
+                self.errorMessage = error.localizedDescription
             }
         }
     }
@@ -169,63 +167,52 @@ final class HistoryViewModel: ObservableObject {
         isLoading = true
         
         // 1. 기존 데이터 하나 가져오기 (없으면 가짜 데이터 생성)
-        cancellable = useCase.fetchAllRecords { [weak self] result in
-            guard let self = self else { return }
-            
-            var baseRecord: FishingRecord
-            
-            if case .success(let records) = result, let first = records.first(where: { !$0.imagePaths.isEmpty }) ?? records.first {
-                baseRecord = first
-            } else {
-                // 데이터가 하나도 없으면 기본값으로 생성
-                baseRecord = FishingRecord(
-                    id: UUID().uuidString,
-                    sessionId: UUID().uuidString,
-                    date: Date(),
-                    location: (37.5665, 126.9780),
-                    speed: 0.0,
-                    state: 2, // Fishing
-                    imagePaths: []
-                )
-            }
-            
-            // 이미지 데이터 준비
-            var dummyImageData: Data?
-            
-            if let firstPath = baseRecord.imagePaths.first {
-                let fullPath = self.getFullImagePath(from: firstPath)
-                if let data = try? Data(contentsOf: URL(fileURLWithPath: fullPath)) {
-                    dummyImageData = data
+        Task {
+            do {
+                let records = try await useCase.fetchAllRecords()
+                var baseRecord: FishingRecord
+                
+                if let first = records.first(where: { !$0.imagePaths.isEmpty }) ?? records.first {
+                    baseRecord = first
+                } else {
+                    baseRecord = FishingRecord(
+                        id: UUID().uuidString,
+                        sessionId: UUID().uuidString,
+                        date: Date(),
+                        location: (37.5665, 126.9780),
+                        speed: 0.0,
+                        state: 2,
+                        imagePaths: []
+                    )
                 }
-            }
-            
-            // 이미지가 없으면 임의의 컬러 이미지 생성
-            if dummyImageData == nil {
-                dummyImageData = self.createDummyImage()
-            }
-            
-            guard let imageData = dummyImageData else {
-                // 이미지 생성 실패 시 그냥 진행
-                self.createSessionsWithoutPhotos(baseRecord: baseRecord)
-                return
-            }
-            
-            // 2. 20개의 세션 생성
-            let calendar = Calendar.current
-            
-            // 비동기로 저장 (UI 멈춤 방지) -> Realm 쓰기가 메인쓰레드 블락할 수 있으므로 주의.
-            // 여기서는 단순함을 위해 for문으로 처리하되, 사진 저장은 약간의 딜레이나 동기 처리가 섞일 수 있음.
-            
-            DispatchQueue.global(qos: .userInitiated).async {
+                
+                // 이미지 데이터 준비
+                var dummyImageData: Data?
+                
+                if let firstPath = baseRecord.imagePaths.first {
+                    let fullPath = self.getFullImagePath(from: firstPath)
+                    if let data = try? Data(contentsOf: URL(fileURLWithPath: fullPath)) {
+                        dummyImageData = data
+                    }
+                }
+                
+                if dummyImageData == nil {
+                    dummyImageData = self.createDummyImage()
+                }
+                
+                guard let imageData = dummyImageData else {
+                    self.createSessionsWithoutPhotos(baseRecord: baseRecord)
+                    return
+                }
+                
+                let calendar = Calendar.current
+                
                 for i in 1...3 {
-                    // 날짜를 하루씩 뺌
                     let date = calendar.date(byAdding: .day, value: -i, to: Date()) ?? Date()
                     let sessionId = UUID().uuidString
                     
-                    // 각 세션당 3개의 기록 포인트 생성
                     for j in 0..<3 {
-                        // 시간차를 조금씩 둠
-                        let pointDate = date.addingTimeInterval(Double(j * 600)) // 10분 간격
+                        let pointDate = date.addingTimeInterval(Double(j * 600))
                         
                         self.useCase.savePoint(
                             sessionId: sessionId,
@@ -237,7 +224,6 @@ final class HistoryViewModel: ObservableObject {
                         )
                     }
                     
-                    // 사진 4장 추가
                     for _ in 0..<4 {
                         _ = self.useCase.savePhoto(
                             sessionId: sessionId,
@@ -248,10 +234,9 @@ final class HistoryViewModel: ObservableObject {
                     }
                 }
                 
-                // 3. 완료 후 리로드
-                DispatchQueue.main.async {
-                    self.loadRecords()
-                }
+                self.loadRecords()
+            } catch {
+                self.isLoading = false
             }
         }
     }

@@ -16,14 +16,12 @@ protocol OceanSelectViewModelOutput {
 final class OceanSelectViewModel: ObservableObject {
     private let appConfiguration: AppConfiguration
     private let oceanUseCase: OceanUseCase
-    private var oceanLoadTask: Cancellable? {
+    private var oceanLoadTask: Task<Void, Never>? {
         willSet {
             oceanLoadTask?.cancel()
         }
     }
     
-
-    let items = CurrentValueSubject<[OceanStationModel], Never>([])
     @Published var oceanStations = [OceanStationModel]()
     
     // 데이터 변경 시 호출될 콜백
@@ -42,32 +40,23 @@ final class OceanSelectViewModel: ObservableObject {
 extension OceanSelectViewModel {
     // MARK: - private
     private func loadRisaList(risaListQuery: RisaListQuery) {
-        
-        oceanLoadTask = oceanUseCase.excuteRisaList(requestValue: .init(query: risaListQuery),
-                                                       completion: { [weak self] results in
-            Task { @MainActor [weak self] in
-                guard let self = self else { return }
-                
-                switch results {
-                case .success(let risaList):
-                    guard let body = risaList.body, let item = body.item as? [RisaList] else {
-                        print("no risa items")
-                        return
-                    }
-                    
-                    for station in item {
-                        print("g:\(station.gruNam) cd: \(station.staCde) name: \(station.staNamKor) obs: \(station.obsLay) temp: \(station.wtrTmp)")
-                    }
-                    
-                    self.items.value = self.makeModels(item)
-                    self.oceanStations = self.makeModels(item)
-                    
-                case .failure(let error):
-                    print(error)
+        oceanLoadTask = Task {
+            do {
+                let risaList = try await oceanUseCase.fetchRisaList(query: risaListQuery)
+                guard let body = risaList.body, let item = body.item as? [RisaList] else {
+                    print("no risa items")
+                    return
                 }
+                
+                for station in item {
+                    print("g:\(station.gruNam) cd: \(station.staCde) name: \(station.staNamKor) obs: \(station.obsLay) temp: \(station.wtrTmp)")
+                }
+                
+                self.oceanStations = self.makeModels(item)
+            } catch {
+                print(error)
             }
-        })
-        
+        }
     }
     
     private func makeModels(_ items: [RisaList]) -> [OceanStationModel] {
@@ -163,7 +152,7 @@ extension OceanSelectViewModel {
         
         FDUserDefaults.setToList(savedOceanList, key: UserDefaultKey.regionalSeaTempuratureList)
         
-        var oceanStationList = self.items.value
+        var oceanStationList = self.oceanStations
         for (index, item) in oceanStationList.enumerated() {
             if item.stationCode == model.stationCode {
                 var chModel = item
@@ -172,7 +161,6 @@ extension OceanSelectViewModel {
             }
         }
         
-        self.items.value = oceanStationList
         self.oceanStations = oceanStationList
         
         // 변경 플래그 설정 (즉시 콜백 호출 X)

@@ -9,118 +9,45 @@ import Foundation
 
 final class DefaultOceanRepository {
     private let apiDataTransferService: DataTransferService
-    private let apiXmlTransferService: DataTransferService
-    private let backgroundQueue: DataTransferDispatchQueue
     
-    init(
-        apiDataTransferService: DataTransferService,
-        apiXmlTransferService: DataTransferService,
-        backgroundQueue: DataTransferDispatchQueue = DispatchQueue.global(qos: .userInitiated)
-    ) {
+    init(apiDataTransferService: DataTransferService) {
         self.apiDataTransferService = apiDataTransferService
-        self.apiXmlTransferService = apiXmlTransferService
-        self.backgroundQueue = backgroundQueue
     }
 }
 
 extension DefaultOceanRepository: OceanRepository {
     
-    func fetchRisaList(
-        query: RisaListQuery,
-        completion: @escaping (Result<RisaResponse, Error>) -> Void
-    ) -> Cancellable? {
-        
+    func fetchRisaList(query: RisaListQuery) async throws -> RisaResponse {
         let requestDTO = RisaListRequestDTO(query: query)
-        let task = RepositoryTask()
-        
         let endpoint = APIEndpoints.getRisaJson(with: requestDTO) as Endpoint<RisaListResponseDTO>
-        task.networkTask = self.apiDataTransferService.request(with: endpoint,
-                                                             on: backgroundQueue
-        ) { result in
-            switch result {
-            case .success(let responseDTO):
-                completion(.success(responseDTO.toDomain()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-        
-        return task
+        let responseDTO: RisaListResponseDTO = try await apiDataTransferService.request(with: endpoint)
+        return responseDTO.toDomain()
     }
     
-    func fetchStationCode(
-        query: RisaCodeQuery,
-        completion: @escaping (Result<RisaResponse, Error>) -> Void
-    ) -> Cancellable? {
-        
+    func fetchStationCode(query: RisaCodeQuery) async throws -> RisaResponse {
         let requestDTO = RisaCodeRequestDTO(query: query)
-        let task = RepositoryTask()
-        
         let endpoint = APIEndpoints.getRisaJson(with: requestDTO) as Endpoint<RisaCodeResponseDTO>
-        task.networkTask = self.apiDataTransferService.request(with: endpoint,
-                                                             on: backgroundQueue
-        ) { result in
-            switch result {
-            case .success(let responseDTO):
-                completion(.success(responseDTO.toDomain()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-        
-        return task
+        let responseDTO: RisaCodeResponseDTO = try await apiDataTransferService.request(with: endpoint)
+        return responseDTO.toDomain()
     }
     
-    func fetchRisaCoo(
-        query: RisaCooQuery,
-        completion: @escaping (Result<RisaResponse, Error>) -> Void
-    ) -> Cancellable? {
-        
+    func fetchRisaCoo(query: RisaCooQuery) async throws -> RisaResponse {
         let requestDTO = RisaCooRequestDTO(query: query)
-        let task = RepositoryTask()
-        
         let endpoint = APIEndpoints.getRisaJson(with: requestDTO) as Endpoint<CooListResponseDTO>
-        task.networkTask = self.apiDataTransferService.request(with: endpoint,
-                                                             on: backgroundQueue
-        ) { result in
-            switch result {
-            case .success(let responseDTO):
-                completion(.success(responseDTO.toDomain()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-        
-        return task
+        let responseDTO: CooListResponseDTO = try await apiDataTransferService.request(with: endpoint)
+        return responseDTO.toDomain()
     }
     
-    
-    func fetchTemperature(
-        query: OceanQuery,
-        completion: @escaping (Result<OceanResponse, Error>) -> Void
-    ) -> Cancellable? {
-        
-        // 1. 신규 API 스펙에 맞는 RequestDTO 변환
+    func fetchTemperature(query: OceanQuery) async throws -> OceanResponse {
+        // 신규 API 스펙에 맞는 RequestDTO 변환
         let requestDTO = query.toOceanInfoRequestDTO()
-        let task = RepositoryTask()
         
-        // 2. 신규 JSON 엔드포인트 생성
+        // 신규 JSON 엔드포인트 생성
         let endpoint = APIEndpoints.searchRisaInfoList(with: requestDTO) as Endpoint<OceanInfoResponseDTO>
         
-        // 3. 기존 XML 대신 JSON 전용 apiDataTransferService 사용
-        task.networkTask = self.apiDataTransferService.request(with: endpoint,
-                                                             on: backgroundQueue
-        ) { result in
-            switch result {
-            case .success(let responseDTO):
-                print("OceanInfo API task success")
-                // DTO -> Domain Entity 반환
-                completion(.success(responseDTO.toDomain()))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-        
-        return task
+        let responseDTO: OceanInfoResponseDTO = try await apiDataTransferService.request(with: endpoint)
+        print("OceanInfo API task success")
+        // DTO -> Domain Entity 반환
+        return responseDTO.toDomain()
     }
 }

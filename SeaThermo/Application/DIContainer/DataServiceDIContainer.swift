@@ -9,8 +9,6 @@ import Foundation
 
 final class DataServiceDIContainer {
     lazy var appConfiguration = AppConfiguration()
-    // MARK: - Persistent Storage
-    lazy var fileStorage: FileDataStorage = FileDataStorage()
     
     // MARK: - network
     lazy var apiDataTransferService: DataTransferService = {
@@ -59,9 +57,8 @@ final class DataServiceDIContainer {
     // MARK: - DIContainers of scenes
     func makeOceanSceneDIContainer() -> PointSceneDIContainer {
         let dependencies = PointSceneDIContainer.Dependencies(apiDataTransferService: apiDataTransferService,
-                                                              apiXmlTransferService: apiXmlTransferService,
                                                               seaThermoTransferService: seaThermoTransferService,
                                                               appConfiguration: appConfiguration)
-        return PointSceneDIContainer(dependencies: dependencies, fileStorage: fileStorage)
+        return PointSceneDIContainer(dependencies: dependencies)
     }
 }

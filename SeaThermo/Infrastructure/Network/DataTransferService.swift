@@ -7,51 +7,10 @@ enum DataTransferError: Error {
     case resolvedNetworkFailure(Error)
 }
 
-protocol DataTransferDispatchQueue {
-    func asyncExecute(work: @escaping () -> Void)
-}
-
-extension DispatchQueue: DataTransferDispatchQueue {
-    func asyncExecute(work: @escaping () -> Void) {
-        async(group: nil, execute: work)
-    }
-}
-
 protocol DataTransferService {
-    typealias CompletionHandler<T> = (Result<T, DataTransferError>) -> Void
-    
-    @discardableResult
     func request<T: Decodable, E: ResponseRequestable>(
-        with endpoint: E,
-        on queue: DataTransferDispatchQueue,
-        completion: @escaping CompletionHandler<T>
-    ) -> NetworkCancellable? where E.Response == T
-    
-    @discardableResult
-    func requestHtml<T: Decodable, E: ResponseRequestable>(
-        with endpoint: E,
-        on queue: DataTransferDispatchQueue,
-        completion: @escaping CompletionHandler<T>
-    ) -> NetworkCancellable? where E.Response == T
-    
-    @discardableResult
-    func request<T: Decodable, E: ResponseRequestable>(
-        with endpoint: E,
-        completion: @escaping CompletionHandler<T>
-    ) -> NetworkCancellable? where E.Response == T
-
-    @discardableResult
-    func request<E: ResponseRequestable>(
-        with endpoint: E,
-        on queue: DataTransferDispatchQueue,
-        completion: @escaping CompletionHandler<Void>
-    ) -> NetworkCancellable? where E.Response == Void
-    
-    @discardableResult
-    func request<E: ResponseRequestable>(
-        with endpoint: E,
-        completion: @escaping CompletionHandler<Void>
-    ) -> NetworkCancellable? where E.Response == Void
+        with endpoint: E
+    ) async throws -> T where E.Response == T
 }
 
 protocol DataTransferErrorResolver {
@@ -86,75 +45,30 @@ final class DefaultDataTransferService {
 extension DefaultDataTransferService: DataTransferService {
     
     func request<T: Decodable, E: ResponseRequestable>(
-        with endpoint: E,
-        on queue: DataTransferDispatchQueue,
-        completion: @escaping CompletionHandler<T>
-    ) -> NetworkCancellable? where E.Response == T {
-
-        networkService.request(endpoint: endpoint) { result in
+        with endpoint: E
+    ) async throws -> T where E.Response == T {
+        do {
+            let data = try await networkService.request(endpoint: endpoint)
+            let result: Result<T, DataTransferError> = decode(
+                data: data,
+                decoder: endpoint.responseDecoder
+            )
             switch result {
-            case .success(let data):
-                let result: Result<T, DataTransferError> = self.decode(
-                    data: data,
-                    decoder: endpoint.responseDecoder
-                )
-                queue.asyncExecute { completion(result) }
+            case .success(let decoded):
+                return decoded
             case .failure(let error):
-                self.errorLogger.log(error: error)
-                let error = self.resolve(networkError: error)
-                queue.asyncExecute { completion(.failure(error)) }
+                throw error
             }
+        } catch let error as DataTransferError {
+            errorLogger.log(error: error)
+            throw error
+        } catch let error as NetworkError {
+            errorLogger.log(error: error)
+            throw resolve(networkError: error)
+        } catch {
+            errorLogger.log(error: error)
+            throw DataTransferError.resolvedNetworkFailure(error)
         }
-    }
-    
-    func requestHtml<T: Decodable, E: ResponseRequestable>(
-        with endpoint: E,
-        on queue: DataTransferDispatchQueue,
-        completion: @escaping CompletionHandler<T>
-    ) -> NetworkCancellable? where E.Response == T {
-
-        networkService.request(endpoint: endpoint) { result in
-            switch result {
-            case .success(let data):
-                let result: Result<T, DataTransferError> = self.htmlDecode(data: data)
-                queue.asyncExecute { completion(result) }
-            case .failure(let error):
-                self.errorLogger.log(error: error)
-                let error = self.resolve(networkError: error)
-                queue.asyncExecute { completion(.failure(error)) }
-            }
-        }
-    }
-    
-    func request<T: Decodable, E: ResponseRequestable>(
-        with endpoint: E,
-        completion: @escaping CompletionHandler<T>
-    ) -> NetworkCancellable? where E.Response == T {
-        request(with: endpoint, on: DispatchQueue.main, completion: completion)
-    }
-
-    func request<E>(
-        with endpoint: E,
-        on queue: DataTransferDispatchQueue,
-        completion: @escaping CompletionHandler<Void>
-    ) -> NetworkCancellable? where E : ResponseRequestable, E.Response == Void {
-        networkService.request(endpoint: endpoint) { result in
-            switch result {
-            case .success:
-                queue.asyncExecute { completion(.success(())) }
-            case .failure(let error):
-                self.errorLogger.log(error: error)
-                let error = self.resolve(networkError: error)
-                queue.asyncExecute { completion(.failure(error)) }
-            }
-        }
-    }
-
-    func request<E>(
-        with endpoint: E,
-        completion: @escaping CompletionHandler<Void>
-    ) -> NetworkCancellable? where E : ResponseRequestable, E.Response == Void {
-        request(with: endpoint, on: DispatchQueue.main, completion: completion)
     }
 
     // MARK: - Private
@@ -177,32 +91,6 @@ extension DefaultDataTransferService: DataTransferService {
         return resolvedError is NetworkError
         ? .networkFailure(error)
         : .resolvedNetworkFailure(resolvedError)
-    }
-    
-    // > html 온도 데이터만을 위한 html to json 처리
-    private func htmlDecode<T: Decodable>(data: Data?) -> Result<T, DataTransferError> {
-        guard let respData = data, let dataString = String(data: respData, encoding: .utf8) else {
-            return .failure(.noResponse)
-        }
-        
-        guard let rangeStartIndex = dataString.range(of: "setGridData("), let rangeEndIndex = dataString.range(of: " );") else {
-            return .failure(.noResponse)
-        }
-        
-        var ellSubString = String(dataString[rangeStartIndex.upperBound...rangeEndIndex.lowerBound])
-        ellSubString = "{\"list\": " + ellSubString + "}"
-        print("ellSubString: \(ellSubString)")
-        let decodedData = ellSubString.data(using: .utf8)
-        
-        do {
-            guard let jsonData = decodedData else {
-                return .failure(.noResponse)
-            }
-            let result = try JSONDecoder().decode(T.self, from: jsonData)
-            return .success(result)
-        } catch {
-            return .failure(.parsing(error))
-        }
     }
 }
 

@@ -27,7 +27,7 @@ final class CurrentTemperatureViewModel: ObservableObject {
 
     private var allStationsCache: [OceanStationModel] = [] // 전체 관측소 데이터 캐시
     
-    private var loadTask: Cancellable? {
+    private var loadTask: Task<Void, Never>? {
         willSet { loadTask?.cancel() }
     }
     
@@ -69,23 +69,16 @@ final class CurrentTemperatureViewModel: ObservableObject {
         
         let query = RisaListQuery(key: appConfiguration.apiKeyRisa, id: "risaList", gruNam: "E")
         
-        loadTask = oceanUseCase.excuteRisaList(
-            requestValue: .init(query: query),
-            completion: { [weak self] result in
-                Task { @MainActor [weak self] in
-                    guard let self = self else { return }
-                    
-                    self.isLoading = false
-                    
-                    switch result {
-                    case .success(let response):
-                        self.handleSuccess(response)
-                    case .failure(let error):
-                        self.errorMessage = error.localizedDescription
-                    }
-                }
+        loadTask = Task {
+            do {
+                let response = try await oceanUseCase.fetchRisaList(query: query)
+                self.isLoading = false
+                self.handleSuccess(response)
+            } catch {
+                self.isLoading = false
+                self.errorMessage = error.localizedDescription
             }
-        )
+        }
     }
 
     // MARK: - Private Methods
