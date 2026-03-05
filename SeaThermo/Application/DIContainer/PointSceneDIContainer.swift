@@ -35,59 +35,10 @@ extension PointSceneDIContainer: PointFlowCoordinatorDependencies {
     func makeMainHostingViewController() -> MainHostingViewController {
         MainHostingViewController.create()
     }
-
-    @available(*, deprecated, message: "Use makeMainHostingViewController() instead")
-    func makeMainHostingViewController(actions: MainViewModelActions) -> MainHostingViewController {
-        MainHostingViewController.create()
-    }
-    
-    func makeMainViewController(actions: MainViewModelActions) -> MainViewController {
-        MainViewController.create(with: makeMainViewModel(actions: actions))
-    }
-    
-    func makeOceanSelectViewController() -> OceanSelectViewController {
-        OceanSelectViewController.create(with: makeOceanSelectViewModel())
-    }
-    
-    func makeTemperatureViewController() -> SeaWaterTemperatureViewController {
-        SeaWaterTemperatureViewController.create(with: makeTemperatureViewModel())
-    }
-    
-    func makeTrackMapViewController() -> TrackMapViewController {
-        TrackMapViewController.create(with: makeTrackMapViewModel())
-    }
-    
-    func makeKakaoTrackMapViewController() -> KakaoTrackMapViewController {
-        KakaoTrackMapViewController.create(with: makeKakaoTrackMapViewModel())
-    }
-    
-    func makePointDateListViewController(actions: PointDateListViewModelActions) -> PointDateListViewController {
-        PointDateListViewController.create(with:
-                                            makePointDateListViewModel(actions: actions))
-    }
-    
-    func makePointDataListViewController(pointDate: PointDate, actions: PointDataListViewModelActions) -> PointDataListViewController {
-        PointDataListViewController.create(with:
-                                            makePointDataListViewModel(pointDate: pointDate, actions: actions))
-    }
-    
-    func makePointMapViewController(pointData: PointData) -> PointMapViewController {
-        PointMapViewController.create(with: makePointMapViewModel(pointData: pointData))
-    }
-    
-    func makeKakaoPointMapViewController(pointData: PointData) -> KakaoPointMapViewController {
-        KakaoPointMapViewController.create(with: makeKakaoPointMapViewModel(pointData: pointData))
-    }
 }
 
 // MARK: make view model
 extension PointSceneDIContainer {
-    func makeMainViewModel(actions: MainViewModelActions) -> MainViewModel {
-        MainViewModel(actions: actions,
-                      appConfiguration: dependencies.appConfiguration,
-                      oceanUseCase: makeOceanUseCase())
-    }
-
     func makeCurrentTemperatureViewModel() -> CurrentTemperatureViewModel {
         CurrentTemperatureViewModel(appConfiguration: dependencies.appConfiguration,
                                     oceanUseCase: makeOceanUseCase())
@@ -98,11 +49,6 @@ extension PointSceneDIContainer {
                              oceanUseCase: makeOceanUseCase())
     }
     
-    func makeTemperatureViewModel() -> SeaWaterTemperatureViewModel {
-        SeaWaterTemperatureViewModel(oceanUseCase: makeOceanUseCase(),
-                                     appConfiguration: dependencies.appConfiguration)
-    }
-    
     func makeSeaAnalysisViewModel() -> SeaAnalysisViewModel {
         SeaAnalysisViewModel(oceanUseCase: makeOceanUseCase())
     }
@@ -111,42 +57,6 @@ extension PointSceneDIContainer {
         SeaAnalysisDetailViewModel(oceanUseCase: makeOceanUseCase(), station: station)
     }
     
-    func makeTrackMapViewModel() -> TrackMapViewModel {
-        TrackMapViewModel(trackMapUseCase: makeTrackMapUseCase())
-    }
-    
-    func makeKakaoTrackMapViewModel() -> KakaoTrackMapViewModel {
-        KakaoTrackMapViewModel(trackMapUseCase: makeTrackMapUseCase())
-    }
-    
-    func makePointDateListViewModel() -> PointDateListViewModel {
-        PointDateListViewModel(pointDateUseCase: makePointDateListUseCase())
-    }
-    
-    func makePointDateListViewModel(actions: PointDateListViewModelActions) -> PointDateListViewModel {
-        PointDateListViewModel(pointDateUseCase: makePointDateListUseCase(),
-                               actions: actions)
-    }
-    
-    func makePointDataListViewModel(pointDate: PointDate) -> PointDataListViewModel {
-        PointDataListViewModel(pointDate: pointDate, pointDataUseCase: makePointDataListUseCase())
-    }
-    
-    func makePointDataListViewModel(pointDate: PointDate, actions: PointDataListViewModelActions) -> PointDataListViewModel {
-        PointDataListViewModel(pointDate: pointDate,
-                               pointDataUseCase: makePointDataListUseCase(),
-                               pointDataListViewModelActions: actions)
-    }
-    
-    func makePointMapViewModel(pointData: PointData) -> PointMapViewModel {
-        PointMapViewModel(pointData: pointData,
-                          pointMapUseCase: makePointMapUseCase())
-    }
-    
-    func makeKakaoPointMapViewModel(pointData: PointData) -> KakaoPointMapViewModel {
-        KakaoPointMapViewModel(pointData: pointData,
-                               pointMapUseCase: makePointMapUseCase())
-    }
     func makeSettingViewModel() -> SettingViewModel {
         SettingViewModel(appManager: .shared)
     }

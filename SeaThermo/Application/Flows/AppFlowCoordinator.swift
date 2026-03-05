@@ -11,7 +11,6 @@ import SwiftUI
 
 protocol Coordinator {
     var childCoordinators: [Coordinator] { get set }
-    func start()
     func startSwiftUI()
 }
 
@@ -32,7 +31,7 @@ final class AppFlowCoordinator: Coordinator {
         self.dataServiceDIContainer = dataServiceDIContainer
         self.childCoordinators = childCoordinators ?? [Coordinator]()
     }
-    
+    /*
     func start() {
         let pointSceneDIContainer = dataServiceDIContainer.makeOceanSceneDIContainer()
         let flow = pointSceneDIContainer.makePointFlowCoordinator(navigationController: navigationController)
@@ -41,7 +40,7 @@ final class AppFlowCoordinator: Coordinator {
         childCoordinators = [flow]
         appDIContainer.register(flow)
     }
-    
+    */
     func startSwiftUI() {
         let pointSceneDIContainer = dataServiceDIContainer.makeOceanSceneDIContainer()
         appDIContainer.register(pointSceneDIContainer)

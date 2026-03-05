@@ -32,6 +32,8 @@
 		1188DC632F4D99E100CB12C6 /* AppInfoHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC622F4D99E100CB12C6 /* AppInfoHeaders.swift */; };
 		1188DC662F4DA53100CB12C6 /* WebViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC642F4DA53100CB12C6 /* WebViewConfig.swift */; };
 		1188DC6A2F4DA54E00CB12C6 /* SeaThermoWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC672F4DA54E00CB12C6 /* SeaThermoWebView.swift */; };
+		1195A5CE2F581289000B7DB2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195A5CD2F581289000B7DB2 /* Color.swift */; };
+		1195A5D02F5812CF000B7DB2 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195A5CF2F5812CF000B7DB2 /* UIColor+Hex.swift */; };
 		11E66EAC2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAA2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift */; };
 		11E66EAD2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAB2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift */; };
 		11E66EB02F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAF2F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift */; };
@@ -53,13 +55,10 @@
 		BE8D8308779040CAA518B7F1 /* VersionCheckDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9D632B8195470DA96FB3D6 /* VersionCheckDTO.swift */; };
 		E8AFEA2CD75B4A60A7E5ADC3 /* VersionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF69B7ED4E64B11A3500D56 /* VersionStatus.swift */; };
 		E9B3C143644F178B8CD4DD33 /* FishingRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2E7BE3E0B35DBDE877066 /* FishingRecordView.swift */; };
-		F401EC1A2E9F6422002F52FF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC192E9F6422002F52FF /* MainView.swift */; };
 		F401EC1C2E9F7494002F52FF /* MainHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */; };
-		F406B4452B30061100AEEA2B /* TrackMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */; };
 		F406B4472B3006E400AEEA2B /* TrackMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4462B3006E400AEEA2B /* TrackMapRepository.swift */; };
 		F406B4492B3006F100AEEA2B /* TrackMapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B4482B3006F100AEEA2B /* TrackMapUseCase.swift */; };
 		F406B44B2B30070900AEEA2B /* DefaultTrackMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F406B44A2B30070900AEEA2B /* DefaultTrackMapRepository.swift */; };
-		F40717062DBF845B00A433A5 /* OceanSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40717052DBF845B00A433A5 /* OceanSelectViewController.swift */; };
 		F40717082DBF85B500A433A5 /* OceanSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40717072DBF85B500A433A5 /* OceanSelectCell.swift */; };
 		F407170A2DBF888900A433A5 /* OceanSelectCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40717092DBF888900A433A5 /* OceanSelectCellViewModel.swift */; };
 		F407170C2DBF99B600A433A5 /* OceanSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F407170B2DBF99B600A433A5 /* OceanSelectViewModel.swift */; };
@@ -72,36 +71,20 @@
 		F429D9492B9831030049534B /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9452B9831030049534B /* NetworkService.swift */; };
 		F429D94A2B9831030049534B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9462B9831030049534B /* Endpoint.swift */; };
 		F429D94B2B9831030049534B /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9472B9831030049534B /* NetworkConfig.swift */; };
-		F42C4DCA2B6386C300B82374 /* KakaoPointMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42C4DC92B6386C300B82374 /* KakaoPointMapViewModel.swift */; };
-		F42C4DCC2B6386CB00B82374 /* KakaoPointMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42C4DCB2B6386CB00B82374 /* KakaoPointMapViewController.swift */; };
-		F43104392EA6072600B9EA2B /* PointDateListUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43104382EA6072600B9EA2B /* PointDateListUIView.swift */; };
 		F43151FB2B18608100027BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43151FA2B18608100027BB9 /* AppDelegate.swift */; };
 		F43151FD2B1860AE00027BB9 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43151FC2B1860AE00027BB9 /* AppDIContainer.swift */; };
 		F43151FF2B1861A200027BB9 /* PointSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43151FE2B1861A200027BB9 /* PointSceneDIContainer.swift */; };
 		F43152012B1861E700027BB9 /* PointFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43152002B1861E700027BB9 /* PointFlowCoordinator.swift */; };
-		F4395F742B229F9B0017BBAF /* PointDateListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4395F732B229F9B0017BBAF /* PointDateListItemViewModel.swift */; };
-		F4395F792B22FDE70017BBAF /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4395F782B22FDE70017BBAF /* MainViewModel.swift */; };
-		F44883BB2DB10DA5008B9BB5 /* SeaWaterTemperatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44883B62DB10DA5008B9BB5 /* SeaWaterTemperatureViewModel.swift */; };
-		F44883BC2DB10DA5008B9BB5 /* SeaWaterTemperatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44883B92DB10DA5008B9BB5 /* SeaWaterTemperatureViewController.swift */; };
 		F44883BD2DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44883B22DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift */; };
 		F44883BE2DB10DA5008B9BB5 /* SeaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44883B12DB10DA5008B9BB5 /* SeaInfo.swift */; };
-		F44883C02DB10DA5008B9BB5 /* SeaWaterTemperature.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44883B82DB10DA5008B9BB5 /* SeaWaterTemperature.storyboard */; };
 		F44883C42DB12280008B9BB5 /* ToolbarPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44883C32DB12280008B9BB5 /* ToolbarPickerView.swift */; };
 		F44E65EA2B9ED1D0006D8761 /* DispatchQueueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E65E92B9ED1D0006D8761 /* DispatchQueueType.swift */; };
 		F44E65EC2B9ED1E6006D8761 /* ConnectionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E65EB2B9ED1E6006D8761 /* ConnectionError.swift */; };
-		F46161432B7F453C00935D36 /* KakaoTrackMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46161422B7F453C00935D36 /* KakaoTrackMapViewModel.swift */; };
-		F46161452B7F454B00935D36 /* KakaoTrackMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46161442B7F454B00935D36 /* KakaoTrackMapViewController.swift */; };
-		F46F2A8B2AA6E241004110FE /* TrackMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46F2A8A2AA6E241004110FE /* TrackMapViewController.swift */; };
 		F480D2632BA2E2A800E1F30D /* OceanQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480D2622BA2E2A800E1F30D /* OceanQuery.swift */; };
 		F48104402B5F92A000F1E1BC /* FDKeyboardRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F481043F2B5F92A000F1E1BC /* FDKeyboardRecognizer.swift */; };
 		F48104422B5FA3BB00F1E1BC /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48104412B5FA3BB00F1E1BC /* UIDevice.swift */; };
 		F48902332B202EFE00D18225 /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48902322B202EFE00D18225 /* AppFlowCoordinator.swift */; };
-		F48902372B2057E500D18225 /* PointDateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48902362B2057E500D18225 /* PointDateListViewModel.swift */; };
 		F48902392B205ACB00D18225 /* PointDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48902382B205ACB00D18225 /* PointDate.swift */; };
-		F48B10502EB1A30A00C2DB87 /* AppleTrackMapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48B104F2EB1A30A00C2DB87 /* AppleTrackMapViewRepresentable.swift */; };
-		F48B10522EB1A7B900C2DB87 /* AppleTrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48B10512EB1A7B900C2DB87 /* AppleTrackMapView.swift */; };
-		F48B10542EB1B12800C2DB87 /* KakaoTrackMapViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48B10532EB1B12800C2DB87 /* KakaoTrackMapViewControllerRepresentable.swift */; };
-		F48B10562EB1CEE900C2DB87 /* KakaoTrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48B10552EB1CEE900C2DB87 /* KakaoTrackMapView.swift */; };
 		F49152722B9951B00000C552 /* Ocean.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152712B9951B00000C552 /* Ocean.swift */; };
 		F49152742B9952590000C552 /* OceanUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152732B9952590000C552 /* OceanUseCase.swift */; };
 		F49152762B9954D70000C552 /* OceanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152752B9954D60000C552 /* OceanRepository.swift */; };
@@ -114,17 +97,13 @@
 		F4950DCD2AAAA36000DD26DE /* FDAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */; };
 		F4950DCF2AAAB08100DD26DE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCE2AAAB08100DD26DE /* Date.swift */; };
 		F49DCFF92B1F09EB009C5FC4 /* StoryboardInstantiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49DCFF82B1F09EB009C5FC4 /* StoryboardInstantiable.swift */; };
-		F4A4AEF62B26CC400017D173 /* PointDataListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A4AEF52B26CC400017D173 /* PointDataListViewModel.swift */; };
 		F4A4AEF82B26D10A0017D173 /* PointDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A4AEF72B26D10A0017D173 /* PointDataUseCase.swift */; };
 		F4A4AEFA2B26D22D0017D173 /* PointDataListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A4AEF92B26D22D0017D173 /* PointDataListRepository.swift */; };
 		F4A4AEFC2B26D4DF0017D173 /* DefaultPointDataListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A4AEFB2B26D4DF0017D173 /* DefaultPointDataListRepository.swift */; };
 		F4ACBC162AA179DE009CDA08 /* SnapKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4ACBC132AA176DA009CDA08 /* SnapKit.xcframework */; };
 		F4ACBC172AA179DE009CDA08 /* SnapKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4ACBC132AA176DA009CDA08 /* SnapKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F4B20E932EAB53870056FE51 /* ApplePointMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B20E922EAB53870056FE51 /* ApplePointMapView.swift */; };
-		F4B20E952EAB62600056FE51 /* PointInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B20E942EAB62600056FE51 /* PointInfoView.swift */; };
 		F4B270A22B9A91C9007A71D5 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */; };
 		F4B270A42B9AA1B1007A71D5 /* DataServiceDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B270A32B9AA1B1007A71D5 /* DataServiceDIContainer.swift */; };
-		F4BFF1AB2EA7633700B9C332 /* PointDataListUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BFF1AA2EA7633700B9C332 /* PointDataListUIView.swift */; };
 		F4C0276F2AB17804007D1900 /* MKPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0276E2AB17804007D1900 /* MKPolyline.swift */; };
 		F4C1AD462AB96E2400A34386 /* 230916_point.json in Resources */ = {isa = PBXBuildFile; fileRef = F4C1AD452AB96E2400A34386 /* 230916_point.json */; };
 		F4C1AD4A2AB979E300A34386 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AD492AB979E300A34386 /* String.swift */; };
@@ -132,11 +111,6 @@
 		F4C1AUD62F01290400BFACE1 /* CurrentTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD52F01290300BFACE1 /* CurrentTemperatureView.swift */; };
 		F4C1AUD82F01290600BFACE1 /* CurrentTemperatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD72F01290500BFACE1 /* CurrentTemperatureViewModel.swift */; };
 		F4C1AUDA2F01290800BFACE1 /* OceanRegionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AUD92F01290700BFACE1 /* OceanRegionCardView.swift */; };
-		F4D5DA852EB34A3A009E07C4 /* SeaWaterTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D5DA842EB34A3A009E07C4 /* SeaWaterTemperatureView.swift */; };
-		F4D66C8F2EB047AB00BE690F /* KakaoMapViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66C8E2EB047AB00BE690F /* KakaoMapViewControllerRepresentable.swift */; };
-		F4D66C912EB0582300BE690F /* KakaoPointMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66C902EB0582300BE690F /* KakaoPointMapView.swift */; };
-		F4DE47AE2AA0106E00ED2D23 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE47AD2AA0106E00ED2D23 /* MainViewController.swift */; };
-		F4DE47B12AA0106E00ED2D23 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47AF2AA0106E00ED2D23 /* Main.storyboard */; };
 		F4DE47B32AA0107000ED2D23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47B22AA0107000ED2D23 /* Assets.xcassets */; };
 		F4DE47B62AA0107000ED2D23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47B42AA0107000ED2D23 /* LaunchScreen.storyboard */; };
 		F4DE47FF2AA0256B00ED2D23 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE47FE2AA0256B00ED2D23 /* CoreLocation.framework */; };
@@ -155,18 +129,10 @@
 		F4DE48232AA04E4300ED2D23 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE48222AA04E4300ED2D23 /* UIViewController.swift */; };
 		F4DE48272AA0569000ED2D23 /* FDAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE48262AA0569000ED2D23 /* FDAlertViewController.swift */; };
 		F4E2C33D2B6A30A4007D1997 /* MapPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E2C33C2B6A30A4007D1997 /* MapPolyline.swift */; };
-		F4E6A2982B2A86D000C935BF /* PointDataListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E6A2972B2A86D000C935BF /* PointDataListItemViewModel.swift */; };
 		F4E6A29A2B2ABEB500C935BF /* PointMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E6A2992B2ABEB500C935BF /* PointMap.swift */; };
-		F4E6A29E2B2ACAF200C935BF /* PointMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E6A29D2B2ACAF200C935BF /* PointMapViewModel.swift */; };
 		F4E6A2A02B2AD37900C935BF /* PointMapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E6A29F2B2AD37900C935BF /* PointMapUseCase.swift */; };
 		F4E6A2A22B2ADF4900C935BF /* PointMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E6A2A12B2ADF4900C935BF /* PointMapRepository.swift */; };
 		F4E6A2A42B2AE2D400C935BF /* DefaultPointMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E6A2A32B2AE2D400C935BF /* DefaultPointMapRepository.swift */; };
-		F4E70F3D2AAEE130008A3317 /* PointMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E70F3C2AAEE130008A3317 /* PointMapViewController.swift */; };
-		F4E70F3F2AAEF4AB008A3317 /* PointDateListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E70F3E2AAEF4AB008A3317 /* PointDateListViewController.swift */; };
-		F4E70F422AAEF6DA008A3317 /* PointDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E70F412AAEF6DA008A3317 /* PointDateCell.swift */; };
-		F4E70F442AAEFBA7008A3317 /* PointDataListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E70F432AAEFBA7008A3317 /* PointDataListViewController.swift */; };
-		F4E70F462AAEFC60008A3317 /* PointDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E70F452AAEFC60008A3317 /* PointDataCell.swift */; };
-		F4E97D632EA9C21B000CFBED /* AppleMapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E97D622EA9C21B000CFBED /* AppleMapViewRepresentable.swift */; };
 		F4F2D2162B214BB5007E48D8 /* PointDateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F2D2152B214BB5007E48D8 /* PointDateUseCase.swift */; };
 		F4F2D2192B214BDB007E48D8 /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F2D2182B214BDB007E48D8 /* UseCase.swift */; };
 		F4F2D21B2B214C23007E48D8 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F2D21A2B214C23007E48D8 /* Cancellable.swift */; };
@@ -174,7 +140,6 @@
 		F4F2D21F2B217D6A007E48D8 /* DefaultPointDateListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F2D21E2B217D6A007E48D8 /* DefaultPointDateListRepository.swift */; };
 		F4F2D2222B218DF4007E48D8 /* FileDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F2D2212B218DF4007E48D8 /* FileDataStorage.swift */; };
 		F4F647932DC1F1630028A2C5 /* FDUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F647922DC1F1620028A2C5 /* FDUserDefault.swift */; };
-		F4F778BE2B61EF2300BAD8AF /* Point.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4F778BC2B61EF2300BAD8AF /* Point.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -219,6 +184,8 @@
 		1188DC622F4D99E100CB12C6 /* AppInfoHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoHeaders.swift; sourceTree = "<group>"; };
 		1188DC642F4DA53100CB12C6 /* WebViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewConfig.swift; sourceTree = "<group>"; };
 		1188DC672F4DA54E00CB12C6 /* SeaThermoWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaThermoWebView.swift; sourceTree = "<group>"; };
+		1195A5CD2F581289000B7DB2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		1195A5CF2F5812CF000B7DB2 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		11E66EAA2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKakaoMapView.swift; sourceTree = "<group>"; };
 		11E66EAB2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKakaoMapViewController.swift; sourceTree = "<group>"; };
 		11E66EAE2F3B1ED800AC7B6A /* HistoryKakaoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryKakaoMapView.swift; sourceTree = "<group>"; };
@@ -240,13 +207,10 @@
 		D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TemperatureLineGraphView.swift; sourceTree = "<group>"; };
 		E032D3F263E0420386394477 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		EDA398BA0DAB4D361B4206DB /* Pods-SeaThermo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeaThermo.debug.xcconfig"; path = "Target Support Files/Pods-SeaThermo/Pods-SeaThermo.debug.xcconfig"; sourceTree = "<group>"; };
-		F401EC192E9F6422002F52FF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHostingViewController.swift; sourceTree = "<group>"; };
-		F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapViewModel.swift; sourceTree = "<group>"; };
 		F406B4462B3006E400AEEA2B /* TrackMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapRepository.swift; sourceTree = "<group>"; };
 		F406B4482B3006F100AEEA2B /* TrackMapUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapUseCase.swift; sourceTree = "<group>"; };
 		F406B44A2B30070900AEEA2B /* DefaultTrackMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTrackMapRepository.swift; sourceTree = "<group>"; };
-		F40717052DBF845B00A433A5 /* OceanSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanSelectViewController.swift; sourceTree = "<group>"; };
 		F40717072DBF85B500A433A5 /* OceanSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanSelectCell.swift; sourceTree = "<group>"; };
 		F40717092DBF888900A433A5 /* OceanSelectCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanSelectCellViewModel.swift; sourceTree = "<group>"; };
 		F407170B2DBF99B600A433A5 /* OceanSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanSelectViewModel.swift; sourceTree = "<group>"; };
@@ -259,36 +223,20 @@
 		F429D9452B9831030049534B /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F429D9462B9831030049534B /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		F429D9472B9831030049534B /* NetworkConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
-		F42C4DC92B6386C300B82374 /* KakaoPointMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoPointMapViewModel.swift; sourceTree = "<group>"; };
-		F42C4DCB2B6386CB00B82374 /* KakaoPointMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoPointMapViewController.swift; sourceTree = "<group>"; };
-		F43104382EA6072600B9EA2B /* PointDateListUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDateListUIView.swift; sourceTree = "<group>"; };
 		F43151FA2B18608100027BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F43151FC2B1860AE00027BB9 /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		F43151FE2B1861A200027BB9 /* PointSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointSceneDIContainer.swift; sourceTree = "<group>"; };
 		F43152002B1861E700027BB9 /* PointFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointFlowCoordinator.swift; sourceTree = "<group>"; };
-		F4395F732B229F9B0017BBAF /* PointDateListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDateListItemViewModel.swift; sourceTree = "<group>"; };
-		F4395F782B22FDE70017BBAF /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		F44883B12DB10DA5008B9BB5 /* SeaInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaInfo.swift; sourceTree = "<group>"; };
 		F44883B22DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaWaterTemperatureModel.swift; sourceTree = "<group>"; };
-		F44883B62DB10DA5008B9BB5 /* SeaWaterTemperatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaWaterTemperatureViewModel.swift; sourceTree = "<group>"; };
-		F44883B82DB10DA5008B9BB5 /* SeaWaterTemperature.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SeaWaterTemperature.storyboard; sourceTree = "<group>"; };
-		F44883B92DB10DA5008B9BB5 /* SeaWaterTemperatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaWaterTemperatureViewController.swift; sourceTree = "<group>"; };
 		F44883C32DB12280008B9BB5 /* ToolbarPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarPickerView.swift; sourceTree = "<group>"; };
 		F44E65E92B9ED1D0006D8761 /* DispatchQueueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueType.swift; sourceTree = "<group>"; };
 		F44E65EB2B9ED1E6006D8761 /* ConnectionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionError.swift; sourceTree = "<group>"; };
-		F46161422B7F453C00935D36 /* KakaoTrackMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoTrackMapViewModel.swift; sourceTree = "<group>"; };
-		F46161442B7F454B00935D36 /* KakaoTrackMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoTrackMapViewController.swift; sourceTree = "<group>"; };
-		F46F2A8A2AA6E241004110FE /* TrackMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapViewController.swift; sourceTree = "<group>"; };
 		F480D2622BA2E2A800E1F30D /* OceanQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanQuery.swift; sourceTree = "<group>"; };
 		F481043F2B5F92A000F1E1BC /* FDKeyboardRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDKeyboardRecognizer.swift; sourceTree = "<group>"; };
 		F48104412B5FA3BB00F1E1BC /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		F48902322B202EFE00D18225 /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
-		F48902362B2057E500D18225 /* PointDateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDateListViewModel.swift; sourceTree = "<group>"; };
 		F48902382B205ACB00D18225 /* PointDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDate.swift; sourceTree = "<group>"; };
-		F48B104F2EB1A30A00C2DB87 /* AppleTrackMapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTrackMapViewRepresentable.swift; sourceTree = "<group>"; };
-		F48B10512EB1A7B900C2DB87 /* AppleTrackMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTrackMapView.swift; sourceTree = "<group>"; };
-		F48B10532EB1B12800C2DB87 /* KakaoTrackMapViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoTrackMapViewControllerRepresentable.swift; sourceTree = "<group>"; };
-		F48B10552EB1CEE900C2DB87 /* KakaoTrackMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoTrackMapView.swift; sourceTree = "<group>"; };
 		F49152712B9951B00000C552 /* Ocean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ocean.swift; sourceTree = "<group>"; };
 		F49152732B9952590000C552 /* OceanUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanUseCase.swift; sourceTree = "<group>"; };
 		F49152752B9954D60000C552 /* OceanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanRepository.swift; sourceTree = "<group>"; };
@@ -301,16 +249,12 @@
 		F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDAppManager.swift; sourceTree = "<group>"; };
 		F4950DCE2AAAB08100DD26DE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F49DCFF82B1F09EB009C5FC4 /* StoryboardInstantiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInstantiable.swift; sourceTree = "<group>"; };
-		F4A4AEF52B26CC400017D173 /* PointDataListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDataListViewModel.swift; sourceTree = "<group>"; };
 		F4A4AEF72B26D10A0017D173 /* PointDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDataUseCase.swift; sourceTree = "<group>"; };
 		F4A4AEF92B26D22D0017D173 /* PointDataListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDataListRepository.swift; sourceTree = "<group>"; };
 		F4A4AEFB2B26D4DF0017D173 /* DefaultPointDataListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPointDataListRepository.swift; sourceTree = "<group>"; };
 		F4ACBC132AA176DA009CDA08 /* SnapKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SnapKit.xcframework; sourceTree = "<group>"; };
-		F4B20E922EAB53870056FE51 /* ApplePointMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePointMapView.swift; sourceTree = "<group>"; };
-		F4B20E942EAB62600056FE51 /* PointInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoView.swift; sourceTree = "<group>"; };
 		F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		F4B270A32B9AA1B1007A71D5 /* DataServiceDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServiceDIContainer.swift; sourceTree = "<group>"; };
-		F4BFF1AA2EA7633700B9C332 /* PointDataListUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDataListUIView.swift; sourceTree = "<group>"; };
 		F4C0276E2AB17804007D1900 /* MKPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKPolyline.swift; sourceTree = "<group>"; };
 		F4C1AD452AB96E2400A34386 /* 230916_point.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 230916_point.json; sourceTree = "<group>"; };
 		F4C1AD492AB979E300A34386 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -318,12 +262,7 @@
 		F4C1AUD52F01290300BFACE1 /* CurrentTemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTemperatureView.swift; sourceTree = "<group>"; };
 		F4C1AUD72F01290500BFACE1 /* CurrentTemperatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTemperatureViewModel.swift; sourceTree = "<group>"; };
 		F4C1AUD92F01290700BFACE1 /* OceanRegionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanRegionCardView.swift; sourceTree = "<group>"; };
-		F4D5DA842EB34A3A009E07C4 /* SeaWaterTemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaWaterTemperatureView.swift; sourceTree = "<group>"; };
-		F4D66C8E2EB047AB00BE690F /* KakaoMapViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapViewControllerRepresentable.swift; sourceTree = "<group>"; };
-		F4D66C902EB0582300BE690F /* KakaoPointMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoPointMapView.swift; sourceTree = "<group>"; };
 		F4DE47A62AA0106E00ED2D23 /* SeaThermo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeaThermo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F4DE47AD2AA0106E00ED2D23 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		F4DE47B02AA0106E00ED2D23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F4DE47B22AA0107000ED2D23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4DE47B52AA0107000ED2D23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4DE47B72AA0107000ED2D23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -343,18 +282,10 @@
 		F4DE48222AA04E4300ED2D23 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		F4DE48262AA0569000ED2D23 /* FDAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDAlertViewController.swift; sourceTree = "<group>"; };
 		F4E2C33C2B6A30A4007D1997 /* MapPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPolyline.swift; sourceTree = "<group>"; };
-		F4E6A2972B2A86D000C935BF /* PointDataListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDataListItemViewModel.swift; sourceTree = "<group>"; };
 		F4E6A2992B2ABEB500C935BF /* PointMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointMap.swift; sourceTree = "<group>"; };
-		F4E6A29D2B2ACAF200C935BF /* PointMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointMapViewModel.swift; sourceTree = "<group>"; };
 		F4E6A29F2B2AD37900C935BF /* PointMapUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointMapUseCase.swift; sourceTree = "<group>"; };
 		F4E6A2A12B2ADF4900C935BF /* PointMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointMapRepository.swift; sourceTree = "<group>"; };
 		F4E6A2A32B2AE2D400C935BF /* DefaultPointMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPointMapRepository.swift; sourceTree = "<group>"; };
-		F4E70F3C2AAEE130008A3317 /* PointMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointMapViewController.swift; sourceTree = "<group>"; };
-		F4E70F3E2AAEF4AB008A3317 /* PointDateListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDateListViewController.swift; sourceTree = "<group>"; };
-		F4E70F412AAEF6DA008A3317 /* PointDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDateCell.swift; sourceTree = "<group>"; };
-		F4E70F432AAEFBA7008A3317 /* PointDataListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDataListViewController.swift; sourceTree = "<group>"; };
-		F4E70F452AAEFC60008A3317 /* PointDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDataCell.swift; sourceTree = "<group>"; };
-		F4E97D622EA9C21B000CFBED /* AppleMapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapViewRepresentable.swift; sourceTree = "<group>"; };
 		F4F2D2152B214BB5007E48D8 /* PointDateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDateUseCase.swift; sourceTree = "<group>"; };
 		F4F2D2182B214BDB007E48D8 /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
 		F4F2D21A2B214C23007E48D8 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
@@ -362,7 +293,6 @@
 		F4F2D21E2B217D6A007E48D8 /* DefaultPointDateListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPointDateListRepository.swift; sourceTree = "<group>"; };
 		F4F2D2212B218DF4007E48D8 /* FileDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDataStorage.swift; sourceTree = "<group>"; };
 		F4F647922DC1F1620028A2C5 /* FDUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDUserDefault.swift; sourceTree = "<group>"; };
-		F4F778BD2B61EF2300BAD8AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Point.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -610,29 +540,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		F406B4422B3005F600AEEA2B /* Track */ = {
-			isa = PBXGroup;
-			children = (
-				F406B4432B3005FC00AEEA2B /* ViewModel */,
-				F46F2A8A2AA6E241004110FE /* TrackMapViewController.swift */,
-				F46161442B7F454B00935D36 /* KakaoTrackMapViewController.swift */,
-				F48B104F2EB1A30A00C2DB87 /* AppleTrackMapViewRepresentable.swift */,
-				F48B10512EB1A7B900C2DB87 /* AppleTrackMapView.swift */,
-				F48B10532EB1B12800C2DB87 /* KakaoTrackMapViewControllerRepresentable.swift */,
-				F48B10552EB1CEE900C2DB87 /* KakaoTrackMapView.swift */,
-			);
-			path = Track;
-			sourceTree = "<group>";
-		};
-		F406B4432B3005FC00AEEA2B /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				F406B4442B30061100AEEA2B /* TrackMapViewModel.swift */,
-				F46161422B7F453C00935D36 /* KakaoTrackMapViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		F41DD8FD2D82C51800E2DAAD /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,10 +657,7 @@
 				1188DC692F4DA54E00CB12C6 /* Common */,
 				1176182F2F3364CA00EF9FAF /* History */,
 				117A00272F2DA7C4005C7F82 /* SeaAnalysis */,
-				F44883BA2DB10DA5008B9BB5 /* SeaWaterTemperature */,
-				F406B4422B3005F600AEEA2B /* Track */,
 				F4395F762B22FDBD0017BBAF /* Main */,
-				F43151F62B185AD200027BB9 /* PointScene */,
 				F43151F52B185AD200027BB9 /* Utils */,
 				90C46857C8E4A5379CD6E3DC /* Setting */,
 				17A52C297C3FDC91F4560C66 /* FishingRecord */,
@@ -769,15 +673,6 @@
 				F49DCFF82B1F09EB009C5FC4 /* StoryboardInstantiable.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		F43151F62B185AD200027BB9 /* PointScene */ = {
-			isa = PBXGroup;
-			children = (
-				F4E6A29B2B2ACAD600C935BF /* Map */,
-				F48902342B20579400D18225 /* Point */,
-			);
-			path = PointScene;
 			sourceTree = "<group>";
 		};
 		F43151F82B18601A00027BB9 /* Application */ = {
@@ -801,28 +696,16 @@
 			path = DIContainer;
 			sourceTree = "<group>";
 		};
-		F4395F752B22A9A90017BBAF /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				F4E70F412AAEF6DA008A3317 /* PointDateCell.swift */,
-				F4E70F452AAEFC60008A3317 /* PointDataCell.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
 		F4395F762B22FDBD0017BBAF /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				F41DD8FD2D82C51800E2DAAD /* Cells */,
+				F4C1AUDB2F01290900BFACE1 /* Components */,
 				F4395F772B22FDD60017BBAF /* ViewModel */,
-				F4DE47AD2AA0106E00ED2D23 /* MainViewController.swift */,
-				F40717052DBF845B00A433A5 /* OceanSelectViewController.swift */,
-				F401EC192E9F6422002F52FF /* MainView.swift */,
 				F4C1AUD32F01290100BFACE1 /* MainTabView.swift */,
 				F4C1AUD52F01290300BFACE1 /* CurrentTemperatureView.swift */,
 				F401EC1B2E9F7494002F52FF /* MainHostingViewController.swift */,
 				F40A75E32EA0E9C500B6AC81 /* OceanSelectView.swift */,
-				F4C1AUDB2F01290900BFACE1 /* Components */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -830,32 +713,12 @@
 		F4395F772B22FDD60017BBAF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				F4395F782B22FDE70017BBAF /* MainViewModel.swift */,
 				F4C1AUD72F01290500BFACE1 /* CurrentTemperatureViewModel.swift */,
 				F41DD8FB2D82C4EB00E2DAAD /* TempuratureListItemViewModel.swift */,
 				F40717092DBF888900A433A5 /* OceanSelectCellViewModel.swift */,
 				F407170B2DBF99B600A433A5 /* OceanSelectViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		F44883B72DB10DA5008B9BB5 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				F44883B62DB10DA5008B9BB5 /* SeaWaterTemperatureViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		F44883BA2DB10DA5008B9BB5 /* SeaWaterTemperature */ = {
-			isa = PBXGroup;
-			children = (
-				F44883B72DB10DA5008B9BB5 /* ViewModel */,
-				F44883B82DB10DA5008B9BB5 /* SeaWaterTemperature.storyboard */,
-				F44883B92DB10DA5008B9BB5 /* SeaWaterTemperatureViewController.swift */,
-				F4D5DA842EB34A3A009E07C4 /* SeaWaterTemperatureView.swift */,
-			);
-			path = SeaWaterTemperature;
 			sourceTree = "<group>";
 		};
 		F48902312B202EE400D18225 /* Flows */ = {
@@ -865,30 +728,6 @@
 				F43152002B1861E700027BB9 /* PointFlowCoordinator.swift */,
 			);
 			path = Flows;
-			sourceTree = "<group>";
-		};
-		F48902342B20579400D18225 /* Point */ = {
-			isa = PBXGroup;
-			children = (
-				F4395F752B22A9A90017BBAF /* Cells */,
-				F48902352B2057AC00D18225 /* ViewModel */,
-				F4E70F3E2AAEF4AB008A3317 /* PointDateListViewController.swift */,
-				F4E70F432AAEFBA7008A3317 /* PointDataListViewController.swift */,
-				F43104382EA6072600B9EA2B /* PointDateListUIView.swift */,
-				F4BFF1AA2EA7633700B9C332 /* PointDataListUIView.swift */,
-			);
-			path = Point;
-			sourceTree = "<group>";
-		};
-		F48902352B2057AC00D18225 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				F48902362B2057E500D18225 /* PointDateListViewModel.swift */,
-				F4395F732B229F9B0017BBAF /* PointDateListItemViewModel.swift */,
-				F4A4AEF52B26CC400017D173 /* PointDataListViewModel.swift */,
-				F4E6A2972B2A86D000C935BF /* PointDataListItemViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F491527B2B99A9080000C552 /* Network */ = {
@@ -977,8 +816,6 @@
 				F4DE48242AA04ECB00ED2D23 /* Common */,
 				F4DE481C2AA02E6500ED2D23 /* Utility */,
 				F4DE48192AA02DA300ED2D23 /* Managers */,
-				F4DE47AF2AA0106E00ED2D23 /* Main.storyboard */,
-				F4F778BC2B61EF2300BAD8AF /* Point.storyboard */,
 				F4DE47BD2AA0114F00ED2D23 /* Libraries */,
 				F4DE47B22AA0107000ED2D23 /* Assets.xcassets */,
 				F4DE47B42AA0107000ED2D23 /* LaunchScreen.storyboard */,
@@ -1034,6 +871,8 @@
 		F4DE481F2AA041B200ED2D23 /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				1195A5CF2F5812CF000B7DB2 /* UIColor+Hex.swift */,
+				1195A5CD2F581289000B7DB2 /* Color.swift */,
 				F4DE48202AA041CF00ED2D23 /* UIApplication.swift */,
 				F4DE48222AA04E4300ED2D23 /* UIViewController.swift */,
 				F4950DCE2AAAB08100DD26DE /* Date.swift */,
@@ -1066,30 +905,6 @@
 				F41171FD2B60FAE60093ACEB /* FDBaseViewController.swift */,
 			);
 			path = Contollers;
-			sourceTree = "<group>";
-		};
-		F4E6A29B2B2ACAD600C935BF /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				F4E6A29C2B2ACAE300C935BF /* ViewModel */,
-				F42C4DCB2B6386CB00B82374 /* KakaoPointMapViewController.swift */,
-				F4E70F3C2AAEE130008A3317 /* PointMapViewController.swift */,
-				F4E97D622EA9C21B000CFBED /* AppleMapViewRepresentable.swift */,
-				F4B20E922EAB53870056FE51 /* ApplePointMapView.swift */,
-				F4B20E942EAB62600056FE51 /* PointInfoView.swift */,
-				F4D66C8E2EB047AB00BE690F /* KakaoMapViewControllerRepresentable.swift */,
-				F4D66C902EB0582300BE690F /* KakaoPointMapView.swift */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
-		F4E6A29C2B2ACAE300C935BF /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				F42C4DC92B6386C300B82374 /* KakaoPointMapViewModel.swift */,
-				F4E6A29D2B2ACAF200C935BF /* PointMapViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F4F2D2172B214BC6007E48D8 /* Protocol */ = {
@@ -1188,11 +1003,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4DE47B62AA0107000ED2D23 /* LaunchScreen.storyboard in Resources */,
-				F44883C02DB10DA5008B9BB5 /* SeaWaterTemperature.storyboard in Resources */,
 				F4C1AD462AB96E2400A34386 /* 230916_point.json in Resources */,
-				F4F778BE2B61EF2300BAD8AF /* Point.storyboard in Resources */,
 				F4DE47B32AA0107000ED2D23 /* Assets.xcassets in Resources */,
-				F4DE47B12AA0106E00ED2D23 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1270,39 +1082,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F46161452B7F454B00935D36 /* KakaoTrackMapViewController.swift in Sources */,
 				F407170C2DBF99B600A433A5 /* OceanSelectViewModel.swift in Sources */,
-				F42C4DCA2B6386C300B82374 /* KakaoPointMapViewModel.swift in Sources */,
 				F43151FF2B1861A200027BB9 /* PointSceneDIContainer.swift in Sources */,
-				F4E70F3F2AAEF4AB008A3317 /* PointDateListViewController.swift in Sources */,
 				F4F2D2162B214BB5007E48D8 /* PointDateUseCase.swift in Sources */,
-				F48B10542EB1B12800C2DB87 /* KakaoTrackMapViewControllerRepresentable.swift in Sources */,
 				F48104402B5F92A000F1E1BC /* FDKeyboardRecognizer.swift in Sources */,
 				F49152782B9955680000C552 /* DefaultOceanRepository.swift in Sources */,
-				F4E70F462AAEFC60008A3317 /* PointDataCell.swift in Sources */,
 				F43152012B1861E700027BB9 /* PointFlowCoordinator.swift in Sources */,
 				F43151FB2B18608100027BB9 /* AppDelegate.swift in Sources */,
 				1171426C2F34739B008E79D6 /* HistoryDetailViewModel.swift in Sources */,
 				F406B4472B3006E400AEEA2B /* TrackMapRepository.swift in Sources */,
-				F4D66C8F2EB047AB00BE690F /* KakaoMapViewControllerRepresentable.swift in Sources */,
-				F48B10522EB1A7B900C2DB87 /* AppleTrackMapView.swift in Sources */,
 				F4F2D21D2B215D39007E48D8 /* PointDateListRepository.swift in Sources */,
 				F4B270A42B9AA1B1007A71D5 /* DataServiceDIContainer.swift in Sources */,
 				F4F2D21B2B214C23007E48D8 /* Cancellable.swift in Sources */,
 				F4C1AD4A2AB979E300A34386 /* String.swift in Sources */,
-				F4E70F442AAEFBA7008A3317 /* PointDataListViewController.swift in Sources */,
 				F41DD8FC2D82C4EB00E2DAAD /* TempuratureListItemViewModel.swift in Sources */,
 				11E66EB02F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift in Sources */,
 				11E66EB12F3B1ED800AC7B6A /* HistoryKakaoMapView.swift in Sources */,
 				F44E65EC2B9ED1E6006D8761 /* ConnectionError.swift in Sources */,
-				F4DE47AE2AA0106E00ED2D23 /* MainViewController.swift in Sources */,
-				F42C4DCC2B6386CB00B82374 /* KakaoPointMapViewController.swift in Sources */,
-				F401EC1A2E9F6422002F52FF /* MainView.swift in Sources */,
+				1195A5CE2F581289000B7DB2 /* Color.swift in Sources */,
 				F4C1AUD42F01290200BFACE1 /* MainTabView.swift in Sources */,
 				F4C1AUD62F01290400BFACE1 /* CurrentTemperatureView.swift in Sources */,
 				F4C1AUD82F01290600BFACE1 /* CurrentTemperatureViewModel.swift in Sources */,
 				117A00282F2DA7C4005C7F82 /* SeaAnalysisView.swift in Sources */,
 				117A00292F2DA7C4005C7F82 /* SeaRegionCardView.swift in Sources */,
+				1195A5D02F5812CF000B7DB2 /* UIColor+Hex.swift in Sources */,
 				117A002A2F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift in Sources */,
 				117A002B2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift in Sources */,
 				117A002D2F2DA7C5005C7F82 /* SeaRegionRowView.swift in Sources */,
@@ -1310,26 +1113,21 @@
 				F4C1AUDA2F01290800BFACE1 /* OceanRegionCardView.swift in Sources */,
 				113565002F51A8C900F4E38B /* OceanInfoRequestDTO.swift in Sources */,
 				F4DE48212AA041CF00ED2D23 /* UIApplication.swift in Sources */,
-				F4B20E932EAB53870056FE51 /* ApplePointMapView.swift in Sources */,
 				F49DCFF92B1F09EB009C5FC4 /* StoryboardInstantiable.swift in Sources */,
 				F48902392B205ACB00D18225 /* PointDate.swift in Sources */,
-				F4395F742B229F9B0017BBAF /* PointDateListItemViewModel.swift in Sources */,
 				F49152762B9954D70000C552 /* OceanRepository.swift in Sources */,
 				F40A75E42EA0E9C500B6AC81 /* OceanSelectView.swift in Sources */,
 				F49152722B9951B00000C552 /* Ocean.swift in Sources */,
 				F49152802B99AA3A0000C552 /* OceanRequestDTO+Mapping.swift in Sources */,
 				F4B270A22B9A91C9007A71D5 /* AppConfiguration.swift in Sources */,
 				F4E6A2A42B2AE2D400C935BF /* DefaultPointMapRepository.swift in Sources */,
-				F46F2A8B2AA6E241004110FE /* TrackMapViewController.swift in Sources */,
 				F4E6A2A22B2ADF4900C935BF /* PointMapRepository.swift in Sources */,
 				F406B4492B3006F100AEEA2B /* TrackMapUseCase.swift in Sources */,
-				F4E70F422AAEF6DA008A3317 /* PointDateCell.swift in Sources */,
 				F44E65EA2B9ED1D0006D8761 /* DispatchQueueType.swift in Sources */,
 				F4E6A2A02B2AD37900C935BF /* PointMapUseCase.swift in Sources */,
 				1171426A2F347394008E79D6 /* HistoryMapView.swift in Sources */,
 				117618292F33480A00EF9FAF /* CommonPopupView.swift in Sources */,
 				F4A4AEFA2B26D22D0017D173 /* PointDataListRepository.swift in Sources */,
-				F4BFF1AB2EA7633700B9C332 /* PointDataListUIView.swift in Sources */,
 				F4950DCB2AAA9A7100DD26DE /* FDFileManager.swift in Sources */,
 				11E66EAC2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift in Sources */,
 				11E66EAD2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift in Sources */,
@@ -1340,27 +1138,19 @@
 				F44883C42DB12280008B9BB5 /* ToolbarPickerView.swift in Sources */,
 				F429D94A2B9831030049534B /* Endpoint.swift in Sources */,
 				F48104422B5FA3BB00F1E1BC /* UIDevice.swift in Sources */,
-				F4E70F3D2AAEE130008A3317 /* PointMapViewController.swift in Sources */,
 				F4DE481E2AA02E7B00ED2D23 /* SCPrivacy.swift in Sources */,
 				F49152742B9952590000C552 /* OceanUseCase.swift in Sources */,
-				F40717062DBF845B00A433A5 /* OceanSelectViewController.swift in Sources */,
 				F43151FD2B1860AE00027BB9 /* AppDIContainer.swift in Sources */,
 				F429D9492B9831030049534B /* NetworkService.swift in Sources */,
 				F41DD8FF2D82C53400E2DAAD /* TempuratureCell.swift in Sources */,
-				F4E97D632EA9C21B000CFBED /* AppleMapViewRepresentable.swift in Sources */,
 				F48902332B202EFE00D18225 /* AppFlowCoordinator.swift in Sources */,
-				F48B10502EB1A30A00C2DB87 /* AppleTrackMapViewRepresentable.swift in Sources */,
 				F4DE48272AA0569000ED2D23 /* FDAlertViewController.swift in Sources */,
 				1188DC5F2F4D7E8600CB12C6 /* FishingRecordRepository.swift in Sources */,
 				1188DC632F4D99E100CB12C6 /* AppInfoHeaders.swift in Sources */,
 				F4F647932DC1F1630028A2C5 /* FDUserDefault.swift in Sources */,
-				F43104392EA6072600B9EA2B /* PointDateListUIView.swift in Sources */,
 				F4C0276F2AB17804007D1900 /* MKPolyline.swift in Sources */,
 				F40717082DBF85B500A433A5 /* OceanSelectCell.swift in Sources */,
-				F4E6A2982B2A86D000C935BF /* PointDataListItemViewModel.swift in Sources */,
 				F4F2D21F2B217D6A007E48D8 /* DefaultPointDateListRepository.swift in Sources */,
-				F4395F792B22FDE70017BBAF /* MainViewModel.swift in Sources */,
-				F48B10562EB1CEE900C2DB87 /* KakaoTrackMapView.swift in Sources */,
 				117142672F347384008E79D6 /* HistoryDetailView.swift in Sources */,
 				F406B44B2B30070900AEEA2B /* DefaultTrackMapRepository.swift in Sources */,
 				F4A4AEFC2B26D4DF0017D173 /* DefaultPointDataListRepository.swift in Sources */,
@@ -1369,36 +1159,26 @@
 				F4DE48232AA04E4300ED2D23 /* UIViewController.swift in Sources */,
 				F4DE481B2AA02DA300ED2D23 /* FDLocationManager.swift in Sources */,
 				F429D94B2B9831030049534B /* NetworkConfig.swift in Sources */,
-				F4A4AEF62B26CC400017D173 /* PointDataListViewModel.swift in Sources */,
 				11473BE62F56FD8400695EA9 /* OnboardingView.swift in Sources */,
 				11473BE72F56FD8400695EA9 /* OnboardingViewModel.swift in Sources */,
-				F46161432B7F453C00935D36 /* KakaoTrackMapViewModel.swift in Sources */,
-				F4E6A29E2B2ACAF200C935BF /* PointMapViewModel.swift in Sources */,
 				F491527D2B99A91E0000C552 /* APIEndpoints.swift in Sources */,
 				F407170E2DBFAA1F00A433A5 /* UserDefaults.swift in Sources */,
 				1188DC5D2F4D7E5600CB12C6 /* SplashRepository.swift in Sources */,
 				F4E6A29A2B2ABEB500C935BF /* PointMap.swift in Sources */,
 				F4A4AEF82B26D10A0017D173 /* PointDataUseCase.swift in Sources */,
-				F48902372B2057E500D18225 /* PointDateListViewModel.swift in Sources */,
 				F4F2D2192B214BDB007E48D8 /* UseCase.swift in Sources */,
 				F4950DCF2AAAB08100DD26DE /* Date.swift in Sources */,
 				F401EC1C2E9F7494002F52FF /* MainHostingViewController.swift in Sources */,
 				F41171FE2B60FAE60093ACEB /* FDBaseViewController.swift in Sources */,
 				F491527A2B99A7570000C552 /* RepositoryTask.swift in Sources */,
-				F4D66C912EB0582300BE690F /* KakaoPointMapView.swift in Sources */,
 				F4950DCD2AAAA36000DD26DE /* FDAppManager.swift in Sources */,
 				117618302F3364CA00EF9FAF /* HistoryRecordCardView.swift in Sources */,
 				117618312F3364CA00EF9FAF /* HistoryView.swift in Sources */,
 				1188DC6A2F4DA54E00CB12C6 /* SeaThermoWebView.swift in Sources */,
 				117618322F3364CA00EF9FAF /* HistoryViewModel.swift in Sources */,
 				F4F2D2222B218DF4007E48D8 /* FileDataStorage.swift in Sources */,
-				F4B20E952EAB62600056FE51 /* PointInfoView.swift in Sources */,
 				1188DC612F4D7EA500CB12C6 /* SplashUseCase.swift in Sources */,
 				11FC08402F35C6CD0067FBAB /* RecordMapView.swift in Sources */,
-				F4D5DA852EB34A3A009E07C4 /* SeaWaterTemperatureView.swift in Sources */,
-				F406B4452B30061100AEEA2B /* TrackMapViewModel.swift in Sources */,
-				F44883BB2DB10DA5008B9BB5 /* SeaWaterTemperatureViewModel.swift in Sources */,
-				F44883BC2DB10DA5008B9BB5 /* SeaWaterTemperatureViewController.swift in Sources */,
 				F407170A2DBF888900A433A5 /* OceanSelectCellViewModel.swift in Sources */,
 				F44883BD2DB10DA5008B9BB5 /* SeaWaterTemperatureModel.swift in Sources */,
 				F44883BE2DB10DA5008B9BB5 /* SeaInfo.swift in Sources */,
@@ -1425,28 +1205,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F4DE47AF2AA0106E00ED2D23 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F4DE47B02AA0106E00ED2D23 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F4DE47B42AA0107000ED2D23 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				F4DE47B52AA0107000ED2D23 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		F4F778BC2B61EF2300BAD8AF /* Point.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F4F778BD2B61EF2300BAD8AF /* Base */,
-			);
-			name = Point.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
