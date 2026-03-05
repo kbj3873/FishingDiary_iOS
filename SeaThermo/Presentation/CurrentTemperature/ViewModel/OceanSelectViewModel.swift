@@ -12,6 +12,7 @@ protocol OceanSelectViewModelOutput {
     var items: CurrentValueSubject<[OceanStationModel], Never> { get }
 }
 
+@MainActor
 final class OceanSelectViewModel: ObservableObject {
     private let appConfiguration: AppConfiguration
     private let oceanUseCase: OceanUseCase
@@ -20,8 +21,8 @@ final class OceanSelectViewModel: ObservableObject {
             oceanLoadTask?.cancel()
         }
     }
-    private let mainQueue: DispatchQueueType
     
+
     let items = CurrentValueSubject<[OceanStationModel], Never>([])
     @Published var oceanStations = [OceanStationModel]()
     
@@ -32,11 +33,9 @@ final class OceanSelectViewModel: ObservableObject {
     private var isDataChanged: Bool = false
     
     init(appConfiguration: AppConfiguration,
-         oceanUseCase: OceanUseCase,
-         mainQueue: DispatchQueueType = DispatchQueue.main) {
+         oceanUseCase: OceanUseCase) {
         self.appConfiguration = appConfiguration
         self.oceanUseCase = oceanUseCase
-        self.mainQueue = mainQueue
     }
 }
 
@@ -46,9 +45,9 @@ extension OceanSelectViewModel {
         
         oceanLoadTask = oceanUseCase.excuteRisaList(requestValue: .init(query: risaListQuery),
                                                        completion: { [weak self] results in
-            guard let self = self else { return }
-            
-            self.mainQueue.async {
+            Task { @MainActor [weak self] in
+                guard let self = self else { return }
+                
                 switch results {
                 case .success(let risaList):
                     guard let body = risaList.body, let item = body.item as? [RisaList] else {

@@ -7,8 +7,9 @@
 
 import Foundation
 import UIKit
+import Combine
 
-final class PointSceneDIContainer {
+final class PointSceneDIContainer: ObservableObject {
     
     struct Dependencies {
         let apiDataTransferService: DataTransferService
@@ -24,27 +25,16 @@ final class PointSceneDIContainer {
         self.dependencies = dependencies
         self.fileStorage = fileStorage
     }
-    
-    func makePointFlowCoordinator(navigationController: UINavigationController) -> PointFlowCoordinator {
-        PointFlowCoordinator(navigationController: navigationController, dependencies: self)
-    }
-}
-
-// MARK: make scene
-extension PointSceneDIContainer: PointFlowCoordinatorDependencies {
-    func makeMainHostingViewController() -> MainHostingViewController {
-        MainHostingViewController.create()
-    }
 }
 
 // MARK: make view model
 extension PointSceneDIContainer {
-    func makeCurrentTemperatureViewModel() -> CurrentTemperatureViewModel {
+    @MainActor func makeCurrentTemperatureViewModel() -> CurrentTemperatureViewModel {
         CurrentTemperatureViewModel(appConfiguration: dependencies.appConfiguration,
                                     oceanUseCase: makeOceanUseCase())
     }
     
-    func makeOceanSelectViewModel() -> OceanSelectViewModel {
+    @MainActor func makeOceanSelectViewModel() -> OceanSelectViewModel {
         OceanSelectViewModel(appConfiguration: dependencies.appConfiguration,
                              oceanUseCase: makeOceanUseCase())
     }

@@ -39,9 +39,13 @@ struct MainTabView: View {
     @State private var selectedTab: TabItem = .currentTemperature
     @StateObject private var fishingRecordViewModel: FishingRecordViewModel
     
-    private let pointSceneDIContainer: PointSceneDIContainer = AppDIContainer.shared.resolve()
+    // SwiftUI App 환경에서 주입되는 의존성
+    @EnvironmentObject private var pointSceneDIContainer: PointSceneDIContainer
 
     init() {
+        // fishingRecordViewModel은 여전히 DI가 필요하지만,
+        // EnvironmentObject가 초기화 시점(init)엔 바인딩 전이므로 AppDIContainer 폴백(fallback)을 유지하거나
+        // 추후 App 구조체에서 FishingRecordViewModel도 주입하도록 개선 고려 (현재는 기존 로직 유지)
         let container: PointSceneDIContainer = AppDIContainer.shared.resolve()
         _fishingRecordViewModel = StateObject(wrappedValue: container.makeFishingRecordViewModel())
         

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+@MainActor
 final class CurrentTemperatureViewModel: ObservableObject {
 
     // MARK: - Published Properties
@@ -21,7 +22,6 @@ final class CurrentTemperatureViewModel: ObservableObject {
 
     private let oceanUseCase: OceanUseCase
     private let appConfiguration: AppConfiguration
-    private let mainQueue: DispatchQueueType
 
     // MARK: - Private Properties
 
@@ -34,11 +34,9 @@ final class CurrentTemperatureViewModel: ObservableObject {
     // MARK: - Init
     
     init(appConfiguration: AppConfiguration,
-         oceanUseCase: OceanUseCase,
-         mainQueue: DispatchQueueType = DispatchQueue.main) {
+         oceanUseCase: OceanUseCase) {
         self.appConfiguration = appConfiguration
         self.oceanUseCase = oceanUseCase
-        self.mainQueue = mainQueue
     }
 
     // MARK: - Public Methods
@@ -55,9 +53,8 @@ final class CurrentTemperatureViewModel: ObservableObject {
         
         // 데이터 변경 시 호출될 콜백 설정
         viewModel.onDataUpdated = { [weak self] in
-            guard let self = self else { return }
-            // 메인 스레드 보장
-            DispatchQueue.main.async {
+            Task { @MainActor [weak self] in
+                guard let self = self else { return }
                 // 저장된 설정이 변경되었으므로 캐시 기반 즉시 갱신 + API 재호출
                 self.refreshFilteredList()
                 self.fetchStationList()
@@ -75,9 +72,9 @@ final class CurrentTemperatureViewModel: ObservableObject {
         loadTask = oceanUseCase.excuteRisaList(
             requestValue: .init(query: query),
             completion: { [weak self] result in
-                guard let self = self else { return }
-                
-                self.mainQueue.async {
+                Task { @MainActor [weak self] in
+                    guard let self = self else { return }
+                    
                     self.isLoading = false
                     
                     switch result {
