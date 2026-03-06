@@ -13,9 +13,10 @@ final class CurrentTemperatureViewModel: ObservableObject {
 
     // MARK: - Published Properties
 
-    @Published var oceanStations: [OceanStationModel] = []
+    @Published var oceanStations: [CombinedCurrentTemperature] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
+    @Published var showErrorAlert: Bool = false
     @Published var isOceanSelectPresented: Bool = false
 
     // MARK: - Dependencies
@@ -25,7 +26,7 @@ final class CurrentTemperatureViewModel: ObservableObject {
 
     // MARK: - Private Properties
 
-    private var allStationsCache: [OceanStationModel] = [] // 전체 관측소 데이터 캐시
+    private var allStationsCache: [CombinedCurrentTemperature] = [] // 전체 관측소 데이터 캐시
     
     private var loadTask: Task<Void, Never>? {
         willSet { loadTask?.cancel() }
@@ -48,8 +49,8 @@ final class CurrentTemperatureViewModel: ObservableObject {
     }
     
     func createOceanSelectView() -> OceanSelectView {
-        let pointSceneDIContainer: PointSceneDIContainer = AppDIContainer.shared.resolve()
-        let viewModel = pointSceneDIContainer.makeOceanSelectViewModel()
+        let applicationDIContainer: ApplicationDIContainer = AppDIContainer.shared.resolve()
+        let viewModel = applicationDIContainer.makeOceanSelectViewModel()
         
         // 데이터 변경 시 호출될 콜백 설정
         viewModel.onDataUpdated = { [weak self] in
@@ -67,16 +68,27 @@ final class CurrentTemperatureViewModel: ObservableObject {
     func fetchStationList() {
         isLoading = true
         
-        let query = RisaListQuery(key: appConfiguration.apiKeyRisa, id: "risaList", gruNam: "E")
+        let query = CurrentTemperatureQuery(key: appConfiguration.apiKeyRisa, id: "risaList", gruNam: "")
         
         loadTask = Task {
             do {
-                let response = try await oceanUseCase.fetchRisaList(query: query)
+                let response = try await oceanUseCase.fetchRisaList(query)
                 self.isLoading = false
                 self.handleSuccess(response)
+            } catch let error as NetworkError {
+                self.isLoading = false
+                if case let .apiError(code, message) = error {
+                    self.errorMessage = "\(message) (\(code))"
+                } else {
+                    self.errorMessage = error.localizedDescription
+                }
+                self.showErrorAlert = true
+                print("Network Error: \(self.errorMessage ?? "")")
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
+                self.errorMessage = "네트워크 요청에 실패했습니다."
+                self.showErrorAlert = true
+                print("Unknown Error: \(error.localizedDescription)")
             }
         }
     }
@@ -93,12 +105,8 @@ final class CurrentTemperatureViewModel: ObservableObject {
         self.oceanStations = savedStations
     }
 
-    private func handleSuccess(_ response: RisaResponse) {
-        guard let body = response.body, let items = body.item as? [RisaList] else {
-            return
-        }
-        
-        let allStations = makeModels(items)
+    private func handleSuccess(_ currentTemperatures: [CurrentTemperature]) {
+        let allStations = makeModels(currentTemperatures)
         
         // 전체 데이터 캐시 업데이트
         self.allStationsCache = allStations
@@ -108,17 +116,17 @@ final class CurrentTemperatureViewModel: ObservableObject {
         self.oceanStations = savedStations
     }
     
-    private func makeModels(_ items: [RisaList]) -> [OceanStationModel] {
-        var oceanStationList = [OceanStationModel]()
+    private func makeModels(_ currentTemperatures: [CurrentTemperature]) -> [CombinedCurrentTemperature] {
+        var oceanStationList = [CombinedCurrentTemperature]()
         
         // 중복 제거된 코드 추출
         // 모델 초기화 (순서 유지하며 중복 제거)
         var seenCodes = Set<String>()
-        for item in items {
+        for item in currentTemperatures {
             let code = item.staCde
             if !seenCodes.contains(code) {
                 seenCodes.insert(code)
-                oceanStationList.append(OceanStationModel(
+                oceanStationList.append(CombinedCurrentTemperature(
                     stationCode: code,
                     stationName: "", // 이후 루프에서 업데이트됨
                     surTempurature: "",
@@ -130,7 +138,7 @@ final class CurrentTemperatureViewModel: ObservableObject {
         
         // 데이터 매핑
         for (index, model) in oceanStationList.enumerated() {
-            for item in items where item.staCde == model.stationCode {
+            for item in currentTemperatures where item.staCde == model.stationCode {
                 var updatedModel = oceanStationList[index]
                 
                 switch item.obsLay {
@@ -148,8 +156,8 @@ final class CurrentTemperatureViewModel: ObservableObject {
         return oceanStationList
     }
     
-    private func filterSavedStations(from stations: [OceanStationModel]) -> [OceanStationModel] {
-        let savedList = FDUserDefaults.getFromList(key: UserDefaultKey.regionalSeaTempuratureList, type: OceanStationModel.self)
+    private func filterSavedStations(from stations: [CombinedCurrentTemperature]) -> [CombinedCurrentTemperature] {
+        let savedList = FDUserDefaults.getFromList(key: UserDefaultKey.regionalSeaTempuratureList, type: CombinedCurrentTemperature.self)
         
         return stations.filter { station in
             savedList.contains { saved in

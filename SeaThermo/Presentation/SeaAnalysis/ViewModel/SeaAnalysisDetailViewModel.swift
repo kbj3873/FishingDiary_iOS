@@ -59,7 +59,7 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
         let obsTo = Date.endTempDateString()
         
         // Use station info for query
-        let query = OceanQuery(
+        let query = SeaAnalysisQuery(
             id: "risaInfo",
             gruNam: station.sea.id, // "W", "E", "S"
             useYn: "Y",
@@ -73,15 +73,15 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
         
         Task {
             do {
-                let response = try await oceanUseCase.fetchTemperature(query: query)
-                self.processResponse(response.list)
+                let weeklyTemperatures = try await oceanUseCase.fetchTemperature(query)
+                self.processResponse(weeklyTemperatures)
             } catch {
                 print("Error fetching data: \(error)")
             }
         }
     }
     
-    private func processResponse(_ list: [Ocean]) {
+    private func processResponse(_ list: [WeeklyTemperature]) {
         guard !list.isEmpty else { return }
         
         // 1. Sort by Date
@@ -110,7 +110,7 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMddHHmm"
         
-        var dataMap: [Date: Ocean] = [:]
+        var dataMap: [Date: WeeklyTemperature] = [:]
         for item in sortedList {
             let dateStr = String(item.dateT)
             if let date = dateFormatter.date(from: dateStr) {
@@ -119,7 +119,7 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
         }
         
         // Helper for Linear Interpolation
-        func interpolate(dates: [Date], valuePath: KeyPath<Ocean, Float>) -> [CGFloat] {
+        func interpolate(dates: [Date], valuePath: KeyPath<WeeklyTemperature, Float>) -> [CGFloat] {
             var result: [CGFloat] = []
             
             // Temporary array with nils

@@ -47,7 +47,7 @@ private struct _SeaThermoWebViewRepresentable: UIViewRepresentable {
         
         // ── 2. 첫 요청 (앱 정보 헤더 포함) ─────────────────────
         var request = URLRequest(url: url)
-        AppInfoHeaders.make().forEach { request.setValue($1, forHTTPHeaderField: $0) }
+        APIEndpoints.Headers.appInfo().forEach { request.setValue($1, forHTTPHeaderField: $0) }
         webView.load(request)
         
         return webView

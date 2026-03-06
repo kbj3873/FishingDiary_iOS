@@ -35,7 +35,7 @@ final class SeaAnalysisViewModel: ObservableObject {
         let obsFrom = Date.startTempDateString()
         let obsTo = Date.endTempDateString()
         
-        let query = OceanQuery(
+        let query = SeaAnalysisQuery(
             id: "risaInfo",
             gruNam: gruNam,
             useYn: "Y",
@@ -49,15 +49,15 @@ final class SeaAnalysisViewModel: ObservableObject {
         
         Task {
             do {
-                let response = try await oceanUseCase.fetchTemperature(query: query)
-                self.processResponse(response.list)
+                let weeklyTemperatures = try await oceanUseCase.fetchTemperature(query)
+                self.processResponse(weeklyTemperatures)
             } catch {
                 print("Error fetching data: \(error)")
             }
         }
     }
     
-    private func processResponse(_ list: [Ocean]) {
+    private func processResponse(_ list: [WeeklyTemperature]) {
         guard !list.isEmpty else { return }
         
         // 1. Sort by Date

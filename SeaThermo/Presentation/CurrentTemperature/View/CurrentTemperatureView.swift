@@ -23,6 +23,28 @@ struct CurrentTemperatureView: View {
                 // Content
                 contentSection
             }
+            
+            // 오류 팝업 오버레이 (ZStack 내부 최상단에 배치)
+            if viewModel.showErrorAlert {
+                ZStack {
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            viewModel.showErrorAlert = false
+                        }
+                    
+                    CommonPopupView(
+                        title: "네트워크 오류",
+                        message: viewModel.errorMessage ?? "알 수 없는 오류가 발생했습니다.",
+                        layoutType: .horizontal,
+                        primaryButtonText: "확인",
+                        primaryAction: {
+                            viewModel.showErrorAlert = false
+                        }
+                    )
+                }
+                .zIndex(100)
+            }
         }
         .onAppear {
             viewModel.fetchStationList()
@@ -145,34 +167,5 @@ struct CurrentTemperatureView: View {
                 OceanRegionCardView(station: station)
             }
         }
-    }
-}
-
-#Preview {
-    CurrentTemperatureView(
-        viewModel: CurrentTemperatureViewModel(
-            appConfiguration: AppConfiguration(),
-            oceanUseCase: OceanUseCase(oceanRepository: PreviewOceanRepository())
-        )
-    )
-}
-
-// MARK: - Preview Helper
-
-private class PreviewOceanRepository: OceanRepository {
-    func fetchRisaList(query: RisaListQuery) async throws -> RisaResponse {
-        RisaResponse(header: .init(resultCode: "00", resultMsg: ""), body: nil)
-    }
-
-    func fetchStationCode(query: RisaCodeQuery) async throws -> RisaResponse {
-        RisaResponse(header: .init(resultCode: "00", resultMsg: ""), body: nil)
-    }
-
-    func fetchRisaCoo(query: RisaCooQuery) async throws -> RisaResponse {
-        RisaResponse(header: .init(resultCode: "00", resultMsg: ""), body: nil)
-    }
-
-    func fetchTemperature(query: OceanQuery) async throws -> OceanResponse {
-        OceanResponse(list: [])
     }
 }

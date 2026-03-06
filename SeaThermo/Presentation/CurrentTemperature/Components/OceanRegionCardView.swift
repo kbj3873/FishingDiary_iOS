@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct OceanRegionCardView: View {
-    let station: OceanStationModel
+    let station: CombinedCurrentTemperature
     let backgroundImage: Image?
 
-    init(station: OceanStationModel, backgroundImage: Image? = nil) {
+    init(station: CombinedCurrentTemperature, backgroundImage: Image? = nil) {
         self.station = station
         self.backgroundImage = backgroundImage
     }
@@ -191,7 +191,7 @@ struct OceanRegionCardView: View {
 #Preview {
     VStack(spacing: 12) {
         OceanRegionCardView(
-            station: OceanStationModel(
+            station: CombinedCurrentTemperature(
                 stationCode: "001",
                 stationName: "서산 창리",
                 surTempurature: "13.2",
@@ -201,7 +201,7 @@ struct OceanRegionCardView: View {
         )
 
         OceanRegionCardView(
-            station: OceanStationModel(
+            station: CombinedCurrentTemperature(
                 stationCode: "002",
                 stationName: "통영 사량",
                 surTempurature: "17.3",

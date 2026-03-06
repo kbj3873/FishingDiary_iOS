@@ -9,59 +9,121 @@ import Foundation
 import UIKit
 
 struct APIEndpoints {
-    static func getRisaJson<T: Encodable, R>(with requestDTO: T) -> Endpoint<R> {
+    // MARK: - Open API (NIFS)
+    static func getRisaJson<T: Encodable, R>(baseURL: String, with requestDTO: T) -> Endpoint<R> {
         
-        return Endpoint(path: "OpenAPI_json",
+        return Endpoint(baseURL: baseURL,
+                        path: "OpenAPI_json",
                         method: .post,
+                        headerParameters: Headers.forOpenAPI(isJson: true),
                         queryParametersEncodable: requestDTO
         )
     }
     
-    static func getRisaXml<T: Encodable, R>(with requestDTO: T) -> Endpoint<R> {
+    static func getRisaXml<T: Encodable, R>(baseURL: String, with requestDTO: T) -> Endpoint<R> {
         
-        return Endpoint(path: "risa/risaInfo.risa",
+        return Endpoint(baseURL: baseURL,
+                        path: "risa/risaInfo.risa",
                         method: .post,
+                        headerParameters: Headers.forOpenAPI(isJson: false),
                         queryParametersEncodable: requestDTO
         )
     }
     
-    // MARK: - 신규 온바다/RISA API (JSON Type)
-    static func searchRisaInfoList<R>(with requestDTO: OceanInfoRequestDTO) -> Endpoint<R> {
-        // WAF 우회 필수 헤더
-        var headers: [String: String] = [:]
-        headers["Referer"] = "https://www.nifs.go.kr/risa/risa/risaA/actionRisaInfo.do"
-        headers["X-Requested-With"] = "XMLHttpRequest"
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-        // User-Agent: URLSession 기본값을 쓰거나, Endpoint 내부 생성 시점에 추가 가능
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
-        headers["User-Agent"] = "SeaThermo/\(appVersion) (iPhone; iOS \(UIDevice.current.systemVersion))"
+    // MARK: - 신규 온바다/RISA API (JSON Type - 웹 크롤링 우회)
+    static func searchRisaInfoList<R>(baseURL: String, with requestDTO: RisaInfoListRequestDTO) -> Endpoint<R> {
         
-        let bodyParams: [String: Any] = [
-            "obsrvnGroupNm": requestDTO.obsrvnGroupNm,
-            "obsvtrCd": requestDTO.obsvtrCd,
-            "obsFrom": requestDTO.obsFrom,
-            "obsTo": requestDTO.obsTo,
-            "ord": requestDTO.ord,
-            "ordType": requestDTO.ordType,
-            "rst-sel": requestDTO.rstSel,
-            "obsTimeFrom": requestDTO.obsTimeFrom,
-            "obsTimeTo": requestDTO.obsTimeTo,
-            "obsTimeDefault": requestDTO.obsTimeDefault,
-            "selectPage": requestDTO.selectPage,
-            "rowCountPage": requestDTO.rowCountPage
-        ]
-        
-        return Endpoint(path: "risa/risa/risaA/searchRisaInfoList.do",
+        return Endpoint(baseURL: baseURL,
+                        path: "risa/risa/risaA/searchRisaInfoList.do",
                         method: .post,
-                        headerParameters: headers,
-                        bodyParameters: bodyParams,
+                        headerParameters: Headers.forWebCrawling(),
+                        bodyParametersEncodable: requestDTO,
                         bodyEncoder: AsciiBodyEncoder())
     }
     
     // MARK: - 온바다 서버 API
-    static func postVersionCheck(with requestDTO: VersionCheckRequestDTO) -> Endpoint<VersionCheckResponseDTO> {
-        return Endpoint(path: "api/version/check",
+    static func postVersionCheck(baseURL: String, with requestDTO: VersionCheckRequestDTO) -> Endpoint<VersionCheckResponseDTO> {
+        return Endpoint(baseURL: baseURL,
+                        path: "api/version/check",
                         method: .post,
+                        headerParameters: Headers.forSeaThermoAPI(),
                         bodyParametersEncodable: requestDTO)
+    }
+}
+
+extension APIEndpoints {
+    // MARK: - Headers
+    struct Headers {
+        static let defaultUserAgent: String = {
+            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+            return "SeaThermo/\(appVersion) (iPhone; iOS \(UIDevice.current.systemVersion))"
+        }()
+        
+        static func forOpenAPI(isJson: Bool = true) -> [String: String] {
+            return [
+                "Accept-Language": "ko-KR,ko;q=0.9",
+                "Content-Type": isJson ? "application/json;utf-8" : "application/x-www-form-urlencoded",
+            ]
+        }
+        
+        static func forWebCrawling() -> [String: String] {
+            return [
+                "Referer": "https://www.nifs.go.kr/risa/risa/risaA/actionRisaInfo.do",
+                "X-Requested-With": "XMLHttpRequest",
+                "Content-Type": "application/x-www-form-urlencoded",
+                // WAF(보안장비) 우회를 위해 모바일 사파리 등 표준 브라우저의 User-Agent를 명시적으로 사용
+                "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1"
+            ]
+        }
+        
+        static func forSeaThermoAPI() -> [String: String] {
+            var headers: [String: String] = [
+                "Content-Type": "application/json",
+                "Accept-Language": "ko-KR,ko;q=0.9",
+                "User-Agent": defaultUserAgent
+            ]
+            // 앱 정보 헤더 병합
+            headers.merge(appInfo()) { _, new in new }
+            return headers
+        }
+        
+        /// 온바다 서버 전용 앱/디바이스 정보 헤더 딕셔너리 반환
+        static func appInfo() -> [String: String] {
+            return [
+                "X-App-Version":  appVersion,
+                "X-App-Build":    appBuild,
+                "X-OS-Name":      "iOS",
+                "X-OS-Version":   UIDevice.current.systemVersion,
+                "X-Device-Model": deviceModel,
+                "X-Bundle-Id":    bundleId
+            ]
+        }
+        
+        // MARK: - AppInfo Private
+        
+        private static var appVersion: String {
+            Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
+        }
+        
+        private static var appBuild: String {
+            Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+        }
+        
+        private static var bundleId: String {
+            Bundle.main.bundleIdentifier ?? "unknown"
+        }
+        
+        /// sysctl로 기기 하드웨어 식별자 읽기 (예: iPhone15,2)
+        private static var deviceModel: String {
+            var sysInfo = utsname()
+            uname(&sysInfo)
+            let machineMirror = Mirror(reflecting: sysInfo.machine)
+            return machineMirror.children.compactMap { child -> Character? in
+                guard let value = child.value as? Int8, value != 0 else { return nil }
+                return Character(UnicodeScalar(UInt8(bitPattern: value)))
+            }
+            .map { String($0) }
+            .joined()
+        }
     }
 }

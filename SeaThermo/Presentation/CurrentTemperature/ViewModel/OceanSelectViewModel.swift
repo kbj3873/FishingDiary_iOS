@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol OceanSelectViewModelOutput {
-    var items: CurrentValueSubject<[OceanStationModel], Never> { get }
+    var items: CurrentValueSubject<[CombinedCurrentTemperature], Never> { get }
 }
 
 @MainActor
@@ -22,7 +22,7 @@ final class OceanSelectViewModel: ObservableObject {
         }
     }
     
-    @Published var oceanStations = [OceanStationModel]()
+    @Published var oceanStations = [CombinedCurrentTemperature]()
     
     // 데이터 변경 시 호출될 콜백
     var onDataUpdated: (() -> Void)?
@@ -39,28 +39,19 @@ final class OceanSelectViewModel: ObservableObject {
 
 extension OceanSelectViewModel {
     // MARK: - private
-    private func loadRisaList(risaListQuery: RisaListQuery) {
+    private func loadRisaList(_ query: CurrentTemperatureQuery) {
         oceanLoadTask = Task {
             do {
-                let risaList = try await oceanUseCase.fetchRisaList(query: risaListQuery)
-                guard let body = risaList.body, let item = body.item as? [RisaList] else {
-                    print("no risa items")
-                    return
-                }
-                
-                for station in item {
-                    print("g:\(station.gruNam) cd: \(station.staCde) name: \(station.staNamKor) obs: \(station.obsLay) temp: \(station.wtrTmp)")
-                }
-                
-                self.oceanStations = self.makeModels(item)
+                let currentTemperatures = try await oceanUseCase.fetchRisaList(query)
+                self.oceanStations = self.makeModels(currentTemperatures)
             } catch {
                 print(error)
             }
         }
     }
     
-    private func makeModels(_ items: [RisaList]) -> [OceanStationModel] {
-        var oceanStationList = [OceanStationModel]()
+    private func makeModels(_ items: [CurrentTemperature]) -> [CombinedCurrentTemperature] {
+        var oceanStationList = [CombinedCurrentTemperature]()
         
         // > 중복 제외한 code만 추출
         var array = [String]()
@@ -70,7 +61,7 @@ extension OceanSelectViewModel {
         let removedArray = Set(array)
         
         for code in removedArray {
-            let model = OceanStationModel(stationCode: code,
+            let model = CombinedCurrentTemperature(stationCode: code,
                                           stationName: "",
                                           surTempurature: "",
                                           midTempurature: "",
@@ -106,7 +97,7 @@ extension OceanSelectViewModel {
         }
         
         /// 이전에 선택했던 지역 체크
-        let selectedOceanList = FDUserDefaults.getFromList(key: UserDefaultKey.regionalSeaTempuratureList, type: OceanStationModel.self)
+        let selectedOceanList = FDUserDefaults.getFromList(key: UserDefaultKey.regionalSeaTempuratureList, type: CombinedCurrentTemperature.self)
         
         if selectedOceanList.count > 0 {
             for (index, model) in oceanStationList.enumerated() {
@@ -127,8 +118,8 @@ extension OceanSelectViewModel {
     }
     
     
-    func saveCheckList(_ selected: Bool, model: OceanStationModel) {
-        var savedOceanList = FDUserDefaults.getFromList(key: UserDefaultKey.regionalSeaTempuratureList, type: OceanStationModel.self)
+    func saveCheckList(_ selected: Bool, model: CombinedCurrentTemperature) {
+        var savedOceanList = FDUserDefaults.getFromList(key: UserDefaultKey.regionalSeaTempuratureList, type: CombinedCurrentTemperature.self)
         
         if selected {
             let exist = savedOceanList.filter {
@@ -181,6 +172,6 @@ extension OceanSelectViewModel {
     }
     
     func fetchRisaList() {
-        self.loadRisaList(risaListQuery: .init(key: appConfiguration.apiKeyRisa, id: "risaList", gruNam: "E"))
+        self.loadRisaList(.init(key: appConfiguration.apiKeyRisa, id: "risaList", gruNam: "E"))
     }
 }

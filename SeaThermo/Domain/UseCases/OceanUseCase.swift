@@ -7,33 +7,23 @@
 
 import Foundation
 
-protocol OceanUseCaseProtocol {
-    func fetchRisaList(query: RisaListQuery) async throws -> RisaResponse
-    func fetchStationCode(query: RisaCodeQuery) async throws -> RisaResponse
-    func fetchRisaCoo(query: RisaCooQuery) async throws -> RisaResponse
-    func fetchTemperature(query: OceanQuery) async throws -> OceanResponse
+protocol OceanUseCase {
+    func fetchRisaList(_ query: CurrentTemperatureQuery) async throws -> [CurrentTemperature]
+    func fetchTemperature(_ query: SeaAnalysisQuery) async throws -> [WeeklyTemperature]
 }
 
-final class OceanUseCase: OceanUseCaseProtocol {
+final class DefaultOceanUseCase: OceanUseCase {
     private let oceanRepository: OceanRepository
     
     init(oceanRepository: OceanRepository) {
         self.oceanRepository = oceanRepository
     }
     
-    func fetchRisaList(query: RisaListQuery) async throws -> RisaResponse {
-        try await oceanRepository.fetchRisaList(query: query)
+    func fetchRisaList(_ query: CurrentTemperatureQuery) async throws -> [CurrentTemperature] {
+        try await oceanRepository.fetchRisaList(query)
     }
     
-    func fetchStationCode(query: RisaCodeQuery) async throws -> RisaResponse {
-        try await oceanRepository.fetchStationCode(query: query)
-    }
-    
-    func fetchRisaCoo(query: RisaCooQuery) async throws -> RisaResponse {
-        try await oceanRepository.fetchRisaCoo(query: query)
-    }
-    
-    func fetchTemperature(query: OceanQuery) async throws -> OceanResponse {
-        try await oceanRepository.fetchTemperature(query: query)
+    func fetchTemperature(_ query: SeaAnalysisQuery) async throws -> [WeeklyTemperature] {
+        try await oceanRepository.fetchTemperature(query)
     }
 }

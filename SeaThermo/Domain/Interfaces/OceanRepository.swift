@@ -8,8 +8,6 @@
 import Foundation
 
 protocol OceanRepository {
-    func fetchRisaList(query: RisaListQuery) async throws -> RisaResponse
-    func fetchStationCode(query: RisaCodeQuery) async throws -> RisaResponse
-    func fetchRisaCoo(query: RisaCooQuery) async throws -> RisaResponse
-    func fetchTemperature(query: OceanQuery) async throws -> OceanResponse
+    func fetchRisaList(_ query: CurrentTemperatureQuery) async throws -> [CurrentTemperature]
+    func fetchTemperature(_ query: SeaAnalysisQuery) async throws -> [WeeklyTemperature]
 }

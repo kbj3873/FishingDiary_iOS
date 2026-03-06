@@ -42,7 +42,7 @@ struct SeaAnalysisView: View {
     @State private var showDetailView: Bool = false
     
     // DI
-    private let pointSceneDIContainer: PointSceneDIContainer = AppDIContainer.shared.resolve()
+    private let applicationDIContainer: ApplicationDIContainer = AppDIContainer.shared.resolve()
 
     var body: some View {
         NavigationView {
@@ -99,7 +99,7 @@ struct SeaAnalysisView: View {
     private var detailViewDestination: some View {
         if let station = selectedStation {
             // Fix: Inject station info to ViewModel
-            SeaAnalysisDetailView(viewModel: pointSceneDIContainer.makeSeaAnalysisDetailViewModel(station: station))
+            SeaAnalysisDetailView(viewModel: applicationDIContainer.makeSeaAnalysisDetailViewModel(station: station))
         } else {
             EmptyView()
         }

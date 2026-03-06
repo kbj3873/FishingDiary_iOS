@@ -6,67 +6,75 @@ enum NetworkError: Error {
     case cancelled
     case generic(Error)
     case urlGeneration
+    case parsing(Error)
+    case noResponse
     case noData     // > respose data가 없을 경우
+    case apiError(code: String, message: String)
 }
 
 protocol NetworkService {
-    func request(endpoint: Requestable) async throws -> Data?
+    var baseURL: String { get }
+    
+    func request<T: Decodable>(with endpoint: Endpoint<T>) async throws -> T
+}
+
+// MARK: - Generic Response Decoders
+
+protocol ResponseDecoder {
+    func decode<T: Decodable>(_ data: Data) throws -> T
+}
+
+class JSONResponseDecoder: ResponseDecoder {
+    private let jsonDecoder = JSONDecoder()
+    
+    init() { }
+    
+    func decode<T: Decodable>(_ data: Data) throws -> T {
+        return try jsonDecoder.decode(T.self, from: data)
+    }
+}
+
+class RawDataResponseDecoder: ResponseDecoder {
+    init() { }
+    
+    enum CodingKeys: String, CodingKey {
+        case `default` = ""
+    }
+    func decode<T: Decodable>(_ data: Data) throws -> T {
+        if T.self is Data.Type, let data = data as? T {
+            return data
+        } else {
+            let context = DecodingError.Context(
+                codingPath: [CodingKeys.default],
+                debugDescription: "Expected Data type"
+            )
+            throw Swift.DecodingError.typeMismatch(T.self, context)
+        }
+    }
 }
 
 // MARK: - Implementation
 
-final class DefaultNetworkService {
+final class DefaultNetworkService: NetworkService {
     
-    private let encEUC_KR = CFStringConvertEncodingToNSStringEncoding(
-        CFStringEncoding(CFStringEncodings.EUC_KR.rawValue)
-    )
-    
-    private let encUTF8 = CFStringConvertEncodingToNSStringEncoding(
-        CFStringEncoding(CFStringBuiltInEncodings.UTF8.rawValue)
-    )
-    
-    private let config: NetworkConfigurable
+    let baseURL: String
     private let session: URLSession
     private let logger: NetworkErrorLogger
     
     init(
-        config: NetworkConfigurable,
+        baseURL: String,
         session: URLSession = .shared,
         logger: NetworkErrorLogger = DefaultNetworkErrorLogger()
     ) {
+        self.baseURL = baseURL
         self.session = session
-        self.config = config
         self.logger = logger
     }
     
-    // > data convert, www.nifs.go.kr 로부터 EUC_KR로 인코딩된 데이터를 utf8로 변경해준다
-    private func resolveData(_ data: Data?) -> Data? {
-        guard let originData = data else { return nil }
-        let convertStr = NSString(data: originData, encoding: encEUC_KR)
-        let responseString = (convertStr != nil) ? convertStr! : NSString(data: originData, encoding: encUTF8)
-        guard let utf8Data = responseString?.data(using: String.Encoding.utf8.rawValue) else {
-            return data
-        }
-        
-        return utf8Data
-    }
-    
-    private func resolve(error: Error) -> NetworkError {
-        let code = URLError.Code(rawValue: (error as NSError).code)
-        switch code {
-        case .notConnectedToInternet: return .notConnected
-        case .cancelled: return .cancelled
-        default: return .generic(error)
-        }
-    }
-}
-
-extension DefaultNetworkService: NetworkService {
-    
-    func request(endpoint: Requestable) async throws -> Data? {
+    func request<T: Decodable>(with endpoint: Endpoint<T>) async throws -> T {
         let urlRequest: URLRequest
         do {
-            urlRequest = try endpoint.urlRequest(with: config)
+            urlRequest = try endpoint.urlRequest()
         } catch {
             throw NetworkError.urlGeneration
         }
@@ -88,13 +96,49 @@ extension DefaultNetworkService: NetworkService {
             }
             
             logger.log(responseData: resolvedData, response: response)
-            return resolvedData
+            
+            do {
+                let decodedResult: T = try endpoint.responseDecoder.decode(resolvedData)
+                return decodedResult
+            } catch {
+                logger.log(error: error)
+                throw NetworkError.parsing(error)
+            }
         } catch let error as NetworkError {
             throw error
         } catch {
             let networkError = resolve(error: error)
             logger.log(error: networkError)
             throw networkError
+        }
+    }
+    
+    // > data convert, www.nifs.go.kr 로부터 EUC_KR로 인코딩된 데이터를 utf8로 변경해준다
+    private func resolveData(_ data: Data?) -> Data? {
+        guard let originData = data else { return nil }
+        let convertStr = NSString(data: originData, encoding: encEUC_KR)
+        let responseString = (convertStr != nil) ? convertStr! : NSString(data: originData, encoding: encUTF8)
+        guard let utf8Data = responseString?.data(using: String.Encoding.utf8.rawValue) else {
+            return data
+        }
+        
+        return utf8Data
+    }
+    
+    private let encEUC_KR = CFStringConvertEncodingToNSStringEncoding(
+        CFStringEncoding(CFStringEncodings.EUC_KR.rawValue)
+    )
+    
+    private let encUTF8 = CFStringConvertEncodingToNSStringEncoding(
+        CFStringEncoding(CFStringBuiltInEncodings.UTF8.rawValue)
+    )
+    
+    private func resolve(error: Error) -> NetworkError {
+        let code = URLError.Code(rawValue: (error as NSError).code)
+        switch code {
+        case .notConnectedToInternet: return .notConnected
+        case .cancelled: return .cancelled
+        default: return .generic(error)
         }
     }
 }
@@ -113,7 +157,7 @@ final class DefaultNetworkErrorLogger: NetworkErrorLogger {
     func log(request: URLRequest) {
         print("-------------")
         print("request: \(request.url!)")
-        print("headers: \(request.allHTTPHeaderFields!)")
+        print("headers: \(String(describing: request.allHTTPHeaderFields))")
         print("method: \(request.httpMethod!)")
         if let httpBody = request.httpBody {
             if let result = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [String: Any] {
@@ -133,7 +177,7 @@ final class DefaultNetworkErrorLogger: NetworkErrorLogger {
         if let dataDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
             printIfDebug("responseData: \(String(describing: dataDict))")
         } else {
-            printIfDebug("not json:\n \(String(data: data, encoding: .utf8)!)")
+            printIfDebug("not json:\n \(String(data: data, encoding: .utf8) ?? "")")
         }
     }
 

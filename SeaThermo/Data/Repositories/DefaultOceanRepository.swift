@@ -8,46 +8,39 @@
 import Foundation
 
 final class DefaultOceanRepository {
-    private let apiDataTransferService: DataTransferService
+    private let apiNetworkService: NetworkService
     
-    init(apiDataTransferService: DataTransferService) {
-        self.apiDataTransferService = apiDataTransferService
+    init(apiNetworkService: NetworkService) {
+        self.apiNetworkService = apiNetworkService
     }
 }
 
 extension DefaultOceanRepository: OceanRepository {
-    
-    func fetchRisaList(query: RisaListQuery) async throws -> RisaResponse {
-        let requestDTO = RisaListRequestDTO(query: query)
-        let endpoint = APIEndpoints.getRisaJson(with: requestDTO) as Endpoint<RisaListResponseDTO>
-        let responseDTO: RisaListResponseDTO = try await apiDataTransferService.request(with: endpoint)
-        return responseDTO.toDomain()
+    // 현재수온 가져오기
+    func fetchRisaList(_ query: CurrentTemperatureQuery) async throws -> [CurrentTemperature] {
+        let requestDTO = RisaListRequestDTO(query)
+        let endpoint = APIEndpoints.getRisaJson(baseURL: apiNetworkService.baseURL, with: requestDTO) as Endpoint<RisaListResponseDTO>
+        let responseDTO: RisaListResponseDTO = try await apiNetworkService.request(with: endpoint)
+        
+        // resultCode가 정상("00")이 아닌 경우 에러를 반환
+        if responseDTO.header.resultCode != "00" {
+            let userFriendlyMessage = "해양 관측 데이터를 불러오는 데 실패했습니다."
+            throw NetworkError.apiError(code: responseDTO.header.resultCode, message: userFriendlyMessage)
+        }
+        
+        return responseDTO.body.item?.map { $0.toDomain() } ?? []
     }
-    
-    func fetchStationCode(query: RisaCodeQuery) async throws -> RisaResponse {
-        let requestDTO = RisaCodeRequestDTO(query: query)
-        let endpoint = APIEndpoints.getRisaJson(with: requestDTO) as Endpoint<RisaCodeResponseDTO>
-        let responseDTO: RisaCodeResponseDTO = try await apiDataTransferService.request(with: endpoint)
-        return responseDTO.toDomain()
-    }
-    
-    func fetchRisaCoo(query: RisaCooQuery) async throws -> RisaResponse {
-        let requestDTO = RisaCooRequestDTO(query: query)
-        let endpoint = APIEndpoints.getRisaJson(with: requestDTO) as Endpoint<CooListResponseDTO>
-        let responseDTO: CooListResponseDTO = try await apiDataTransferService.request(with: endpoint)
-        return responseDTO.toDomain()
-    }
-    
-    func fetchTemperature(query: OceanQuery) async throws -> OceanResponse {
+    // 지난 7일간 수온 가져오기
+    func fetchTemperature(_ query: SeaAnalysisQuery) async throws -> [WeeklyTemperature] {
         // 신규 API 스펙에 맞는 RequestDTO 변환
-        let requestDTO = query.toOceanInfoRequestDTO()
+        let requestDTO = RisaInfoListRequestDTO(query)
         
         // 신규 JSON 엔드포인트 생성
-        let endpoint = APIEndpoints.searchRisaInfoList(with: requestDTO) as Endpoint<OceanInfoResponseDTO>
+        let endpoint = APIEndpoints.searchRisaInfoList(baseURL: apiNetworkService.baseURL, with: requestDTO) as Endpoint<RisaInfoResponseDTO>
         
-        let responseDTO: OceanInfoResponseDTO = try await apiDataTransferService.request(with: endpoint)
-        print("OceanInfo API task success")
+        let responseDTO: RisaInfoResponseDTO = try await apiNetworkService.request(with: endpoint)
+        print("RisaInfo API task success")
         // DTO -> Domain Entity 반환
-        return responseDTO.toDomain()
+        return responseDTO.retList.map { $0.toDomain() }
     }
 }

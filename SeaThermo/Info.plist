@@ -2,12 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ApiBaseURL</key>
-	<string>$(API_BASE_URL)</string>
-	<key>ApiKeyCoo</key>
-	<string>$(API_KEY_COO)</string>
+	<key>ApiNifsURL</key>
+	<string>$(API_NIFS_URL)</string>
 	<key>ApiKeyRisa</key>
 	<string>$(API_KEY_RISA)</string>
+	<key>ApiOnbadaURL</key>
+	<string>$(API_ONBADA_URL)</string>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
 	<key>CFBundleLocalizations</key>

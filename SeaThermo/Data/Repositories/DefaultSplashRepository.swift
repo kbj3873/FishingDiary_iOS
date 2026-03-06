@@ -6,16 +6,16 @@
 import Foundation
 
 final class DefaultSplashRepository: SplashRepository {
-    private let dataTransferService: DataTransferService
+    private let apiNetworkService: NetworkService
     
-    init(dataTransferService: DataTransferService) {
-        self.dataTransferService = dataTransferService
+    init(apiNetworkService: NetworkService) {
+        self.apiNetworkService = apiNetworkService
     }
     
     func checkVersion(appVersion: String) async throws -> VersionStatus {
         let requestDTO = VersionCheckRequestDTO(app_version: appVersion)
-        let endpoint = APIEndpoints.postVersionCheck(with: requestDTO)
-        let responseDTO: VersionCheckResponseDTO = try await dataTransferService.request(with: endpoint)
+        let endpoint = APIEndpoints.postVersionCheck(baseURL: apiNetworkService.baseURL, with: requestDTO)
+        let responseDTO: VersionCheckResponseDTO = try await apiNetworkService.request(with: endpoint)
         return responseDTO.toDomain()
     }
 }

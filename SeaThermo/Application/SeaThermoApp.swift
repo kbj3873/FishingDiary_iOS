@@ -28,8 +28,7 @@ struct SeaThermoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     // MARK: - Global Dependencies
-    private let dataServiceDIContainer = DataServiceDIContainer()
-    private let pointSceneDIContainer: PointSceneDIContainer
+    private let applicationDIContainer: ApplicationDIContainer
     
     // MARK: - App State
     @State private var currentStep: AppStep = .splash
@@ -39,8 +38,8 @@ struct SeaThermoApp: App {
         FDAppManager.shared.appInitialize()
         
         // DI Container 셋업
-        self.pointSceneDIContainer = dataServiceDIContainer.makeOceanSceneDIContainer()
-        AppDIContainer.shared.register(pointSceneDIContainer)
+        self.applicationDIContainer = ApplicationDIContainer()
+        AppDIContainer.shared.register(applicationDIContainer)
     }
     
     var body: some Scene {
@@ -48,7 +47,7 @@ struct SeaThermoApp: App {
             Group {
                 switch currentStep {
                 case .splash:
-                    SplashView(viewModel: pointSceneDIContainer.makeSplashViewModel()) {
+                    SplashView(viewModel: applicationDIContainer.makeSplashViewModel()) {
                         // 스플래시 종료 후 온보딩 유무 분기
                         let hasCompletedOnboarding = FDUserDefaults.bool(forKey: UserDefaultKey.hasCompletedOnboarding)
                         withAnimation {
@@ -69,7 +68,7 @@ struct SeaThermoApp: App {
                     
                 case .main:
                     MainTabView()
-                        .environmentObject(pointSceneDIContainer) // 하위 뷰에 EnvironmentObject 형태로 주입 가능
+                        .environmentObject(applicationDIContainer) // 하위 뷰에 EnvironmentObject 형태로 주입 가능
                 }
             }
             .onAppear {

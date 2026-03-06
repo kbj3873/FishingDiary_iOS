@@ -40,13 +40,13 @@ struct MainTabView: View {
     @StateObject private var fishingRecordViewModel: FishingRecordViewModel
     
     // SwiftUI App 환경에서 주입되는 의존성
-    @EnvironmentObject private var pointSceneDIContainer: PointSceneDIContainer
+    @EnvironmentObject private var applicationDIContainer: ApplicationDIContainer
 
     init() {
         // fishingRecordViewModel은 여전히 DI가 필요하지만,
         // EnvironmentObject가 초기화 시점(init)엔 바인딩 전이므로 AppDIContainer 폴백(fallback)을 유지하거나
         // 추후 App 구조체에서 FishingRecordViewModel도 주입하도록 개선 고려 (현재는 기존 로직 유지)
-        let container: PointSceneDIContainer = AppDIContainer.shared.resolve()
+        let container: ApplicationDIContainer = AppDIContainer.shared.resolve()
         _fishingRecordViewModel = StateObject(wrappedValue: container.makeFishingRecordViewModel())
         
         configureTabBarAppearance()
@@ -55,7 +55,7 @@ struct MainTabView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             // 현재수온
-            CurrentTemperatureView(viewModel: pointSceneDIContainer.makeCurrentTemperatureViewModel())
+            CurrentTemperatureView(viewModel: applicationDIContainer.makeCurrentTemperatureViewModel())
                 .tabItem {
                     tabLabel(for: .currentTemperature)
                 }
@@ -83,7 +83,7 @@ struct MainTabView: View {
                 .tag(TabItem.history)
 
             // 설정
-            SettingView(viewModel: pointSceneDIContainer.makeSettingViewModel())
+            SettingView(viewModel: applicationDIContainer.makeSettingViewModel())
                 .tabItem {
                     tabLabel(for: .settings)
                 }

@@ -5,13 +5,13 @@
 
 import Foundation
 
-protocol SplashUseCaseProtocol {
+protocol SplashUseCase {
     func checkVersion(appVersion: String) async throws -> VersionStatus
 }
 
 /// 스플래시 화면 비즈니스 로직 UseCase
 /// 버전 체크 외 향후 스플래시 시 필요한 다른 동작(공지 조회 등) 추가 가능
-final class SplashUseCase: SplashUseCaseProtocol {
+final class DefaultSplashUseCase: SplashUseCase {
     private let repository: SplashRepository
     
     init(repository: SplashRepository) {
