@@ -583,10 +583,9 @@ struct AsyncLocalImageView: View {
     private func loadImage() {
         isLoading = true
         // 백그라운드 스레드에서 이미지 로드
-        DispatchQueue.global(qos: .userInitiated).async {
+        Task {
             let loadedImage = UIImage(contentsOfFile: path)
-            
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.image = loadedImage
                 self.isLoading = false
             }

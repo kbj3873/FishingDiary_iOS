@@ -63,7 +63,7 @@ class SCPrivacy: NSObject {
 	}
 	
 	@objc func enterForeground(_ notification: Notification) {
-		DispatchQueue.main.async {
+		Task { @MainActor in
 			if let handler = self.foregroundHandler {
 				handler()
 			}
@@ -97,7 +97,7 @@ class SCPrivacy: NSObject {
 						permission?(.denined)
 					}
 				}
-				DispatchQueue.main.async {
+				Task { @MainActor in
 					moveSetting?(settingHandler)
 				}
 			}else {
@@ -112,7 +112,7 @@ class SCPrivacy: NSObject {
 			// 아직 결정되지 않음
 			if access {
 				AVCaptureDevice.requestAccess(for: .video) { granted in
-					DispatchQueue.main.async {
+					Task { @MainActor in
 						if granted {
 							permission?(.use)
 						}else {
@@ -155,7 +155,7 @@ class SCPrivacy: NSObject {
 						permission?(.denined)
 					}
 				}
-				DispatchQueue.main.async {
+				Task { @MainActor in
 					moveSetting?(settingHandler)
 				}
 			}else {
@@ -170,7 +170,7 @@ class SCPrivacy: NSObject {
 			// 아직 결정되지 않음
 			if access {
 				PHPhotoLibrary.requestAuthorization { status in
-					DispatchQueue.main.async {
+					Task { @MainActor in
 						if status == .authorized {
 							permission?(.use)
 						}else {
@@ -224,7 +224,7 @@ class SCPrivacy: NSObject {
 						permission?(.denined)
 					}
 				}
-				DispatchQueue.main.async {
+				Task { @MainActor in
 					moveSetting?(settingHandler)
 				}
 			}else {
@@ -253,7 +253,7 @@ class SCPrivacy: NSObject {
 						permission?(.denined)
 					}
 				}
-				DispatchQueue.main.async {
+				Task { @MainActor in
 					moveSetting?(settingHandler)
 				}
 			}else {
@@ -269,7 +269,7 @@ class SCPrivacy: NSObject {
 			if access {
 				let contacts = CNContactStore()
 				contacts.requestAccess(for: .contacts) { granted, error in
-					DispatchQueue.main.async {
+					Task { @MainActor in
 						if granted {
 							permission?(.use)
 						}else {
@@ -304,7 +304,7 @@ class SCPrivacy: NSObject {
 							permission?(.denined)
 						}
 					}
-					DispatchQueue.main.async {
+					Task { @MainActor in
 						moveSetting?(settingHandler)
 					}
 				}else {
@@ -334,7 +334,7 @@ class SCPrivacy: NSObject {
 							permission?(.denined)
 						}
 					}
-					DispatchQueue.main.async {
+					Task { @MainActor in
 						moveSetting?(settingHandler)
 					}
 				}else {

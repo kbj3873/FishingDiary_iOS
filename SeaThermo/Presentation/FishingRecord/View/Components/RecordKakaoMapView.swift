@@ -69,7 +69,7 @@ struct RecordKakaoMapView: UIViewControllerRepresentable {
         
         if shouldCleanup {
             context.coordinator.cleanup()
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.shouldCleanup = false
             }
         }
@@ -101,7 +101,7 @@ struct RecordKakaoMapView: UIViewControllerRepresentable {
                 }
             }
             // 액션 처리 후 리셋
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.mapAction = nil
             }
         }

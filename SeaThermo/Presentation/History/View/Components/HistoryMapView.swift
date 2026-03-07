@@ -61,7 +61,7 @@ struct HistoryMapView: UIViewRepresentable {
                 if !allCoordinates.isEmpty {
                     let region = regionFor(coordinates: allCoordinates)
                     uiView.setRegion(region, animated: true)
-                    DispatchQueue.main.async {
+                    Task { @MainActor in
                         self.isMapInitialized = true
                     }
                 }
@@ -69,7 +69,7 @@ struct HistoryMapView: UIViewRepresentable {
                  let coords = markers.map { $0.coordinate }
                  let region = regionFor(coordinates: coords)
                  uiView.setRegion(region, animated: true)
-                 DispatchQueue.main.async {
+                 Task { @MainActor in
                      self.isMapInitialized = true
                  }
             }

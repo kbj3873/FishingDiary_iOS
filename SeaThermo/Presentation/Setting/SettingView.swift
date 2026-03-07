@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingView: View {
     @StateObject var viewModel: SettingViewModel
+    @EnvironmentObject private var applicationDIContainer: ApplicationDIContainer
     @State private var path = NavigationPath()
     
     var body: some View {
@@ -47,7 +48,10 @@ struct SettingView: View {
             }
             .navigationBarHidden(true)
             .navigationDestination(for: WebPage.self) { page in
-                SeaThermoWebView(page: page)
+                let urlString = applicationDIContainer.appConfiguration.apiOnbadaURL + page.path
+                if let url = URL(string: urlString) {
+                    SeaThermoWebView(url: url)
+                }
             }
         }
     }

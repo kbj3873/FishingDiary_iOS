@@ -1,3 +1,10 @@
+//
+//  DefaultFishingRecordRepository.swift
+//  SeaThermo
+//
+//  Created by Y0000591 on 2024/03/07.
+//
+
 import Foundation
 
 final class DefaultFishingRecordRepository: FishingRecordRepository {

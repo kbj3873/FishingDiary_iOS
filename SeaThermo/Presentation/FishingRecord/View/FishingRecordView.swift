@@ -277,7 +277,7 @@ struct FishingRecordView: View {
             Button(action: {
                 if mapType == 1 {
                     // 약간의 딜레이를 주어 상태 변경 인식
-                    DispatchQueue.main.async { kakaoMapAction = .zoomIn }
+                    Task { kakaoMapAction = .zoomIn }
                 } else {
                     mapCoordinator?.zoomIn()
                 }
@@ -287,7 +287,7 @@ struct FishingRecordView: View {
             
             Button(action: {
                 if mapType == 1 {
-                    DispatchQueue.main.async { kakaoMapAction = .zoomOut }
+                    Task { kakaoMapAction = .zoomOut }
                 } else {
                     mapCoordinator?.zoomOut()
                 }
@@ -297,7 +297,7 @@ struct FishingRecordView: View {
             
             Button(action: {
                 if mapType == 1 {
-                    DispatchQueue.main.async { kakaoMapAction = .moveToUserLocation }
+                    Task { kakaoMapAction = .moveToUserLocation }
                 } else {
                     mapCoordinator?.moveToUserLocation()
                 }

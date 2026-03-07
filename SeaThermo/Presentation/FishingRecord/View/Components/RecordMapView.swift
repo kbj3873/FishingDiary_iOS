@@ -28,7 +28,7 @@ struct RecordMapView: UIViewRepresentable {
         mapView.isRotateEnabled = false
         mapView.isPitchEnabled = false
         
-        DispatchQueue.main.async {
+        Task { @MainActor in
             coordinator = context.coordinator
         }
         context.coordinator.mapView = mapView

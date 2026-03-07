@@ -86,8 +86,11 @@ struct SeaAnalysisView: View {
                 self.selectedSea = nil
                 
                 // Trigger detail view navigation after a short delay
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.showDetailView = true
+                Task {
+                    try? await Task.sleep(nanoseconds: 500_000_000)
+                    await MainActor.run {
+                        self.showDetailView = true
+                    }
                 }
             }
             .presentationDetents([.fraction(0.9)])

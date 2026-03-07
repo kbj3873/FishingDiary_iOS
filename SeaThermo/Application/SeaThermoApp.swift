@@ -34,9 +34,6 @@ struct SeaThermoApp: App {
     @State private var currentStep: AppStep = .splash
     
     init() {
-        // 싱글톤 기반의 전역 매니저 초기화
-        FDAppManager.shared.appInitialize()
-        
         // DI Container 셋업
         self.applicationDIContainer = ApplicationDIContainer()
         AppDIContainer.shared.register(applicationDIContainer)

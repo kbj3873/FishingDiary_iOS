@@ -75,14 +75,10 @@
 		F49152762B9954D70000C552 /* OceanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152752B9954D60000C552 /* OceanRepository.swift */; };
 		F49152782B9955680000C552 /* DefaultOceanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152772B9955680000C552 /* DefaultOceanRepository.swift */; };
 		F491527D2B99A91E0000C552 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F491527C2B99A91E0000C552 /* APIEndpoints.swift */; };
-		F4950DCB2AAA9A7100DD26DE /* FDFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCA2AAA9A7100DD26DE /* FDFileManager.swift */; };
 		F4950DCD2AAAA36000DD26DE /* FDAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */; };
 		F4950DCF2AAAB08100DD26DE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCE2AAAB08100DD26DE /* Date.swift */; };
-		F4ACBC162AA179DE009CDA08 /* SnapKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4ACBC132AA176DA009CDA08 /* SnapKit.xcframework */; };
-		F4ACBC172AA179DE009CDA08 /* SnapKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4ACBC132AA176DA009CDA08 /* SnapKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4B270A22B9A91C9007A71D5 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */; };
 		F4C0276F2AB17804007D1900 /* MKPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0276E2AB17804007D1900 /* MKPolyline.swift */; };
-		F4C1AD462AB96E2400A34386 /* 230916_point.json in Resources */ = {isa = PBXBuildFile; fileRef = F4C1AD452AB96E2400A34386 /* 230916_point.json */; };
 		F4C1AD4A2AB979E300A34386 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AD492AB979E300A34386 /* String.swift */; };
 		F4DE47B32AA0107000ED2D23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47B22AA0107000ED2D23 /* Assets.xcassets */; };
 		F4DE47B62AA0107000ED2D23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47B42AA0107000ED2D23 /* LaunchScreen.storyboard */; };
@@ -110,7 +106,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F4ACBC172AA179DE009CDA08 /* SnapKit.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -188,13 +183,10 @@
 		F49152752B9954D60000C552 /* OceanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanRepository.swift; sourceTree = "<group>"; };
 		F49152772B9955680000C552 /* DefaultOceanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultOceanRepository.swift; sourceTree = "<group>"; };
 		F491527C2B99A91E0000C552 /* APIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
-		F4950DCA2AAA9A7100DD26DE /* FDFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDFileManager.swift; sourceTree = "<group>"; };
 		F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDAppManager.swift; sourceTree = "<group>"; };
 		F4950DCE2AAAB08100DD26DE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		F4ACBC132AA176DA009CDA08 /* SnapKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SnapKit.xcframework; sourceTree = "<group>"; };
 		F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		F4C0276E2AB17804007D1900 /* MKPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKPolyline.swift; sourceTree = "<group>"; };
-		F4C1AD452AB96E2400A34386 /* 230916_point.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 230916_point.json; sourceTree = "<group>"; };
 		F4C1AD492AB979E300A34386 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F4DE47A62AA0106E00ED2D23 /* SeaThermo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeaThermo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DE47B22AA0107000ED2D23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -228,7 +220,6 @@
 				F4DE48012AA026B400ED2D23 /* OpenGLES.framework in Frameworks */,
 				F4DE48052AA026C700ED2D23 /* QuartzCore.framework in Frameworks */,
 				F4DE47FF2AA0256B00ED2D23 /* CoreLocation.framework in Frameworks */,
-				F4ACBC162AA179DE009CDA08 /* SnapKit.xcframework in Frameworks */,
 				F4DE48032AA026BE00ED2D23 /* SystemConfiguration.framework in Frameworks */,
 				F4DE480D2AA0277700ED2D23 /* UIKit.framework in Frameworks */,
 				F4DE480F2AA0278A00ED2D23 /* Foundation.framework in Frameworks */,
@@ -633,22 +624,6 @@
 			path = DTOs;
 			sourceTree = "<group>";
 		};
-		F4ACBC122AA176DA009CDA08 /* SnapKit */ = {
-			isa = PBXGroup;
-			children = (
-				F4ACBC132AA176DA009CDA08 /* SnapKit.xcframework */,
-			);
-			path = SnapKit;
-			sourceTree = "<group>";
-		};
-		F4C1AD442AB96E2400A34386 /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				F4C1AD452AB96E2400A34386 /* 230916_point.json */,
-			);
-			path = Resource;
-			sourceTree = "<group>";
-		};
 		F4DE479D2AA0106E00ED2D23 = {
 			isa = PBXGroup;
 			children = (
@@ -677,24 +652,14 @@
 				F43151EE2B185AD200027BB9 /* Data */,
 				F43151F02B185AD200027BB9 /* Domain */,
 				F43151F42B185AD200027BB9 /* Presentation */,
-				F4C1AD442AB96E2400A34386 /* Resource */,
 				F4DE48242AA04ECB00ED2D23 /* Common */,
 				F4DE481C2AA02E6500ED2D23 /* Utility */,
 				F4DE48192AA02DA300ED2D23 /* Managers */,
-				F4DE47BD2AA0114F00ED2D23 /* Libraries */,
 				F4DE47B22AA0107000ED2D23 /* Assets.xcassets */,
 				F4DE47B42AA0107000ED2D23 /* LaunchScreen.storyboard */,
 				F4DE47B72AA0107000ED2D23 /* Info.plist */,
 			);
 			path = SeaThermo;
-			sourceTree = "<group>";
-		};
-		F4DE47BD2AA0114F00ED2D23 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				F4ACBC122AA176DA009CDA08 /* SnapKit */,
-			);
-			path = Libraries;
 			sourceTree = "<group>";
 		};
 		F4DE47FD2AA0256A00ED2D23 /* Frameworks */ = {
@@ -719,7 +684,6 @@
 			isa = PBXGroup;
 			children = (
 				F4DE481A2AA02DA300ED2D23 /* FDLocationManager.swift */,
-				F4950DCA2AAA9A7100DD26DE /* FDFileManager.swift */,
 				F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */,
 			);
 			path = Managers;
@@ -839,7 +803,6 @@
 			files = (
 				F4DE47B62AA0107000ED2D23 /* LaunchScreen.storyboard in Resources */,
 				119396702F59912800F4EB6C /* GoogleService-Info.plist in Resources */,
-				F4C1AD462AB96E2400A34386 /* 230916_point.json in Resources */,
 				F4DE47B32AA0107000ED2D23 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -937,7 +900,6 @@
 				F4B270A22B9A91C9007A71D5 /* AppConfiguration.swift in Sources */,
 				1171426A2F347394008E79D6 /* HistoryMapView.swift in Sources */,
 				117618292F33480A00EF9FAF /* CommonPopupView.swift in Sources */,
-				F4950DCB2AAA9A7100DD26DE /* FDFileManager.swift in Sources */,
 				11E66EAC2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift in Sources */,
 				11E66EAD2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift in Sources */,
 				F4E2C33D2B6A30A4007D1997 /* MapPolyline.swift in Sources */,

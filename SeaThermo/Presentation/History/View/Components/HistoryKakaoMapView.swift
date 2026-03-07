@@ -23,7 +23,7 @@ struct HistoryKakaoMapView: UIViewControllerRepresentable {
         vc.initialCenter = centerCoordinate
         vc.isMapInitialized = isMapInitialized
         vc.onMapInitialized = {
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.isMapInitialized = true
             }
         }

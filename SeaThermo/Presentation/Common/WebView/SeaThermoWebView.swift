@@ -10,11 +10,11 @@ import WebKit
 /// - User-Agent: SeaThermo 식별자 포함
 /// - appBridge close 메시지 수신 시 → navigation pop
 struct SeaThermoWebView: View {
-    let page: WebPage
+    let url: URL
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        _SeaThermoWebViewRepresentable(url: page.url, onPop: { dismiss() })
+        _SeaThermoWebViewRepresentable(url: url, onPop: { dismiss() })
             .ignoresSafeArea()
             .navigationBarHidden(true)
     }
@@ -78,7 +78,7 @@ extension _SeaThermoWebViewRepresentable {
             switch body {
             case "close":
                 // 웹뷰에서 닫기 요청 → navigation pop
-                DispatchQueue.main.async { self.onPop() }
+                Task { @MainActor in self.onPop() }
             default:
                 break  // 향후 share, login 등 메시지 추가 가능
             }

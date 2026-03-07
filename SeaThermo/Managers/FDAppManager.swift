@@ -37,10 +37,6 @@ class FDAppManager: NSObject {
         self.setMapTp(savedMapType)
     }
     
-    func appInitialize() {
-        FDFileManager().createDefaultDirectories()
-    }
-    
     func setMapTp(_ rawValue: Int) {
         switch rawValue {
         case 0:
