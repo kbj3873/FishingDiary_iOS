@@ -9,4 +9,7 @@ import Foundation
 protocol SplashRepository {
     /// 앱 버전 체크 API 호출
     func checkVersion(appVersion: String) async throws -> VersionStatus
+    
+    /// 전체 지역(관측소) 목록 API 호출
+    func fetchRegions() async throws -> [Region]
 }

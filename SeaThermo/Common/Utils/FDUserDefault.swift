@@ -21,4 +21,10 @@ class UserDefaultKey: NSObject {
     
     /// 온보딩 가이드 완료 여부
     static let hasCompletedOnboarding = "hasCompletedOnboarding"
+    
+    /// 서버에서 내려받은 전체 지역(관측소) 리스트 캐싱
+    static let allRegionList = "allRegionList"
+
+    /// 크롤링 기반 현재수온 탭 즐겨찾기 지역 리스트 (Region 타입, 최대 7개)
+    static let crawlingFavoriteRegions = "crawlingFavoriteRegions"
 }

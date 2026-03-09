@@ -8,50 +8,20 @@
 import SwiftUI
 
 struct SeaAnalysisView: View {
-    // ViewModel usage for region list (Local State for static UI)
-    @State private var seaRegions: [SeaRegionInfo] = [
-        SeaRegionInfo(
-            id: Sea.west.id,
-            sea: .west,
-            title: "서해",
-            subtitle: "황해 연안 지역",
-            imageName: "sea_west",
-            stationCount: WestObserv.allCases.count - 1
-        ),
-        SeaRegionInfo(
-            id: Sea.east.id,
-            sea: .east,
-            title: "동해",
-            subtitle: "동해안 지역",
-            imageName: "sea_east",
-            stationCount: EastObserv.allCases.count - 1
-        ),
-        SeaRegionInfo(
-            id: Sea.south.id,
-            sea: .south,
-            title: "남해",
-            subtitle: "남해안 지역",
-            imageName: "sea_south",
-            stationCount: SouthObserv.allCases.count - 1
-        )
-    ]
-    
     // Navigation State
-    @State private var selectedSea: Sea? // Used for Sheet Item
-    @State private var selectedStation: ObservatoryInfo? // Used for Detail Navigation
+    @State private var selectedSea: Sea?
+    @State private var selectedStation: ObservatoryInfo?
     @State private var showDetailView: Bool = false
-    
+
     // DI
     private let applicationDIContainer: ApplicationDIContainer = AppDIContainer.shared.resolve()
 
     var body: some View {
         NavigationView {
              ZStack {
-                // Background (safe area까지 확장)
                 Color(hex: "F2F2F7")
                     .ignoresSafeArea()
-                
-                // Hidden Navigation Link for Detail View
+
                 NavigationLink(
                     destination: detailViewDestination,
                     isActive: $showDetailView
@@ -59,13 +29,9 @@ struct SeaAnalysisView: View {
                     EmptyView()
                 }
 
-                // Content
                 ScrollView {
                     VStack(spacing: 0) {
-                        // Header
                         headerSection
-
-                        // Sea Region Cards
                         cardsSection
                     }
                 }
@@ -74,18 +40,10 @@ struct SeaAnalysisView: View {
             }
             .navigationBarHidden(true)
         }
-        // Fix: Use sheet(item:) for safe unpacking of optional state
         .sheet(item: $selectedSea) { sea in
             SeaRegionListView(sea: sea) { station in
-                // Callback when a station is selected
                 self.selectedStation = station
-                
-                // Close sheet logic is handled by sheet binding (selectedSea = nil),
-                // but usually sheet is dismissed by setting item to nil.
-                // Here we set selectedSea to nil to dismiss.
                 self.selectedSea = nil
-                
-                // Trigger detail view navigation after a short delay
                 Task {
                     try? await Task.sleep(nanoseconds: 500_000_000)
                     await MainActor.run {
@@ -97,11 +55,10 @@ struct SeaAnalysisView: View {
             .presentationDragIndicator(.visible)
         }
     }
-    
+
     @ViewBuilder
     private var detailViewDestination: some View {
         if let station = selectedStation {
-            // Fix: Inject station info to ViewModel
             SeaAnalysisDetailView(viewModel: applicationDIContainer.makeSeaAnalysisDetailViewModel(station: station))
         } else {
             EmptyView()
@@ -135,8 +92,6 @@ struct SeaAnalysisView: View {
         VStack(spacing: 8) {
             ForEach(seaRegions, id: \.id) { region in
                 SeaRegionCardView(region: region) {
-                    // Tap Action
-                    print("Selected: \(region.title)")
                     self.selectedSea = region.sea
                 }
             }
@@ -144,6 +99,45 @@ struct SeaAnalysisView: View {
         .padding(.horizontal, 16)
         .padding(.top, 16)
         .padding(.bottom, 32)
+    }
+
+    // MARK: - Sea Regions (allRegionList 기반 동적 생성)
+
+    /// 서버에서 캐싱된 allRegionList를 기반으로 해역별 카드 정보 생성.
+    /// stationCount는 실제 관측소 수로 표시됩니다.
+    private var seaRegions: [SeaRegionInfo] {
+        let allRegions = FDUserDefaults.getFromList(key: UserDefaultKey.allRegionList, type: Region.self)
+
+        let westCount  = allRegions.filter { $0.toSea() == .west  }.count
+        let eastCount  = allRegions.filter { $0.toSea() == .east  }.count
+        let southCount = allRegions.filter { $0.toSea() == .south }.count // 제주 포함
+
+        return [
+            SeaRegionInfo(
+                id: Sea.west.id,
+                sea: .west,
+                title: "서해",
+                subtitle: "황해 연안 지역",
+                imageName: "sea_west",
+                stationCount: westCount
+            ),
+            SeaRegionInfo(
+                id: Sea.east.id,
+                sea: .east,
+                title: "동해",
+                subtitle: "동해안 지역",
+                imageName: "sea_east",
+                stationCount: eastCount
+            ),
+            SeaRegionInfo(
+                id: Sea.south.id,
+                sea: .south,
+                title: "남해",
+                subtitle: "남해안 지역",
+                imageName: "sea_south",
+                stationCount: southCount
+            )
+        ]
     }
 }
 

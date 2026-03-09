@@ -18,4 +18,14 @@ final class DefaultSplashRepository: SplashRepository {
         let responseDTO: VersionCheckResponseDTO = try await apiNetworkService.request(with: endpoint)
         return responseDTO.toDomain()
     }
+    
+    func fetchRegions() async throws -> [Region] {
+        let endpoint = APIEndpoints.postRegions(baseURL: apiNetworkService.baseURL)
+        let responseDTO: RegionResponseDTO = try await apiNetworkService.request(with: endpoint)
+        
+        guard let data = responseDTO.data else {
+            return []
+        }
+        return data.map { $0.toDomain() }
+    }
 }

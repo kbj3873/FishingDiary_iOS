@@ -21,7 +21,8 @@ struct RisaInfoListRequestDTO: Encodable {
     let obsTimeTo: String = "2330"
     let obsTimeDefault: String = "N"
     let selectPage: String = "1"
-    let rowCountPage: String = "1000" // 7일 데이터 전체를 가져오기 위해 넉넉한 수를 지정 (ex: 20 -> 1000)
+    // query.dataCnt가 있으면 사용, 없으면 1000 (SeaAnalysis 7일 전체 조회 기본값)
+    let rowCountPage: String
     
     enum CodingKeys: String, CodingKey {
         case obsrvnGroupNm
@@ -45,6 +46,7 @@ struct RisaInfoListRequestDTO: Encodable {
         self.obsTo = query.obsTo
         self.ord = query.ord
         self.ordType = query.ordType
+        self.rowCountPage = query.dataCnt.isEmpty ? "1000" : query.dataCnt
     }
 }
 

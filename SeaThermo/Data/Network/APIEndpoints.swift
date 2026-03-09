@@ -49,6 +49,13 @@ struct APIEndpoints {
                         headerParameters: Headers.forSeaThermoAPI(),
                         bodyParametersEncodable: requestDTO)
     }
+    
+    static func postRegions(baseURL: String) -> Endpoint<RegionResponseDTO> {
+        return Endpoint(baseURL: baseURL,
+                        path: "api/regions",
+                        method: .post,
+                        headerParameters: Headers.forSeaThermoAPI())
+    }
 }
 
 extension APIEndpoints {

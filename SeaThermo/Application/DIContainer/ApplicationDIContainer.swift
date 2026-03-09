@@ -32,6 +32,10 @@ extension ApplicationDIContainer {
         CurrentTemperatureViewModel(appConfiguration: appConfiguration,
                                     oceanUseCase: makeOceanUseCase())
     }
+
+    @MainActor func makeCrawlingCurrentTemperatureViewModel() -> CrawlingCurrentTemperatureViewModel {
+        CrawlingCurrentTemperatureViewModel(oceanUseCase: makeOceanUseCase())
+    }
     
     @MainActor func makeOceanSelectViewModel() -> OceanSelectViewModel {
         OceanSelectViewModel(appConfiguration: appConfiguration,

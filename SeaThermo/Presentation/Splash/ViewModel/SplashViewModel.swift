@@ -33,14 +33,23 @@ final class SplashViewModel: ObservableObject {
         let startTime = Date()
         
         versionCheckTask = Task {
-            // 최소 표시 시간 보장
+            // 최소 표시 시간 보장 및 병렬 API 호출
             async let versionResult: VersionStatus = splashUseCase.checkVersion(appVersion: currentVersion)
             async let minimumDelay: Void = Task.sleep(nanoseconds: UInt64(minimumDisplayDuration * 1_000_000_000))
-            
+
+            // 관측소 목록은 버전 체크와 독립적으로 저장 (버전 체크 실패 시에도 캐싱)
+            do {
+                let regions = try await splashUseCase.fetchRegions()
+                FDUserDefaults.setToList(regions, key: UserDefaultKey.allRegionList)
+                print("[Splash] 관측소 목록 캐싱 완료: \(regions.count)개")
+            } catch {
+                print("[Splash] 관측소 목록 fetch 실패: \(error)")
+            }
+
             do {
                 let status = try await versionResult
                 _ = try? await minimumDelay
-                
+
                 if status.forceUpdate {
                     self.state = .forceUpdate(message: status.message)
                 } else if status.needUpdate {
@@ -50,7 +59,8 @@ final class SplashViewModel: ObservableObject {
                 }
             } catch {
                 _ = try? await minimumDelay
-                // API 실패 시 조용히 메인 화면으로 전환
+                // 버전 체크 실패 시 조용히 메인 화면으로 전환
+                print("[Splash] 버전 체크 실패: \(error)")
                 self.state = .readyToNavigate
             }
         }

@@ -54,8 +54,8 @@ struct MainTabView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            // 현재수온
-            CurrentTemperatureView(viewModel: applicationDIContainer.makeCurrentTemperatureViewModel())
+            // 현재수온 (크롤링 기반)
+            CrawlingCurrentTemperatureView(viewModel: applicationDIContainer.makeCrawlingCurrentTemperatureViewModel())
                 .tabItem {
                     tabLabel(for: .currentTemperature)
                 }

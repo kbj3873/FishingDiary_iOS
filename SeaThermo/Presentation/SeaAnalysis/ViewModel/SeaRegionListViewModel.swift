@@ -10,14 +10,14 @@ import Foundation
 // MARK: - ObservatoryInfo Model
 
 struct ObservatoryInfo: Identifiable, Hashable {
-    let id: String      // API 코드 (cd)
-    let name: String    // 표시명 (title)
-    let sea: Sea        // 소속 해역
+    let id: String      // API staCde (regionCode)
+    let name: String    // 표시명 (regionName)
+    let sea: Sea        // 소속 해역 → sea.id로 NIFS API gruNam 제공
 
-    init(from observ: Observ, sea: Sea) {
-        self.id = observ.cd
-        self.name = observ.title
-        self.sea = sea
+    init(from region: Region) {
+        self.id = region.regionCode
+        self.name = region.regionName
+        self.sea = region.toSea()
     }
 }
 
@@ -37,25 +37,11 @@ final class SeaRegionListViewModel: ObservableObject {
     }
 
     private func loadObservatories() {
-        observatories = getObservatories(for: sea)
-    }
+        let allRegions = FDUserDefaults.getFromList(key: UserDefaultKey.allRegionList, type: Region.self)
 
-    private func getObservatories(for sea: Sea) -> [ObservatoryInfo] {
-        switch sea {
-        case .west:
-            return WestObserv.allCases
-                .filter { $0 != .none }
-                .map { ObservatoryInfo(from: $0, sea: sea) }
-        case .east:
-            return EastObserv.allCases
-                .filter { $0 != .none }
-                .map { ObservatoryInfo(from: $0, sea: sea) }
-        case .south:
-            return SouthObserv.allCases
-                .filter { $0 != .none }
-                .map { ObservatoryInfo(from: $0, sea: sea) }
-        case .none:
-            return []
-        }
+        observatories = allRegions
+            .filter { $0.toSea() == sea }
+            .map { ObservatoryInfo(from: $0) }
+            .sorted { $0.name < $1.name }
     }
 }

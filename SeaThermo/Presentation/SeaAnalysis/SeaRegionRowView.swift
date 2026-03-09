@@ -41,24 +41,18 @@ struct SeaRegionRowView: View {
 
 #Preview {
     VStack(spacing: 12) {
-        SeaRegionRowView(
-            observatory: ObservatoryInfo(
-                from: SouthObserv.geojeIlun,
-                sea: .south
-            )
-        )
-        SeaRegionRowView(
-            observatory: ObservatoryInfo(
-                from: SouthObserv.goheungSorogdo,
-                sea: .south
-            )
-        )
-        SeaRegionRowView(
-            observatory: ObservatoryInfo(
-                from: SouthObserv.namhaeMijo,
-                sea: .south
-            )
-        )
+        SeaRegionRowView(observatory: ObservatoryInfo(from: Region(
+            regionGroup: "남해", regionCode: "gi086", regionName: "거제 일운",
+            latitude: "34.7", longitude: "128.6",
+            hasSurface: true, hasMiddle: false, hasBottom: false,
+            surfaceDepth: "2", middleDepth: "", bottomDepth: ""
+        )))
+        SeaRegionRowView(observatory: ObservatoryInfo(from: Region(
+            regionGroup: "남해", regionCode: "fnm5b", regionName: "남해 미조",
+            latitude: "34.7", longitude: "127.9",
+            hasSurface: true, hasMiddle: false, hasBottom: false,
+            surfaceDepth: "2", middleDepth: "", bottomDepth: ""
+        )))
     }
     .padding(16)
     .background(Color.white)

@@ -13,6 +13,12 @@
 		113565002F51A8C900F4E38B /* RisaListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113564FE2F51A8C900F4E38B /* RisaListDTO.swift */; };
 		11473BE62F56FD8400695EA9 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11473BE32F56FD8400695EA9 /* OnboardingView.swift */; };
 		11473BE72F56FD8400695EA9 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11473BE42F56FD8400695EA9 /* OnboardingViewModel.swift */; };
+		1150DFEF2F5E5FAB007C1638 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFEE2F5E5FAB007C1638 /* Region.swift */; };
+		1150DFF12F5E5FB7007C1638 /* RegionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFF02F5E5FB7007C1638 /* RegionDTO.swift */; };
+		1150DFF42F5E66BF007C1638 /* CrawlingCurrentTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFF22F5E66BF007C1638 /* CrawlingCurrentTemperatureView.swift */; };
+		1150DFF52F5E66BF007C1638 /* CrawlingOceanSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFF32F5E66BF007C1638 /* CrawlingOceanSelectView.swift */; };
+		1150DFF82F5E66DC007C1638 /* CrawlingCurrentTemperatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFF62F5E66DC007C1638 /* CrawlingCurrentTemperatureViewModel.swift */; };
+		1150DFF92F5E66DC007C1638 /* CrawlingOceanSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFF72F5E66DC007C1638 /* CrawlingOceanSelectViewModel.swift */; };
 		117142672F347384008E79D6 /* HistoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117142662F347384008E79D6 /* HistoryDetailView.swift */; };
 		1171426A2F347394008E79D6 /* HistoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117142682F347394008E79D6 /* HistoryMapView.swift */; };
 		1171426C2F34739B008E79D6 /* HistoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1171426B2F34739B008E79D6 /* HistoryDetailViewModel.swift */; };
@@ -67,7 +73,6 @@
 		F429D9492B9831030049534B /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9452B9831030049534B /* NetworkService.swift */; };
 		F429D94A2B9831030049534B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9462B9831030049534B /* Endpoint.swift */; };
 		F43151FD2B1860AE00027BB9 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43151FC2B1860AE00027BB9 /* AppDIContainer.swift */; };
-		F44883BE2DB10DA5008B9BB5 /* SeaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44883B12DB10DA5008B9BB5 /* SeaInfo.swift */; };
 		F480D2632BA2E2A800E1F30D /* WeeklyTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480D2622BA2E2A800E1F30D /* WeeklyTemperature.swift */; };
 		F48104422B5FA3BB00F1E1BC /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48104412B5FA3BB00F1E1BC /* UIDevice.swift */; };
 		F49152722B9951B00000C552 /* CurrentTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152712B9951B00000C552 /* CurrentTemperature.swift */; };
@@ -121,6 +126,12 @@
 		113564FE2F51A8C900F4E38B /* RisaListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RisaListDTO.swift; sourceTree = "<group>"; };
 		11473BE32F56FD8400695EA9 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		11473BE42F56FD8400695EA9 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		1150DFEE2F5E5FAB007C1638 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		1150DFF02F5E5FB7007C1638 /* RegionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDTO.swift; sourceTree = "<group>"; };
+		1150DFF22F5E66BF007C1638 /* CrawlingCurrentTemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrawlingCurrentTemperatureView.swift; sourceTree = "<group>"; };
+		1150DFF32F5E66BF007C1638 /* CrawlingOceanSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrawlingOceanSelectView.swift; sourceTree = "<group>"; };
+		1150DFF62F5E66DC007C1638 /* CrawlingCurrentTemperatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrawlingCurrentTemperatureViewModel.swift; sourceTree = "<group>"; };
+		1150DFF72F5E66DC007C1638 /* CrawlingOceanSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrawlingOceanSelectViewModel.swift; sourceTree = "<group>"; };
 		117142662F347384008E79D6 /* HistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailView.swift; sourceTree = "<group>"; };
 		117142682F347394008E79D6 /* HistoryMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMapView.swift; sourceTree = "<group>"; };
 		1171426B2F34739B008E79D6 /* HistoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailViewModel.swift; sourceTree = "<group>"; };
@@ -175,7 +186,6 @@
 		F429D9452B9831030049534B /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F429D9462B9831030049534B /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		F43151FC2B1860AE00027BB9 /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
-		F44883B12DB10DA5008B9BB5 /* SeaInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaInfo.swift; sourceTree = "<group>"; };
 		F480D2622BA2E2A800E1F30D /* WeeklyTemperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTemperature.swift; sourceTree = "<group>"; };
 		F48104412B5FA3BB00F1E1BC /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		F49152712B9951B00000C552 /* CurrentTemperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTemperature.swift; sourceTree = "<group>"; };
@@ -300,12 +310,12 @@
 		117A00272F2DA7C4005C7F82 /* SeaAnalysis */ = {
 			isa = PBXGroup;
 			children = (
+				43FACE516AE4ED4DDA39ECCD /* Components */,
 				117A00242F2DA7C4005C7F82 /* ViewModel */,
 				117A00252F2DA7C4005C7F82 /* SeaAnalysisView.swift */,
 				117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */,
 				117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */,
 				117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */,
-				43FACE516AE4ED4DDA39ECCD /* Components */,
 				B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */,
 			);
 			path = SeaAnalysis;
@@ -353,6 +363,8 @@
 		119396622F59673000F4EB6C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1150DFF22F5E66BF007C1638 /* CrawlingCurrentTemperatureView.swift */,
+				1150DFF32F5E66BF007C1638 /* CrawlingOceanSelectView.swift */,
 				119396602F59673000F4EB6C /* CurrentTemperatureView.swift */,
 				119396612F59673000F4EB6C /* OceanSelectView.swift */,
 			);
@@ -362,6 +374,8 @@
 		119396652F59673000F4EB6C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1150DFF62F5E66DC007C1638 /* CrawlingCurrentTemperatureViewModel.swift */,
+				1150DFF72F5E66DC007C1638 /* CrawlingOceanSelectViewModel.swift */,
 				119396632F59673000F4EB6C /* CurrentTemperatureViewModel.swift */,
 				119396642F59673000F4EB6C /* OceanSelectViewModel.swift */,
 			);
@@ -550,10 +564,10 @@
 		F43151F22B185AD200027BB9 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				1150DFEE2F5E5FAB007C1638 /* Region.swift */,
 				2BF69B7ED4E64B11A3500D56 /* VersionStatus.swift */,
 				F49152712B9951B00000C552 /* CurrentTemperature.swift */,
 				F480D2622BA2E2A800E1F30D /* WeeklyTemperature.swift */,
-				F44883B12DB10DA5008B9BB5 /* SeaInfo.swift */,
 				84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */,
 				F4E6A2992B2ABEB500C935BF /* PointMap.swift */,
 			);
@@ -617,6 +631,7 @@
 		F491527E2B99AA1A0000C552 /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
+				1150DFF02F5E5FB7007C1638 /* RegionDTO.swift */,
 				113564FE2F51A8C900F4E38B /* RisaListDTO.swift */,
 				113564FC2F51A8AE00F4E38B /* RisaInfoDTO.swift */,
 				7F9D632B8195470DA96FB3D6 /* VersionCheckDTO.swift */,
@@ -899,6 +914,7 @@
 				F49152722B9951B00000C552 /* CurrentTemperature.swift in Sources */,
 				F4B270A22B9A91C9007A71D5 /* AppConfiguration.swift in Sources */,
 				1171426A2F347394008E79D6 /* HistoryMapView.swift in Sources */,
+				1150DFEF2F5E5FAB007C1638 /* Region.swift in Sources */,
 				117618292F33480A00EF9FAF /* CommonPopupView.swift in Sources */,
 				11E66EAC2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift in Sources */,
 				11E66EAD2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift in Sources */,
@@ -909,10 +925,13 @@
 				F4DE481E2AA02E7B00ED2D23 /* SCPrivacy.swift in Sources */,
 				F49152742B9952590000C552 /* OceanUseCase.swift in Sources */,
 				F43151FD2B1860AE00027BB9 /* AppDIContainer.swift in Sources */,
+				1150DFF12F5E5FB7007C1638 /* RegionDTO.swift in Sources */,
 				F429D9492B9831030049534B /* NetworkService.swift in Sources */,
 				1188DC5F2F4D7E8600CB12C6 /* FishingRecordRepository.swift in Sources */,
 				F4F647932DC1F1630028A2C5 /* FDUserDefault.swift in Sources */,
 				F4C0276F2AB17804007D1900 /* MKPolyline.swift in Sources */,
+				1150DFF82F5E66DC007C1638 /* CrawlingCurrentTemperatureViewModel.swift in Sources */,
+				1150DFF92F5E66DC007C1638 /* CrawlingOceanSelectViewModel.swift in Sources */,
 				117142672F347384008E79D6 /* HistoryDetailView.swift in Sources */,
 				113564FD2F51A8AE00F4E38B /* RisaInfoDTO.swift in Sources */,
 				1188DC662F4DA53100CB12C6 /* WebViewConfig.swift in Sources */,
@@ -938,7 +957,6 @@
 				117618322F3364CA00EF9FAF /* HistoryViewModel.swift in Sources */,
 				1188DC612F4D7EA500CB12C6 /* SplashUseCase.swift in Sources */,
 				11FC08402F35C6CD0067FBAB /* RecordMapView.swift in Sources */,
-				F44883BE2DB10DA5008B9BB5 /* SeaInfo.swift in Sources */,
 				0BF29263C5B25FD2C6EF9558 /* SeaAnalysisDetailView.swift in Sources */,
 				61F92959D621EB1C9B01CD6A /* SeaAnalysisDetailViewModel.swift in Sources */,
 				AABF851A0557A35D008E9C95 /* TemperatureLineGraphView.swift in Sources */,
@@ -955,6 +973,8 @@
 				BE8D8308779040CAA518B7F1 /* VersionCheckDTO.swift in Sources */,
 				26B53BA3AF20420EB2F26926 /* DefaultSplashRepository.swift in Sources */,
 				E8AFEA2CD75B4A60A7E5ADC3 /* VersionStatus.swift in Sources */,
+				1150DFF42F5E66BF007C1638 /* CrawlingCurrentTemperatureView.swift in Sources */,
+				1150DFF52F5E66BF007C1638 /* CrawlingOceanSelectView.swift in Sources */,
 				32678646250D4911966F09E5 /* SplashView.swift in Sources */,
 				AA5D7BEB694340508095DBD0 /* SplashViewModel.swift in Sources */,
 			);
@@ -1092,7 +1112,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EDA398BA0DAB4D361B4206DB /* Pods-SeaThermo.debug.xcconfig */;
 			buildSettings = {
-				API_KEY_RISA = "qPwOeIrU-2503-TBWQGH-1070";
+				API_KEY_RISA = "qPwOeIrU-2603-WUSYBN-1455";
 				API_NIFS_URL = "https://www.nifs.go.kr";
 				API_ONBADA_URL = "http://3.35.210.133:3000";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1137,7 +1157,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7923DDEBCA0435B83A181040 /* Pods-SeaThermo.release.xcconfig */;
 			buildSettings = {
-				API_KEY_RISA = "qPwOeIrU-2503-TBWQGH-1070";
+				API_KEY_RISA = "qPwOeIrU-2603-WUSYBN-1455";
 				API_NIFS_URL = "https://www.nifs.go.kr";
 				API_ONBADA_URL = "http://3.35.210.133:3000";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
