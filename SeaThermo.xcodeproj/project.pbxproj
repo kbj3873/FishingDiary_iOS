@@ -544,9 +544,9 @@
 		F43151F02B185AD200027BB9 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				F43151F12B185AD200027BB9 /* UseCases */,
 				F43151F22B185AD200027BB9 /* Entities */,
 				F43151F32B185AD200027BB9 /* Interfaces */,
+				F43151F12B185AD200027BB9 /* UseCases */,
 			);
 			path = Domain;
 			sourceTree = "<group>";

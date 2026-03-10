@@ -30,7 +30,6 @@ final class SplashViewModel: ObservableObject {
     
     func onAppear() {
         let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
-        let startTime = Date()
         
         versionCheckTask = Task {
             // 최소 표시 시간 보장 및 병렬 API 호출

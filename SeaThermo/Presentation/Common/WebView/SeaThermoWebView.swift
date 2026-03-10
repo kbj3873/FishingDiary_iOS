@@ -14,9 +14,9 @@ struct SeaThermoWebView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        _SeaThermoWebViewRepresentable(url: url, onPop: { dismiss() })
-            .ignoresSafeArea()
-            .navigationBarHidden(true)
+            _SeaThermoWebViewRepresentable(url: url, onPop: { dismiss() })
+                .ignoresSafeArea(edges: .bottom)
+        .navigationBarHidden(true)
     }
 }
 

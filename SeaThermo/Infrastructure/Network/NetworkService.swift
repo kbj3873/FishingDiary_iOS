@@ -91,14 +91,10 @@ final class DefaultNetworkService: NetworkService {
                 throw error
             }
             
-            guard let resolvedData = resolveData(data) else {
-                throw NetworkError.noData
-            }
-            
-            logger.log(responseData: resolvedData, response: response)
+            logger.log(responseData: data, response: response)
             
             do {
-                let decodedResult: T = try endpoint.responseDecoder.decode(resolvedData)
+                let decodedResult: T = try endpoint.responseDecoder.decode(data)
                 return decodedResult
             } catch {
                 logger.log(error: error)
@@ -111,18 +107,6 @@ final class DefaultNetworkService: NetworkService {
             logger.log(error: networkError)
             throw networkError
         }
-    }
-    
-    // > data convert, www.nifs.go.kr 로부터 EUC_KR로 인코딩된 데이터를 utf8로 변경해준다
-    private func resolveData(_ data: Data?) -> Data? {
-        guard let originData = data else { return nil }
-        let convertStr = NSString(data: originData, encoding: encEUC_KR)
-        let responseString = (convertStr != nil) ? convertStr! : NSString(data: originData, encoding: encUTF8)
-        guard let utf8Data = responseString?.data(using: String.Encoding.utf8.rawValue) else {
-            return data
-        }
-        
-        return utf8Data
     }
     
     private let encEUC_KR = CFStringConvertEncodingToNSStringEncoding(
