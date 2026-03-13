@@ -6,12 +6,8 @@
 
 | 문서 | 용도 | 언제 참조 |
 |-----|------|----------|
-| [기능 개발 워크플로우](.agent/workflows/develop_feature.md) | Standard Workflow | 기능 구현 시작 시 **필수** |
-| [한국어 사용 규칙](.agent/workflows/korean_language.md) | Language Rule | 모든 대화 및 주석 작성 시 |
-| [프로젝트 구조](.agent/workflows/project_structure.md) | Domain & Context | 기존 컴포넌트/엔티티 확인 시 |
+| [기능 개발 워크플로우](.agent/workflows/figma_to_swiftui_workflow.md) | Standard Workflow | 디자인 변환 및 기능 구현 시작 시 **필수** |
 | [작업 로그 가이드](.agent/workflows/work_log.md) | Notion Work Log | 일일 작업 로그 기록 시 |
-| [Figma 변환 규칙](.claude/figma-to-swiftui.md) | 상세 디자인 가이드 | (참고용) Figma 작업 시 |
-| [Domain 요약](.claude/domain-summary.md) | 상세 도메인 지식 | (참고용) 도메인 로직 심화 |
 
 ## 프로젝트 개요
 
@@ -673,6 +669,16 @@ struct MyMapRepresentable: UIViewRepresentable {
 ### 렌더링 최적화
 - **Task 기반 백그라운드 처리:** 뷰모델 내 데이터 무거운 데이터 가공 파트는 `Task.detached`나 백그라운드 큐로 오프로딩 적용
 - **3D 비활성화 (맵 컴포넌트):** UIKit MapKit 요소 통합 시 성능 개선을 위해 기본적으로 `isRotateEnabled = false`, `isPitchEnabled = false` 강제 고정
+
+## 레거시 정책 (Legacy Policy)
+
+현재 앱 구조 개선을 진행 중이며, 구형 로직들을 점진적으로 교체하거나 분리하고 있습니다. 신규 기능 개발 시 아래의 레거시 폴더 내부 파일들은 수정하지 마시고, 가급적 별도의 독립적인 신규 모듈/뷰를 생성하세요.
+
+| 폴더 | 설명 | 대체 방향 |
+|-----|-----|---------|
+| `Presentation/PointScene/` | 포인트 목록, 포인트 기반 듀얼지도 | 신규 모듈로 재개발 권장 |
+| `Presentation/SeaWaterTemperature/` | 구형 수온 상세 화면 | `SeaAnalysis` 모듈로 이미 대체됨 |
+| `Presentation/Track/` | 지도상 낚시 경로 추적 기능 | 신규 모듈로 재개발 권장 |
 
 ## 향후 개선 계획
 
