@@ -65,3 +65,6 @@ Pods/
 *.DS_Store
 .DS_Store
 
+# Secrets - API Keys
+mcp.json
+
