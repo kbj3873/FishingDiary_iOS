@@ -67,4 +67,11 @@ Pods/
 
 # Secrets - API Keys
 mcp.json
+.mcp.json
+
+# Claude MCP swagger cache
+.swagger-cache/
+
+# Claude Code
+.claude/
 

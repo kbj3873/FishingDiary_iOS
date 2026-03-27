@@ -32,5 +32,7 @@
 	<array>
 		<string>location</string>
 	</array>
+	<key>FirebaseCrashlyticsDebugEnabled</key>
+	<true/>
 </dict>
 </plist>

@@ -38,7 +38,7 @@ struct SettingView: View {
                             
                             // Copyright
                             copyrightSection
-                            
+
                             Spacer()
                         }
                         .padding(.top, 24)
