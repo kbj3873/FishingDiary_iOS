@@ -81,6 +81,7 @@
 		F49152782B9955680000C552 /* DefaultOceanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152772B9955680000C552 /* DefaultOceanRepository.swift */; };
 		F491527D2B99A91E0000C552 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F491527C2B99A91E0000C552 /* APIEndpoints.swift */; };
 		F4950DCD2AAAA36000DD26DE /* FDAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */; };
+		AA000001AABB000100000001 /* MetricKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AABB000100000000 /* MetricKitManager.swift */; };
 		F4950DCF2AAAB08100DD26DE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCE2AAAB08100DD26DE /* Date.swift */; };
 		F4B270A22B9A91C9007A71D5 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */; };
 		F4C0276F2AB17804007D1900 /* MKPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0276E2AB17804007D1900 /* MKPolyline.swift */; };
@@ -194,6 +195,7 @@
 		F49152772B9955680000C552 /* DefaultOceanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultOceanRepository.swift; sourceTree = "<group>"; };
 		F491527C2B99A91E0000C552 /* APIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
 		F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDAppManager.swift; sourceTree = "<group>"; };
+		AA000001AABB000100000000 /* MetricKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricKitManager.swift; sourceTree = "<group>"; };
 		F4950DCE2AAAB08100DD26DE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		F4C0276E2AB17804007D1900 /* MKPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKPolyline.swift; sourceTree = "<group>"; };
@@ -700,6 +702,7 @@
 			children = (
 				F4DE481A2AA02DA300ED2D23 /* FDLocationManager.swift */,
 				F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */,
+				AA000001AABB000100000000 /* MetricKitManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -956,6 +959,7 @@
 				113564FD2F51A8AE00F4E38B /* RisaInfoDTO.swift in Sources */,
 				1188DC662F4DA53100CB12C6 /* WebViewConfig.swift in Sources */,
 				F4DE481B2AA02DA300ED2D23 /* FDLocationManager.swift in Sources */,
+				AA000001AABB000100000001 /* MetricKitManager.swift in Sources */,
 				11473BE62F56FD8400695EA9 /* OnboardingView.swift in Sources */,
 				11473BE72F56FD8400695EA9 /* OnboardingViewModel.swift in Sources */,
 				F491527D2B99A91E0000C552 /* APIEndpoints.swift in Sources */,

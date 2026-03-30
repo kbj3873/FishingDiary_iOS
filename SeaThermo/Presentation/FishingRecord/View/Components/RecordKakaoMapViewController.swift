@@ -26,6 +26,7 @@ class RecordKakaoMapViewController: UIViewController {
     var _currentPositionPoi: Poi?
     
     var polylines = [MapPolyline]()
+    private var _polylineShape: MapPolylineShape?
     
     // 마커 관리
     private var currentMarkers: [UUID: Poi] = [:]
@@ -114,24 +115,35 @@ class RecordKakaoMapViewController: UIViewController {
 
     @objc func didBecomeActive(){
         controller.startRendering()
+        needsFullRouteRefresh = true
+        latestLocationDuringRefresh = nil
     }
     
     // 초기화 플래그
     private var isFirstLocationUpdate = true
+
+    // 포그라운드 복귀 시 버스트 업데이트 처리 플래그
+    private var needsFullRouteRefresh = false
+    private var latestLocationDuringRefresh: CLLocation?
+    private var refreshWorkItem: DispatchWorkItem?
     
     func cleanup() {
         // 정리(Cleanup) 로직
+        refreshWorkItem?.cancel()
+        refreshWorkItem = nil
+        needsFullRouteRefresh = false
+        latestLocationDuringRefresh = nil
         polylines.removeAll()
+        _polylineShape = nil
         currentMarkers.removeAll()
-        currentPhotoMarkers.removeAll()
-        
+
         // 지도 아이템 제거 (레이어 유지)
         if let map = controller.getView("mapview") as? KakaoMap {
             let shapeManager = map.getShapeManager()
             if let polylineLayer = shapeManager.getShapeLayer(layerID: "PolylineLayer") {
                 polylineLayer.removeMapPolylineShape(shapeID: "mapPolylines")
             }
-            
+
             let labelManager = map.getLabelManager()
             if let stateLayer = labelManager.getLabelLayer(layerID: "StateMarkerLayer") {
                 stateLayer.clearAllItems()
@@ -139,6 +151,13 @@ class RecordKakaoMapViewController: UIViewController {
             if let photoLayer = labelManager.getLabelLayer(layerID: "PhotoMarkerLayer") {
                 photoLayer.clearAllItems()
             }
+
+            // 사진 마커 스타일 해제: 각 스타일이 보유한 UIImage 메모리 반환
+            for id in currentPhotoMarkers.keys {
+                labelManager.removePoiStyle("photoStyle_\(id.uuidString)")
+            }
+            currentPhotoMarkers.removeAll()
+
             // CurrentPoiLayer는 위치 표시용이므로 초기화 시 유지하거나, 필요 시 clear
             // 여기서는 경로와 마커만 초기화하므로 CurrentPoi는 놔둠 (또는 위치 업데이트 시 자동 이동)
             // 만약 현재 위치 마커도 리셋해야 한다면:
@@ -155,21 +174,33 @@ extension RecordKakaoMapViewController {
     func updateMapLine(_ previousLocation: CLLocation,_ currentLocation: CLLocation, getLocationList: () -> [LocationInfo]) {
         // 위치가 유효하고 다를 때만 업데이트
         guard previousLocation.coordinate.latitude != 0, currentLocation.coordinate.latitude != 0 else { return }
-        
-        self.createPolyLineShape(previousLocation, currentLocation, getLocationList: getLocationList)
+
+        // 포그라운드 복귀 버스트 구간: 경로선만 누적, POI 이동은 지연 처리
+        if needsFullRouteRefresh {
+            self.createPolyLineShape(previousLocation, currentLocation, getLocationList: getLocationList)
+            self.scheduleRefreshPOI(location: currentLocation)
+            return
+        }
+
         self.createPolyLineShape(previousLocation, currentLocation, getLocationList: getLocationList)
         self.moveCurrentPoi(location: currentLocation)
     }
-    
+
     func updateCurrentLocation(_ location: CLLocation) {
+        // 포그라운드 복귀 버스트 구간: 최신 위치 갱신만 하고 POI 이동 스킵
+        if needsFullRouteRefresh {
+            latestLocationDuringRefresh = location
+            return
+        }
+
         // POI 이동
         self.moveCurrentPoi(location: location)
-        
+
         // 카메라 이동 (트래킹 모드 동작)
         guard let map = controller.getView("mapview") as? KakaoMap else { return }
-        
+
         let targetPoint = MapPoint(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude)
-        
+
         // 첫 업데이트 시 애니메이션 없이 즉시 이동
         // 이후에는 자동으로 따라가지 않음 (사용자 요청: 탭 진입 시에만 포커싱)
         if isFirstLocationUpdate {
@@ -177,6 +208,22 @@ extension RecordKakaoMapViewController {
             map.moveCamera(cameraUpdate)
             isFirstLocationUpdate = false
         }
+    }
+
+    // 버스트 업데이트 종료 후 POI를 최신 위치로 한 번만 점프
+    private func scheduleRefreshPOI(location: CLLocation) {
+        latestLocationDuringRefresh = location
+
+        // 이전 예약 취소 후 재예약 (마지막 위치로 수렴)
+        refreshWorkItem?.cancel()
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self = self, let latest = self.latestLocationDuringRefresh else { return }
+            self.moveCurrentPoi(location: latest)
+            self.needsFullRouteRefresh = false
+            self.latestLocationDuringRefresh = nil
+        }
+        refreshWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: workItem)
     }
     
     func updateMarkers(_ markers: [FishingRecordViewModel.StateChangeMarker]) {
@@ -414,18 +461,18 @@ extension RecordKakaoMapViewController {
         
         let polyline = MapPolyline(line: [preMapPoint, curMapPoint], styleIndex: styleIndex)
         self.polylines.append(polyline)
-        
-        let layer = shapeManager.getShapeLayer(layerID: "PolylineLayer")
-        
-        if let _ = layer?.getMapPolylineShape(shapeID: "mapPolylines") {
-            layer?.removeMapPolylineShape(shapeID: "mapPolylines")
+
+        if let existingShape = _polylineShape {
+            // Shape 재사용: 메모리 할당/해제 없이 데이터만 교체
+            existingShape.changeStyleAndData(styleID: "polylineStyleSet", lines: self.polylines)
+        } else {
+            // 최초 생성
+            let layer = shapeManager.getShapeLayer(layerID: "PolylineLayer")
+            let options = MapPolylineShapeOptions(shapeID: "mapPolylines", styleID: "polylineStyleSet", zOrder: 1)
+            options.polylines = self.polylines
+            _polylineShape = layer?.addMapPolylineShape(options)
+            _polylineShape?.show()
         }
-        
-        let options = MapPolylineShapeOptions(shapeID: "mapPolylines", styleID: "polylineStyleSet", zOrder: 1)
-        options.polylines = self.polylines
-        
-        let shape = layer?.addMapPolylineShape(options)
-        shape?.show()
         
 
     }

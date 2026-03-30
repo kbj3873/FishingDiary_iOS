@@ -4,6 +4,25 @@ import Combine
 import UIKit
 import MapKit
 
+// MARK: - 백그라운드 지도 데이터 계산 결과
+private struct HistoryMapDataResult {
+    let polylines: [HistoryFishingPolyline]
+    let markers: [HistoryPhotoMarker]
+    let stateMarkers: [FishingRecordViewModel.StateChangeMarker]
+    let stateMarkerInfos: [HistoryDetailViewModel.HistoryStateMarkerInfo]
+    let centerCoordinate: CLLocationCoordinate2D
+
+    static var empty: HistoryMapDataResult {
+        HistoryMapDataResult(
+            polylines: [],
+            markers: [],
+            stateMarkers: [],
+            stateMarkerInfos: [],
+            centerCoordinate: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780)
+        )
+    }
+}
+
 @MainActor
 final class HistoryDetailViewModel: ObservableObject {
     // MARK: - Published Properties
@@ -64,23 +83,35 @@ final class HistoryDetailViewModel: ObservableObject {
         Task {
             do {
                 let allRecords = try await useCase.fetchAllRecords()
-                
-                // 2. sessionId로 필터링 및 정렬 (시간순)
-                let filteredRecords = allRecords.filter { record in
-                    return record.sessionId == self.sessionId
+                let sessionId = self.sessionId
+                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+
+                // 필터링·정렬·지도 데이터 가공을 백그라운드에서 처리
+                let (sortedRecords, mapResult) = await Task.detached(priority: .userInitiated) {
+                    let filtered = allRecords.filter { $0.sessionId == sessionId }
+                    let sorted = filtered.sorted { $0.date < $1.date }
+                    let result = HistoryDetailViewModel.buildMapData(records: sorted, documentsURL: documentsURL)
+                    return (sorted, result)
+                }.value
+
+                self.records = sortedRecords
+
+                guard !sortedRecords.isEmpty else {
+                    self.isMapInitialized = false
+                    return
                 }
-                
-                self.records = filteredRecords.sorted { (lhs: FishingRecord, rhs: FishingRecord) -> Bool in
-                    return lhs.date < rhs.date
-                }
-                
-                if !self.records.isEmpty {
-                    // 3. UI 데이터 가공
-                    self.setupSummaryData()
-                    self.setupMapData()
-                }
-                
+
+                // 요약 데이터(가벼운 연산)는 메인 스레드에서
+                self.setupSummaryData()
+
+                // 지도 데이터 @Published 업데이트
+                self.polylines = mapResult.polylines
+                self.markers = mapResult.markers
+                self.stateMarkers = mapResult.stateMarkers
+                self.stateMarkerInfos = mapResult.stateMarkerInfos
+                self.centerCoordinate = mapResult.centerCoordinate
                 self.isMapInitialized = false
+
             } catch {
                 print("Error fetching records: \(error)")
             }
@@ -107,66 +138,52 @@ final class HistoryDetailViewModel: ObservableObject {
         self.totalDistance = calculateTotalDistance(records: records)
     }
     
-    private func setupMapData() {
-        // 날짜순 정렬
-        let sortedRecords = records.sorted { $0.date < $1.date }
-        guard !sortedRecords.isEmpty else { return }
-        
-        // 초기 중심 좌표
-        if let first = sortedRecords.first {
-            self.centerCoordinate = CLLocationCoordinate2D(latitude: first.location.latitude, longitude: first.location.longitude)
-        }
-        
+    // MARK: - 백그라운드 지도 데이터 계산 (nonisolated: Task.detached에서 호출)
+    nonisolated private static func buildMapData(records: [FishingRecord], documentsURL: URL?) -> HistoryMapDataResult {
+        guard !records.isEmpty else { return .empty }
+
+        let centerCoordinate = records.first.map {
+            CLLocationCoordinate2D(latitude: $0.location.latitude, longitude: $0.location.longitude)
+        } ?? CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780)
+
         var segments: [HistoryFishingPolyline] = []
-        var newMarkers: [HistoryPhotoMarker] = []           // 사진 마커
-        var newStateMarkers: [FishingRecordViewModel.StateChangeMarker] = [] // 지도 어노테이션
-        var newStateMarkerInfos: [HistoryStateMarkerInfo] = [] // 상세 정보
-        
+        var newMarkers: [HistoryPhotoMarker] = []
+        var newStateMarkers: [FishingRecordViewModel.StateChangeMarker] = []
+        var newStateMarkerInfos: [HistoryDetailViewModel.HistoryStateMarkerInfo] = []
+
         var currentSegmentCoordinates: [CLLocationCoordinate2D] = []
         var currentSegmentState: Int?
         var lastState: Int?
-        
+        var globalPointIndex = 1
+
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
-        
-        // 통합 지점 번호 카운터 (시간순)
-        var globalPointIndex = 1
-        
-        for (_, record) in sortedRecords.enumerated() {
+
+        for record in records {
             let coord = CLLocationCoordinate2D(latitude: record.location.latitude, longitude: record.location.longitude)
             let state = record.state
             let timeStr = timeFormatter.string(from: record.date)
-            
+
             // 1. 상태 변경 마커
-            // 이전 상태와 다르면 마커 추가
-            // 경로 색상이 변하는 지점(이전 상태의 마지막 지점)에 마커를 생성해야 함
             if let last = lastState, last != state {
                 let markerState: FDAppManager.FishingState
-                
                 switch state {
                 case 0: markerState = .moving
                 case 1: markerState = .drifting
                 case 2: markerState = .fishing
                 default: markerState = .moving
                 }
-                
-                // 수정: 현재 좌표(coord)가 아닌, 색상이 변하는 지점(이전 좌표)에 마커를 찍어야 함.
-                // 루프 상 이전 좌표는 currentSegmentCoordinates의 마지막 요소이거나,
-                // 만약 currentSegmentCoordinates가 비어있다면(첫 진입 등) 현재 좌표일 수 있음.
-                // 하지만 로직상 상태가 변했다면 이전 세그먼트가 존재해야 함.
-                
+
                 var markerCoord = coord
                 if let lastSegmentCoord = currentSegmentCoordinates.last {
                     markerCoord = lastSegmentCoord
                 }
-                
-                // 마커 생성 (변곡점 좌표 사용)
-                // ID 매칭을 위해 마커 먼저 생성
+
                 let marker = FishingRecordViewModel.StateChangeMarker(coordinate: markerCoord, state: markerState)
                 newStateMarkers.append(marker)
-                
-                let info = HistoryStateMarkerInfo(
-                    id: marker.id, // 마커의 ID를 그대로 사용
+
+                let info = HistoryDetailViewModel.HistoryStateMarkerInfo(
+                    id: marker.id,
                     title: "지점 #\(globalPointIndex)",
                     timeString: timeStr,
                     coordinate: markerCoord,
@@ -175,40 +192,32 @@ final class HistoryDetailViewModel: ObservableObject {
                 newStateMarkerInfos.append(info)
                 globalPointIndex += 1
             }
-            // lastState 업데이트
             lastState = state
-            
+
             // 2. 사진 마커
             if !record.imagePaths.isEmpty {
                 for path in record.imagePaths {
-                    let fullPath = self.getFullImagePath(from: path)
-                    let title = "지점 #\(globalPointIndex)"
-                    globalPointIndex += 1
-                    
+                    let fullPath = getFullImagePath(from: path, documentsURL: documentsURL)
                     newMarkers.append(HistoryPhotoMarker(
                         recordId: record.id,
                         coordinate: coord,
                         thumbnailPath: fullPath,
-                        title: title,
+                        title: "지점 #\(globalPointIndex)",
                         timeString: timeStr
                     ))
+                    globalPointIndex += 1
                 }
             }
-            
-            // 3. 경로 세그먼트 (폴리라인)
+
+            // 3. 경로 세그먼트
             if let currentState = currentSegmentState {
                 if currentState == state {
                     currentSegmentCoordinates.append(coord)
                 } else {
                     if currentSegmentCoordinates.count > 1 {
-                        let polyline = createPolyline(coordinates: currentSegmentCoordinates, state: currentState)
-                        segments.append(polyline)
+                        segments.append(createPolyline(coordinates: currentSegmentCoordinates, state: currentState))
                     }
-                    if let lastCoord = currentSegmentCoordinates.last {
-                         currentSegmentCoordinates = [lastCoord, coord]
-                    } else {
-                         currentSegmentCoordinates = [coord]
-                    }
+                    currentSegmentCoordinates = [currentSegmentCoordinates.last ?? coord, coord]
                     currentSegmentState = state
                 }
             } else {
@@ -216,42 +225,35 @@ final class HistoryDetailViewModel: ObservableObject {
                 currentSegmentCoordinates.append(coord)
             }
         }
-        
+
         if let currentState = currentSegmentState, currentSegmentCoordinates.count > 1 {
-            let polyline = createPolyline(coordinates: currentSegmentCoordinates, state: currentState)
-            segments.append(polyline)
+            segments.append(createPolyline(coordinates: currentSegmentCoordinates, state: currentState))
         }
-        
-        self.polylines = segments
-        self.markers = newMarkers
-        self.stateMarkers = newStateMarkers
-        self.stateMarkerInfos = newStateMarkerInfos
+
+        return HistoryMapDataResult(
+            polylines: segments,
+            markers: newMarkers,
+            stateMarkers: newStateMarkers,
+            stateMarkerInfos: newStateMarkerInfos,
+            centerCoordinate: centerCoordinate
+        )
     }
-    
-    // 색상이 지정된 폴리라인 생성을 위한 헬퍼 메서드
-    private func createPolyline(coordinates: [CLLocationCoordinate2D], state: Int) -> HistoryFishingPolyline {
+
+    nonisolated private static func createPolyline(coordinates: [CLLocationCoordinate2D], state: Int) -> HistoryFishingPolyline {
         var coords = coordinates
         let polyline = HistoryFishingPolyline(coordinates: &coords, count: coords.count)
-        
-        // 색상 지정 (FishingRecordView와 동일)
         switch state {
-        case 0: // Moving
-            polyline.lineColor = UIColor(hex: "#2563EB")
-        case 1: // Drifting
-            polyline.lineColor = UIColor(hex: "#F59E0B")
-        case 2: // Fishing
-            polyline.lineColor = UIColor(hex: "#EF4444")
-        default:
-            polyline.lineColor = UIColor(hex: "#2563EB")
+        case 0: polyline.lineColor = UIColor(hex: "#2563EB")
+        case 1: polyline.lineColor = UIColor(hex: "#F59E0B")
+        case 2: polyline.lineColor = UIColor(hex: "#EF4444")
+        default: polyline.lineColor = UIColor(hex: "#2563EB")
         }
-        
         return polyline
     }
-    
-    // 샌드박스 경로 변경에 대응하여 항상 현재의 Documents 경로를 기반으로 파일 경로 생성
-    private func getFullImagePath(from path: String) -> String {
-        guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return path }
-        let fileName = (path as NSString).lastPathComponent // 경로가 포함되어 있다면 파일명만 추출
+
+    nonisolated private static func getFullImagePath(from path: String, documentsURL: URL?) -> String {
+        guard let documentsURL else { return path }
+        let fileName = (path as NSString).lastPathComponent
         return documentsURL.appendingPathComponent(fileName).path
     }
     

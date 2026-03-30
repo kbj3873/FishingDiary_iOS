@@ -51,8 +51,8 @@ final class FishingRecordViewModel: ObservableObject {
     /// 녹화 시간 (초)
     @Published var duration: TimeInterval = 0
     
-    /// 지도에 그릴 경로 좌표들
-    @Published var pathCoordinates: [CLLocationCoordinate2D] = []
+    /// 지도에 그릴 경로 좌표들 (내부 위치 참조용, 뷰에서 직접 사용하지 않으므로 @Published 불필요)
+    private var pathCoordinates: [CLLocationCoordinate2D] = []
     
     /// 지도 경로 그리기용 (Combine 바인딩)
     @Published var currentMapLine: MapLineInfo = MapLineInfo(CLLocation(), CLLocation())
@@ -221,8 +221,9 @@ final class FishingRecordViewModel: ObservableObject {
     func startRecording() {
         // 위치 권한 체크
         guard checkLocationPermission() else { return }
-        
+
         isRecording = true
+        FDAppManager.shared.setRecording(true)
         markers.removeAll() // 시작 시 마커 초기화
         photoMarkers.removeAll() // 사진 마커도 초기화
         fishingState = .moving // 초기 상태
@@ -270,6 +271,7 @@ final class FishingRecordViewModel: ObservableObject {
         }
         
         isRecording = false
+        FDAppManager.shared.setRecording(false)
         locationManager.stopTracking()
         timerPublisher?.cancel()
         timerPublisher = nil

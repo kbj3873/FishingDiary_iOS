@@ -29,10 +29,14 @@ struct HistoryMapView: UIViewRepresentable {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = false
-        mapView.isRotateEnabled = false 
+        mapView.isRotateEnabled = false
         mapView.isPitchEnabled = false
-        
+        context.coordinator.mapView = mapView
         return mapView
+    }
+
+    static func dismantleUIView(_ uiView: MKMapView, coordinator: Coordinator) {
+        coordinator.cleanup()
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
@@ -141,15 +145,26 @@ struct HistoryMapView: UIViewRepresentable {
     // MARK: - Coordinator
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: HistoryMapView
-        
+        weak var mapView: MKMapView?
+
         // 데이터 캐시
         private var _polylines: [HistoryFishingPolyline] = []
         private var _markers: [HistoryPhotoMarker] = []
         private var _stateMarkers: [FishingRecordViewModel.StateChangeMarker] = []
         private var _hasLoaded: Bool = false
-        
+
         init(_ parent: HistoryMapView) {
             self.parent = parent
+        }
+
+        func cleanup() {
+            mapView?.delegate = nil
+            if let overlays = mapView?.overlays { mapView?.removeOverlays(overlays) }
+            if let annotations = mapView?.annotations { mapView?.removeAnnotations(annotations) }
+        }
+
+        deinit {
+            cleanup()
         }
         
         func shouldUpdate(polylines: [HistoryFishingPolyline], 

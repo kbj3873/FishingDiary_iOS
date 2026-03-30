@@ -59,20 +59,6 @@ struct HistoryView: View {
         .padding(.top, 48)
         .padding(.bottom, 24)
         .background(Color.white)
-        .overlay(
-            HStack {
-                Spacer()
-                #if DEBUG
-                Button(action: {
-                    viewModel.generateTestData()
-                }) {
-                    Image(systemName: "hammer.fill")
-                        .foregroundColor(.gray)
-                        .padding()
-                }
-                #endif
-            }
-        )
     }
     
     // MARK: - Record List

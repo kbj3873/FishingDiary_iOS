@@ -37,9 +37,11 @@ struct RecordMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        // print("updateUIView: shouldCleanup = \(shouldCleanup ? "true":"false")")
         if shouldCleanup {
             context.coordinator.cleanup()
+            Task { @MainActor in
+                self.shouldCleanup = false
+            }
             return
         }
         
@@ -76,17 +78,27 @@ struct RecordMapView: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-    
+
+    static func dismantleUIView(_ uiView: MKMapView, coordinator: Coordinator) {
+        coordinator.cleanup()
+    }
+
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: RecordMapView
         weak var mapView: MKMapView?
         var lastMarkerCount = 0
         var lastPhotoMarkerCount = 0
         private var isCleanedUp = false
-        private var hasSetInitialRegion = false // 초기 region 설정
-        
+        private var hasSetInitialRegion = false
+
+        // 백그라운드 복귀 시 버스트 업데이트 처리
+        private var needsFullRouteRefresh = false
+        private var refreshWorkItem: DispatchWorkItem?
+
         init(_ parent: RecordMapView) {
             self.parent = parent
+            super.init()
+            NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         }
         
         func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
@@ -103,15 +115,31 @@ struct RecordMapView: UIViewRepresentable {
             }
         }
         
+        @objc private func didBecomeActive() {
+            needsFullRouteRefresh = true
+        }
+
+        private func scheduleEndRefresh() {
+            refreshWorkItem?.cancel()
+            let workItem = DispatchWorkItem { [weak self] in
+                self?.needsFullRouteRefresh = false
+            }
+            refreshWorkItem = workItem
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: workItem)
+        }
+
         // polyline 추가
         func addPolyline(from: CLLocation, to: CLLocation, state: FDAppManager.FishingState) {
             guard let mapView = mapView else { return }
-            
+
             var coordinates = [from.coordinate, to.coordinate]
-            // RecordFishingPolyline 사용 (색상 정보 포함)
             let polyline = RecordFishingPolyline(coordinates: &coordinates, count: 2)
             polyline.lineColor = getColor(for: state)
             mapView.addOverlay(polyline)
+
+            if needsFullRouteRefresh {
+                scheduleEndRefresh()
+            }
         }
         
         // 마커 추가
@@ -327,6 +355,8 @@ struct RecordMapView: UIViewRepresentable {
         
         deinit {
             cleanup()
+            refreshWorkItem?.cancel()
+            NotificationCenter.default.removeObserver(self)
             print("RecordMapView.Coordinator deinit")
         }
     }

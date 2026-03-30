@@ -12,7 +12,19 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
+        MetricKitManager.shared.subscribe()
+
+        // 이전 세션 비정상 종료 감지 로그
+        if MetricKitManager.shared.didPreviousSessionTerminateAbnormally {
+            let date = MetricKitManager.shared.lastAbnormalTerminationDate.map { "\($0)" } ?? "알 수 없음"
+            print("⚠️ [MetricKit] 이전 세션 비정상 종료 감지 - 날짜: \(date)")
+        }
+
         return true
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        MetricKitManager.shared.markSessionEnd()
     }
 }
 

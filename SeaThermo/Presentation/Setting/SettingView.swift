@@ -47,6 +47,24 @@ struct SettingView: View {
                 }
             }
             .navigationBarHidden(true)
+            .overlay {
+                if viewModel.showRecordingBlockedPopup {
+                    ZStack {
+                        Color.black.opacity(0.4)
+                            .ignoresSafeArea()
+
+                        CommonPopupView(
+                            title: "지도 변경 불가",
+                            message: "낚시 기록 중에는 지도 타입을 변경할 수 없습니다.\n기록을 종료한 후 변경해 주세요.",
+                            layoutType: .horizontal,
+                            primaryButtonText: "확인",
+                            primaryAction: {
+                                viewModel.dismissRecordingBlockedPopup()
+                            }
+                        )
+                    }
+                }
+            }
             .navigationDestination(for: WebPage.self) { page in
                 let urlString = applicationDIContainer.appConfiguration.apiOnbadaURL + page.path
                 if let url = URL(string: urlString) {

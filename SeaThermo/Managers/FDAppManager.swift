@@ -24,6 +24,13 @@ class FDAppManager: NSObject {
         case drifting = "탐색 중" // 0.5 ~ 2.0 knots
         case fishing = "낚시 중"  // 0.5 knots 미만
     }
+
+    // MARK: - Recording State
+    private(set) var isRecording: Bool = false
+
+    func setRecording(_ recording: Bool) {
+        isRecording = recording
+    }
     
     var mapTp: MapType = .AppleMap {          // > 초기 지도 종류
         didSet {
