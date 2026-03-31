@@ -153,7 +153,7 @@ final class HistoryDetailViewModel: ObservableObject {
 
         var currentSegmentCoordinates: [CLLocationCoordinate2D] = []
         var currentSegmentState: Int?
-        var lastState: Int?
+        var lastState: FDAppManager.FishingState?
         var globalPointIndex = 1
 
         let timeFormatter = DateFormatter()
@@ -161,25 +161,23 @@ final class HistoryDetailViewModel: ObservableObject {
 
         for record in records {
             let coord = CLLocationCoordinate2D(latitude: record.location.latitude, longitude: record.location.longitude)
-            let state = record.state
+            let stateInt = record.state
+            let fishingState: FDAppManager.FishingState
+            switch stateInt {
+            case 1: fishingState = .drifting
+            case 2: fishingState = .fishing
+            default: fishingState = .moving
+            }
             let timeStr = timeFormatter.string(from: record.date)
 
-            // 1. 상태 변경 마커
-            if let last = lastState, last != state {
-                let markerState: FDAppManager.FishingState
-                switch state {
-                case 0: markerState = .moving
-                case 1: markerState = .drifting
-                case 2: markerState = .fishing
-                default: markerState = .moving
-                }
-
+            // 1. 상태 변경 마커: MOVING → 탐색/낚시 전환 시에만 생성 (Android 동기화)
+            if let last = lastState, last == .moving && fishingState != .moving {
                 var markerCoord = coord
                 if let lastSegmentCoord = currentSegmentCoordinates.last {
                     markerCoord = lastSegmentCoord
                 }
 
-                let marker = FishingRecordViewModel.StateChangeMarker(coordinate: markerCoord, state: markerState)
+                let marker = FishingRecordViewModel.StateChangeMarker(coordinate: markerCoord, state: fishingState)
                 newStateMarkers.append(marker)
 
                 let info = HistoryDetailViewModel.HistoryStateMarkerInfo(
@@ -187,12 +185,12 @@ final class HistoryDetailViewModel: ObservableObject {
                     title: "지점 #\(globalPointIndex)",
                     timeString: timeStr,
                     coordinate: markerCoord,
-                    state: markerState
+                    state: fishingState
                 )
                 newStateMarkerInfos.append(info)
                 globalPointIndex += 1
             }
-            lastState = state
+            lastState = fishingState
 
             // 2. 사진 마커
             if !record.imagePaths.isEmpty {
@@ -209,19 +207,19 @@ final class HistoryDetailViewModel: ObservableObject {
                 }
             }
 
-            // 3. 경로 세그먼트
+            // 3. 경로 세그먼트 (createPolyline은 Int 타입 사용)
             if let currentState = currentSegmentState {
-                if currentState == state {
+                if currentState == stateInt {
                     currentSegmentCoordinates.append(coord)
                 } else {
                     if currentSegmentCoordinates.count > 1 {
                         segments.append(createPolyline(coordinates: currentSegmentCoordinates, state: currentState))
                     }
                     currentSegmentCoordinates = [currentSegmentCoordinates.last ?? coord, coord]
-                    currentSegmentState = state
+                    currentSegmentState = stateInt
                 }
             } else {
-                currentSegmentState = state
+                currentSegmentState = stateInt
                 currentSegmentCoordinates.append(coord)
             }
         }

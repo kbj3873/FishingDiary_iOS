@@ -175,9 +175,9 @@ extension RecordKakaoMapViewController {
         // 위치가 유효하고 다를 때만 업데이트
         guard previousLocation.coordinate.latitude != 0, currentLocation.coordinate.latitude != 0 else { return }
 
-        // 포그라운드 복귀 버스트 구간: 경로선만 누적, POI 이동은 지연 처리
+        // 포그라운드 복귀 버스트 구간: polylines 배열에만 누적, 렌더링은 debounce 후 1회
         if needsFullRouteRefresh {
-            self.createPolyLineShape(previousLocation, currentLocation, getLocationList: getLocationList)
+            self.appendPolyline(previousLocation, currentLocation, getLocationList: getLocationList)
             self.scheduleRefreshPOI(location: currentLocation)
             return
         }
@@ -210,7 +210,7 @@ extension RecordKakaoMapViewController {
         }
     }
 
-    // 버스트 업데이트 종료 후 POI를 최신 위치로 한 번만 점프
+    // 버스트 업데이트 종료 후 누적 경로 1회 렌더링 + POI/카메라 최신 위치로 이동
     private func scheduleRefreshPOI(location: CLLocation) {
         latestLocationDuringRefresh = location
 
@@ -218,7 +218,11 @@ extension RecordKakaoMapViewController {
         refreshWorkItem?.cancel()
         let workItem = DispatchWorkItem { [weak self] in
             guard let self = self, let latest = self.latestLocationDuringRefresh else { return }
+            // 버스트 구간에 누적된 polylines 한 번에 렌더링
+            self.renderPolylines()
+            // POI 및 카메라를 최신 위치로 이동
             self.moveCurrentPoi(location: latest)
+            self.moveCameraToLocation(latest)
             self.needsFullRouteRefresh = false
             self.latestLocationDuringRefresh = nil
         }
@@ -437,17 +441,14 @@ extension RecordKakaoMapViewController {
         shapeManager.addPolylineStyleSet(styleSet)
     }
     
-    private func createPolyLineShape(_ previousLocation: CLLocation,_ currentLocation: CLLocation, getLocationList: () -> [LocationInfo]) {
-        guard let map = controller.getView("mapview") as? KakaoMap else { return }
-        
+    // polylines 배열에 새 세그먼트 누적 (렌더링 없음)
+    private func appendPolyline(_ previousLocation: CLLocation, _ currentLocation: CLLocation, getLocationList: () -> [LocationInfo]) {
         let preMapPoint = MapPoint(longitude: previousLocation.coordinate.longitude,
                                    latitude: previousLocation.coordinate.latitude)
         let curMapPoint = MapPoint(longitude: currentLocation.coordinate.longitude,
                                    latitude: currentLocation.coordinate.latitude)
-        
-        // 속도/상태 로직에 따른 스타일 결정
-        var styleIndex: UInt = 0 // 기본 이동
-        
+
+        var styleIndex: UInt = 0
         if let info = getLocationList().last {
             let speedKnots = info.locationInfo.speed * 1.94384
             if speedKnots >= FDAppManager.speedThresholdHigh {
@@ -458,23 +459,34 @@ extension RecordKakaoMapViewController {
                 styleIndex = 2 // 낚시
             }
         }
-        
-        let polyline = MapPolyline(line: [preMapPoint, curMapPoint], styleIndex: styleIndex)
-        self.polylines.append(polyline)
 
+        self.polylines.append(MapPolyline(line: [preMapPoint, curMapPoint], styleIndex: styleIndex))
+    }
+
+    // 누적된 polylines을 지도에 1회 렌더링
+    private func renderPolylines() {
         if let existingShape = _polylineShape {
-            // Shape 재사용: 메모리 할당/해제 없이 데이터만 교체
             existingShape.changeStyleAndData(styleID: "polylineStyleSet", lines: self.polylines)
         } else {
-            // 최초 생성
             let layer = shapeManager.getShapeLayer(layerID: "PolylineLayer")
             let options = MapPolylineShapeOptions(shapeID: "mapPolylines", styleID: "polylineStyleSet", zOrder: 1)
             options.polylines = self.polylines
             _polylineShape = layer?.addMapPolylineShape(options)
             _polylineShape?.show()
         }
-        
+    }
 
+    private func createPolyLineShape(_ previousLocation: CLLocation, _ currentLocation: CLLocation, getLocationList: () -> [LocationInfo]) {
+        appendPolyline(previousLocation, currentLocation, getLocationList: getLocationList)
+        renderPolylines()
+    }
+
+    private func moveCameraToLocation(_ location: CLLocation) {
+        guard let map = controller.getView("mapview") as? KakaoMap else { return }
+        let targetPoint = MapPoint(longitude: location.coordinate.longitude,
+                                   latitude: location.coordinate.latitude)
+        let cameraUpdate = CameraUpdate.make(target: targetPoint, mapView: map)
+        map.moveCamera(cameraUpdate)
     }
     
     // MARK: 레이어 설정

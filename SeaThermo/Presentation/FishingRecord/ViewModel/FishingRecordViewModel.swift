@@ -146,25 +146,20 @@ final class FishingRecordViewModel: ObservableObject {
                 
                 // 상태 변경 감지 및 마커 추가
                 // 1. 첫 상태 진입(nil)인 경우: 현재 상태를 저장만 하고 마커는 찍지 않음
-                // 2. 상태가 변경된 경우: 마커를 생성하고 상태 갱신
+                // 2. MOVING → 탐색/낚시 전환 시에만 마커 생성 (Android 동기화)
                 if let lastState = self.lastFishingState {
-                    if self.fishingState != lastState {
+                    if lastState == .moving && self.fishingState != .moving {
                         print("State Changed: \(lastState) -> \(self.fishingState)")
-                        
-                        // 수정: 현재 좌표 대신 이전 좌표(변곡점)에 마커를 생성해야 함
-                        // prevLocation이 유효하다면(초기값 등 제외) 사용, 아니면 현재 좌표 사용
+
+                        // 현재 좌표 대신 이전 좌표(변곡점)에 마커를 생성
                         var markerCoordinate = currentLocation.coordinate
                         if prevLocation.coordinate.latitude != 0 && prevLocation.coordinate.longitude != 0 {
                              markerCoordinate = prevLocation.coordinate
                         }
-                        
+
                         let marker = StateChangeMarker(coordinate: markerCoordinate, state: self.fishingState)
                         self.markers.append(marker)
-                        self.lastFishingState = self.fishingState
-                        
-                        // 상태 변경 시 지점 저장 (마커 위치와 동일하게 저장할지, 현재 위치로 저장할지는 기획에 따름.
-                        // 여기서는 '상태가 변경된 순간의 기록'이므로 현재 위치와 시간을 저장하는 것이 맞음.
-                        // 마커만 시각적으로 변곡점에 찍어주는 것임.)
+
                         self.useCase.savePoint(sessionId: self.currentSessionId,
                                                latitude: currentLocation.coordinate.latitude,
                                                longitude: currentLocation.coordinate.longitude,
@@ -172,6 +167,7 @@ final class FishingRecordViewModel: ObservableObject {
                                                state: self.currentStateValue)
                         self.savedPointCount += 1
                     }
+                    self.lastFishingState = self.fishingState
                 } else {
                     // 첫 상태 설정 (마커 생성 안함)
                     self.lastFishingState = self.fishingState

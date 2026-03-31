@@ -122,7 +122,10 @@ struct RecordMapView: UIViewRepresentable {
         private func scheduleEndRefresh() {
             refreshWorkItem?.cancel()
             let workItem = DispatchWorkItem { [weak self] in
-                self?.needsFullRouteRefresh = false
+                guard let self = self else { return }
+                self.needsFullRouteRefresh = false
+                // 포그라운드 복귀 후 현재 위치 추적 모드 복원 (카메라가 현재 위치로 이동)
+                self.mapView?.setUserTrackingMode(.follow, animated: true)
             }
             refreshWorkItem = workItem
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: workItem)
