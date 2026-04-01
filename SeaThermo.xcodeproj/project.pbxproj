@@ -64,6 +64,7 @@
 		78C52B0F387154EC058F66CA /* RealmFishingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9496B21B73A2BB3CBD17F97 /* RealmFishingRecord.swift */; };
 		938308A513E526F0A691998F /* FishingRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907061170C85DB46A0B8579F /* FishingRecordViewModel.swift */; };
 		A040C38E031E0655DA7EE9BC /* FishingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */; };
+		AA000001AABB000100000001 /* MetricKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AABB000100000000 /* MetricKitManager.swift */; };
 		AA5D7BEB694340508095DBD0 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032D3F263E0420386394477 /* SplashViewModel.swift */; };
 		AABF851A0557A35D008E9C95 /* TemperatureLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */; };
 		BE8D8308779040CAA518B7F1 /* VersionCheckDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9D632B8195470DA96FB3D6 /* VersionCheckDTO.swift */; };
@@ -81,7 +82,6 @@
 		F49152782B9955680000C552 /* DefaultOceanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152772B9955680000C552 /* DefaultOceanRepository.swift */; };
 		F491527D2B99A91E0000C552 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F491527C2B99A91E0000C552 /* APIEndpoints.swift */; };
 		F4950DCD2AAAA36000DD26DE /* FDAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */; };
-		AA000001AABB000100000001 /* MetricKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AABB000100000000 /* MetricKitManager.swift */; };
 		F4950DCF2AAAB08100DD26DE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCE2AAAB08100DD26DE /* Date.swift */; };
 		F4B270A22B9A91C9007A71D5 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */; };
 		F4C0276F2AB17804007D1900 /* MKPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0276E2AB17804007D1900 /* MKPolyline.swift */; };
@@ -177,6 +177,7 @@
 		84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecord.swift; sourceTree = "<group>"; };
 		907061170C85DB46A0B8579F /* FishingRecordViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordViewModel.swift; sourceTree = "<group>"; };
 		96F2E7BE3E0B35DBDE877066 /* FishingRecordView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordView.swift; sourceTree = "<group>"; };
+		AA000001AABB000100000000 /* MetricKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricKitManager.swift; sourceTree = "<group>"; };
 		B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SeaAnalysisDetailView.swift; sourceTree = "<group>"; };
 		C9496B21B73A2BB3CBD17F97 /* RealmFishingRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RealmFishingRecord.swift; sourceTree = "<group>"; };
 		CC046A5B2699C9838415D31D /* SettingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -195,7 +196,6 @@
 		F49152772B9955680000C552 /* DefaultOceanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultOceanRepository.swift; sourceTree = "<group>"; };
 		F491527C2B99A91E0000C552 /* APIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
 		F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDAppManager.swift; sourceTree = "<group>"; };
-		AA000001AABB000100000000 /* MetricKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricKitManager.swift; sourceTree = "<group>"; };
 		F4950DCE2AAAB08100DD26DE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		F4C0276E2AB17804007D1900 /* MKPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKPolyline.swift; sourceTree = "<group>"; };
@@ -1138,7 +1138,7 @@
 			buildSettings = {
 				API_KEY_RISA = "qPwOeIrU-2603-WUSYBN-1455";
 				API_NIFS_URL = "https://www.nifs.go.kr";
-				API_ONBADA_URL = "http://3.35.210.133:3000";
+				API_ONBADA_URL = "https://seathermo.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_ARC = NO;
@@ -1184,7 +1184,7 @@
 			buildSettings = {
 				API_KEY_RISA = "qPwOeIrU-2603-WUSYBN-1455";
 				API_NIFS_URL = "https://www.nifs.go.kr";
-				API_ONBADA_URL = "http://3.35.210.133:3000";
+				API_ONBADA_URL = "https://seathermo.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_ARC = NO;
