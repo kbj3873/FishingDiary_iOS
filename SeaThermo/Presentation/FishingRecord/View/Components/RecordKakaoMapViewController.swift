@@ -111,28 +111,36 @@ class RecordKakaoMapViewController: UIViewController {
     
     @objc func willResignActive(){
         controller.stopRendering()
+        // 백그라운드 진입 시 보호 플래그 설정
+        // → 이후 위치 업데이트가 moveCurrentPoi/renderPolylines를 호출하지 않도록 차단
+        needsFullRouteRefresh = true
     }
 
     @objc func didBecomeActive(){
+        // CLLocationManager의 최신 캐시 위치로 POI를 즉시 배치 (SDK 큐 재생 방지)
+        if let latestLocation = FDLocationManager.shared.locationManager.location {
+            moveCurrentPoiInstant(location: latestLocation)
+        }
         controller.startRendering()
-        needsFullRouteRefresh = true
-        latestLocationDuringRefresh = nil
+        // 백그라운드 중 누적된 polyline 즉시 렌더링
+        renderPolylines()
+        // 카메라를 최신 위치로 즉시 이동
+        if let latestLocation = FDLocationManager.shared.locationManager.location {
+            moveCameraToLocation(latestLocation)
+        }
+        // 보호 플래그 해제 → 이후 업데이트는 정상 경로로 처리
+        needsFullRouteRefresh = false
     }
-    
+
     // 초기화 플래그
     private var isFirstLocationUpdate = true
 
-    // 포그라운드 복귀 시 버스트 업데이트 처리 플래그
+    // 백그라운드 동안 moveCurrentPoi/renderPolylines 호출을 차단하는 플래그
     private var needsFullRouteRefresh = false
-    private var latestLocationDuringRefresh: CLLocation?
-    private var refreshWorkItem: DispatchWorkItem?
     
     func cleanup() {
         // 정리(Cleanup) 로직
-        refreshWorkItem?.cancel()
-        refreshWorkItem = nil
         needsFullRouteRefresh = false
-        latestLocationDuringRefresh = nil
         polylines.removeAll()
         _polylineShape = nil
         currentMarkers.removeAll()
@@ -175,10 +183,9 @@ extension RecordKakaoMapViewController {
         // 위치가 유효하고 다를 때만 업데이트
         guard previousLocation.coordinate.latitude != 0, currentLocation.coordinate.latitude != 0 else { return }
 
-        // 포그라운드 복귀 버스트 구간: polylines 배열에만 누적, 렌더링은 debounce 후 1회
+        // 백그라운드 중: polyline 데이터만 누적 (렌더링/POI 이동 차단)
         if needsFullRouteRefresh {
             self.appendPolyline(previousLocation, currentLocation, getLocationList: getLocationList)
-            self.scheduleRefreshPOI(location: currentLocation)
             return
         }
 
@@ -187,11 +194,8 @@ extension RecordKakaoMapViewController {
     }
 
     func updateCurrentLocation(_ location: CLLocation) {
-        // 포그라운드 복귀 버스트 구간: 최신 위치 갱신만 하고 POI 이동 스킵
-        if needsFullRouteRefresh {
-            latestLocationDuringRefresh = location
-            return
-        }
+        // 백그라운드 중: POI 이동 차단
+        if needsFullRouteRefresh { return }
 
         // POI 이동
         self.moveCurrentPoi(location: location)
@@ -208,26 +212,6 @@ extension RecordKakaoMapViewController {
             map.moveCamera(cameraUpdate)
             isFirstLocationUpdate = false
         }
-    }
-
-    // 버스트 업데이트 종료 후 누적 경로 1회 렌더링 + POI/카메라 최신 위치로 이동
-    private func scheduleRefreshPOI(location: CLLocation) {
-        latestLocationDuringRefresh = location
-
-        // 이전 예약 취소 후 재예약 (마지막 위치로 수렴)
-        refreshWorkItem?.cancel()
-        let workItem = DispatchWorkItem { [weak self] in
-            guard let self = self, let latest = self.latestLocationDuringRefresh else { return }
-            // 버스트 구간에 누적된 polylines 한 번에 렌더링
-            self.renderPolylines()
-            // POI 및 카메라를 최신 위치로 이동
-            self.moveCurrentPoi(location: latest)
-            self.moveCameraToLocation(latest)
-            self.needsFullRouteRefresh = false
-            self.latestLocationDuringRefresh = nil
-        }
-        refreshWorkItem = workItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: workItem)
     }
     
     func updateMarkers(_ markers: [FishingRecordViewModel.StateChangeMarker]) {
@@ -576,9 +560,19 @@ extension RecordKakaoMapViewController {
 
     private func moveCurrentPoi(location: CLLocation) {
         if let curPoi = _currentPositionPoi {
-             curPoi.show() // 보이게 처리
+             curPoi.show()
              let currentLocation = MapPoint(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude)
              curPoi.moveAt(currentLocation, duration: 0)
         }
+    }
+
+    /// 렌더링 재개 전 POI를 애니메이션 없이 즉시 재배치 (큐잉 방지)
+    private func moveCurrentPoiInstant(location: CLLocation) {
+        guard let curPoi = _currentPositionPoi else { return }
+        let targetPoint = MapPoint(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude)
+        // 기존 POI를 숨기고 새 위치에 다시 표시하여 SDK 내부 애니메이션 큐 우회
+        curPoi.hide()
+        curPoi.moveAt(targetPoint, duration: 0)
+        curPoi.show()
     }
 }

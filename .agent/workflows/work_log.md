@@ -75,9 +75,16 @@ Notion 페이지 생성(`create_page`) 시 `properties` 인자에 아래 규칙�
 
 ## 4. Antigravity 실행 절차
 1. **작업 종료 시**: 사용자가 "오늘 작업 저장해줘" 또는 "로그 남겨줘"라고 요청하면 이 가이드를 로드합니다.
-2. **Context 분석**: 최근 대화 내용과 수정된 파일 목록(`git status` 등 활용 가능)을 분석하여 오늘 날짜의 작업 내용을 정리합니다.
-3. **Notion API 호출**: 
-   - `mcp_notion-mcp-server_API-post-page` 도구를 사용합니다.
-   - 위 `2. 속성 매칭 규칙`에 맞춰 `properties` JSON을 구성합니다.
-   - 위 `3. 본문 기록 양식`에 맞춰 `children` JSON을 구성합니다.
+2. **Context 분석**: 최근 대화 내용과 수정된 파일 목록(`git status`, `git diff --cached` 등 활용 가능)을 분석하여 오늘 날짜의 작업 내용을 정리합니다.
+3. **Notion API 호출 (2단계로 분리)**:
+
+   > ⚠️ **주의**: `mcp__notion__API-post-page`의 `children` 파라미터는 정상 동작하지 않습니다.
+   > 페이지 생성 시 `children`을 함께 전달하면 400 validation error가 발생합니다.
+   > **반드시 아래 2단계 절차를 따르세요.**
+
+   - **Step 1 — 페이지 생성**: `mcp__notion__API-post-page`를 `properties`만 포함하여 호출합니다. (`children` 생략)
+   - **Step 2 — 본문 블록 추가**: 생성된 페이지 ID를 사용해 `mcp__notion__API-patch-block-children`으로 본문을 추가합니다.
+     - `children` 배열의 각 항목은 JSON 객체(`paragraph` 또는 `bulleted_list_item` 타입)로 전달합니다.
+     - 위 `3. 본문 기록 양식`에 맞춰 단락(paragraph)과 글머리 기호(bulleted_list_item)를 조합합니다.
+
 4. **결과 보고**: 생성된 Notion 페이지의 URL을 사용자에게 알려줍니다.

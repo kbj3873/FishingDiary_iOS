@@ -35,10 +35,7 @@ struct HistoryView: View {
             }
         }
         .onAppear {
-            // 탭 이동 시 불필요한 리로드 방지 (데이터가 없고 로딩중이 아닐 때만 로드)
-            if viewModel.records.isEmpty && !viewModel.isLoading {
-                viewModel.loadRecords()
-            }
+            viewModel.loadRecords()
         }
     }
     
