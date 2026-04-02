@@ -18,7 +18,7 @@ struct SeaAnalysisView: View {
 
     var body: some View {
         NavigationView {
-             ZStack {
+            ZStack {
                 Color(hex: "F2F2F7")
                     .ignoresSafeArea()
 
@@ -29,14 +29,14 @@ struct SeaAnalysisView: View {
                     EmptyView()
                 }
 
-                ScrollView {
-                    VStack(spacing: 0) {
-                        headerSection
+                VStack(spacing: 0) {
+                    headerSection
+
+                    ScrollView {
                         cardsSection
                     }
+                    .scrollIndicators(.hidden)
                 }
-                .clipped()
-                .scrollIndicators(.hidden)
             }
             .navigationBarHidden(true)
         }
@@ -82,8 +82,14 @@ struct SeaAnalysisView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 16)
         .padding(.top, 48)
-        .padding(.bottom, 16)
-        .background(Color.white)
+        .padding(.bottom, 12)
+        .background(Color.white.ignoresSafeArea(edges: .top))
+        .overlay(
+            Rectangle()
+                .fill(Color(hex: "E5E5EA"))
+                .frame(height: 0.5),
+            alignment: .bottom
+        )
     }
 
     // MARK: - Cards Section

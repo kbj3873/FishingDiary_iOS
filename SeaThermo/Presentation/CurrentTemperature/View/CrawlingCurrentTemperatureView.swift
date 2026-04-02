@@ -23,7 +23,7 @@ struct CrawlingCurrentTemperatureView: View {
         }
         .sheet(isPresented: $viewModel.isOceanSelectPresented) {
             viewModel.createOceanSelectView()
-                .presentationDetents([.fraction(0.8)])
+                .presentationDetents([.fraction(0.85)])
                 .presentationDragIndicator(.visible)
         }
     }
@@ -103,7 +103,7 @@ struct CrawlingCurrentTemperatureView: View {
 
     private var emptyStateView: some View {
         VStack(spacing: 12) {
-            Spacer().frame(height: 40)
+            Spacer().frame(height: 32)
 
             Image("ic_star_empty")
                 .resizable()
@@ -120,7 +120,7 @@ struct CrawlingCurrentTemperatureView: View {
                 .font(.system(size: 14, weight: .regular))
                 .foregroundColor(Color(hex: "AEAEB2"))
 
-            Spacer().frame(height: 60)
+            Spacer().frame(height: 32)
         }
         .frame(maxWidth: .infinity)
         .background(Color.white)

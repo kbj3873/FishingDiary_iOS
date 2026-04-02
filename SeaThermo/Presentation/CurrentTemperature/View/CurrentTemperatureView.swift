@@ -51,7 +51,7 @@ struct CurrentTemperatureView: View {
         }
         .sheet(isPresented: $viewModel.isOceanSelectPresented) {
             viewModel.createOceanSelectView()
-                .presentationDetents([.fraction(0.8)])
+                .presentationDetents([.fraction(0.85)])
                 .presentationDragIndicator(.visible)
         }
     }

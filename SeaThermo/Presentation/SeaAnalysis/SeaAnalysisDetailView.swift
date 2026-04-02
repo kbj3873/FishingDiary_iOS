@@ -201,12 +201,12 @@ struct SeaAnalysisDetailView: View {
     
     private var footerView: some View {
         Text(footerMessage)
-            .font(.system(size: 13))
-            .foregroundColor(.blue.opacity(0.8))
+            .font(.system(size: 14, weight: .medium))
+            .foregroundColor(Color(hex: "1F40B0"))
             .frame(maxWidth: .infinity)
             .padding(.vertical, 16)
-            .background(Color.blue.opacity(0.1))
-            .cornerRadius(12)
+            .background(Color(hex: "3B82F5").opacity(0.1))
+            .cornerRadius(16)
             .padding(.horizontal, 20)
     }
     

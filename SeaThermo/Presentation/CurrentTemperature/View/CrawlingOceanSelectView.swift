@@ -76,7 +76,7 @@ struct CrawlingOceanSelectView: View {
                                         .padding(.trailing, 20)
                                 }
                                 .frame(height: 60)
-                                .background(Color.white)
+                                .background(Color(hex: "F2F2F7"))
                                 .cornerRadius(16)
                             }
                             .buttonStyle(ScaleButtonStyle())
@@ -88,7 +88,7 @@ struct CrawlingOceanSelectView: View {
                 }
             }
         }
-        .background(Color(hex: "F2F2F7").ignoresSafeArea())
+        .background(Color(.white).ignoresSafeArea())
         .onAppear {
             viewModel.viewDidLoad()
         }
