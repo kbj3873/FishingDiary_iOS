@@ -1144,7 +1144,7 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = STP3Q99SG6;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1153,8 +1153,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "온바다";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "낚시 기록을 위한 사진 촬영에 카메라 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "낚시 기록 중 현재 위치를 지도에 표시하고 낚시 경로를 기록하기 위해 위치 정보가 필요합니다";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "앱 이용을 위해 고객님의 위치 서비스를 허용해 주세요.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "낚시 기록 중 현재 위치를 지도에 표시하고 이동 경로를 자동으로 기록하기 위해 위치 정보가 필요합니다. 기록된 위치와 경로는 히스토리 탭에서 확인하실 수 있습니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "낚시 기록 중 현재 위치를 지도에 표시하고 이동 경로를 자동으로 기록하기 위해 위치 정보가 필요합니다. 기록된 위치와 경로는 히스토리 탭에서 확인하실 수 있습니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "촬영한 사진을 저장하고 불러오기 위해 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1197,7 +1197,7 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = STP3Q99SG6;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1205,8 +1205,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "온바다";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "낚시 기록을 위한 사진 촬영에 카메라 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "낚시 기록 중 현재 위치를 지도에 표시하고 낚시 경로를 기록하기 위해 위치 정보가 필요합니다";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "앱 이용을 위해 고객님의 위치 서비스를 허용해 주세요.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "낚시 기록 중 현재 위치를 지도에 표시하고 이동 경로를 자동으로 기록하기 위해 위치 정보가 필요합니다. 기록된 위치와 경로는 히스토리 탭에서 확인하실 수 있습니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "낚시 기록 중 현재 위치를 지도에 표시하고 이동 경로를 자동으로 기록하기 위해 위치 정보가 필요합니다. 기록된 위치와 경로는 히스토리 탭에서 확인하실 수 있습니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "촬영한 사진을 저장하고 불러오기 위해 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
