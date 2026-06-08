@@ -17,6 +17,32 @@ final class FishingRecordViewModel: ObservableObject {
         let coordinate: CLLocationCoordinate2D
         let thumbnailPath: String
     }
+
+    struct BoundaryMarker: Identifiable {
+        enum Kind: String {
+            case start
+            case end
+
+            var title: String {
+                switch self {
+                case .start: return "낚시 시작"
+                case .end: return "낚시 종료"
+                }
+            }
+
+            var imageName: String {
+                switch self {
+                case .start: return "ic_map_marker_start"
+                case .end: return "ic_map_marker_end"
+                }
+            }
+        }
+
+        let id = UUID()
+        let coordinate: CLLocationCoordinate2D
+        let kind: Kind
+    }
+
     enum SpeedUnit: String {
         case knots
         case kmh
@@ -68,6 +94,9 @@ final class FishingRecordViewModel: ObservableObject {
     
     /// 사진 위치 마커 목록
     @Published var photoMarkers: [PhotoMarker] = []
+
+    /// 기록 시작/종료 마커 목록
+    @Published var boundaryMarkers: [BoundaryMarker] = []
     
     /// 실제 저장된 지점 개수 (마커 + 사진)
     @Published var savedPointCount: Int = 0
@@ -143,6 +172,10 @@ final class FishingRecordViewModel: ObservableObject {
                 
                 // 3. 거리 계산 (단순 누적은 오차 있을 수 있음, 이전 좌표와 거리 계산)
                 let prevLocation = mapLine.previousLocation
+
+                if self.shouldAddStartBoundaryMarker {
+                    self.addStartBoundaryMarkerIfNeeded(at: prevLocation.coordinate)
+                }
                 
                 // 상태 변경 감지 및 마커 추가
                 // 1. 첫 상태 진입(nil)인 경우: 현재 상태를 저장만 하고 마커는 찍지 않음
@@ -222,6 +255,9 @@ final class FishingRecordViewModel: ObservableObject {
         FDAppManager.shared.setRecording(true)
         markers.removeAll() // 시작 시 마커 초기화
         photoMarkers.removeAll() // 사진 마커도 초기화
+        boundaryMarkers.removeAll()
+        pathCoordinates.removeAll()
+        savedImagePaths.removeAll()
         fishingState = .moving // 초기 상태
         lastFishingState = nil // 초기 상태 리셋 (nil로 설정하여 첫 수신 시 마커 안 찍히게 함)
         savedPointCount = 0 // 저장된 지점 수 초기화
@@ -229,13 +265,8 @@ final class FishingRecordViewModel: ObservableObject {
         locationManager.startTracking()
         
         // 세션 시작 지점 저장 (현재 위치 또는 기본 위치)
-        if let lastLocation = locationManager.locationList.last?.locationInfo {
-            useCase.savePoint(sessionId: currentSessionId,
-                            latitude: lastLocation.coordinate.latitude,
-                            longitude: lastLocation.coordinate.longitude,
-                            speed: 0,
-                            state: currentStateValue)
-            savedPointCount += 1
+        if let startCoordinate = initialRecordingCoordinate() {
+            addStartBoundaryMarkerIfNeeded(at: startCoordinate)
         }
         
         // 타이머 시작
@@ -249,20 +280,16 @@ final class FishingRecordViewModel: ObservableObject {
     
     func stopRecording() {
         // 세션 종료 지점 저장
-        if let lastLocation = locationManager.locationList.last?.locationInfo {
+        if let endCoordinate = latestRecordingCoordinate() {
             useCase.savePoint(sessionId: currentSessionId,
-                            latitude: lastLocation.coordinate.latitude,
-                            longitude: lastLocation.coordinate.longitude,
+                            latitude: endCoordinate.latitude,
+                            longitude: endCoordinate.longitude,
                             speed: 0,
                             state: currentStateValue)
-            savedPointCount += 1
-        } else if let lastCoord = pathCoordinates.last {
-            // 위치 리스트가 없으면 경로 좌표에서 가져옴
-            useCase.savePoint(sessionId: currentSessionId,
-                            latitude: lastCoord.latitude,
-                            longitude: lastCoord.longitude,
-                            speed: 0,
-                            state: currentStateValue)
+            boundaryMarkers.append(BoundaryMarker(
+                coordinate: endCoordinate,
+                kind: .end
+            ))
             savedPointCount += 1
         }
         
@@ -276,6 +303,7 @@ final class FishingRecordViewModel: ObservableObject {
         // UI 및 상태 초기화 (기록 중단 시 Reset)
         markers.removeAll()
         photoMarkers.removeAll()
+        boundaryMarkers.removeAll()
         pathCoordinates.removeAll()
         savedImagePaths.removeAll()
         savedPointCount = 0
@@ -323,7 +351,7 @@ final class FishingRecordViewModel: ObservableObject {
             // 권한 있음 -> View에서 바로 showCamera = true 처리하도록 여기서는 아무것도 안 하거나 콜백
             break
         case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+            AVCaptureDevice.requestAccess(for: .video) { _ in
                 // 첫 요청 시에는 시스템 팝업이 뜨므로 별도 처리 불필요
                 // 다만 사용자가 허용한 직후에 바로 카메라를 띄우려면 콜백이 필요할 수 있음
                 // 여기서는 단순히 요청만 보냄
@@ -392,5 +420,73 @@ final class FishingRecordViewModel: ObservableObject {
         case .drifting: return 1
         case .fishing: return 2
         }
+    }
+
+    private func latestRecordingCoordinate() -> CLLocationCoordinate2D? {
+        if let coordinate = pathCoordinates.last, isUsableCoordinate(coordinate) {
+            return coordinate
+        }
+
+        let currentMapCoordinate = currentMapLine.currentLocation.coordinate
+        if isUsableCoordinate(currentMapCoordinate) {
+            return currentMapCoordinate
+        }
+
+        if let coordinate = locationManager.locationList.last?.locationInfo.coordinate, isUsableCoordinate(coordinate) {
+            return coordinate
+        }
+
+        if let coordinate = currentLocation?.coordinate, isUsableCoordinate(coordinate) {
+            return coordinate
+        }
+
+        return nil
+    }
+
+    private func initialRecordingCoordinate() -> CLLocationCoordinate2D? {
+        if let coordinate = currentLocation?.coordinate, isUsableCoordinate(coordinate) {
+            return coordinate
+        }
+
+        if let coordinate = locationManager.locationManager.location?.coordinate, isUsableCoordinate(coordinate) {
+            return coordinate
+        }
+
+        if let coordinate = locationManager.locationList.last?.locationInfo.coordinate, isUsableCoordinate(coordinate) {
+            return coordinate
+        }
+
+        return nil
+    }
+
+    private var shouldAddStartBoundaryMarker: Bool {
+        !boundaryMarkers.contains { $0.kind == .start }
+    }
+
+    private func addStartBoundaryMarkerIfNeeded(at coordinate: CLLocationCoordinate2D) {
+        guard shouldAddStartBoundaryMarker, isUsableCoordinate(coordinate) else { return }
+
+        useCase.savePoint(sessionId: currentSessionId,
+                          latitude: coordinate.latitude,
+                          longitude: coordinate.longitude,
+                          speed: 0,
+                          state: currentStateValue)
+
+        boundaryMarkers.append(BoundaryMarker(
+            coordinate: coordinate,
+            kind: .start
+        ))
+
+        if pathCoordinates.isEmpty {
+            pathCoordinates.append(coordinate)
+        }
+
+        savedPointCount += 1
+    }
+
+    private func isUsableCoordinate(_ coordinate: CLLocationCoordinate2D) -> Bool {
+        CLLocationCoordinate2DIsValid(coordinate) &&
+        coordinate.latitude != 0 &&
+        coordinate.longitude != 0
     }
 }

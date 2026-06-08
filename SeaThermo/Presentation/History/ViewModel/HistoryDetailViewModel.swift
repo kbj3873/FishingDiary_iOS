@@ -10,6 +10,8 @@ private struct HistoryMapDataResult {
     let markers: [HistoryPhotoMarker]
     let stateMarkers: [FishingRecordViewModel.StateChangeMarker]
     let stateMarkerInfos: [HistoryDetailViewModel.HistoryStateMarkerInfo]
+    let boundaryMarkers: [FishingRecordViewModel.BoundaryMarker]
+    let boundaryMarkerInfos: [HistoryDetailViewModel.HistoryBoundaryMarkerInfo]
     let centerCoordinate: CLLocationCoordinate2D
 
     static var empty: HistoryMapDataResult {
@@ -18,6 +20,8 @@ private struct HistoryMapDataResult {
             markers: [],
             stateMarkers: [],
             stateMarkerInfos: [],
+            boundaryMarkers: [],
+            boundaryMarkerInfos: [],
             centerCoordinate: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780)
         )
     }
@@ -34,6 +38,8 @@ final class HistoryDetailViewModel: ObservableObject {
     @Published var polylines: [HistoryFishingPolyline] = []
     @Published var stateMarkers: [FishingRecordViewModel.StateChangeMarker] = []
     @Published var stateMarkerInfos: [HistoryStateMarkerInfo] = [] // 상태 마커 상세 정보
+    @Published var boundaryMarkers: [FishingRecordViewModel.BoundaryMarker] = []
+    @Published var boundaryMarkerInfos: [HistoryBoundaryMarkerInfo] = []
     @Published var centerCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780) // 기본 서울
     @Published var markers: [HistoryPhotoMarker] = []
     
@@ -44,6 +50,14 @@ final class HistoryDetailViewModel: ObservableObject {
         let timeString: String  // "HH:mm"
         let coordinate: CLLocationCoordinate2D
         let state: FDAppManager.FishingState
+    }
+
+    struct HistoryBoundaryMarkerInfo: Identifiable {
+        let id: UUID
+        let title: String
+        let timeString: String
+        let coordinate: CLLocationCoordinate2D
+        let kind: FishingRecordViewModel.BoundaryMarker.Kind
     }
     
     struct SelectedMarkerInfo: Identifiable {
@@ -109,6 +123,8 @@ final class HistoryDetailViewModel: ObservableObject {
                 self.markers = mapResult.markers
                 self.stateMarkers = mapResult.stateMarkers
                 self.stateMarkerInfos = mapResult.stateMarkerInfos
+                self.boundaryMarkers = mapResult.boundaryMarkers
+                self.boundaryMarkerInfos = mapResult.boundaryMarkerInfos
                 self.centerCoordinate = mapResult.centerCoordinate
                 self.isMapInitialized = false
 
@@ -150,6 +166,8 @@ final class HistoryDetailViewModel: ObservableObject {
         var newMarkers: [HistoryPhotoMarker] = []
         var newStateMarkers: [FishingRecordViewModel.StateChangeMarker] = []
         var newStateMarkerInfos: [HistoryDetailViewModel.HistoryStateMarkerInfo] = []
+        var newBoundaryMarkers: [FishingRecordViewModel.BoundaryMarker] = []
+        var newBoundaryMarkerInfos: [HistoryDetailViewModel.HistoryBoundaryMarkerInfo] = []
 
         var currentSegmentCoordinates: [CLLocationCoordinate2D] = []
         var currentSegmentState: Int?
@@ -159,7 +177,20 @@ final class HistoryDetailViewModel: ObservableObject {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
 
-        for record in records {
+        if let firstRecord = records.first {
+            let coord = CLLocationCoordinate2D(latitude: firstRecord.location.latitude, longitude: firstRecord.location.longitude)
+            let marker = FishingRecordViewModel.BoundaryMarker(coordinate: coord, kind: .start)
+            newBoundaryMarkers.append(marker)
+            newBoundaryMarkerInfos.append(HistoryDetailViewModel.HistoryBoundaryMarkerInfo(
+                id: marker.id,
+                title: marker.kind.title,
+                timeString: timeFormatter.string(from: firstRecord.date),
+                coordinate: coord,
+                kind: marker.kind
+            ))
+        }
+
+        for (index, record) in records.enumerated() {
             let coord = CLLocationCoordinate2D(latitude: record.location.latitude, longitude: record.location.longitude)
             let stateInt = record.state
             let fishingState: FDAppManager.FishingState
@@ -170,27 +201,29 @@ final class HistoryDetailViewModel: ObservableObject {
             }
             let timeStr = timeFormatter.string(from: record.date)
 
-            // 1. 상태 변경 마커: MOVING → 탐색/낚시 전환 시에만 생성 (Android 동기화)
-            if let last = lastState, last == .moving && fishingState != .moving {
-                var markerCoord = coord
-                if let lastSegmentCoord = currentSegmentCoordinates.last {
-                    markerCoord = lastSegmentCoord
+            // 1. 상태 변경 마커: 시작 record는 live 기록 화면처럼 상태 전환 판정에서 제외
+            if index > 0 {
+                if let last = lastState, last == .moving && fishingState != .moving {
+                    var markerCoord = coord
+                    if let lastSegmentCoord = currentSegmentCoordinates.last {
+                        markerCoord = lastSegmentCoord
+                    }
+
+                    let marker = FishingRecordViewModel.StateChangeMarker(coordinate: markerCoord, state: fishingState)
+                    newStateMarkers.append(marker)
+
+                    let info = HistoryDetailViewModel.HistoryStateMarkerInfo(
+                        id: marker.id,
+                        title: "지점 #\(globalPointIndex)",
+                        timeString: timeStr,
+                        coordinate: markerCoord,
+                        state: fishingState
+                    )
+                    newStateMarkerInfos.append(info)
+                    globalPointIndex += 1
                 }
-
-                let marker = FishingRecordViewModel.StateChangeMarker(coordinate: markerCoord, state: fishingState)
-                newStateMarkers.append(marker)
-
-                let info = HistoryDetailViewModel.HistoryStateMarkerInfo(
-                    id: marker.id,
-                    title: "지점 #\(globalPointIndex)",
-                    timeString: timeStr,
-                    coordinate: markerCoord,
-                    state: fishingState
-                )
-                newStateMarkerInfos.append(info)
-                globalPointIndex += 1
+                lastState = fishingState
             }
-            lastState = fishingState
 
             // 2. 사진 마커
             if !record.imagePaths.isEmpty {
@@ -228,11 +261,27 @@ final class HistoryDetailViewModel: ObservableObject {
             segments.append(createPolyline(coordinates: currentSegmentCoordinates, state: currentState))
         }
 
+        if records.count > 1, let lastRecord = records.last {
+            let recordCoord = CLLocationCoordinate2D(latitude: lastRecord.location.latitude, longitude: lastRecord.location.longitude)
+            let coord = currentSegmentCoordinates.last ?? recordCoord
+            let marker = FishingRecordViewModel.BoundaryMarker(coordinate: coord, kind: .end)
+            newBoundaryMarkers.append(marker)
+            newBoundaryMarkerInfos.append(HistoryDetailViewModel.HistoryBoundaryMarkerInfo(
+                id: marker.id,
+                title: marker.kind.title,
+                timeString: timeFormatter.string(from: lastRecord.date),
+                coordinate: coord,
+                kind: marker.kind
+            ))
+        }
+
         return HistoryMapDataResult(
             polylines: segments,
             markers: newMarkers,
             stateMarkers: newStateMarkers,
             stateMarkerInfos: newStateMarkerInfos,
+            boundaryMarkers: newBoundaryMarkers,
+            boundaryMarkerInfos: newBoundaryMarkerInfos,
             centerCoordinate: centerCoordinate
         )
     }
@@ -254,7 +303,7 @@ final class HistoryDetailViewModel: ObservableObject {
         let fileName = (path as NSString).lastPathComponent
         return documentsURL.appendingPathComponent(fileName).path
     }
-    
+
     // MARK: - Helper Methods
     private func formatDuration(_ duration: TimeInterval) -> String {
         let hours = Int(duration) / 3600

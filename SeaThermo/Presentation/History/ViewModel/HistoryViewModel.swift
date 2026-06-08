@@ -116,13 +116,16 @@ final class HistoryViewModel: ObservableObject {
         timeFormatter.dateFormat = "HH:mm"
         let startTime = "\(timeFormatter.string(from: firstRecord.date)) 출발"
         
-        // 지점 수 (상태 마커 + 사진 마커)
-        // 1. 상태 변경 마커 수 계산 (HistoryDetailViewModel 로직 참조)
+        // 지점 수 (시작/종료 + 상태 마커 + 사진 마커)
+        // 상태 마커는 live 기록 화면과 동일하게 시작 record를 제외하고,
+        // 이동중 -> 탐색/낚시 전환만 지점으로 계산한다.
         var stateMarkerCount = 0
         var lastState: Int?
         
-        for record in sortedRecords {
-            if let last = lastState, last != record.state {
+        for (index, record) in sortedRecords.enumerated() {
+            guard index > 0 else { continue }
+
+            if let last = lastState, last == 0, record.state != 0 {
                 stateMarkerCount += 1
             }
             lastState = record.state
@@ -132,8 +135,9 @@ final class HistoryViewModel: ObservableObject {
         // HistoryDetailViewModel에서는 각 이미지마다 마커를 생성하므로 전체 이미지 개수와 동일
         let photoCount = sortedRecords.reduce(0) { $0 + $1.imagePaths.count }
         
-        // 총 지점 수 = 상태 변경 횟수 + 사진 개수
-        let pointCount = stateMarkerCount + photoCount
+        // 총 지점 수 = 시작/종료 + 상태 변경 + 사진 개수
+        let boundaryMarkerCount = sortedRecords.count > 1 ? 2 : 1
+        let pointCount = boundaryMarkerCount + stateMarkerCount + photoCount
         
         // 소요 시간 (hh시간 mm분 포맷으로 통일)
         let durationInterval = lastRecord.date.timeIntervalSince(firstRecord.date)
@@ -274,4 +278,3 @@ final class HistoryViewModel: ObservableObject {
         return image.jpegData(compressionQuality: 0.8)
     }
 }
-

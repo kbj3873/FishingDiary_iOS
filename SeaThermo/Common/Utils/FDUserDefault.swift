@@ -27,4 +27,7 @@ class UserDefaultKey: NSObject {
 
     /// 크롤링 기반 현재수온 탭 즐겨찾기 지역 리스트 (Region 타입, 최대 7개)
     static let crawlingFavoriteRegions = "crawlingFavoriteRegions"
+
+    /// 낚시기록 탭 안내 팝업 다시 보지 않기 여부
+    static let hideFishingRecordGuidePopup = "hideFishingRecordGuidePopup"
 }

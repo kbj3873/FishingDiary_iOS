@@ -8,9 +8,13 @@ struct FishingRecordView: View {
     @State private var kakaoMapAction: KakaoMapAction? = nil
     @State private var showCamera = false
     @State private var selectedImage: UIImage?
+    @State private var isGuidePopupPresented = false
+    @State private var hasPresentedGuidePopup = false
+    @State private var shouldHideGuidePopup = false
     
     // 0: Apple, 1: Kakao
     @AppStorage(UserDefaultKey.mapType) private var mapType: Int = 0
+    @AppStorage(UserDefaultKey.hideFishingRecordGuidePopup) private var hideGuidePopup: Bool = false
     
     var body: some View {
         ZStack {
@@ -22,6 +26,7 @@ struct FishingRecordView: View {
                     mapAction: $kakaoMapAction,
                     markers: $viewModel.markers,
                     photoMarkers: $viewModel.photoMarkers,
+                    boundaryMarkers: $viewModel.boundaryMarkers,
                     fishingState: $viewModel.fishingState,
                     userLocation: $viewModel.currentLocation,
                     getLocationList: viewModel.getLocationList
@@ -33,6 +38,7 @@ struct FishingRecordView: View {
                     shouldCleanup: $shouldCleanupMap,
                     markers: $viewModel.markers,
                     photoMarkers: $viewModel.photoMarkers,
+                    boundaryMarkers: $viewModel.boundaryMarkers,
                     fishingState: $viewModel.fishingState,
                     getLocationList: viewModel.getLocationList,
                     coordinator: $mapCoordinator
@@ -68,6 +74,7 @@ struct FishingRecordView: View {
         }
         .onAppear {
             viewModel.startMonitoring()
+            presentGuidePopupIfNeeded()
             // 탭 진입 시 위치 권한 체크
             viewModel.checkLocationPermission()
         }
@@ -90,6 +97,23 @@ struct FishingRecordView: View {
 
         .overlay(
             Group {
+                if isGuidePopupPresented {
+                    ZStack {
+                        Color.black.opacity(0.4)
+                            .edgesIgnoringSafeArea(.all)
+
+                        FishingRecordGuidePopupView(
+                            shouldHideGuidePopup: $shouldHideGuidePopup,
+                            confirmAction: {
+                                if shouldHideGuidePopup {
+                                    hideGuidePopup = true
+                                }
+                                isGuidePopupPresented = false
+                            }
+                        )
+                    }
+                }
+
                 if viewModel.isStopPopupPresented {
                     ZStack {
                         Color.black.opacity(0.4)
@@ -427,6 +451,13 @@ struct FishingRecordView: View {
     }
     
     // MARK: - Helpers
+
+    private func presentGuidePopupIfNeeded() {
+        guard !hideGuidePopup, !hasPresentedGuidePopup else { return }
+        shouldHideGuidePopup = false
+        hasPresentedGuidePopup = true
+        isGuidePopupPresented = true
+    }
     
     // 상태 아이콘 색상 (Figma Data)
     private var statusColor: Color {
@@ -471,6 +502,38 @@ struct FishingRecordView: View {
     
     private func getDocumentsDirectory() -> URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    }
+}
+
+private struct FishingRecordGuidePopupView: View {
+    @Binding var shouldHideGuidePopup: Bool
+    let confirmAction: () -> Void
+
+    var body: some View {
+        CommonPopupView(
+            title: "낚시 기록 안내",
+            message: "워킹 루어 낚시나 보트 낚시처럼 이동 경로가 중요한 낚시에 적합한 기능입니다.\n\n기록 중 이동 경로가 저장되고, 사진을 촬영해 조과 포인트를 함께 남길 수 있습니다. 저장된 기록은 히스토리에서 다시 확인할 수 있어요.",
+            layoutType: .vertical,
+            primaryButtonText: "확인",
+            primaryAction: confirmAction,
+            accessoryContent: AnyView(
+                Button {
+                    shouldHideGuidePopup.toggle()
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: shouldHideGuidePopup ? "checkmark.square.fill" : "square")
+                            .font(.system(size: 20, weight: .medium))
+                            .foregroundColor(shouldHideGuidePopup ? Color(hex: "2563EB") : Color(hex: "8E8E93"))
+
+                        Text("다시 보지 않기")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(Color(hex: "6B7280"))
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .buttonStyle(PlainButtonStyle())
+            )
+        )
     }
 }
 

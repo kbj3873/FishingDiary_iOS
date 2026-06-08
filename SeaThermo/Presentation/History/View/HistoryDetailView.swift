@@ -27,6 +27,8 @@ struct HistoryDetailView: View {
                     markers: $viewModel.markers,
                     stateMarkers: $viewModel.stateMarkers,
                     stateMarkerInfos: $viewModel.stateMarkerInfos,
+                    boundaryMarkers: $viewModel.boundaryMarkers,
+                    boundaryMarkerInfos: $viewModel.boundaryMarkerInfos,
                     selectedMarker: $viewModel.selectedMarker,
                     isMapInitialized: $viewModel.isMapInitialized
                 )
@@ -38,6 +40,8 @@ struct HistoryDetailView: View {
                     markers: $viewModel.markers,
                     stateMarkers: $viewModel.stateMarkers,
                     stateMarkerInfos: $viewModel.stateMarkerInfos,
+                    boundaryMarkers: $viewModel.boundaryMarkers,
+                    boundaryMarkerInfos: $viewModel.boundaryMarkerInfos,
                     selectedMarker: $viewModel.selectedMarker,
                     isMapInitialized: $viewModel.isMapInitialized
                 )
@@ -91,10 +95,13 @@ struct HistoryDetailView: View {
     }
     
     // MARK: - Subviews
+
+    private var expandedHeaderContentHeight: CGFloat {
+        viewModel.markers.isEmpty ? 101 : 258
+    }
     
     private var headerCardView: some View {
         VStack(spacing: 0) {
-            // 기본 헤더 영역 (항상 보임)
             // 기본 헤더 영역 (항상 보임)
             ZStack {
                 // 중앙 타이틀 (날짜 & 시간) - 탭하여 펼치기
@@ -104,7 +111,7 @@ struct HistoryDetailView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        withAnimation(.spring()) {
+                        withAnimation(.easeInOut(duration: 0.24)) {
                             isExpanded.toggle()
                         }
                     }) {
@@ -123,9 +130,11 @@ struct HistoryDetailView: View {
                                 .rotationEffect(Angle(degrees: isExpanded ? 180 : 0))
                                 .padding(.top, 2)
                         }
+                        .contentShape(Rectangle())
                     }
                     Spacer()
                 }
+                .zIndex(1)
                 
                 // 좌우 버튼
                 HStack {
@@ -162,77 +171,12 @@ struct HistoryDetailView: View {
             .padding(.vertical, 16)
             
             // 확장 영역 (상세 정보)
-            if isExpanded {
-                VStack(spacing: 0) {
-                    
-                    // 1. 상세 정보 3단 컬럼 (시간, 거리, 조과물)
-                    Divider()
-                        .background(Color(hex: "E5E5EA"))
-                        .padding(.horizontal, 16)
-                    
-                    HStack(spacing: 0) {
-                        // 낚시 시간
-                        expandedDetailItem(icon: "clock_icon", label: "낚시 시간", value: viewModel.totalDuration)
-                        
-                        Rectangle()
-                            .fill(Color(hex: "E5E5EA"))
-                            .frame(width: 1, height: 40)
-                        
-                        // 이동 경로 (지점 개수)
-                        expandedDetailItem(icon: "distance_icon", label: "이동 경로", value: "\(viewModel.stateMarkerInfos.count + viewModel.markers.count)지점")
-                        
-                        Rectangle()
-                            .fill(Color(hex: "E5E5EA"))
-                            .frame(width: 1, height: 40)
-                        
-                        // 조과물
-                        expandedDetailItem(icon: "photo_icon", label: "조과물", value: "\(viewModel.markers.count)장")
-                    }
-                    .padding(.vertical, 20)
-                    
-                    Divider()
-                        .background(Color(hex: "E5E5EA"))
-                        .padding(.horizontal, 16)
-                    
-                    // 2. 조과물 사진 섹션
-                    if !viewModel.markers.isEmpty {
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("조과물 사진")
-                                .font(.system(size: 14, weight: .semibold)) // Figma: 14pt, Semibold
-                                .foregroundColor(Color(hex: "1C1C1E"))
-                                .padding(.horizontal, 16)
-                                .padding(.top, 24) // 구분선과의 간격 추가
-                            
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 8) { // Figma: 간격 8
-                                    ForEach(Array(viewModel.markers.enumerated()), id: \.element.id) { index, marker in
-                                        Button(action: {
-                                            viewModel.selectedImageIndex = index
-                                            viewModel.isImageViewerPresented = true
-                                        }) {
-                                            if let image = UIImage(contentsOfFile: marker.thumbnailPath) {
-                                                Image(uiImage: image)
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fill)
-                                                    .frame(width: 80, height: 80) // Figma: 80x80
-                                                    .clipShape(RoundedRectangle(cornerRadius: 12)) // Figma: Radius 12
-                                            } else {
-                                                Rectangle()
-                                                    .fill(Color(hex: "F2F2F7"))
-                                                    .frame(width: 80, height: 80)
-                                                    .cornerRadius(12)
-                                            }
-                                        }
-                                    }
-                                }
-                                .padding(.horizontal, 16)
-                            }
-                        }
-                        .padding(.bottom, 24)
-                    }
-                }
-                .transition(.opacity.combined(with: .move(edge: .top)))
-            }
+            expandedHeaderContent
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(height: isExpanded ? expandedHeaderContentHeight : 0, alignment: .top)
+                .clipped()
+                .allowsHitTesting(isExpanded)
+                .accessibilityHidden(!isExpanded)
         }
         .background(Color.white)
         .cornerRadius(20)
@@ -245,7 +189,75 @@ struct HistoryDetailView: View {
         }
     }
     
-    // ... (expandedDetailItem 등 기존 코드 생략)
+    private var expandedHeaderContent: some View {
+        VStack(spacing: 0) {
+            // 1. 상세 정보 3단 컬럼 (시간, 거리, 조과물)
+            Divider()
+                .background(Color(hex: "E5E5EA"))
+                .padding(.horizontal, 16)
+
+            HStack(spacing: 0) {
+                // 낚시 시간
+                expandedDetailItem(icon: "clock_icon", label: "낚시 시간", value: viewModel.totalDuration)
+
+                Rectangle()
+                    .fill(Color(hex: "E5E5EA"))
+                    .frame(width: 1, height: 40)
+
+                // 이동 경로 (지점 개수)
+                expandedDetailItem(icon: "distance_icon", label: "이동 경로", value: "\(viewModel.boundaryMarkerInfos.count + viewModel.stateMarkerInfos.count + viewModel.markers.count)지점")
+
+                Rectangle()
+                    .fill(Color(hex: "E5E5EA"))
+                    .frame(width: 1, height: 40)
+
+                // 조과물
+                expandedDetailItem(icon: "photo_icon", label: "조과물", value: "\(viewModel.markers.count)장")
+            }
+            .padding(.vertical, 20)
+
+            // 2. 조과물 사진 섹션
+            if !viewModel.markers.isEmpty {
+                Divider()
+                    .background(Color(hex: "E5E5EA"))
+                    .padding(.horizontal, 16)
+
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("조과물 사진")
+                        .font(.system(size: 14, weight: .semibold)) // Figma: 14pt, Semibold
+                        .foregroundColor(Color(hex: "1C1C1E"))
+                        .padding(.horizontal, 16)
+                        .padding(.top, 24) // 구분선과의 간격 추가
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) { // Figma: 간격 8
+                            ForEach(Array(viewModel.markers.enumerated()), id: \.element.id) { index, marker in
+                                Button(action: {
+                                    viewModel.selectedImageIndex = index
+                                    viewModel.isImageViewerPresented = true
+                                }) {
+                                    if let image = UIImage(contentsOfFile: marker.thumbnailPath) {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 80, height: 80) // Figma: 80x80
+                                            .clipShape(RoundedRectangle(cornerRadius: 12)) // Figma: Radius 12
+                                    } else {
+                                        Rectangle()
+                                            .fill(Color(hex: "F2F2F7"))
+                                            .frame(width: 80, height: 80)
+                                            .cornerRadius(12)
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                    }
+                }
+                .padding(.bottom, 24)
+            }
+        }
+    }
     
     // MARK: - 삭제 팝업 오버레이
     @ViewBuilder

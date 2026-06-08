@@ -17,6 +17,8 @@ struct HistoryMapView: UIViewRepresentable {
     @Binding var markers: [HistoryPhotoMarker]
     @Binding var stateMarkers: [FishingRecordViewModel.StateChangeMarker]
     @Binding var stateMarkerInfos: [HistoryDetailViewModel.HistoryStateMarkerInfo] // 상태 마커 상세 정보
+    @Binding var boundaryMarkers: [FishingRecordViewModel.BoundaryMarker]
+    @Binding var boundaryMarkerInfos: [HistoryDetailViewModel.HistoryBoundaryMarkerInfo]
     @Binding var selectedMarker: HistoryDetailViewModel.SelectedMarkerInfo?
     @Binding var isMapInitialized: Bool // 지도 초기화 여부 (Zoom to Fit 1회 제한용)
     
@@ -43,7 +45,8 @@ struct HistoryMapView: UIViewRepresentable {
         // 데이터 변경 확인
         if !context.coordinator.shouldUpdate(polylines: polylines, 
                                            markers: markers, 
-                                           stateMarkers: stateMarkers) {
+                                           stateMarkers: stateMarkers,
+                                           boundaryMarkers: boundaryMarkers) {
             return
         }
         
@@ -69,8 +72,8 @@ struct HistoryMapView: UIViewRepresentable {
                         self.isMapInitialized = true
                     }
                 }
-            } else if !markers.isEmpty {
-                 let coords = markers.map { $0.coordinate }
+            } else if !markers.isEmpty || !boundaryMarkers.isEmpty {
+                 let coords = markers.map { $0.coordinate } + boundaryMarkers.map { $0.coordinate }
                  let region = regionFor(coordinates: coords)
                  uiView.setRegion(region, animated: true)
                  Task { @MainActor in
@@ -80,7 +83,7 @@ struct HistoryMapView: UIViewRepresentable {
         }
         
         // 데이터 업데이트 후 캐시 갱신
-        context.coordinator.updateCache(polylines: polylines, markers: markers, stateMarkers: stateMarkers)
+        context.coordinator.updateCache(polylines: polylines, markers: markers, stateMarkers: stateMarkers, boundaryMarkers: boundaryMarkers)
     }
     
     private func updatePolyline(on mapView: MKMapView) {
@@ -113,6 +116,16 @@ struct HistoryMapView: UIViewRepresentable {
             case .drifting: annotation.title = "탐색"
             case .fishing: annotation.title = "낚시"
             }
+            mapView.addAnnotation(annotation)
+        }
+
+        // 시작/종료 마커 추가
+        for marker in boundaryMarkers {
+            let annotation = HistoryBoundaryAnnotation()
+            annotation.coordinate = marker.coordinate
+            annotation.kind = marker.kind
+            annotation.id = marker.id
+            annotation.title = marker.kind.title
             mapView.addAnnotation(annotation)
         }
     }
@@ -151,6 +164,7 @@ struct HistoryMapView: UIViewRepresentable {
         private var _polylines: [HistoryFishingPolyline] = []
         private var _markers: [HistoryPhotoMarker] = []
         private var _stateMarkers: [FishingRecordViewModel.StateChangeMarker] = []
+        private var _boundaryMarkers: [FishingRecordViewModel.BoundaryMarker] = []
         private var _hasLoaded: Bool = false
 
         init(_ parent: HistoryMapView) {
@@ -169,13 +183,15 @@ struct HistoryMapView: UIViewRepresentable {
         
         func shouldUpdate(polylines: [HistoryFishingPolyline], 
                           markers: [HistoryPhotoMarker], 
-                          stateMarkers: [FishingRecordViewModel.StateChangeMarker]) -> Bool {
+                          stateMarkers: [FishingRecordViewModel.StateChangeMarker],
+                          boundaryMarkers: [FishingRecordViewModel.BoundaryMarker]) -> Bool {
             if !_hasLoaded { return true }
             
             // 단순 카운트 및 ID/좌표 비교
             if _polylines.count != polylines.count { return true }
             if _markers.count != markers.count { return true }
             if _stateMarkers.count != stateMarkers.count { return true }
+            if _boundaryMarkers.count != boundaryMarkers.count { return true }
             
             // 더 정밀한 비교가 필요하다면 여기에 추가
             // 예: 마지막 마커의 ID 비교 등
@@ -186,10 +202,12 @@ struct HistoryMapView: UIViewRepresentable {
         
         func updateCache(polylines: [HistoryFishingPolyline], 
                          markers: [HistoryPhotoMarker], 
-                         stateMarkers: [FishingRecordViewModel.StateChangeMarker]) {
+                         stateMarkers: [FishingRecordViewModel.StateChangeMarker],
+                         boundaryMarkers: [FishingRecordViewModel.BoundaryMarker]) {
             self._polylines = polylines
             self._markers = markers
             self._stateMarkers = stateMarkers
+            self._boundaryMarkers = boundaryMarkers
             self._hasLoaded = true
         }
         
@@ -219,6 +237,10 @@ struct HistoryMapView: UIViewRepresentable {
             
              if let fishingAnnotation = annotation as? HistoryFishingStateAnnotation {
                 return fishingStateAnnotationView(for: fishingAnnotation, in: mapView)
+            }
+
+            if let boundaryAnnotation = annotation as? HistoryBoundaryAnnotation {
+                return boundaryAnnotationView(for: boundaryAnnotation, in: mapView)
             }
             
             return nil
@@ -273,6 +295,26 @@ struct HistoryMapView: UIViewRepresentable {
                     }
                 }
             }
+            return view
+        }
+
+        private func boundaryAnnotationView(for annotation: HistoryBoundaryAnnotation, in mapView: MKMapView) -> MKAnnotationView? {
+            let identifier = "HistoryBoundaryMarker"
+            var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+
+            if view == nil {
+                view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view?.canShowCallout = false
+            } else {
+                view?.annotation = annotation
+            }
+
+            if let kind = annotation.kind {
+                view?.image = UIImage(named: kind.imageName)
+            }
+
+            view?.centerOffset = .zero
+
             return view
         }
         
@@ -350,6 +392,21 @@ struct HistoryMapView: UIViewRepresentable {
                     }
                 }
             }
+            // 3. 시작/종료 마커 선택 시
+            else if let boundaryAnnotation = view.annotation as? HistoryBoundaryAnnotation,
+                    let annotationId = boundaryAnnotation.id {
+                withAnimation {
+                    if let markerInfo = parent.boundaryMarkerInfos.first(where: { $0.id == annotationId }) {
+                        parent.selectedMarker = HistoryDetailViewModel.SelectedMarkerInfo(
+                            title: markerInfo.title,
+                            timeString: markerInfo.timeString,
+                            thumbnailPath: nil,
+                            coordinate: markerInfo.coordinate,
+                            state: nil
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -369,3 +426,7 @@ class HistoryPhotoAnnotation: MKPointAnnotation {
     var thumbnailPath: String?
 }
 
+class HistoryBoundaryAnnotation: MKPointAnnotation {
+    var id: UUID?
+    var kind: FishingRecordViewModel.BoundaryMarker.Kind?
+}

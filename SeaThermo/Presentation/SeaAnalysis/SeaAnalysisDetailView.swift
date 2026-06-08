@@ -89,11 +89,17 @@ struct SeaAnalysisDetailView: View {
     private var graphSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 4) {
-                Text("최근 7일 수온 변화")
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.white)
+                HStack(spacing: 12) {
+                    Text("최근 7일 수온 변화")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.white)
+
+                    Spacer()
+
+                    graphScaleMenu
+                }
                 
-                Text("일별 수온 추이 분석")
+                Text(viewModel.graphSubtitle)
                     .font(.system(size: 14))
                     .foregroundColor(.white.opacity(0.7))
             }
@@ -101,9 +107,13 @@ struct SeaAnalysisDetailView: View {
             .padding(.top, 24)
             
             // 그래프 영역
-            TemperatureLineGraphView(dataSets: viewModel.graphData, dates: viewModel.graphDates)
-                .frame(height: 280)
-                .padding(.horizontal, 10)
+            TemperatureLineGraphView(
+                dataSets: viewModel.graphData,
+                ticks: viewModel.graphTicks,
+                timeScale: viewModel.selectedGraphTimeScale
+            )
+            .frame(height: 280)
+            .padding(.horizontal, 10)
         }
         .background(
             Color(hex: "2C303E") // Figma 다크 배경색 일치 필요
@@ -111,6 +121,36 @@ struct SeaAnalysisDetailView: View {
         .cornerRadius(16)
         .padding(.horizontal, 20)
         .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 4)
+    }
+
+    private var graphScaleMenu: some View {
+        Menu {
+            ForEach(GraphTimeScale.allCases) { scale in
+                Button {
+                    viewModel.selectedGraphTimeScale = scale
+                } label: {
+                    HStack {
+                        Text(scale.title)
+                        if viewModel.selectedGraphTimeScale == scale {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
+        } label: {
+            HStack(spacing: 4) {
+                Text(viewModel.selectedGraphTimeScale.title)
+                    .font(.system(size: 13, weight: .semibold))
+
+                Image(systemName: "chevron.down")
+                    .font(.system(size: 10, weight: .bold))
+            }
+            .foregroundColor(.white)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .background(Color.white.opacity(0.14))
+            .cornerRadius(8)
+        }
     }
     
     private var temperatureCardsSection: some View {

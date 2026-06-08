@@ -25,6 +25,7 @@ struct RecordKakaoMapView: UIViewControllerRepresentable {
     @Binding var mapAction: KakaoMapAction?
     @Binding var markers: [FishingRecordViewModel.StateChangeMarker]
     @Binding var photoMarkers: [FishingRecordViewModel.PhotoMarker]
+    @Binding var boundaryMarkers: [FishingRecordViewModel.BoundaryMarker]
     @Binding var fishingState: FDAppManager.FishingState
     @Binding var userLocation: CLLocation?
     
@@ -61,6 +62,7 @@ struct RecordKakaoMapView: UIViewControllerRepresentable {
         // 마커 업데이트
         uiViewController.updateMarkers(markers)
         uiViewController.updatePhotoMarkers(photoMarkers)
+        uiViewController.updateBoundaryMarkers(boundaryMarkers)
         
         // 사용자 위치 업데이트 (모니터링)
         if let location = userLocation {

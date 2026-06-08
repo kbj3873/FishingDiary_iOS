@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03056EB521888E02D92D7EFA /* FDAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCC2AAAA36000DD26DE /* FDAppManager.swift */; };
+		03B50E6D861D90C28497D62C /* ApplicationDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DC470B2F5A9BC2004AB305 /* ApplicationDIContainer.swift */; };
+		042100115C9D4C0D538F051B /* FishingRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907061170C85DB46A0B8579F /* FishingRecordViewModel.swift */; };
+		0550B9E81625EDF5E1BE84C8 /* SeaAnalysisDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FDD546D39EAF812578B340 /* SeaAnalysisDetailViewModel.swift */; };
+		07149ABAC1FD165B04F5B8B8 /* CrawlingCurrentTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFF22F5E66BF007C1638 /* CrawlingCurrentTemperatureView.swift */; };
+		0A2BF9F9EA81900DF7F2C171 /* TemperatureLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */; };
 		0BF29263C5B25FD2C6EF9558 /* SeaAnalysisDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */; };
 		0FBF453FFF082B22DC020B1F /* DefaultFishingRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */; };
 		113564FD2F51A8AE00F4E38B /* RisaInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113564FC2F51A8AE00F4E38B /* RisaInfoDTO.swift */; };
 		113565002F51A8C900F4E38B /* RisaListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113564FE2F51A8C900F4E38B /* RisaListDTO.swift */; };
+		11399F42782BED172B1B6D87 /* RisaListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113564FE2F51A8C900F4E38B /* RisaListDTO.swift */; };
 		11473BE62F56FD8400695EA9 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11473BE32F56FD8400695EA9 /* OnboardingView.swift */; };
 		11473BE72F56FD8400695EA9 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11473BE42F56FD8400695EA9 /* OnboardingViewModel.swift */; };
 		1150DFEF2F5E5FAB007C1638 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFEE2F5E5FAB007C1638 /* Region.swift */; };
@@ -54,22 +61,110 @@
 		11E66EB12F3B1ED800AC7B6A /* HistoryKakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAE2F3B1ED800AC7B6A /* HistoryKakaoMapView.swift */; };
 		11FC08402F35C6CD0067FBAB /* RecordMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FC083E2F35C6CD0067FBAB /* RecordMapView.swift */; };
 		1330B868D2832A44D987A553 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093AC48AA1FF2837E609F8E8 /* RealmManager.swift */; };
+		15AA0B26394B3DEB1972EA5F /* DefaultSplashRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962F7FBD82D4CF2A845061E /* DefaultSplashRepository.swift */; };
+		168B889B652DBA316587088F /* MetricKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AABB000100000000 /* MetricKitManager.swift */; };
+		16E8BE7B58E07C12F5EC9A25 /* CrawlingOceanSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFF32F5E66BF007C1638 /* CrawlingOceanSelectView.swift */; };
 		225237683E1B0440276984CB /* FishingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */; };
+		23922B0122BE766480EE7237 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47B22AA0107000ED2D23 /* Assets.xcassets */; };
+		263C3886CC816E3DDF0FD3A8 /* HistoryKakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAF2F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift */; };
 		26B53BA3AF20420EB2F26926 /* DefaultSplashRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962F7FBD82D4CF2A845061E /* DefaultSplashRepository.swift */; };
 		29A7E81887295D88B98D6ABA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5D606CD631AF9E1FFC631E /* SettingViewModel.swift */; };
+		2A0C24139CCD9370849F0A02 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE480A2AA026E400ED2D23 /* libsqlite3.tbd */; };
+		2D61F0A86A3094DD15897F52 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */; };
 		32678646250D4911966F09E5 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54634800DFF64063ACCC5ED5 /* SplashView.swift */; };
+		332118F5D6BC104ECAB9E741 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43151FC2B1860AE00027BB9 /* AppDIContainer.swift */; };
+		349D848953FDA211AB8B8B09 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE48062AA026D200ED2D23 /* libc++.tbd */; };
+		35AF5EF11C1A0D8B2F73922C /* DefaultFishingRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1767FD75604B267DB9FD3F /* DefaultFishingRecordRepository.swift */; };
+		35EB867FA000CB92B82AC168 /* MKPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0276E2AB17804007D1900 /* MKPolyline.swift */; };
+		394F51FE19312FDD24A8957B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE480C2AA0277700ED2D23 /* UIKit.framework */; };
+		3EE20C3448B0D5AF2B1605FE /* RecordMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FC083E2F35C6CD0067FBAB /* RecordMapView.swift */; };
+		3FA858A5D399A94D1341A5BB /* CurrentTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152712B9951B00000C552 /* CurrentTemperature.swift */; };
+		412640151D6989A5C69BDD8F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54634800DFF64063ACCC5ED5 /* SplashView.swift */; };
+		507BE998178F32C5966549EB /* SeaRegionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002C2F2DA7C5005C7F82 /* SeaRegionListViewModel.swift */; };
+		50BBB374F7CEACE0F253E3F1 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFEE2F5E5FAB007C1638 /* Region.swift */; };
+		5592B56446DF99732A7CEF7F /* SeaThermoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1193965B2F59621500F4EB6C /* SeaThermoApp.swift */; };
+		55EDBB9CAD2AFF238D71C988 /* Pods_SeaThermoInternal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A94ECE875144090D8C22CE /* Pods_SeaThermoInternal.framework */; };
+		55F96A92BFF6F39CE2C00680 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1176182D2F3364CA00EF9FAF /* HistoryViewModel.swift */; };
 		569F048024BBD429EC11659B /* Pods_SeaThermo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03AA4355987AC316DDA08C99 /* Pods_SeaThermo.framework */; };
+		57954DD180BF1632CC489804 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5D606CD631AF9E1FFC631E /* SettingViewModel.swift */; };
+		5F3653876A295917D086E1AC /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032D3F263E0420386394477 /* SplashViewModel.swift */; };
+		61B5DCD5340170CCB52C419C /* CrawlingCurrentTemperatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFF62F5E66DC007C1638 /* CrawlingCurrentTemperatureViewModel.swift */; };
 		61F92959D621EB1C9B01CD6A /* SeaAnalysisDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FDD546D39EAF812578B340 /* SeaAnalysisDetailViewModel.swift */; };
+		6255B0A50948EE0C80777A0E /* RealmFishingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9496B21B73A2BB3CBD17F97 /* RealmFishingRecord.swift */; };
+		65D757C06681B838E980C6AF /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE48082AA026DA00ED2D23 /* libxml2.tbd */; };
+		65E5A3C621F7F6A30025EB7C /* RisaInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113564FC2F51A8AE00F4E38B /* RisaInfoDTO.swift */; };
+		67F8C8C31F5F006910398E8C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1193966F2F59912800F4EB6C /* GoogleService-Info.plist */; };
+		6898C83D9EBBFAF312D169E6 /* VersionCheckDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9D632B8195470DA96FB3D6 /* VersionCheckDTO.swift */; };
+		6A07B252D23EFA5CB1EF6264 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1176182B2F3364CA00EF9FAF /* HistoryView.swift */; };
+		6D296183E8D3D079A115F345 /* OceanSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119396612F59673000F4EB6C /* OceanSelectView.swift */; };
+		7157E2A2F4354E67653BB3C4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11473BE32F56FD8400695EA9 /* OnboardingView.swift */; };
 		7328AEBCF75792505834FC4D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC046A5B2699C9838415D31D /* SettingView.swift */; };
+		77CD6AF3F144229E1546C130 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119396672F59673000F4EB6C /* MainTabView.swift */; };
 		78C52B0F387154EC058F66CA /* RealmFishingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9496B21B73A2BB3CBD17F97 /* RealmFishingRecord.swift */; };
+		7B6A806A95304FBFFDD6D111 /* FDLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE481A2AA02DA300ED2D23 /* FDLocationManager.swift */; };
+		7BA2B495072E42C9A9962A78 /* SCPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE481D2AA02E7B00ED2D23 /* SCPrivacy.swift */; };
+		807EE701F8DAB383E5A8BD19 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195A5CF2F5812CF000B7DB2 /* UIColor+Hex.swift */; };
+		809B6E1D1FA066752079C4AF /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195A5CD2F581289000B7DB2 /* Color.swift */; };
+		82681D6D75B2F5DA82039D0B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE47FE2AA0256B00ED2D23 /* CoreLocation.framework */; };
+		83E3379CDC0B2B8B05A251F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DE47B42AA0107000ED2D23 /* LaunchScreen.storyboard */; };
+		84102179C0410543AC986EFB /* RecordKakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAB2F3B0FBF00AC7B6A /* RecordKakaoMapViewController.swift */; };
+		855136AC5B9C212EDF5DDDCD /* OceanSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119396642F59673000F4EB6C /* OceanSelectViewModel.swift */; };
+		8814C89AF7C90A6BA31D81DD /* SplashUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC602F4D7EA500CB12C6 /* SplashUseCase.swift */; };
+		8A43C562A15E7D6DD03A2A6D /* HistoryKakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAE2F3B1ED800AC7B6A /* HistoryKakaoMapView.swift */; };
+		8EAA7EC8ABFC3191AAEAAFED /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F491527C2B99A91E0000C552 /* APIEndpoints.swift */; };
+		8F7EDDD969432FAD862A8CF5 /* HistoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117142682F347394008E79D6 /* HistoryMapView.swift */; };
+		91E62D935FE0247FC00EF1DA /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1AD492AB979E300A34386 /* String.swift */; };
 		938308A513E526F0A691998F /* FishingRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907061170C85DB46A0B8579F /* FishingRecordViewModel.swift */; };
+		93EDD38B417104E7C8AFD05A /* CommonPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117618272F33480A00EF9FAF /* CommonPopupView.swift */; };
+		96F735D15CF4A8B1DDA2EE5D /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11473BE42F56FD8400695EA9 /* OnboardingViewModel.swift */; };
+		97986A456CAA8DD43D4E745D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE48042AA026C700ED2D23 /* QuartzCore.framework */; };
+		9A8C8FA0D99D49592DFB9960 /* SplashRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC5C2F4D7E5600CB12C6 /* SplashRepository.swift */; };
+		9B1B60B180EFFFCECA129F3F /* CrawlingOceanSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFF72F5E66DC007C1638 /* CrawlingOceanSelectViewModel.swift */; };
+		9B662FA0576ACE8DB2458C31 /* HistoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1171426B2F34739B008E79D6 /* HistoryDetailViewModel.swift */; };
 		A040C38E031E0655DA7EE9BC /* FishingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */; };
+		A0555FD9B2BF754B42D61D65 /* CurrentTemperatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119396632F59673000F4EB6C /* CurrentTemperatureViewModel.swift */; };
+		A3477A8D1EEFE459E8F4DFDB /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48104412B5FA3BB00F1E1BC /* UIDevice.swift */; };
+		A5D335D2F4C2608CD3797849 /* VersionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF69B7ED4E64B11A3500D56 /* VersionStatus.swift */; };
+		A87C5471D71BE20B11364449 /* MapPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E2C33C2B6A30A4007D1997 /* MapPolyline.swift */; };
+		A95786AFAF07BDEA5F4CB2E1 /* HistoryRecordCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1176182A2F3364CA00EF9FAF /* HistoryRecordCardView.swift */; };
 		AA000001AABB000100000001 /* MetricKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AABB000100000000 /* MetricKitManager.swift */; };
 		AA5D7BEB694340508095DBD0 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032D3F263E0420386394477 /* SplashViewModel.swift */; };
 		AABF851A0557A35D008E9C95 /* TemperatureLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */; };
+		ABC5327CBE44C6B54815C90B /* AppBuildMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFCA098C60EB4DF5F21FA56 /* AppBuildMode.swift */; };
+		AF2E2461B0B1292AC14DFEDC /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F407170D2DBFAA1F00A433A5 /* UserDefaults.swift */; };
+		AF65973ED3C2AEFD6B938576 /* SeaRegionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00302F2DA7C5005C7F82 /* SeaRegionListView.swift */; };
+		B3AB4FE83D1973F5F6E8993C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9452B9831030049534B /* NetworkService.swift */; };
+		B5133BA555A39EBF176AB390 /* WebViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC642F4DA53100CB12C6 /* WebViewConfig.swift */; };
+		B8EE3F84075CC45F0D802869 /* OceanUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152732B9952590000C552 /* OceanUseCase.swift */; };
+		BC98F8C7BA5DE340A1208986 /* AppBuildMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFCA098C60EB4DF5F21FA56 /* AppBuildMode.swift */; };
 		BE8D8308779040CAA518B7F1 /* VersionCheckDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9D632B8195470DA96FB3D6 /* VersionCheckDTO.swift */; };
+		BEACB084BB8D204E4D662B13 /* SeaRegionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00262F2DA7C4005C7F82 /* SeaRegionCardView.swift */; };
+		BEF8A138DB63046F20107C65 /* HistoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117142662F347384008E79D6 /* HistoryDetailView.swift */; };
+		C07084EA09A51D087277B2C1 /* OceanRegionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1193965E2F59673000F4EB6C /* OceanRegionCardView.swift */; };
+		C9503F7CC02FF8C933F2A4E0 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC046A5B2699C9838415D31D /* SettingView.swift */; };
+		CB985BBEA43D1634B2B44A16 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4950DCE2AAAB08100DD26DE /* Date.swift */; };
+		D35FE3B3A94AD9A104905F0B /* CurrentTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119396602F59673000F4EB6C /* CurrentTemperatureView.swift */; };
+		D3AA5590F4AA962E1D279F91 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE48002AA026B300ED2D23 /* OpenGLES.framework */; };
+		D90CF777C03D758F4F89843C /* SeaAnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00232F2DA7C4005C7F82 /* SeaAnalysisViewModel.swift */; };
+		DA8A9A09E946020574EA45AE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE48022AA026BE00ED2D23 /* SystemConfiguration.framework */; };
+		DAD8B4FECD063CFB4BEC8C81 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9462B9831030049534B /* Endpoint.swift */; };
+		DEE0BE8890D2F8B541D1E976 /* DefaultOceanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152772B9955680000C552 /* DefaultOceanRepository.swift */; };
+		E01D9D5E72E89D6887677AB8 /* FishingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */; };
+		E2BAAB4A9C371C5057040EDD /* SeaAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A00252F2DA7C4005C7F82 /* SeaAnalysisView.swift */; };
+		E645B577060304F1E7B8CAE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C79F6F33C58E978C971BF2D /* Foundation.framework */; };
+		E69F1457FE9E040552EA3641 /* FishingRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC5E2F4D7E8600CB12C6 /* FishingRecordRepository.swift */; };
+		E7524901D59120E547F98DC1 /* FishingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */; };
 		E8AFEA2CD75B4A60A7E5ADC3 /* VersionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF69B7ED4E64B11A3500D56 /* VersionStatus.swift */; };
 		E9B3C143644F178B8CD4DD33 /* FishingRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2E7BE3E0B35DBDE877066 /* FishingRecordView.swift */; };
+		EA3BC68E8B1C62A35842B0DB /* OceanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49152752B9954D60000C552 /* OceanRepository.swift */; };
+		EC55E6075074CDCADBCB1258 /* PointMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E6A2992B2ABEB500C935BF /* PointMap.swift */; };
+		ECAEB7EA1B79A6AA8FB24CDE /* FDUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F647922DC1F1620028A2C5 /* FDUserDefault.swift */; };
+		EE3A877B9910108AA9C0B7DB /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093AC48AA1FF2837E609F8E8 /* RealmManager.swift */; };
+		EFA7BD3FF641AB3874FD8213 /* RegionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1150DFF02F5E5FB7007C1638 /* RegionDTO.swift */; };
+		F112B64D2094ACABEEF3D754 /* FishingRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2E7BE3E0B35DBDE877066 /* FishingRecordView.swift */; };
+		F1A428C569FB13388ABE3FFA /* RecordKakaoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E66EAA2F3B0FBF00AC7B6A /* RecordKakaoMapView.swift */; };
+		F209E55595232882C3955B84 /* SeaRegionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117A002E2F2DA7C5005C7F82 /* SeaRegionRowView.swift */; };
+		F3F4BB9E9630B4784DFED2DA /* WeeklyTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480D2622BA2E2A800E1F30D /* WeeklyTemperature.swift */; };
 		F407170E2DBFAA1F00A433A5 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F407170D2DBFAA1F00A433A5 /* UserDefaults.swift */; };
 		F429D9492B9831030049534B /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9452B9831030049534B /* NetworkService.swift */; };
 		F429D94A2B9831030049534B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F429D9462B9831030049534B /* Endpoint.swift */; };
@@ -103,6 +198,9 @@
 		F4E2C33D2B6A30A4007D1997 /* MapPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E2C33C2B6A30A4007D1997 /* MapPolyline.swift */; };
 		F4E6A29A2B2ABEB500C935BF /* PointMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E6A2992B2ABEB500C935BF /* PointMap.swift */; };
 		F4F647932DC1F1630028A2C5 /* FDUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F647922DC1F1620028A2C5 /* FDUserDefault.swift */; };
+		FAE32D29ED4F3D6758071D20 /* SeaThermoWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188DC672F4DA54E00CB12C6 /* SeaThermoWebView.swift */; };
+		FD456BA8E8A8654464478FB4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE48102AA0279B00ED2D23 /* CoreGraphics.framework */; };
+		FD6C13F7D310DD0E2396FDB0 /* SeaAnalysisDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -168,6 +266,7 @@
 		11E66EAF2F3B1ED800AC7B6A /* HistoryKakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryKakaoMapViewController.swift; sourceTree = "<group>"; };
 		11FC083E2F35C6CD0067FBAB /* RecordMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMapView.swift; sourceTree = "<group>"; };
 		2BF69B7ED4E64B11A3500D56 /* VersionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionStatus.swift; sourceTree = "<group>"; };
+		52A94ECE875144090D8C22CE /* Pods_SeaThermoInternal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeaThermoInternal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54634800DFF64063ACCC5ED5 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		5AE7D787BF4B0606112C412A /* FishingRecordUseCase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordUseCase.swift; sourceTree = "<group>"; };
 		5C5D606CD631AF9E1FFC631E /* SettingViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
@@ -175,13 +274,18 @@
 		7923DDEBCA0435B83A181040 /* Pods-SeaThermo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeaThermo.release.xcconfig"; path = "Target Support Files/Pods-SeaThermo/Pods-SeaThermo.release.xcconfig"; sourceTree = "<group>"; };
 		7F9D632B8195470DA96FB3D6 /* VersionCheckDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCheckDTO.swift; sourceTree = "<group>"; };
 		84588FAC4A6DAE21D9C8966E /* FishingRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecord.swift; sourceTree = "<group>"; };
+		8C79F6F33C58E978C971BF2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		8F35999A3697960A8987A0C9 /* Pods-SeaThermoInternal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeaThermoInternal.debug.xcconfig"; path = "Target Support Files/Pods-SeaThermoInternal/Pods-SeaThermoInternal.debug.xcconfig"; sourceTree = "<group>"; };
 		907061170C85DB46A0B8579F /* FishingRecordViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordViewModel.swift; sourceTree = "<group>"; };
 		96F2E7BE3E0B35DBDE877066 /* FishingRecordView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FishingRecordView.swift; sourceTree = "<group>"; };
+		A673FFF0407CADFD7C2068EB /* SeaThermoInternal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeaThermoInternal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA000001AABB000100000000 /* MetricKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricKitManager.swift; sourceTree = "<group>"; };
 		B89BD20FDB4DD5B893E40F89 /* SeaAnalysisDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SeaAnalysisDetailView.swift; sourceTree = "<group>"; };
+		C40B0C7701C1AE138D9CE052 /* Pods-SeaThermoInternal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeaThermoInternal.release.xcconfig"; path = "Target Support Files/Pods-SeaThermoInternal/Pods-SeaThermoInternal.release.xcconfig"; sourceTree = "<group>"; };
 		C9496B21B73A2BB3CBD17F97 /* RealmFishingRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RealmFishingRecord.swift; sourceTree = "<group>"; };
 		CC046A5B2699C9838415D31D /* SettingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		D4BCE443C568743D082F339C /* TemperatureLineGraphView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TemperatureLineGraphView.swift; sourceTree = "<group>"; };
+		DFFCA098C60EB4DF5F21FA56 /* AppBuildMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppBuildMode.swift; sourceTree = "<group>"; };
 		E032D3F263E0420386394477 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		EDA398BA0DAB4D361B4206DB /* Pods-SeaThermo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeaThermo.debug.xcconfig"; path = "Target Support Files/Pods-SeaThermo/Pods-SeaThermo.debug.xcconfig"; sourceTree = "<group>"; };
 		F407170D2DBFAA1F00A433A5 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
@@ -222,6 +326,24 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		64237AF8A3994593C2C83634 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E645B577060304F1E7B8CAE4 /* Foundation.framework in Frameworks */,
+				2A0C24139CCD9370849F0A02 /* libsqlite3.tbd in Frameworks */,
+				65D757C06681B838E980C6AF /* libxml2.tbd in Frameworks */,
+				349D848953FDA211AB8B8B09 /* libc++.tbd in Frameworks */,
+				D3AA5590F4AA962E1D279F91 /* OpenGLES.framework in Frameworks */,
+				97986A456CAA8DD43D4E745D /* QuartzCore.framework in Frameworks */,
+				82681D6D75B2F5DA82039D0B /* CoreLocation.framework in Frameworks */,
+				DA8A9A09E946020574EA45AE /* SystemConfiguration.framework in Frameworks */,
+				394F51FE19312FDD24A8957B /* UIKit.framework in Frameworks */,
+				FD456BA8E8A8654464478FB4 /* CoreGraphics.framework in Frameworks */,
+				55EDBB9CAD2AFF238D71C988 /* Pods_SeaThermoInternal.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4DE47A32AA0106E00ED2D23 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -435,6 +557,8 @@
 			children = (
 				EDA398BA0DAB4D361B4206DB /* Pods-SeaThermo.debug.xcconfig */,
 				7923DDEBCA0435B83A181040 /* Pods-SeaThermo.release.xcconfig */,
+				C40B0C7701C1AE138D9CE052 /* Pods-SeaThermoInternal.release.xcconfig */,
+				8F35999A3697960A8987A0C9 /* Pods-SeaThermoInternal.debug.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -478,6 +602,14 @@
 				907061170C85DB46A0B8579F /* FishingRecordViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7FBFD4F2D8933072A308CC68 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				8C79F6F33C58E978C971BF2D /* Foundation.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		87794175869B1AE4FEA87773 /* PersistentStorages */ = {
@@ -608,6 +740,7 @@
 				F43151F92B18603500027BB9 /* DIContainer */,
 				1193965B2F59621500F4EB6C /* SeaThermoApp.swift */,
 				F4B270A12B9A91C9007A71D5 /* AppConfiguration.swift */,
+				DFFCA098C60EB4DF5F21FA56 /* AppBuildMode.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -656,6 +789,7 @@
 			isa = PBXGroup;
 			children = (
 				F4DE47A62AA0106E00ED2D23 /* SeaThermo.app */,
+				A673FFF0407CADFD7C2068EB /* SeaThermoInternal.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -693,6 +827,8 @@
 				F4DE48002AA026B300ED2D23 /* OpenGLES.framework */,
 				F4DE47FE2AA0256B00ED2D23 /* CoreLocation.framework */,
 				03AA4355987AC316DDA08C99 /* Pods_SeaThermo.framework */,
+				7FBFD4F2D8933072A308CC68 /* iOS */,
+				52A94ECE875144090D8C22CE /* Pods_SeaThermoInternal.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -760,6 +896,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DE2071A9A0F99F16717110F1 /* SeaThermoInternal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B137E0EC0934E87351D28CC /* Build configuration list for PBXNativeTarget "SeaThermoInternal" */;
+			buildPhases = (
+				BD7ABCC35A2A73C1D591B448 /* [CP] Check Pods Manifest.lock */,
+				E5A755F31392C102BBED4D02 /* Sources */,
+				64237AF8A3994593C2C83634 /* Frameworks */,
+				3A8DE3B94A3B2636DB4CD2D1 /* Resources */,
+				15432060E5F9E2F227C1E235 /* ShellScript */,
+				3A60856DEF3F9BFC7257107D /* [CP] Embed Pods Frameworks */,
+				E6D3567B639E2E01DEAE0E5B /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SeaThermoInternal;
+			productName = SeaThermoInternal;
+			productReference = A673FFF0407CADFD7C2068EB /* SeaThermoInternal.app */;
+			productType = "com.apple.product-type.application";
+		};
 		F4DE47A52AA0106E00ED2D23 /* SeaThermo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4DE47BA2AA0107000ED2D23 /* Build configuration list for PBXNativeTarget "SeaThermo" */;
@@ -792,6 +949,9 @@
 				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					DE2071A9A0F99F16717110F1 = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					F4DE47A52AA0106E00ED2D23 = {
 						CreatedOnToolsVersion = 14.0;
 					};
@@ -811,11 +971,22 @@
 			projectRoot = "";
 			targets = (
 				F4DE47A52AA0106E00ED2D23 /* SeaThermo */,
+				DE2071A9A0F99F16717110F1 /* SeaThermoInternal */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3A8DE3B94A3B2636DB4CD2D1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83E3379CDC0B2B8B05A251F2 /* LaunchScreen.storyboard in Resources */,
+				67F8C8C31F5F006910398E8C /* GoogleService-Info.plist in Resources */,
+				23922B0122BE766480EE7237 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4DE47A42AA0106E00ED2D23 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -830,6 +1001,25 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 		11A6ED9B2F767DE6009FA58B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+		15432060E5F9E2F227C1E235 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -870,6 +1060,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3A60856DEF3F9BFC7257107D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SeaThermoInternal/Pods-SeaThermoInternal-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SeaThermoInternal/Pods-SeaThermoInternal-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeaThermoInternal/Pods-SeaThermoInternal-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		845EF99AE53582BE06C4C356 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -878,17 +1085,52 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SeaThermo/Pods-SeaThermo-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SeaThermo/Pods-SeaThermo-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeaThermo/Pods-SeaThermo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD7ABCC35A2A73C1D591B448 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SeaThermoInternal-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6D3567B639E2E01DEAE0E5B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SeaThermoInternal/Pods-SeaThermoInternal-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SeaThermoInternal/Pods-SeaThermoInternal-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeaThermoInternal/Pods-SeaThermoInternal-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F13ABBF247775D1BFBD22050 /* [CP] Embed Pods Frameworks */ = {
@@ -899,13 +1141,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SeaThermo/Pods-SeaThermo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SeaThermo/Pods-SeaThermo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -915,6 +1153,96 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E5A755F31392C102BBED4D02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEE0BE8890D2F8B541D1E976 /* DefaultOceanRepository.swift in Sources */,
+				9B662FA0576ACE8DB2458C31 /* HistoryDetailViewModel.swift in Sources */,
+				91E62D935FE0247FC00EF1DA /* String.swift in Sources */,
+				263C3886CC816E3DDF0FD3A8 /* HistoryKakaoMapViewController.swift in Sources */,
+				8A43C562A15E7D6DD03A2A6D /* HistoryKakaoMapView.swift in Sources */,
+				809B6E1D1FA066752079C4AF /* Color.swift in Sources */,
+				E2BAAB4A9C371C5057040EDD /* SeaAnalysisView.swift in Sources */,
+				BEACB084BB8D204E4D662B13 /* SeaRegionCardView.swift in Sources */,
+				807EE701F8DAB383E5A8BD19 /* UIColor+Hex.swift in Sources */,
+				D90CF777C03D758F4F89843C /* SeaAnalysisViewModel.swift in Sources */,
+				507BE998178F32C5966549EB /* SeaRegionListViewModel.swift in Sources */,
+				F209E55595232882C3955B84 /* SeaRegionRowView.swift in Sources */,
+				AF65973ED3C2AEFD6B938576 /* SeaRegionListView.swift in Sources */,
+				11399F42782BED172B1B6D87 /* RisaListDTO.swift in Sources */,
+				EA3BC68E8B1C62A35842B0DB /* OceanRepository.swift in Sources */,
+				3FA858A5D399A94D1341A5BB /* CurrentTemperature.swift in Sources */,
+				2D61F0A86A3094DD15897F52 /* AppConfiguration.swift in Sources */,
+				8F7EDDD969432FAD862A8CF5 /* HistoryMapView.swift in Sources */,
+				50BBB374F7CEACE0F253E3F1 /* Region.swift in Sources */,
+				93EDD38B417104E7C8AFD05A /* CommonPopupView.swift in Sources */,
+				F1A428C569FB13388ABE3FFA /* RecordKakaoMapView.swift in Sources */,
+				84102179C0410543AC986EFB /* RecordKakaoMapViewController.swift in Sources */,
+				A87C5471D71BE20B11364449 /* MapPolyline.swift in Sources */,
+				F3F4BB9E9630B4784DFED2DA /* WeeklyTemperature.swift in Sources */,
+				DAD8B4FECD063CFB4BEC8C81 /* Endpoint.swift in Sources */,
+				A3477A8D1EEFE459E8F4DFDB /* UIDevice.swift in Sources */,
+				7BA2B495072E42C9A9962A78 /* SCPrivacy.swift in Sources */,
+				B8EE3F84075CC45F0D802869 /* OceanUseCase.swift in Sources */,
+				332118F5D6BC104ECAB9E741 /* AppDIContainer.swift in Sources */,
+				EFA7BD3FF641AB3874FD8213 /* RegionDTO.swift in Sources */,
+				B3AB4FE83D1973F5F6E8993C /* NetworkService.swift in Sources */,
+				E69F1457FE9E040552EA3641 /* FishingRecordRepository.swift in Sources */,
+				ECAEB7EA1B79A6AA8FB24CDE /* FDUserDefault.swift in Sources */,
+				35EB867FA000CB92B82AC168 /* MKPolyline.swift in Sources */,
+				61B5DCD5340170CCB52C419C /* CrawlingCurrentTemperatureViewModel.swift in Sources */,
+				9B1B60B180EFFFCECA129F3F /* CrawlingOceanSelectViewModel.swift in Sources */,
+				BEF8A138DB63046F20107C65 /* HistoryDetailView.swift in Sources */,
+				65E5A3C621F7F6A30025EB7C /* RisaInfoDTO.swift in Sources */,
+				B5133BA555A39EBF176AB390 /* WebViewConfig.swift in Sources */,
+				7B6A806A95304FBFFDD6D111 /* FDLocationManager.swift in Sources */,
+				168B889B652DBA316587088F /* MetricKitManager.swift in Sources */,
+				7157E2A2F4354E67653BB3C4 /* OnboardingView.swift in Sources */,
+				96F735D15CF4A8B1DDA2EE5D /* OnboardingViewModel.swift in Sources */,
+				8EAA7EC8ABFC3191AAEAAFED /* APIEndpoints.swift in Sources */,
+				AF2E2461B0B1292AC14DFEDC /* UserDefaults.swift in Sources */,
+				9A8C8FA0D99D49592DFB9960 /* SplashRepository.swift in Sources */,
+				EC55E6075074CDCADBCB1258 /* PointMap.swift in Sources */,
+				CB985BBEA43D1634B2B44A16 /* Date.swift in Sources */,
+				03B50E6D861D90C28497D62C /* ApplicationDIContainer.swift in Sources */,
+				77CD6AF3F144229E1546C130 /* MainTabView.swift in Sources */,
+				D35FE3B3A94AD9A104905F0B /* CurrentTemperatureView.swift in Sources */,
+				C07084EA09A51D087277B2C1 /* OceanRegionCardView.swift in Sources */,
+				A0555FD9B2BF754B42D61D65 /* CurrentTemperatureViewModel.swift in Sources */,
+				6D296183E8D3D079A115F345 /* OceanSelectView.swift in Sources */,
+				855136AC5B9C212EDF5DDDCD /* OceanSelectViewModel.swift in Sources */,
+				03056EB521888E02D92D7EFA /* FDAppManager.swift in Sources */,
+				A95786AFAF07BDEA5F4CB2E1 /* HistoryRecordCardView.swift in Sources */,
+				6A07B252D23EFA5CB1EF6264 /* HistoryView.swift in Sources */,
+				FAE32D29ED4F3D6758071D20 /* SeaThermoWebView.swift in Sources */,
+				55F96A92BFF6F39CE2C00680 /* HistoryViewModel.swift in Sources */,
+				8814C89AF7C90A6BA31D81DD /* SplashUseCase.swift in Sources */,
+				3EE20C3448B0D5AF2B1605FE /* RecordMapView.swift in Sources */,
+				FD6C13F7D310DD0E2396FDB0 /* SeaAnalysisDetailView.swift in Sources */,
+				0550B9E81625EDF5E1BE84C8 /* SeaAnalysisDetailViewModel.swift in Sources */,
+				0A2BF9F9EA81900DF7F2C171 /* TemperatureLineGraphView.swift in Sources */,
+				C9503F7CC02FF8C933F2A4E0 /* SettingView.swift in Sources */,
+				57954DD180BF1632CC489804 /* SettingViewModel.swift in Sources */,
+				E01D9D5E72E89D6887677AB8 /* FishingRecord.swift in Sources */,
+				E7524901D59120E547F98DC1 /* FishingRecordUseCase.swift in Sources */,
+				EE3A877B9910108AA9C0B7DB /* RealmManager.swift in Sources */,
+				6255B0A50948EE0C80777A0E /* RealmFishingRecord.swift in Sources */,
+				35AF5EF11C1A0D8B2F73922C /* DefaultFishingRecordRepository.swift in Sources */,
+				042100115C9D4C0D538F051B /* FishingRecordViewModel.swift in Sources */,
+				F112B64D2094ACABEEF3D754 /* FishingRecordView.swift in Sources */,
+				5592B56446DF99732A7CEF7F /* SeaThermoApp.swift in Sources */,
+				6898C83D9EBBFAF312D169E6 /* VersionCheckDTO.swift in Sources */,
+				15AA0B26394B3DEB1972EA5F /* DefaultSplashRepository.swift in Sources */,
+				A5D335D2F4C2608CD3797849 /* VersionStatus.swift in Sources */,
+				07149ABAC1FD165B04F5B8B8 /* CrawlingCurrentTemperatureView.swift in Sources */,
+				16E8BE7B58E07C12F5EC9A25 /* CrawlingOceanSelectView.swift in Sources */,
+				412640151D6989A5C69BDD8F /* SplashView.swift in Sources */,
+				5F3653876A295917D086E1AC /* SplashViewModel.swift in Sources */,
+				BC98F8C7BA5DE340A1208986 /* AppBuildMode.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4DE47A22AA0106E00ED2D23 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1001,6 +1329,7 @@
 				1150DFF52F5E66BF007C1638 /* CrawlingOceanSelectView.swift in Sources */,
 				32678646250D4911966F09E5 /* SplashView.swift in Sources */,
 				AA5D7BEB694340508095DBD0 /* SplashViewModel.swift in Sources */,
+				ABC5327CBE44C6B54815C90B /* AppBuildMode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1018,6 +1347,113 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		35EA6F101CF0C4B8023CBB25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C40B0C7701C1AE138D9CE052 /* Pods-SeaThermoInternal.release.xcconfig */;
+			buildSettings = {
+				API_KEY_RISA = "qPwOeIrU-2603-WUSYBN-1455";
+				API_NIFS_URL = "https://www.nifs.go.kr";
+				API_ONBADA_URL = "https://seathermo.com";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = STP3Q99SG6;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SeaThermo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "온바다 Internal";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSCameraUsageDescription = "낚시 기록을 위한 사진 촬영에 카메라 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "낚시 기록 중 현재 위치를 지도에 표시하고 이동 경로를 자동으로 기록하기 위해 위치 정보가 필요합니다. 기록된 위치와 경로는 히스토리 탭에서 확인하실 수 있습니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "낚시 기록 중 현재 위치를 지도에 표시하고 이동 경로를 자동으로 기록하기 위해 위치 정보가 필요합니다. 기록된 위치와 경로는 히스토리 탭에서 확인하실 수 있습니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "촬영한 사진을 저장하고 불러오기 위해 앨범 접근 권한이 필요합니다.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				KAKAO_APP_KEY = 9721addb86ae11a44b9e8515282e31d4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.onbada.seathermo.internal;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) INTERNAL_BUILD";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		AD22FB2311A79F8CBD994E97 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F35999A3697960A8987A0C9 /* Pods-SeaThermoInternal.debug.xcconfig */;
+			buildSettings = {
+				API_KEY_RISA = "qPwOeIrU-2603-WUSYBN-1455";
+				API_NIFS_URL = "https://www.nifs.go.kr";
+				API_ONBADA_URL = "https://seathermo.com";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = STP3Q99SG6;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SeaThermo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "온바다 Internal";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSCameraUsageDescription = "낚시 기록을 위한 사진 촬영에 카메라 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "낚시 기록 중 현재 위치를 지도에 표시하고 이동 경로를 자동으로 기록하기 위해 위치 정보가 필요합니다. 기록된 위치와 경로는 히스토리 탭에서 확인하실 수 있습니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "낚시 기록 중 현재 위치를 지도에 표시하고 이동 경로를 자동으로 기록하기 위해 위치 정보가 필요합니다. 기록된 위치와 경로는 히스토리 탭에서 확인하실 수 있습니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "촬영한 사진을 저장하고 불러오기 위해 앨범 접근 권한이 필요합니다.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				KAKAO_APP_KEY = 9721addb86ae11a44b9e8515282e31d4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.onbada.seathermo.internal;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) INTERNAL_BUILD";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
 		F4DE47B82AA0107000ED2D23 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1240,6 +1676,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7B137E0EC0934E87351D28CC /* Build configuration list for PBXNativeTarget "SeaThermoInternal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35EA6F101CF0C4B8023CBB25 /* Release */,
+				AD22FB2311A79F8CBD994E97 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F4DE47A12AA0106E00ED2D23 /* Build configuration list for PBXProject "SeaThermo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

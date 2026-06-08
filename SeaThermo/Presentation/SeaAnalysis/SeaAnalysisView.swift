@@ -147,6 +147,59 @@ struct SeaAnalysisView: View {
     }
 }
 
+struct SeaAnalysisPreparingView: View {
+    var body: some View {
+        VStack(spacing: 0) {
+            headerSection
+            preparingContent
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(hex: "F2F2F7"))
+    }
+
+    private var headerSection: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("수온 분석")
+                .font(.system(size: 30, weight: .bold))
+                .foregroundColor(.black)
+
+            Text("주간 수온 데이터를 확인하세요")
+                .font(.system(size: 14, weight: .regular))
+                .foregroundColor(Color(hex: "8E8E93"))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 16)
+        .padding(.top, 48)
+        .padding(.bottom, 12)
+        .background(Color.white.ignoresSafeArea(edges: .top))
+        .overlay(
+            Rectangle()
+                .fill(Color(hex: "E5E5EA"))
+                .frame(height: 0.5),
+            alignment: .bottom
+        )
+    }
+
+    private var preparingContent: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "fish")
+                .font(.system(size: 48))
+                .foregroundColor(Color(hex: "9CA3AF"))
+
+            Text("수온 분석 서비스는 준비 중입니다")
+                .font(.system(size: 17, weight: .medium))
+                .foregroundColor(Color(hex: "6B7280"))
+
+            Text("더 안정적인 해양 데이터를 제공하기 위해 정비하고 있습니다")
+                .font(.system(size: 14))
+                .foregroundColor(Color(hex: "9CA3AF"))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
 #Preview {
     SeaAnalysisView()
 }

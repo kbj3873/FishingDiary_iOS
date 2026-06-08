@@ -15,6 +15,8 @@ struct HistoryKakaoMapView: UIViewControllerRepresentable {
     @Binding var markers: [HistoryPhotoMarker]
     @Binding var stateMarkers: [FishingRecordViewModel.StateChangeMarker]
     @Binding var stateMarkerInfos: [HistoryDetailViewModel.HistoryStateMarkerInfo]
+    @Binding var boundaryMarkers: [FishingRecordViewModel.BoundaryMarker]
+    @Binding var boundaryMarkerInfos: [HistoryDetailViewModel.HistoryBoundaryMarkerInfo]
     @Binding var selectedMarker: HistoryDetailViewModel.SelectedMarkerInfo?
     @Binding var isMapInitialized: Bool // 지도 초기화 여부 (Zoom to Fit 1회 제한용)
     
@@ -41,7 +43,8 @@ struct HistoryKakaoMapView: UIViewControllerRepresentable {
         uiViewController.updateData(center: centerCoordinate,
                                     polylines: polylines,
                                     photoMarkers: markers,
-                                    stateMarkerInfos: stateMarkerInfos)
+                                    stateMarkerInfos: stateMarkerInfos,
+                                    boundaryMarkerInfos: boundaryMarkerInfos)
         
         // 코디네이터 업데이트
         context.coordinator.parent = self
@@ -136,6 +139,21 @@ struct HistoryKakaoMapView: UIViewControllerRepresentable {
                     thumbnailPath: nil,
                     coordinate: stateInfo.coordinate,
                     state: stateInfo.state
+                )
+                withAnimation {
+                    parent.selectedMarker = info
+                }
+                return
+            }
+
+            // 3. 시작/종료 마커 확인
+            if let boundaryInfo = parent.boundaryMarkerInfos.first(where: { $0.id == uuid }) {
+                let info = HistoryDetailViewModel.SelectedMarkerInfo(
+                    title: boundaryInfo.title,
+                    timeString: boundaryInfo.timeString,
+                    thumbnailPath: nil,
+                    coordinate: boundaryInfo.coordinate,
+                    state: nil
                 )
                 withAnimation {
                     parent.selectedMarker = info

@@ -45,7 +45,18 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
     
     // Graph Data
     @Published var graphData: [GraphData] = []
-    @Published var graphDates: [String] = []
+    @Published var graphTicks: [GraphAxisTick] = []
+    @Published var selectedGraphTimeScale: GraphTimeScale = .daily {
+        didSet {
+            updateGraphTicks()
+        }
+    }
+
+    var graphSubtitle: String {
+        selectedGraphTimeScale.subtitle
+    }
+
+    private var graphSampleDates: [Date] = []
     
     init(oceanUseCase: OceanUseCase, station: ObservatoryInfo) {
         self.oceanUseCase = oceanUseCase
@@ -105,6 +116,7 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
                 expectedDates.append(date)
             }
         }
+        self.graphSampleDates = expectedDates
         
         // Map Response Data
         let dateFormatter = DateFormatter()
@@ -209,26 +221,7 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
             GraphData(values: middleValues, color: .purple),
             GraphData(values: bottomValues, color: .green)
         ]
-        
-        // 3. Extract Dates for X-Axis Labels (7 Days)
-        var dates: [String] = []
-        let labelFormatter = DateFormatter()
-        labelFormatter.dateFormat = "M/d"
-        
-        // Generate labels for D0 to D6
-        for i in 0..<7 {
-            if let d = calendar.date(byAdding: .day, value: i, to: startDate) {
-                dates.append(labelFormatter.string(from: d))
-            }
-        }
-        
-        self.graphDates = dates
-        
-        self.graphData = [
-            GraphData(values: surfaceValues, color: .blue),
-            GraphData(values: middleValues, color: .purple),
-            GraphData(values: bottomValues, color: .green)
-        ]
+        updateGraphTicks(referenceDate: now)
         
         // 4. 카드 데이터 업데이트 (최신 유효 데이터) & 최고/최저 & 가시성
         if !sortedList.isEmpty {
@@ -281,5 +274,74 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
                 bottomDepth = "-"
             }
         }
+    }
+
+    private func updateGraphTicks(referenceDate: Date = Date()) {
+        guard !graphSampleDates.isEmpty else {
+            graphTicks = []
+            return
+        }
+
+        let samplesPerHour = 2
+        let step = max(selectedGraphTimeScale.hourInterval * samplesPerHour, 1)
+        let dailyFormatter = DateFormatter()
+        dailyFormatter.locale = Locale(identifier: "ko_KR")
+        dailyFormatter.dateFormat = "M/d"
+
+        let dateTimeFormatter = DateFormatter()
+        dateTimeFormatter.locale = Locale(identifier: "ko_KR")
+        dateTimeFormatter.dateFormat = "M/d\nHH시"
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.locale = Locale(identifier: "ko_KR")
+        timeFormatter.dateFormat = "HH시"
+
+        let calendar = Calendar.current
+
+        var ticks: [GraphAxisTick] = []
+        for index in stride(from: 0, to: graphSampleDates.count, by: step) {
+            let date = graphSampleDates[index]
+            if date > referenceDate {
+                break
+            }
+
+            ticks.append(GraphAxisTick(
+                sampleIndex: index,
+                label: tickLabel(for: date,
+                                 calendar: calendar,
+                                 dailyFormatter: dailyFormatter,
+                                 dateTimeFormatter: dateTimeFormatter,
+                                 timeFormatter: timeFormatter)
+            ))
+        }
+
+        if ticks.isEmpty {
+            ticks.append(GraphAxisTick(
+                sampleIndex: 0,
+                label: tickLabel(for: graphSampleDates[0],
+                                 calendar: calendar,
+                                 dailyFormatter: dailyFormatter,
+                                 dateTimeFormatter: dateTimeFormatter,
+                                 timeFormatter: timeFormatter)
+            ))
+        }
+
+        graphTicks = ticks
+    }
+
+    private func tickLabel(for date: Date,
+                           calendar: Calendar,
+                           dailyFormatter: DateFormatter,
+                           dateTimeFormatter: DateFormatter,
+                           timeFormatter: DateFormatter) -> String {
+        if selectedGraphTimeScale == .daily {
+            return dailyFormatter.string(from: date)
+        }
+
+        if calendar.component(.hour, from: date) == 0 {
+            return dateTimeFormatter.string(from: date)
+        }
+
+        return timeFormatter.string(from: date)
     }
 }

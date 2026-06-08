@@ -24,6 +24,7 @@ class HistoryKakaoMapViewController: UIViewController {
     private var _polylines: [HistoryFishingPolyline] = []
     private var _photoMarkers: [HistoryPhotoMarker] = []
     private var _stateMarkerInfos: [HistoryDetailViewModel.HistoryStateMarkerInfo] = []
+    private var _boundaryMarkerInfos: [HistoryDetailViewModel.HistoryBoundaryMarkerInfo] = []
     
     // 스타일 캐시
     private var _addedStyleIDs = Set<String>()
@@ -158,25 +159,28 @@ extension HistoryKakaoMapViewController {
     func updateData(center: CLLocationCoordinate2D,
                     polylines: [HistoryFishingPolyline],
                     photoMarkers: [HistoryPhotoMarker],
-                    stateMarkerInfos: [HistoryDetailViewModel.HistoryStateMarkerInfo]) {
+                    stateMarkerInfos: [HistoryDetailViewModel.HistoryStateMarkerInfo],
+                    boundaryMarkerInfos: [HistoryDetailViewModel.HistoryBoundaryMarkerInfo]) {
         
         // 데이터 변경 확인
         let isPolylinesChanged = hasPolylinesChanged(newPolylines: polylines)
         let isPhotoMarkersChanged = hasPhotoMarkersChanged(newMarkers: photoMarkers)
         let isStateMarkersChanged = hasStateMarkersChanged(newInfos: stateMarkerInfos)
+        let isBoundaryMarkersChanged = hasBoundaryMarkersChanged(newInfos: boundaryMarkerInfos)
         
         // 맵이 로드되었고 데이터 변경이 없으면 리턴
-        if isMapLoaded && !isPolylinesChanged && !isPhotoMarkersChanged && !isStateMarkersChanged {
+        if isMapLoaded && !isPolylinesChanged && !isPhotoMarkersChanged && !isStateMarkersChanged && !isBoundaryMarkersChanged {
             // print("HistoryKakaoMap: Data not changed. Skipping update.")
             return
         }
         
-        print("HistoryKakaoMap: updateData called. Changes detected: Poly(\(isPolylinesChanged)), Photo(\(isPhotoMarkersChanged)), State(\(isStateMarkersChanged))")
+        print("HistoryKakaoMap: updateData called. Changes detected: Poly(\(isPolylinesChanged)), Photo(\(isPhotoMarkersChanged)), State(\(isStateMarkersChanged)), Boundary(\(isBoundaryMarkersChanged))")
         
         // 내부 데이터 업데이트
         self._polylines = polylines
         self._photoMarkers = photoMarkers
         self._stateMarkerInfos = stateMarkerInfos
+        self._boundaryMarkerInfos = boundaryMarkerInfos
         
         // 맵이 완전히 로드된 경우에만 다시 그리기 수행
         if isMapLoaded {
@@ -218,6 +222,17 @@ extension HistoryKakaoMapViewController {
             if info.id != newInfos[index].id { return true }
              if info.coordinate.latitude != newInfos[index].coordinate.latitude { return true }
              if info.coordinate.longitude != newInfos[index].coordinate.longitude { return true }
+        }
+        return false
+    }
+
+    private func hasBoundaryMarkersChanged(newInfos: [HistoryDetailViewModel.HistoryBoundaryMarkerInfo]) -> Bool {
+        if _boundaryMarkerInfos.count != newInfos.count { return true }
+
+        for (index, info) in _boundaryMarkerInfos.enumerated() {
+            if info.id != newInfos[index].id { return true }
+            if info.coordinate.latitude != newInfos[index].coordinate.latitude { return true }
+            if info.coordinate.longitude != newInfos[index].coordinate.longitude { return true }
         }
         return false
     }
@@ -267,6 +282,7 @@ extension HistoryKakaoMapViewController {
         // 마커 포인트 수집
         points.append(contentsOf: _photoMarkers.map { MapPoint(longitude: $0.coordinate.longitude, latitude: $0.coordinate.latitude) })
         points.append(contentsOf: _stateMarkerInfos.map { MapPoint(longitude: $0.coordinate.longitude, latitude: $0.coordinate.latitude) })
+        points.append(contentsOf: _boundaryMarkerInfos.map { MapPoint(longitude: $0.coordinate.longitude, latitude: $0.coordinate.latitude) })
         
         guard !points.isEmpty else { return false }
         
@@ -317,6 +333,7 @@ extension HistoryKakaoMapViewController {
         // 레이어를 제거하여 마커 초기화
         labelManager.removeLabelLayer(layerID: "HistoryPhotoLayer")
         labelManager.removeLabelLayer(layerID: "HistoryStateLayer")
+        labelManager.removeLabelLayer(layerID: "HistoryBoundaryLayer")
     }
 }
 
@@ -342,6 +359,9 @@ extension HistoryKakaoMapViewController {
         if labelManager.getLabelLayer(layerID: "HistoryStateLayer") == nil {
             // Z-Order 15000으로 설정
             let _ = labelManager.addLabelLayer(option: LabelLayerOptions(layerID: "HistoryStateLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 15000))
+        }
+        if labelManager.getLabelLayer(layerID: "HistoryBoundaryLayer") == nil {
+            let _ = labelManager.addLabelLayer(option: LabelLayerOptions(layerID: "HistoryBoundaryLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 18000))
         }
     }
     
@@ -483,6 +503,25 @@ extension HistoryKakaoMapViewController {
                 print("HistoryKakaoMap: StateMarker added at \(info.coordinate) (State: \(info.state))")
             }
         }
+
+        // 3. 시작/종료 마커
+        if let layer = labelManager.getLabelLayer(layerID: "HistoryBoundaryLayer") {
+            createBoundaryMarkerStyles()
+
+            print("HistoryKakaoMap: Drawing \(_boundaryMarkerInfos.count) boundary markers.")
+            for info in _boundaryMarkerInfos {
+                let styleID = "boundary_\(info.kind.rawValue)"
+                let option = PoiOptions(styleID: styleID, poiID: info.id.uuidString)
+                option.rank = 3
+                option.clickable = true
+
+                let point = MapPoint(longitude: info.coordinate.longitude, latitude: info.coordinate.latitude)
+                let poi = layer.addPoi(option: option, at: point)
+                let _ = poi?.addPoiTappedEventHandler(target: self, handler: HistoryKakaoMapViewController.poiTappedHandler)
+                poi?.show()
+                print("HistoryKakaoMap: BoundaryMarker added at \(info.coordinate) (Kind: \(info.kind))")
+            }
+        }
     }
     
     private func createStateMarkerStyles() {
@@ -503,6 +542,24 @@ extension HistoryKakaoMapViewController {
                     print("HistoryKakaoMap: State Marker Loaded - Name: \(iconName), OrgSize: \(image.size), NewSize: \(resized.size), NewScale: \(resized.scale)")
                     
                     let iconStyle = PoiIconStyle(symbol: resized, anchorPoint: CGPoint(x: 0.5, y: 1.0))
+                    let style = PoiStyle(styleID: styleID, styles: [PerLevelPoiStyle(iconStyle: iconStyle, level: 0)])
+                    labelManager.addPoiStyle(style)
+                    _addedStyleIDs.insert(styleID)
+                }
+            }
+        }
+    }
+
+    private func createBoundaryMarkerStyles() {
+        guard let labelManager = labelManager else { return }
+
+        let kinds: [FishingRecordViewModel.BoundaryMarker.Kind] = [.start, .end]
+        for kind in kinds {
+            let styleID = "boundary_\(kind.rawValue)"
+            if !_addedStyleIDs.contains(styleID) {
+                if let image = UIImage(named: kind.imageName) {
+                    let resized = resizeTo2x(image: image)
+                    let iconStyle = PoiIconStyle(symbol: resized, anchorPoint: CGPoint(x: 0.5, y: 0.5))
                     let style = PoiStyle(styleID: styleID, styles: [PerLevelPoiStyle(iconStyle: iconStyle, level: 0)])
                     labelManager.addPoiStyle(style)
                     _addedStyleIDs.insert(styleID)

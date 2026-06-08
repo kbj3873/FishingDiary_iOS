@@ -54,15 +54,15 @@ struct MainTabView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            // 현재수온 (크롤링 기반)
-            CrawlingCurrentTemperatureView(viewModel: applicationDIContainer.makeCrawlingCurrentTemperatureViewModel())
+            // 현재수온
+            currentTemperatureTabContent
                 .tabItem {
                     tabLabel(for: .currentTemperature)
                 }
                 .tag(TabItem.currentTemperature)
 
             // 수온분석
-            SeaAnalysisView()
+            seaAnalysisTabContent
                 .tabItem {
                     tabLabel(for: .analysis)
                 }
@@ -90,6 +90,24 @@ struct MainTabView: View {
                 .tag(TabItem.settings)
         }
         .accentColor(Color(hex: "2563EB"))
+    }
+
+    @ViewBuilder
+    private var currentTemperatureTabContent: some View {
+        #if INTERNAL_BUILD
+        CrawlingCurrentTemperatureView(viewModel: applicationDIContainer.makeCrawlingCurrentTemperatureViewModel())
+        #else
+        CurrentTemperatureView(viewModel: applicationDIContainer.makeCurrentTemperatureViewModel())
+        #endif
+    }
+
+    @ViewBuilder
+    private var seaAnalysisTabContent: some View {
+        #if !INTERNAL_BUILD
+        SeaAnalysisPreparingView()
+        #else
+        SeaAnalysisView()
+        #endif
     }
 
     @ViewBuilder

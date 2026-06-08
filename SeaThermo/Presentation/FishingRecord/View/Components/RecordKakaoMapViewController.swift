@@ -31,6 +31,7 @@ class RecordKakaoMapViewController: UIViewController {
     // 마커 관리
     private var currentMarkers: [UUID: Poi] = [:]
     private var currentPhotoMarkers: [UUID: Poi] = [:]
+    private var currentBoundaryMarkers: [UUID: Poi] = [:]
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -144,6 +145,7 @@ class RecordKakaoMapViewController: UIViewController {
         polylines.removeAll()
         _polylineShape = nil
         currentMarkers.removeAll()
+        currentBoundaryMarkers.removeAll()
 
         // 지도 아이템 제거 (레이어 유지)
         if let map = controller.getView("mapview") as? KakaoMap {
@@ -159,12 +161,16 @@ class RecordKakaoMapViewController: UIViewController {
             if let photoLayer = labelManager.getLabelLayer(layerID: "PhotoMarkerLayer") {
                 photoLayer.clearAllItems()
             }
+            if let boundaryLayer = labelManager.getLabelLayer(layerID: "BoundaryMarkerLayer") {
+                boundaryLayer.clearAllItems()
+            }
 
             // 사진 마커 스타일 해제: 각 스타일이 보유한 UIImage 메모리 반환
             for id in currentPhotoMarkers.keys {
                 labelManager.removePoiStyle("photoStyle_\(id.uuidString)")
             }
             currentPhotoMarkers.removeAll()
+            currentBoundaryMarkers.removeAll()
 
             // CurrentPoiLayer는 위치 표시용이므로 초기화 시 유지하거나, 필요 시 clear
             // 여기서는 경로와 마커만 초기화하므로 CurrentPoi는 놔둠 (또는 위치 업데이트 시 자동 이동)
@@ -268,6 +274,25 @@ extension RecordKakaoMapViewController {
                         poi.show()
                         currentPhotoMarkers[markerInfo.id] = poi
                     }
+                }
+            }
+        }
+    }
+
+    func updateBoundaryMarkers(_ boundaryMarkers: [FishingRecordViewModel.BoundaryMarker]) {
+        guard let map = controller.getView("mapview") as? KakaoMap else { return }
+        let manager = map.getLabelManager()
+        let layer = manager.getLabelLayer(layerID: "BoundaryMarkerLayer")
+
+        for markerInfo in boundaryMarkers {
+            if currentBoundaryMarkers[markerInfo.id] == nil {
+                let poiOption = PoiOptions(styleID: "boundaryMarkerStyle_\(markerInfo.kind.rawValue)", poiID: markerInfo.id.uuidString)
+                poiOption.rank = 3
+
+                let coordinate = MapPoint(longitude: markerInfo.coordinate.longitude, latitude: markerInfo.coordinate.latitude)
+                if let poi = layer?.addPoi(option: poiOption, at: coordinate) {
+                    poi.show()
+                    currentBoundaryMarkers[markerInfo.id] = poi
                 }
             }
         }
@@ -378,6 +403,7 @@ extension RecordKakaoMapViewController: MapControllerDelegate {
         createPolylineStyleSet()
         createLabelLayers()
         createStateMarkerStyles()
+        createBoundaryMarkerStyles()
         createCurrentPoiStyle()
         createCurrentPoi()
         // showCompass() // 선택사항
@@ -480,15 +506,19 @@ extension RecordKakaoMapViewController {
         
         // 현재 위치 POI 레이어
         let currentPoiLayerOption = LabelLayerOptions(layerID: "CurrentPoiLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 0)
-        manager.addLabelLayer(option: currentPoiLayerOption)
+        _ = manager.addLabelLayer(option: currentPoiLayerOption)
         
         // 상태 마커 레이어
         let stateMarkerLayerOption = LabelLayerOptions(layerID: "StateMarkerLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 1)
-        manager.addLabelLayer(option: stateMarkerLayerOption)
+        _ = manager.addLabelLayer(option: stateMarkerLayerOption)
         
         // 사진 마커 레이어
         let photoMarkerLayerOption = LabelLayerOptions(layerID: "PhotoMarkerLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 2)
-        manager.addLabelLayer(option: photoMarkerLayerOption)
+        _ = manager.addLabelLayer(option: photoMarkerLayerOption)
+
+        // 시작/종료 마커 레이어
+        let boundaryMarkerLayerOption = LabelLayerOptions(layerID: "BoundaryMarkerLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 3)
+        _ = manager.addLabelLayer(option: boundaryMarkerLayerOption)
     }
     
     // MARK: 상태 마커 스타일
@@ -511,6 +541,23 @@ extension RecordKakaoMapViewController {
                 let iconStyle = PoiIconStyle(symbol: resized, anchorPoint: CGPoint(x: 0.5, y: 1.0))
                 let perLevelStyle = PerLevelPoiStyle(iconStyle: iconStyle, level: 0)
                 let poiStyle = PoiStyle(styleID: "stateMarkerStyle_\(state.rawValue)", styles: [perLevelStyle])
+                manager.addPoiStyle(poiStyle)
+            }
+        }
+    }
+
+    // MARK: 시작/종료 마커 스타일
+    private func createBoundaryMarkerStyles() {
+        let view = controller.getView("mapview") as! KakaoMap
+        let manager = view.getLabelManager()
+
+        let kinds: [FishingRecordViewModel.BoundaryMarker.Kind] = [.start, .end]
+        for kind in kinds {
+            if let image = UIImage(named: kind.imageName) {
+                let resized = resizeTo2x(image: image)
+                let iconStyle = PoiIconStyle(symbol: resized, anchorPoint: CGPoint(x: 0.5, y: 0.5))
+                let perLevelStyle = PerLevelPoiStyle(iconStyle: iconStyle, level: 0)
+                let poiStyle = PoiStyle(styleID: "boundaryMarkerStyle_\(kind.rawValue)", styles: [perLevelStyle])
                 manager.addPoiStyle(poiStyle)
             }
         }

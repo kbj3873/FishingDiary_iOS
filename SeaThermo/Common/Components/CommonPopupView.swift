@@ -17,6 +17,7 @@ struct CommonPopupView: View {
     let secondaryButtonText: String?
     let primaryAction: () -> Void
     let secondaryAction: (() -> Void)?
+    let accessoryContent: AnyView?
     
     // MARK: - Internal Config
     private var popupWidth: CGFloat {
@@ -43,7 +44,8 @@ struct CommonPopupView: View {
         primaryButtonFontWeight: Font.Weight = .semibold,
         primaryAction: @escaping () -> Void,
         secondaryButtonText: String? = nil,
-        secondaryAction: (() -> Void)? = nil
+        secondaryAction: (() -> Void)? = nil,
+        accessoryContent: AnyView? = nil
     ) {
         self.title = title
         self.message = message
@@ -54,6 +56,7 @@ struct CommonPopupView: View {
         self.primaryAction = primaryAction
         self.secondaryButtonText = secondaryButtonText
         self.secondaryAction = secondaryAction
+        self.accessoryContent = accessoryContent
     }
     
     // MARK: - Body
@@ -76,8 +79,15 @@ struct CommonPopupView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color(hex: "8E8E93")) // System Gray
                         .padding(.horizontal, 16)
-                        .padding(.bottom, 24)
+                        .padding(.bottom, accessoryContent == nil ? 24 : 8)
                         .fixedSize(horizontal: false, vertical: true)
+
+                    if let accessoryContent {
+                        accessoryContent
+                            .padding(.horizontal, 20)
+                            .padding(.top, 4)
+                            .padding(.bottom, 20)
+                    }
                 }
                 .frame(maxWidth: .infinity)
                 

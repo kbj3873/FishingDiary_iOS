@@ -14,6 +14,7 @@ struct RecordMapView: UIViewRepresentable {
     @Binding var shouldCleanup: Bool
     @Binding var markers: [FishingRecordViewModel.StateChangeMarker]
     @Binding var photoMarkers: [FishingRecordViewModel.PhotoMarker]
+    @Binding var boundaryMarkers: [FishingRecordViewModel.BoundaryMarker]
     @Binding var fishingState: FDAppManager.FishingState
     let getLocationList: () -> [LocationInfo]   // 속도 확인용
     
@@ -37,8 +38,10 @@ struct RecordMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
+        context.coordinator.attach(to: uiView)
+
         if shouldCleanup {
-            context.coordinator.cleanup()
+            context.coordinator.clearMap()
             Task { @MainActor in
                 self.shouldCleanup = false
             }
@@ -73,6 +76,15 @@ struct RecordMapView: UIViewRepresentable {
             }
             context.coordinator.lastPhotoMarkerCount = photoMarkers.count
         }
+
+        // 시작/종료 마커 업데이트 확인
+        if boundaryMarkers.count > context.coordinator.lastBoundaryMarkerCount {
+            let newBoundaryMarkers = boundaryMarkers.suffix(boundaryMarkers.count - context.coordinator.lastBoundaryMarkerCount)
+            for boundaryMarker in newBoundaryMarkers {
+                context.coordinator.addBoundaryMarker(boundaryMarker)
+            }
+            context.coordinator.lastBoundaryMarkerCount = boundaryMarkers.count
+        }
     }
     
     func makeCoordinator() -> Coordinator {
@@ -88,6 +100,7 @@ struct RecordMapView: UIViewRepresentable {
         weak var mapView: MKMapView?
         var lastMarkerCount = 0
         var lastPhotoMarkerCount = 0
+        var lastBoundaryMarkerCount = 0
         private var isCleanedUp = false
         private var hasSetInitialRegion = false
 
@@ -131,6 +144,15 @@ struct RecordMapView: UIViewRepresentable {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: workItem)
         }
 
+        func attach(to mapView: MKMapView) {
+            self.mapView = mapView
+            if mapView.delegate !== self {
+                mapView.delegate = self
+            }
+            mapView.showsUserLocation = true
+            isCleanedUp = false
+        }
+
         // polyline 추가
         func addPolyline(from: CLLocation, to: CLLocation, state: FDAppManager.FishingState) {
             guard let mapView = mapView else { return }
@@ -151,7 +173,6 @@ struct RecordMapView: UIViewRepresentable {
             
             let annotation = RecordFishingStateAnnotation()
             annotation.coordinate = marker.coordinate
-            annotation.title = marker.state.rawValue
             annotation.state = marker.state
             mapView.addAnnotation(annotation)
         }
@@ -163,6 +184,16 @@ struct RecordMapView: UIViewRepresentable {
             let annotation = RecordPhotoAnnotation()
             annotation.coordinate = photoMarker.coordinate
             annotation.thumbnailPath = photoMarker.thumbnailPath
+            mapView.addAnnotation(annotation)
+        }
+
+        // 시작/종료 마커 추가
+        func addBoundaryMarker(_ boundaryMarker: FishingRecordViewModel.BoundaryMarker) {
+            guard let mapView = mapView else { return }
+
+            let annotation = RecordBoundaryAnnotation()
+            annotation.coordinate = boundaryMarker.coordinate
+            annotation.kind = boundaryMarker.kind
             mapView.addAnnotation(annotation)
         }
         
@@ -189,6 +220,10 @@ struct RecordMapView: UIViewRepresentable {
             // 사진 마커 처리
             if let photoAnnotation = annotation as? RecordPhotoAnnotation {
                 return photoAnnotationView(for: photoAnnotation, in: mapView)
+            }
+
+            if let boundaryAnnotation = annotation as? RecordBoundaryAnnotation {
+                return boundaryAnnotationView(for: boundaryAnnotation, in: mapView)
             }
             
             guard let fishingAnnotation = annotation as? RecordFishingStateAnnotation else {
@@ -223,6 +258,26 @@ struct RecordMapView: UIViewRepresentable {
                 view?.centerOffset = CGPoint(x: 0, y: -image.size.height / 2)
             }
             
+            return view
+        }
+
+        private func boundaryAnnotationView(for annotation: RecordBoundaryAnnotation, in mapView: MKMapView) -> MKAnnotationView? {
+            let identifier = "BoundaryMarker"
+            var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+
+            if view == nil {
+                view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view?.canShowCallout = false
+            } else {
+                view?.annotation = annotation
+            }
+
+            if let kind = annotation.kind {
+                view?.image = UIImage(named: kind.imageName)
+            }
+
+            view?.centerOffset = .zero
+
             return view
         }
         
@@ -351,6 +406,7 @@ struct RecordMapView: UIViewRepresentable {
             // 카운터 초기화
             lastMarkerCount = 0
             lastPhotoMarkerCount = 0
+            lastBoundaryMarkerCount = 0
             
             // 초기 위치 설정 플래그 리셋 (다음 기록 시작 시 다시 현재 위치로 줌인)
             hasSetInitialRegion = false
@@ -376,4 +432,8 @@ class RecordFishingStateAnnotation: MKPointAnnotation {
 
 class RecordPhotoAnnotation: MKPointAnnotation {
     var thumbnailPath: String?
+}
+
+class RecordBoundaryAnnotation: MKPointAnnotation {
+    var kind: FishingRecordViewModel.BoundaryMarker.Kind?
 }
