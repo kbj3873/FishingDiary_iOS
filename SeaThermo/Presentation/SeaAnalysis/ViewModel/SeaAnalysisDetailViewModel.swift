@@ -302,6 +302,17 @@ final class SeaAnalysisDetailViewModel: ObservableObject {
         for index in stride(from: 0, to: graphSampleDates.count, by: step) {
             let date = graphSampleDates[index]
             if date > referenceDate {
+                if selectedGraphTimeScale != .daily,
+                   calendar.isDate(date, inSameDayAs: referenceDate) {
+                    ticks.append(GraphAxisTick(
+                        sampleIndex: index,
+                        label: tickLabel(for: date,
+                                         calendar: calendar,
+                                         dailyFormatter: dailyFormatter,
+                                         dateTimeFormatter: dateTimeFormatter,
+                                         timeFormatter: timeFormatter)
+                    ))
+                }
                 break
             }
 

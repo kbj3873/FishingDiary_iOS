@@ -48,7 +48,7 @@ struct SeaRegionListView: View {
                 .padding(.bottom, 32)
             }
         }
-        .background(Color.white)
+        .background(Color(hex: "F2F2F7").ignoresSafeArea())
     }
 
     // MARK: - Header Section

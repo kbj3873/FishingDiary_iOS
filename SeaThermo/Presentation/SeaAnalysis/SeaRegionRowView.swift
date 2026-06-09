@@ -32,7 +32,7 @@ struct SeaRegionRowView: View {
             }
             .padding(.horizontal, 16)
             .frame(height: 62)
-            .background(Color(hex: "F2F2F7"))
+            .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 16))
         }
         .buttonStyle(PlainButtonStyle())
