@@ -512,7 +512,7 @@ private struct FishingRecordGuidePopupView: View {
     var body: some View {
         CommonPopupView(
             title: "낚시 기록 안내",
-            message: "워킹 루어 낚시나 보트 낚시처럼 이동 경로가 중요한 낚시에 적합한 기능입니다.\n\n기록 중 이동 경로가 저장되고, 사진을 촬영해 조과 포인트를 함께 남길 수 있습니다. 저장된 기록은 히스토리에서 다시 확인할 수 있어요.",
+            message: "워킹 루어 낚시나 보트 낚시처럼 이동 경로가 중요한 낚시에 적합한 기능입니다.\n\n기록 중 이동 경로가 저장되고, 이동 중 낚시중 또는 탐색중으로 전환한 지점은 마커로 표시됩니다.\n\n사진을 촬영해 조과 포인트를 함께 남길 수 있고, 저장된 기록은 히스토리에서 다시 확인할 수 있어요.",
             layoutType: .vertical,
             primaryButtonText: "확인",
             primaryAction: confirmAction,
